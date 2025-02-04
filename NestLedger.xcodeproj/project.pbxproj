@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2992D52420000B2640C /* KeychainManager.swift */; };
 		0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F29C2D52448700B2640C /* KeychainKey.swift */; };
-		0503F29F2D5245E100B2640C /* SceneDelegate+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F29E2D5245E100B2640C /* SceneDelegate+Auth.swift */; };
 		0503F2A22D52499200B2640C /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2A12D52499200B2640C /* APIManager.swift */; };
 		0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2A42D524D2200B2640C /* RootViewController.swift */; };
 		0503F2A82D524D9300B2640C /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2A72D524D9300B2640C /* AccountViewController.swift */; };
 		0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2AA2D524E0800B2640C /* MainViewController.swift */; };
+		0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2AD2D5251D600B2640C /* FirebaseAuthManager.swift */; };
 		050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F52D41DA0F008C8831 /* AppDelegate.swift */; };
 		050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F72D41DA0F008C8831 /* SceneDelegate.swift */; };
 		050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F92D41DA0F008C8831 /* ViewController.swift */; };
@@ -52,11 +52,11 @@
 /* Begin PBXFileReference section */
 		0503F2992D52420000B2640C /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		0503F29C2D52448700B2640C /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
-		0503F29E2D5245E100B2640C /* SceneDelegate+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+Auth.swift"; sourceTree = "<group>"; };
 		0503F2A12D52499200B2640C /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		0503F2A42D524D2200B2640C /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		0503F2A72D524D9300B2640C /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		0503F2AA2D524E0800B2640C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		0503F2AD2D5251D600B2640C /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		050830F22D41DA0F008C8831 /* NestLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		050830F52D41DA0F008C8831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		050830F72D41DA0F008C8831 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +154,14 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		0503F2AC2D5251BB00B2640C /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				0503F2AD2D5251D600B2640C /* FirebaseAuthManager.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
 		050830E92D41DA0F008C8831 = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +184,7 @@
 				0503F2A02D52496200B2640C /* API */,
 				0503F2A62D524D8300B2640C /* Account */,
 				0503F29B2D52446C00B2640C /* Const */,
+				0503F2AC2D5251BB00B2640C /* Firebase */,
 				0503F2982D5241DE00B2640C /* Keychain */,
 				0508313E2D41E01C008C8831 /* Login */,
 				0503F2A92D524E0000B2640C /* Main */,
@@ -185,7 +194,6 @@
 				0508313C2D41DDB5008C8831 /* GoogleService-Info.plist */,
 				050831032D41DA11008C8831 /* Info.plist */,
 				051AC9312D41EFAD00ECE40B /* NestLedger.entitlements */,
-				0503F29E2D5245E100B2640C /* SceneDelegate+Auth.swift */,
 				050830F72D41DA0F008C8831 /* SceneDelegate.swift */,
 				050830F92D41DA0F008C8831 /* ViewController.swift */,
 			);
@@ -306,13 +314,13 @@
 				0503F2A22D52499200B2640C /* APIManager.swift in Sources */,
 				0503F2A82D524D9300B2640C /* AccountViewController.swift in Sources */,
 				050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */,
+				0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */,
 				0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */,
 				0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */,
 				050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */,
 				050831402D41E029008C8831 /* LoginViewController.swift in Sources */,
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,
-				0503F29F2D5245E100B2640C /* SceneDelegate+Auth.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,
 				050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */,
 			);

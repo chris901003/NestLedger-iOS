@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("✅ 已登入: \(user.uid)")
             Task {
                 do {
-                    try await refreshTokenAndCheckIfValid(user: user)
+                    try await FirebaseAuthManager.shared.refreshTokenIfNeeded()
                     let rootViewController = RootViewController()
                     window?.rootViewController = rootViewController
                 } catch {
