@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2992D52420000B2640C /* KeychainManager.swift */; };
+		0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F29C2D52448700B2640C /* KeychainKey.swift */; };
 		050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F52D41DA0F008C8831 /* AppDelegate.swift */; };
 		050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F72D41DA0F008C8831 /* SceneDelegate.swift */; };
 		050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F92D41DA0F008C8831 /* ViewController.swift */; };
@@ -43,6 +45,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0503F2992D52420000B2640C /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		0503F29C2D52448700B2640C /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
 		050830F22D41DA0F008C8831 /* NestLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		050830F52D41DA0F008C8831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		050830F72D41DA0F008C8831 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +96,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0503F2982D5241DE00B2640C /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				0503F2992D52420000B2640C /* KeychainManager.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		0503F29B2D52446C00B2640C /* Const */ = {
+			isa = PBXGroup;
+			children = (
+				0503F29C2D52448700B2640C /* KeychainKey.swift */,
+			);
+			path = Const;
+			sourceTree = "<group>";
+		};
 		050830E92D41DA0F008C8831 = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +131,8 @@
 		050830F42D41DA0F008C8831 /* NestLedger */ = {
 			isa = PBXGroup;
 			children = (
+				0503F29B2D52446C00B2640C /* Const */,
+				0503F2982D5241DE00B2640C /* Keychain */,
 				0508313E2D41E01C008C8831 /* Login */,
 				050830F52D41DA0F008C8831 /* AppDelegate.swift */,
 				050830FE2D41DA11008C8831 /* Assets.xcassets */,
@@ -235,6 +257,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */,
+				0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */,
+				0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */,
 				050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */,
 				050831402D41E029008C8831 /* LoginViewController.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,

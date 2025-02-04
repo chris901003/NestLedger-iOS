@@ -42,7 +42,7 @@ class LoginVCManager {
         do {
             let authDataResult = try await Auth.auth().signIn(with: credentail)
             let authToken = try await authDataResult.user.getIDToken()
-            // TODO: 將這個獲得的 auth token 拿去存起來
+            try KeychainManager.shared.saveToken(authToken, forKey: AUTH_TOKEN)
             print("✅ Auth Token: \(authToken)")
         } catch {
             print("✅ [LVCM] Login with credentail error: \(error.localizedDescription)")
