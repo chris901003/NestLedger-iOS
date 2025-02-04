@@ -25,8 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             Task {
                 do {
                     try await refreshTokenAndCheckIfValid(user: user)
-                    let viewController = ViewController()
-                    window?.rootViewController = viewController
+                    let rootViewController = RootViewController()
+                    window?.rootViewController = rootViewController
                 } catch {
                     await MainActor.run {
                         let loginVC = LoginViewController()
