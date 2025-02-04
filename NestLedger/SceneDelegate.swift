@@ -22,11 +22,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         if let user = Auth.auth().currentUser {
             print("✅ 已登入: \(user.uid)")
-            let viewController = ViewController()
-            window?.rootViewController = viewController
-            try? Auth.auth().signOut()
-            let loginVC = LoginViewController()
-            window?.rootViewController = loginVC
+            Task {
+                do {
+                    try await refreshTokenAndCheckIfValid(user: user)
+                    let viewController = ViewController()
+                    window?.rootViewController = viewController
+                } catch {
+                    await MainActor.run {
+                        let loginVC = LoginViewController()
+                        window?.rootViewController = loginVC
+                    }
+                }
+            }
         } else {
             print("✅ 尚未登入")
             let loginVC = LoginViewController()
