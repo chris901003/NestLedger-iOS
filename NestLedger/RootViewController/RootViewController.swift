@@ -18,8 +18,9 @@ class RootViewController: UITabBarController {
 
         let accountViewController = AccountViewController()
         accountViewController.tabBarItem = UITabBarItem(title: "帳號", image: UIImage(systemName: "person.crop.circle"), selectedImage: nil)
+        let accountNavigationController = UINavigationController(rootViewController: accountViewController)
 
-        viewControllers = [mainViewController, accountViewController]
+        viewControllers = [mainViewController, accountNavigationController]
 
         selectedIndex = 1
     }
