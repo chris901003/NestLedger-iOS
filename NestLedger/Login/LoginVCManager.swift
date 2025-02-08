@@ -44,6 +44,14 @@ class LoginVCManager {
             let authToken = try await authDataResult.user.getIDToken()
             try KeychainManager.shared.saveToken(authToken, forKey: AUTH_TOKEN)
             APIManager.authToken = authToken
+            await MainActor.run {
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                    let rootViewController = RootViewController()
+                    window.rootViewController = rootViewController
+                    UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil)
+                }
+            }
         } catch {
             print("✅ [LVCM] Login with credentail error: \(error.localizedDescription)")
         }

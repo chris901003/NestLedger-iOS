@@ -43,11 +43,15 @@
 		050831352D41DBEE008C8831 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 050831342D41DBEE008C8831 /* FirebaseStorage */; };
 		050831372D41DBEE008C8831 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 050831362D41DBEE008C8831 /* FirebaseStorageCombine-Community */; };
 		050831392D41DBEE008C8831 /* FirebaseVertexAI in Frameworks */ = {isa = PBXBuildFile; productRef = 050831382D41DBEE008C8831 /* FirebaseVertexAI */; };
-		0508313D2D41DDB5008C8831 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0508313C2D41DDB5008C8831 /* GoogleService-Info.plist */; };
 		050831402D41E029008C8831 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0508313F2D41E029008C8831 /* LoginViewController.swift */; };
 		050831432D41E048008C8831 /* xxooooxxCommonFunction in Frameworks */ = {isa = PBXBuildFile; productRef = 050831422D41E048008C8831 /* xxooooxxCommonFunction */; };
 		050831452D41E048008C8831 /* xxooooxxCommonUI in Frameworks */ = {isa = PBXBuildFile; productRef = 050831442D41E048008C8831 /* xxooooxxCommonUI */; };
 		050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050831462D41E32C008C8831 /* LoginVCManager.swift */; };
+		055704532D5781D30032C47C /* AccountVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055704522D5781D30032C47C /* AccountVCManager.swift */; };
+		055704572D5782A90032C47C /* UserInfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055704562D5782A90032C47C /* UserInfoData.swift */; };
+		055704592D57839C0032C47C /* DataConstain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055704582D57839C0032C47C /* DataConstain.swift */; };
+		0557045B2D578ECA0032C47C /* AccountVC+SettingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0557045A2D578ECA0032C47C /* AccountVC+SettingTableView.swift */; };
+		0557045D2D5792830032C47C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0557045C2D5792830032C47C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,10 +69,14 @@
 		050830F92D41DA0F008C8831 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		050830FE2D41DA11008C8831 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		050831032D41DA11008C8831 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0508313C2D41DDB5008C8831 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0508313F2D41E029008C8831 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		050831462D41E32C008C8831 /* LoginVCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVCManager.swift; sourceTree = "<group>"; };
 		051AC9312D41EFAD00ECE40B /* NestLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NestLedger.entitlements; sourceTree = "<group>"; };
+		055704522D5781D30032C47C /* AccountVCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVCManager.swift; sourceTree = "<group>"; };
+		055704562D5782A90032C47C /* UserInfoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoData.swift; sourceTree = "<group>"; };
+		055704582D57839C0032C47C /* DataConstain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConstain.swift; sourceTree = "<group>"; };
+		0557045A2D578ECA0032C47C /* AccountVC+SettingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountVC+SettingTableView.swift"; sourceTree = "<group>"; };
+		0557045C2D5792830032C47C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				0503F2A72D524D9300B2640C /* AccountViewController.swift */,
+				055704522D5781D30032C47C /* AccountVCManager.swift */,
+				0557045A2D578ECA0032C47C /* AccountVC+SettingTableView.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -175,6 +185,7 @@
 		050830E92D41DA0F008C8831 = {
 			isa = PBXGroup;
 			children = (
+				0557045C2D5792830032C47C /* GoogleService-Info.plist */,
 				050830F42D41DA0F008C8831 /* NestLedger */,
 				050830F32D41DA0F008C8831 /* Products */,
 			);
@@ -191,6 +202,7 @@
 		050830F42D41DA0F008C8831 /* NestLedger */ = {
 			isa = PBXGroup;
 			children = (
+				055704542D5782960032C47C /* Datas */,
 				0503F2A02D52496200B2640C /* API */,
 				0503F2A62D524D8300B2640C /* Account */,
 				0503F29B2D52446C00B2640C /* Const */,
@@ -202,7 +214,6 @@
 				0503F2A32D524D1600B2640C /* RootViewController */,
 				050830F52D41DA0F008C8831 /* AppDelegate.swift */,
 				050830FE2D41DA11008C8831 /* Assets.xcassets */,
-				0508313C2D41DDB5008C8831 /* GoogleService-Info.plist */,
 				050831032D41DA11008C8831 /* Info.plist */,
 				051AC9312D41EFAD00ECE40B /* NestLedger.entitlements */,
 				050830F72D41DA0F008C8831 /* SceneDelegate.swift */,
@@ -218,6 +229,23 @@
 				0508313F2D41E029008C8831 /* LoginViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		055704542D5782960032C47C /* Datas */ = {
+			isa = PBXGroup;
+			children = (
+				055704552D5782A20032C47C /* UserInfo */,
+				055704582D57839C0032C47C /* DataConstain.swift */,
+			);
+			path = Datas;
+			sourceTree = "<group>";
+		};
+		055704552D5782A20032C47C /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				055704562D5782A90032C47C /* UserInfoData.swift */,
+			);
+			path = UserInfo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,7 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				050830FF2D41DA11008C8831 /* Assets.xcassets in Resources */,
-				0508313D2D41DDB5008C8831 /* GoogleService-Info.plist in Resources */,
+				0557045D2D5792830032C47C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,15 +350,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				055704532D5781D30032C47C /* AccountVCManager.swift in Sources */,
 				0503F2A22D52499200B2640C /* APIManager.swift in Sources */,
 				0503F2A82D524D9300B2640C /* AccountViewController.swift in Sources */,
 				050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */,
 				0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */,
 				0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */,
+				055704592D57839C0032C47C /* DataConstain.swift in Sources */,
 				0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */,
 				050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */,
+				0557045B2D578ECA0032C47C /* AccountVC+SettingTableView.swift in Sources */,
 				050831402D41E029008C8831 /* LoginViewController.swift in Sources */,
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
+				055704572D5782A90032C47C /* UserInfoData.swift in Sources */,
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,
 				0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */,

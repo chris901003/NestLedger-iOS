@@ -13,6 +13,9 @@ import xxooooxxCommonUI
 class AccountViewController: UIViewController {
     let titleInfoCellId = "TitleInfoCellId"
     let titleInfoIconCellId = "TitleInfoIconCellId"
+    let centerLabelCellId = "CenterLabelCellId"
+
+    let manager = AccountVCManager()
 
     let avatarView = XOAvatarView(UIImage(named: "avatar")!)
     let userNameView = XOTextField()
@@ -38,10 +41,13 @@ class AccountViewController: UIViewController {
         avatarView.delegate = self
         avatarView.layer.cornerRadius = 120 / 2
         avatarView.clipsToBounds = true
+        if let image = manager.userInfo.avatar {
+            avatarView.config(image)
+        }
 
         userNameView.backgroundColor = .white
         userNameView.placeholder = "暱稱"
-        userNameView.text = "XXOOOOXX"
+        userNameView.text = manager.userInfo.userName
         userNameView.font = .systemFont(ofSize: 18, weight: .bold)
         userNameView.textColor = .black
         userNameView.delegate = self
@@ -51,7 +57,7 @@ class AccountViewController: UIViewController {
 
         emailView.backgroundColor = .white
         emailView.placeholder = "電子郵件"
-        emailView.text = "service@xxooooxx.org"
+        emailView.text = manager.userInfo.emailAddress
         emailView.font = .systemFont(ofSize: 12, weight: .semibold)
         emailView.textColor = .systemGray
         emailView.delegate = self
@@ -96,7 +102,7 @@ class AccountViewController: UIViewController {
         view.addSubview(tableViewBackground)
         tableViewBackground.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableViewBackground.topAnchor.constraint(equalTo: avatarView.bottomAnchor),
+            tableViewBackground.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: 8),
             tableViewBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableViewBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableViewBackground.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -115,6 +121,7 @@ class AccountViewController: UIViewController {
     private func registerCell() {
         settingTableView.register(XOLeadingTrailingLabelWithIconCell.self, forCellReuseIdentifier: titleInfoIconCellId)
         settingTableView.register(XOLeadingTrailingLabelCell.self, forCellReuseIdentifier: titleInfoCellId)
+        settingTableView.register(XOCenterLabelCell.self, forCellReuseIdentifier: centerLabelCellId)
     }
 }
 
@@ -148,81 +155,5 @@ extension AccountViewController: UITextFieldDelegate {
             textField.layer.borderColor = UIColor.black.withAlphaComponent(0).cgColor
         }
         return true
-    }
-}
-
-// MARK: - UITableViewDelegate, UITableViewDataSource
-extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
-    enum SettingSectionType: String {
-        case basic = "基礎設定"
-        case information = "更多資訊"
-    }
-
-    enum SettingRowType: String {
-        // Basic Section
-        case timeZone = "時區"
-        // Information Section
-        case author = "作者"
-        case contactUs = "聯絡我們"
-        case copyright = "版權"
-    }
-
-    static let sections: [AccountViewController.SettingSectionType] = [
-        .basic, .information
-    ]
-
-    static let rows: [[AccountViewController.SettingRowType]] = [
-        [.timeZone],
-        [.author, .contactUs, .copyright]
-    ]
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        AccountViewController.sections.count
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        AccountViewController.rows[section].count
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        AccountViewController.sections[section].rawValue
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let rowType = AccountViewController.rows[indexPath.section][indexPath.row]
-        var cell = UITableViewCell()
-        switch rowType {
-            case .timeZone:
-                cell = settingTableView.dequeueReusableCell(withIdentifier: titleInfoIconCellId, for: indexPath)
-            case .author, .contactUs, .copyright:
-                cell = settingTableView.dequeueReusableCell(withIdentifier: titleInfoCellId, for: indexPath)
-                cell.selectionStyle = .none
-        }
-        switch rowType {
-            case .timeZone:
-                guard let cell = cell as? XOLeadingTrailingLabelWithIconCell else { return cell }
-                cell.config(title: rowType.rawValue, info: "GMT+8")
-            case .author:
-                guard let cell = cell as? XOLeadingTrailingLabelCell else { return cell }
-                cell.config(title: rowType.rawValue, info: "Zephyr-Huang")
-            case .contactUs:
-                guard let cell = cell as? XOLeadingTrailingLabelCell else { return cell }
-                cell.config(title: rowType.rawValue, info: "service@xxooooxx.org")
-            case .copyright:
-                guard let cell = cell as? XOLeadingTrailingLabelCell else { return cell }
-                cell.config(title: rowType.rawValue, info: "Copyright © 2025 Zephyr Huang")
-        }
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let rowType = AccountViewController.rows[indexPath.section][indexPath.row]
-        switch rowType {
-            case .timeZone:
-                print("✅ Time zone")
-            default:
-                break
-        }
     }
 }
