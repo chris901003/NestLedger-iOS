@@ -9,6 +9,7 @@
 import Foundation
 
 class APIManager {
+    static let decoder = JSONDecoder()
     static private var _authToken = ""
     static var authToken: String {
         get { return "Bearer \(APIManager._authToken)" }

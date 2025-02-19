@@ -11,17 +11,27 @@ import FirebaseAuth
 import UIKit
 
 class AccountVCManager {
+    weak var controller: AccountViewController?
+
     let apiManager = APIManager()
     var userInfo = UserInfoData.init(userName: "xxooooxx", emailAddress: "service@xxooooxx.org", avatar: nil, timeZone: 8) {
         didSet {
             print("✅ Update user info")
         }
     }
+    var basicInformation = BasicInformationData()
 
     init() {
         Task {
+            await getBasicInformation()
             await getUserInfo()
         }
+    }
+
+    private func getBasicInformation() async {
+        guard let response = try? await apiManager.getBasicInformation() else { return }
+        basicInformation = response.data
+        await MainActor.run { controller?.settingTableView.reloadData() }
     }
 
     private func getUserInfo() async {

@@ -38,6 +38,7 @@ class AccountViewController: UIViewController {
 
     private func setup() {
         view.backgroundColor = .white
+        manager.controller = self
 
         avatarView.delegate = self
         avatarView.layer.cornerRadius = 120 / 2

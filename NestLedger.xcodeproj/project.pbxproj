@@ -55,6 +55,8 @@
 		05B340A92D66123E000378A2 /* APIPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340A82D66123E000378A2 /* APIPath.swift */; };
 		05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */; };
 		05B340AD2D66201E000378A2 /* APIResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AC2D66201E000378A2 /* APIResponseData.swift */; };
+		05B340AF2D66218B000378A2 /* APIManager+Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AE2D66218B000378A2 /* APIManager+Information.swift */; };
+		05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B12D66222F000378A2 /* BasicInformationData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +85,8 @@
 		05B340A82D66123E000378A2 /* APIPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPath.swift; sourceTree = "<group>"; };
 		05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+UserInfo.swift"; sourceTree = "<group>"; };
 		05B340AC2D66201E000378A2 /* APIResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseData.swift; sourceTree = "<group>"; };
+		05B340AE2D66218B000378A2 /* APIManager+Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Information.swift"; sourceTree = "<group>"; };
+		05B340B12D66222F000378A2 /* BasicInformationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformationData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,7 @@
 				0503F2A12D52499200B2640C /* APIManager.swift */,
 				05B340A82D66123E000378A2 /* APIPath.swift */,
 				05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */,
+				05B340AE2D66218B000378A2 /* APIManager+Information.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -242,6 +247,7 @@
 		055704542D5782960032C47C /* Datas */ = {
 			isa = PBXGroup;
 			children = (
+				05B340B02D66221F000378A2 /* Information */,
 				055704552D5782A20032C47C /* UserInfo */,
 				055704582D57839C0032C47C /* DataConstain.swift */,
 				05B340AC2D66201E000378A2 /* APIResponseData.swift */,
@@ -255,6 +261,14 @@
 				055704562D5782A90032C47C /* UserInfoData.swift */,
 			);
 			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		05B340B02D66221F000378A2 /* Information */ = {
+			isa = PBXGroup;
+			children = (
+				05B340B12D66222F000378A2 /* BasicInformationData.swift */,
+			);
+			path = Information;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,11 +380,13 @@
 				0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */,
 				0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */,
 				055704592D57839C0032C47C /* DataConstain.swift in Sources */,
+				05B340AF2D66218B000378A2 /* APIManager+Information.swift in Sources */,
 				05B340AD2D66201E000378A2 /* APIResponseData.swift in Sources */,
 				0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */,
 				050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */,
 				0557045B2D578ECA0032C47C /* AccountVC+SettingTableView.swift in Sources */,
 				050831402D41E029008C8831 /* LoginViewController.swift in Sources */,
+				05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */,
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
 				05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */,
 				055704572D5782A90032C47C /* UserInfoData.swift in Sources */,

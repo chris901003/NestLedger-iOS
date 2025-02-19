@@ -78,16 +78,16 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.config(label: rowType.rawValue, font: .systemFont(ofSize: 16, weight: .semibold), color: .systemRed)
             case .author:
                 guard let cell = cell as? XOLeadingTrailingLabelCell else { return cell }
-                cell.config(title: rowType.rawValue, info: "Zephyr-Huang")
+                cell.config(title: rowType.rawValue, info: manager.basicInformation.author)
             case .privacy:
                 guard let cell = cell as? XOLeadingTrailingLabelWithIconCell else { return cell }
                 cell.config(title: rowType.rawValue, info: "", iconName: "safari")
             case .contactUs:
                 guard let cell = cell as? XOLeadingTrailingLabelCell else { return cell }
-                cell.config(title: rowType.rawValue, info: "service@xxooooxx.org")
+                cell.config(title: rowType.rawValue, info: manager.basicInformation.contactUs)
             case .copyright:
                 guard let cell = cell as? XOLeadingTrailingLabelCell else { return cell }
-                cell.config(title: rowType.rawValue, info: "Copyright © 2025 Zephyr Huang")
+                cell.config(title: rowType.rawValue, info: manager.basicInformation.copyright)
         }
         return cell
     }

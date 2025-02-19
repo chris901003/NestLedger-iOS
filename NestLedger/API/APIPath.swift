@@ -34,4 +34,9 @@ class APIPath {
         // [PATCH]
         case update = "/user/update"
     }
+
+    enum Information: String, APIPathProtocol {
+        // [GET]
+        case basic = "/information/basic"
+    }
 }
