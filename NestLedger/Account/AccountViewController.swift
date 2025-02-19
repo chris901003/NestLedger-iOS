@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import xxooooxxCommonUI
+import xxooooxxCommonFunction
 
 class AccountViewController: UIViewController {
     let titleInfoCellId = "TitleInfoCellId"
@@ -45,6 +46,7 @@ class AccountViewController: UIViewController {
             avatarView.config(image)
         }
 
+        userNameView.tag = 0
         userNameView.backgroundColor = .white
         userNameView.placeholder = "暱稱"
         userNameView.text = manager.userInfo.userName
@@ -55,6 +57,7 @@ class AccountViewController: UIViewController {
         userNameView.layer.borderColor = UIColor.black.withAlphaComponent(0).cgColor
         userNameView.layer.cornerRadius = 5
 
+        emailView.tag = 1
         emailView.backgroundColor = .white
         emailView.placeholder = "電子郵件"
         emailView.text = manager.userInfo.emailAddress
@@ -132,7 +135,7 @@ extension AccountViewController: XOAvatarViewDelegate {
     }
 
     func newAvatar(image: UIImage) {
-        print("✅ New avatar")
+        manager.userInfo.avatar = image
     }
 }
 
@@ -153,6 +156,24 @@ extension AccountViewController: UITextFieldDelegate {
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         UIView.animate(withDuration: 0.25) {
             textField.layer.borderColor = UIColor.black.withAlphaComponent(0).cgColor
+        }
+        switch textField.tag {
+            case 0:
+                guard let newUserName = textField.text,
+                      !newUserName.isEmpty else {
+                    userNameView.text = manager.userInfo.userName
+                    return true
+                }
+                manager.userInfo.userName = newUserName
+            case 1:
+                guard let newEmail = textField.text,
+                      newEmail.isValidEmail() else {
+                    emailView.text = manager.userInfo.emailAddress
+                    return true
+                }
+                manager.userInfo.emailAddress = newEmail
+            default:
+                break
         }
         return true
     }

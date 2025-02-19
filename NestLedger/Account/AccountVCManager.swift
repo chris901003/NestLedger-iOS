@@ -11,7 +11,26 @@ import FirebaseAuth
 import UIKit
 
 class AccountVCManager {
-    var userInfo = UserInfoData.init(userName: "xxooooxx", emailAddress: "service@xxooooxx.org", avatar: nil, timeZone: 8)
+    let apiManager = APIManager()
+    var userInfo = UserInfoData.init(userName: "xxooooxx", emailAddress: "service@xxooooxx.org", avatar: nil, timeZone: 8) {
+        didSet {
+            print("✅ Update user info")
+        }
+    }
+
+    init() {
+        Task {
+            await getUserInfo()
+        }
+    }
+
+    private func getUserInfo() async {
+        do {
+            try await apiManager.getUserInfo()
+        } catch {
+            print("✅ Error: \(error.localizedDescription)")
+        }
+    }
 
     func logout() {
         do {

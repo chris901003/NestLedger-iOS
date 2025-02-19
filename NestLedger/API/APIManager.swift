@@ -11,7 +11,14 @@ import Foundation
 class APIManager {
     static private var _authToken = ""
     static var authToken: String {
-        get { return "Bearer: \(APIManager._authToken)" }
+        get { return "Bearer \(APIManager._authToken)" }
         set { APIManager._authToken = newValue }
+    }
+
+    func genGetRequest(url: URL) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue(APIManager.authToken, forHTTPHeaderField: "Authorization")
+        return request
     }
 }

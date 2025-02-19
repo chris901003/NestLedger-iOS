@@ -20,11 +20,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        if let user = Auth.auth().currentUser {
+        let apiManager = APIManager()
+
+        if let user = Auth.auth().currentUser,
+           let lastToken = KeychainManager.shared.getToken(forKey: AUTH_TOKEN) {
             print("✅ 已登入: \(user.uid)")
+            APIManager.authToken = lastToken
             Task {
                 do {
                     try await FirebaseAuthManager.shared.refreshTokenIfNeeded()
+                    try await apiManager.login()
                     let rootViewController = RootViewController()
                     window?.rootViewController = rootViewController
                 } catch {
