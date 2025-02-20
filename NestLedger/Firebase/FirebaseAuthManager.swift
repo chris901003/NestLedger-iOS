@@ -23,8 +23,10 @@ class FirebaseAuthManager {
             throw FirebaseAuthManagerError.notLogin
         }
 
-        if let tokenResult = try? await user.getIDTokenResult(),
-           tokenResult.expirationDate > Date.now {
+        if let tokenResult = try? await user.getIDTokenResult() {
+            // getIDTokenResult() possibly refreshing it if it has expired (by Firebase)
+            try KeychainManager.shared.saveToken(tokenResult.token, forKey: AUTH_TOKEN)
+            APIManager.authToken = tokenResult.token
             return
         }
         try await refreshToken()

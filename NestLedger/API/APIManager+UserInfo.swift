@@ -28,7 +28,10 @@ extension APIManager {
         let request = genGetRequest(url: url)
 
         do {
-            _ = try await URLSession.shared.data(for: request)
+            let (_, response) = try await URLSession.shared.data(for: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                throw UserInfoError.failedLogin
+            }
         } catch {
             throw UserInfoError.failedLogin
         }
