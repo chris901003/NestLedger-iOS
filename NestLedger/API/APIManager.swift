@@ -23,3 +23,37 @@ class APIManager {
         return request
     }
 }
+
+extension APIManager {
+    enum APIManagerSendError: LocalizedError {
+        case failedRefreshToken
+
+        var errorDescription: String? {
+            switch self {
+                case .failedRefreshToken:
+                    return "Failed refresh token"
+            }
+        }
+    }
+
+    /**
+     對發送 API 進行包裝，當 refreshToken 為 true 時，如果 token 過期會有一次的刷新機會
+     - Authors: HongYan
+     */
+    func send(request: URLRequest, refreshToken: Bool = true) async throws -> (Data, URLResponse) {
+        let (data, response) = try await URLSession.shared.data(for: request)
+        if refreshToken,
+           let response = response as? HTTPURLResponse,
+           response.statusCode == 403 {
+            do {
+                try await FirebaseAuthManager.shared.refreshTokenIfNeeded()
+                var newRequest = request
+                newRequest.setValue(APIManager.authToken, forHTTPHeaderField: "Authorization")
+                return try await send(request: request, refreshToken: false)
+            } catch {
+                throw APIManagerSendError.failedRefreshToken
+            }
+        }
+        return (data, response)
+    }
+}
