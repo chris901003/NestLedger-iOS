@@ -10,13 +10,10 @@ import Foundation
 
 extension APIManager {
     enum InformationError: LocalizedError {
-        case failedGetUrl
         case failedGetBasicInformation
 
         var errorDescription: String? {
             switch self {
-                case .failedGetUrl:
-                    return "獲取 URL 失敗"
                 case .failedGetBasicInformation:
                     return "取得基礎資訊失敗"
             }
@@ -24,7 +21,7 @@ extension APIManager {
     }
 
     func getBasicInformation() async throws -> BasicInformationResponse {
-        guard let url = APIPath.Information.basic.getUrl() else { throw InformationError.failedGetUrl }
+        guard let url = APIPath.Information.basic.getUrl() else { throw APIManagerError.badUrl }
         let request = genGetRequest(url: url)
 
         do {

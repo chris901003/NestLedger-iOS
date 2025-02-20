@@ -27,6 +27,7 @@ class FirebaseAuthManager {
             // getIDTokenResult() possibly refreshing it if it has expired (by Firebase)
             try KeychainManager.shared.saveToken(tokenResult.token, forKey: AUTH_TOKEN)
             APIManager.authToken = tokenResult.token
+            print("✅ Token: \(tokenResult.token)")
             return
         }
         try await refreshToken()

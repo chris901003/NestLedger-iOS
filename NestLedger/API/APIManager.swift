@@ -9,6 +9,17 @@
 import Foundation
 
 class APIManager {
+    enum APIManagerError: LocalizedError {
+        case badUrl
+
+        var errorDescription: String? {
+            switch self {
+                case .badUrl:
+                    return "Failed to get url"
+            }
+        }
+    }
+
     static let decoder = JSONDecoder()
     static private var _authToken = ""
     static var authToken: String {
@@ -19,6 +30,13 @@ class APIManager {
     func genGetRequest(url: URL) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        request.setValue(APIManager.authToken, forHTTPHeaderField: "Authorization")
+        return request
+    }
+
+    func genPatchRequest(url: URL) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
         request.setValue(APIManager.authToken, forHTTPHeaderField: "Authorization")
         return request
     }

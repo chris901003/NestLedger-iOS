@@ -11,7 +11,7 @@ import Foundation
 // MARK: - UserInfo API
 extension APIManager {
     enum UserInfoError: LocalizedError {
-        case failedLogin, failedFetchUserInfo
+        case failedLogin, failedFetchUserInfo, failedEncode, failedUpdateUserInfo
 
         var errorDescription: String? {
             switch self {
@@ -19,6 +19,10 @@ extension APIManager {
                     return "登入失敗"
                 case .failedFetchUserInfo:
                     return "獲取使用者資料失敗"
+                case .failedEncode:
+                    return "Encode 使用者資料失敗"
+                case .failedUpdateUserInfo:
+                    return "更新使用者資訊失敗"
             }
         }
     }
@@ -37,15 +41,39 @@ extension APIManager {
         }
     }
 
-    func getUserInfo() async throws {
-        guard let url = APIPath.UserInfo.userInfo.getUrl() else { return }
+    func getUserInfo() async throws -> UserInfoData {
+        guard let url = APIPath.UserInfo.userInfo.getUrl() else { throw APIManagerError.badUrl }
         let request = genGetRequest(url: url)
 
         do {
             let (data, response) = try await send(request: request)
-            print("✅ Data: \(data)")
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw UserInfoError.failedFetchUserInfo }
+            let result = try APIManager.decoder.decode(UserInfoResponse.self, from: data)
+            return result.data.UserInfo
         } catch {
             throw UserInfoError.failedFetchUserInfo
+        }
+    }
+
+    func updateUserInfo(_ data: UserInfoData) async throws {
+        guard let url = APIPath.UserInfo.update.getUrl() else { throw APIManagerError.badUrl }
+        var request = genPatchRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        do {
+            let requestBody = try JSONEncoder().encode(data)
+            request.httpBody = requestBody
+        } catch {
+            throw UserInfoError.failedEncode
+        }
+
+        do {
+            let (_, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                throw UserInfoError.failedUpdateUserInfo
+            }
+        } catch {
+            throw UserInfoError.failedUpdateUserInfo
         }
     }
 }

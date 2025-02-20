@@ -36,6 +36,12 @@ class AccountViewController: UIViewController {
         tableViewBackground.roundCorners(corners: [.topLeft, .topRight], radius: 20)
     }
 
+    func config() {
+        userNameView.text = manager.userInfo.userName.isEmpty ? "未知" : manager.userInfo.userName
+        emailView.text = manager.userInfo.emailAddress.isEmpty ? "未知" : manager.userInfo.emailAddress
+        if let avatar = manager.avatar { avatarView.config(avatar) }
+    }
+
     private func setup() {
         view.backgroundColor = .white
         manager.controller = self
@@ -43,7 +49,7 @@ class AccountViewController: UIViewController {
         avatarView.delegate = self
         avatarView.layer.cornerRadius = 120 / 2
         avatarView.clipsToBounds = true
-        if let image = manager.userInfo.avatar {
+        if let image = manager.avatar {
             avatarView.config(image)
         }
 
@@ -136,7 +142,7 @@ extension AccountViewController: XOAvatarViewDelegate {
     }
 
     func newAvatar(image: UIImage) {
-        manager.userInfo.avatar = image
+        manager.avatar = image
     }
 }
 

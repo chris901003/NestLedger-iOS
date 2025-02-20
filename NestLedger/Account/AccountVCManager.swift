@@ -14,29 +14,33 @@ class AccountVCManager {
     weak var controller: AccountViewController?
 
     let apiManager = APIManager()
-    var userInfo = UserInfoData.init(userName: "xxooooxx", emailAddress: "service@xxooooxx.org", avatar: nil, timeZone: 8) {
+    var userInfo = UserInfoData.initMock() {
         didSet {
-            print("✅ Update user info")
+            Task { try? await apiManager.updateUserInfo(userInfo) }
         }
     }
+    var avatar: UIImage?
     var basicInformation = BasicInformationData()
 
     init() {
         Task {
             await getBasicInformation()
             await getUserInfo()
+            await MainActor.run {
+                controller?.settingTableView.reloadData()
+                controller?.config()
+            }
         }
     }
 
     private func getBasicInformation() async {
         guard let response = try? await apiManager.getBasicInformation() else { return }
         basicInformation = response.data
-        await MainActor.run { controller?.settingTableView.reloadData() }
     }
 
     private func getUserInfo() async {
         do {
-            try await apiManager.getUserInfo()
+            userInfo = try await apiManager.getUserInfo()
         } catch {
             print("✅ Error: \(error.localizedDescription)")
         }

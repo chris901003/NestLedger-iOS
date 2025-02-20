@@ -9,20 +9,23 @@
 import Foundation
 import UIKit
 
-struct UserInfoData {
+struct UserInfoData: Codable {
+    var id: String
     var userName: String
-    var emailAddress: String?
-    var avatar: UIImage?
+    var emailAddress: String
+    var avatar: String
     var timeZone: Int
     var version: Int
 
     init(
+        id: String,
         userName: String,
-        emailAddress: String? = nil,
-        avatar: UIImage? = nil,
+        emailAddress: String = "",
+        avatar: String = "",
         timeZone: Int = 8,
         version: Int = USER_INFO_DATA_VERSION
     ) {
+        self.id = id
         self.userName = userName
         self.emailAddress = emailAddress
         self.avatar = avatar
@@ -32,11 +35,18 @@ struct UserInfoData {
 
     static func initMock() -> UserInfoData {
         .init(
+            id: "Mock Id",
             userName: "Mock user",
             emailAddress: "mock@xxooooxx.org",
-            avatar: nil,
+            avatar: "",
             timeZone: 8,
             version: USER_INFO_DATA_VERSION
         )
     }
 }
+
+struct UserInfoDataWrapper: Codable {
+    let UserInfo: UserInfoData
+}
+
+typealias UserInfoResponse = APIResponseData<UserInfoDataWrapper>
