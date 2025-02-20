@@ -55,7 +55,9 @@ class AccountViewController: UIViewController {
 
         userNameView.tag = 0
         userNameView.backgroundColor = .white
+        userNameView.autocorrectionType = .no
         userNameView.placeholder = "暱稱"
+        userNameView.keyboardType = .asciiCapable
         userNameView.text = manager.userInfo.userName
         userNameView.font = .systemFont(ofSize: 18, weight: .bold)
         userNameView.textColor = .black
@@ -66,6 +68,8 @@ class AccountViewController: UIViewController {
 
         emailView.tag = 1
         emailView.backgroundColor = .white
+        emailView.autocorrectionType = .no
+        emailView.keyboardType = .emailAddress
         emailView.placeholder = "電子郵件"
         emailView.text = manager.userInfo.emailAddress
         emailView.font = .systemFont(ofSize: 12, weight: .semibold)
