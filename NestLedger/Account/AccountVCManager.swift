@@ -41,15 +41,19 @@ class AccountVCManager {
     }
 
     private func getBasicInformation() async {
-        guard let response = try? await apiManager.getBasicInformation() else { return }
-        basicInformation = response.data
+        do {
+            let response = try await apiManager.getBasicInformation()
+            basicInformation = response.data
+        } catch {
+            XOBottomBarInformationManager.showBottomInformation(type: .info, information: "無法取得最新資訊")
+        }
     }
 
     private func getUserInfo() async {
         do {
             userInfo = try await apiManager.getUserInfo()
         } catch {
-            print("✅ Error: \(error.localizedDescription)")
+            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "無法取得帳號資訊")
         }
     }
 
@@ -65,7 +69,7 @@ class AccountVCManager {
                 UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil)
             }
         } catch {
-            print("✅ [AVCM] Logout failed: \(error.localizedDescription)")
+            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "登出帳號失敗")
         }
     }
 }
