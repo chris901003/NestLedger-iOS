@@ -9,6 +9,8 @@
 import Foundation
 import FirebaseAuth
 import UIKit
+import xxooooxxCommonFunction
+import xxooooxxCommonUI
 
 class AccountVCManager {
     weak var controller: AccountViewController?
@@ -16,7 +18,12 @@ class AccountVCManager {
     let apiManager = APIManager()
     var userInfo = UserInfoData.initMock() {
         didSet {
-            Task { try? await apiManager.updateUserInfo(userInfo) }
+            Task {
+                try? await apiManager.updateUserInfo(userInfo)
+                await MainActor.run {
+                    XOBottomBarInformationManager.showBottomInformation(type: .success,information: "資料已更新")
+                }
+            }
         }
     }
     var avatar: UIImage?
