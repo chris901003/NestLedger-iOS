@@ -18,6 +18,7 @@ class AccountVCManager {
     let apiManager = APIManager()
     var userInfo = UserInfoData.initMock() {
         didSet {
+            if !startUpdate { return }
             Task {
                 try? await apiManager.updateUserInfo(userInfo)
                 await MainActor.run {
@@ -26,16 +27,32 @@ class AccountVCManager {
             }
         }
     }
-    var avatar: UIImage?
+    var avatar: UIImage? {
+        didSet {
+            if !startUpdate { return }
+            guard let image = avatar else { return }
+            Task {
+                do {
+                    let path = try await apiManager.uploadSinglePhoto(image, path: "avatar")
+                    userInfo.avatar = path
+                } catch {
+                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "更新頭像失敗")
+                }
+            }
+        }
+    }
     var basicInformation = BasicInformationData()
+    var startUpdate = false
 
     init() {
         Task {
             await getBasicInformation()
             await getUserInfo()
+            await getAvatar()
             await MainActor.run {
                 controller?.settingTableView.reloadData()
                 controller?.config()
+                startUpdate = true
             }
         }
     }
@@ -54,6 +71,16 @@ class AccountVCManager {
             userInfo = try await apiManager.getUserInfo()
         } catch {
             XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "無法取得帳號資訊")
+        }
+    }
+
+    private func getAvatar() async {
+        guard !userInfo.avatar.isEmpty else { return }
+        do {
+            let image = try await apiManager.fetchSinglePhoto(path: userInfo.avatar)
+            avatar = image
+        } catch {
+            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "無法取的頭像")
         }
     }
 

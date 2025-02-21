@@ -29,7 +29,7 @@ extension APIManager {
 
     func login() async throws {
         guard let url = APIPath.UserInfo.login.getUrl() else { return }
-        let request = genGetRequest(url: url)
+        let request = genRequest(url: url, method: .GET)
 
         do {
             let (_, response) = try await send(request: request)
@@ -43,7 +43,7 @@ extension APIManager {
 
     func getUserInfo() async throws -> UserInfoData {
         guard let url = APIPath.UserInfo.userInfo.getUrl() else { throw APIManagerError.badUrl }
-        let request = genGetRequest(url: url)
+        let request = genRequest(url: url, method: .GET)
 
         do {
             let (data, response) = try await send(request: request)
@@ -57,7 +57,7 @@ extension APIManager {
 
     func updateUserInfo(_ data: UserInfoData) async throws {
         guard let url = APIPath.UserInfo.update.getUrl() else { throw APIManagerError.badUrl }
-        var request = genPatchRequest(url: url)
+        var request = genRequest(url: url, method: .PATCH)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         do {

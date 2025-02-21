@@ -57,6 +57,7 @@
 		05B340AD2D66201E000378A2 /* APIResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AC2D66201E000378A2 /* APIResponseData.swift */; };
 		05B340AF2D66218B000378A2 /* APIManager+Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AE2D66218B000378A2 /* APIManager+Information.swift */; };
 		05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B12D66222F000378A2 /* BasicInformationData.swift */; };
+		05B340B42D68B705000378A2 /* APIManager+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B32D68B705000378A2 /* APIManager+Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		05B340AC2D66201E000378A2 /* APIResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseData.swift; sourceTree = "<group>"; };
 		05B340AE2D66218B000378A2 /* APIManager+Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Information.swift"; sourceTree = "<group>"; };
 		05B340B12D66222F000378A2 /* BasicInformationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformationData.swift; sourceTree = "<group>"; };
+		05B340B32D68B705000378A2 /* APIManager+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Photo.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,10 +147,11 @@
 		0503F2A02D52496200B2640C /* API */ = {
 			isa = PBXGroup;
 			children = (
+				05B340AE2D66218B000378A2 /* APIManager+Information.swift */,
+				05B340B32D68B705000378A2 /* APIManager+Photo.swift */,
+				05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */,
 				0503F2A12D52499200B2640C /* APIManager.swift */,
 				05B340A82D66123E000378A2 /* APIPath.swift */,
-				05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */,
-				05B340AE2D66218B000378A2 /* APIManager+Information.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -164,9 +167,9 @@
 		0503F2A62D524D8300B2640C /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				0503F2A72D524D9300B2640C /* AccountViewController.swift */,
-				055704522D5781D30032C47C /* AccountVCManager.swift */,
 				0557045A2D578ECA0032C47C /* AccountVC+SettingTableView.swift */,
+				055704522D5781D30032C47C /* AccountVCManager.swift */,
+				0503F2A72D524D9300B2640C /* AccountViewController.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -198,9 +201,9 @@
 		050830E92D41DA0F008C8831 = {
 			isa = PBXGroup;
 			children = (
-				0557045C2D5792830032C47C /* GoogleService-Info.plist */,
 				050830F42D41DA0F008C8831 /* NestLedger */,
 				050830F32D41DA0F008C8831 /* Products */,
+				0557045C2D5792830032C47C /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -215,10 +218,10 @@
 		050830F42D41DA0F008C8831 /* NestLedger */ = {
 			isa = PBXGroup;
 			children = (
-				055704542D5782960032C47C /* Datas */,
 				0503F2A02D52496200B2640C /* API */,
 				0503F2A62D524D8300B2640C /* Account */,
 				0503F29B2D52446C00B2640C /* Const */,
+				055704542D5782960032C47C /* Datas */,
 				0503F2AF2D54E1BF00B2640C /* Extensions */,
 				0503F2AC2D5251BB00B2640C /* Firebase */,
 				0503F2982D5241DE00B2640C /* Keychain */,
@@ -249,8 +252,8 @@
 			children = (
 				05B340B02D66221F000378A2 /* Information */,
 				055704552D5782A20032C47C /* UserInfo */,
-				055704582D57839C0032C47C /* DataConstain.swift */,
 				05B340AC2D66201E000378A2 /* APIResponseData.swift */,
+				055704582D57839C0032C47C /* DataConstain.swift */,
 			);
 			path = Datas;
 			sourceTree = "<group>";
@@ -373,27 +376,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				055704532D5781D30032C47C /* AccountVCManager.swift in Sources */,
+				05B340AF2D66218B000378A2 /* APIManager+Information.swift in Sources */,
+				05B340B42D68B705000378A2 /* APIManager+Photo.swift in Sources */,
+				05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */,
 				0503F2A22D52499200B2640C /* APIManager.swift in Sources */,
+				05B340A92D66123E000378A2 /* APIPath.swift in Sources */,
+				05B340AD2D66201E000378A2 /* APIResponseData.swift in Sources */,
+				0557045B2D578ECA0032C47C /* AccountVC+SettingTableView.swift in Sources */,
+				055704532D5781D30032C47C /* AccountVCManager.swift in Sources */,
 				0503F2A82D524D9300B2640C /* AccountViewController.swift in Sources */,
 				050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */,
+				05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */,
+				055704592D57839C0032C47C /* DataConstain.swift in Sources */,
 				0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */,
 				0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */,
-				055704592D57839C0032C47C /* DataConstain.swift in Sources */,
-				05B340AF2D66218B000378A2 /* APIManager+Information.swift in Sources */,
-				05B340AD2D66201E000378A2 /* APIResponseData.swift in Sources */,
 				0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */,
 				050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */,
-				0557045B2D578ECA0032C47C /* AccountVC+SettingTableView.swift in Sources */,
 				050831402D41E029008C8831 /* LoginViewController.swift in Sources */,
-				05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */,
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
-				05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */,
-				055704572D5782A90032C47C /* UserInfoData.swift in Sources */,
-				05B340A92D66123E000378A2 /* APIPath.swift in Sources */,
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,
 				0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */,
+				055704572D5782A90032C47C /* UserInfoData.swift in Sources */,
 				050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

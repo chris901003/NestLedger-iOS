@@ -9,6 +9,12 @@
 import Foundation
 
 class APIManager {
+    enum HttpMethod: String {
+        case GET = "GET"
+        case POST = "POST"
+        case PATCH = "PATCH"
+    }
+
     enum APIManagerError: LocalizedError {
         case badUrl
 
@@ -27,16 +33,9 @@ class APIManager {
         set { APIManager._authToken = newValue }
     }
 
-    func genGetRequest(url: URL) -> URLRequest {
+    func genRequest(url: URL, method: HttpMethod) -> URLRequest {
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue(APIManager.authToken, forHTTPHeaderField: "Authorization")
-        return request
-    }
-
-    func genPatchRequest(url: URL) -> URLRequest {
-        var request = URLRequest(url: url)
-        request.httpMethod = "PATCH"
+        request.httpMethod = method.rawValue
         request.setValue(APIManager.authToken, forHTTPHeaderField: "Authorization")
         return request
     }

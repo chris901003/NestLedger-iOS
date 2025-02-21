@@ -39,4 +39,9 @@ class APIPath {
         // [GET]
         case basic = "/information/basic"
     }
+
+    enum Photo: String, APIPathProtocol {
+        // [POST]
+        case single = "/photo/single"
+    }
 }

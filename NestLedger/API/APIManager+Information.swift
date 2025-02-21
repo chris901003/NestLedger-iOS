@@ -22,7 +22,7 @@ extension APIManager {
 
     func getBasicInformation() async throws -> BasicInformationResponse {
         guard let url = APIPath.Information.basic.getUrl() else { throw APIManagerError.badUrl }
-        let request = genGetRequest(url: url)
+        let request = genRequest(url: url, method: .GET)
 
         do {
             let (data, response) = try await send(request: request)
