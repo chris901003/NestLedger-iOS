@@ -15,6 +15,7 @@ extension APIManager {
         case convertPhotoError
         case failedUploadSinglePhoto
         case failedFetchPhoto
+        case failedDeleteSinglePhoto
 
         var errorDescription: String? {
             switch self {
@@ -24,6 +25,8 @@ extension APIManager {
                     return "上傳單張照片失敗"
                 case .failedFetchPhoto:
                     return "獲取單張照片失敗"
+                case .failedDeleteSinglePhoto:
+                    return "刪除單張照片失敗"
             }
         }
     }
@@ -45,6 +48,19 @@ extension APIManager {
         }
     }
 
+    func deleteSinglePhoto(path: String) async throws {
+        guard var url = APIPath.Photo.single.getUrl() else { throw APIManagerError.badUrl }
+        url.append(path: path)
+
+        let request = genRequest(url: url, method: .DELETE)
+        do {
+            let (_, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw PhotoError.failedDeleteSinglePhoto }
+        } catch {
+            throw PhotoError.failedDeleteSinglePhoto
+        }
+    }
+
     func uploadSinglePhoto(_ image: UIImage, path: String, filename: String = UUID().uuidString) async throws -> String {
         guard let url = APIPath.Photo.single.getUrl() else { throw APIManagerError.badUrl }
 
@@ -53,7 +69,7 @@ extension APIManager {
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 
         var body = Data()
-        let imageData = image.jpegData(compressionQuality: 1)
+        let imageData = image.jpegData(compressionQuality: 0.3)
         guard let imageData else { throw PhotoError.convertPhotoError }
 
         let filename = filename.hasSuffix(".jpg") ? filename : filename + ".jpg"

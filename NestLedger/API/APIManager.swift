@@ -13,6 +13,7 @@ class APIManager {
         case GET = "GET"
         case POST = "POST"
         case PATCH = "PATCH"
+        case DELETE = "DELETE"
     }
 
     enum APIManagerError: LocalizedError {

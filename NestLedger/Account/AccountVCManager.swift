@@ -34,6 +34,9 @@ class AccountVCManager {
             Task {
                 do {
                     let path = try await apiManager.uploadSinglePhoto(image, path: "avatar")
+                    if !userInfo.avatar.isEmpty {
+                        try await apiManager.deleteSinglePhoto(path: userInfo.avatar)
+                    }
                     userInfo.avatar = path
                 } catch {
                     XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "更新頭像失敗")
