@@ -15,6 +15,7 @@ struct UserInfoData: Codable {
     var emailAddress: String
     var avatar: String
     var timeZone: Int
+    var imageQuality: Double
     var version: Int
 
     init(
@@ -23,6 +24,7 @@ struct UserInfoData: Codable {
         emailAddress: String = "",
         avatar: String = "",
         timeZone: Int = 8,
+        imageQuality: Double = 0.5,
         version: Int = USER_INFO_DATA_VERSION
     ) {
         self.id = id
@@ -30,6 +32,7 @@ struct UserInfoData: Codable {
         self.emailAddress = emailAddress
         self.avatar = avatar
         self.timeZone = timeZone
+        self.imageQuality = imageQuality
         self.version = version
     }
 
@@ -40,6 +43,7 @@ struct UserInfoData: Codable {
             emailAddress: "mock@xxooooxx.org",
             avatar: "",
             timeZone: 8,
+            imageQuality: 0.5,
             version: USER_INFO_DATA_VERSION
         )
     }

@@ -58,6 +58,7 @@
 		05B340AF2D66218B000378A2 /* APIManager+Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AE2D66218B000378A2 /* APIManager+Information.swift */; };
 		05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B12D66222F000378A2 /* BasicInformationData.swift */; };
 		05B340B42D68B705000378A2 /* APIManager+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B32D68B705000378A2 /* APIManager+Photo.swift */; };
+		05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,7 @@
 		05B340AE2D66218B000378A2 /* APIManager+Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Information.swift"; sourceTree = "<group>"; };
 		05B340B12D66222F000378A2 /* BasicInformationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformationData.swift; sourceTree = "<group>"; };
 		05B340B32D68B705000378A2 /* APIManager+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Photo.swift"; sourceTree = "<group>"; };
+		05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageQualitySettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 		0503F2A62D524D8300B2640C /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				05EC2B0E2D6A14BA006F1F3A /* Subviews */,
 				0557045A2D578ECA0032C47C /* AccountVC+SettingTableView.swift */,
 				055704522D5781D30032C47C /* AccountVCManager.swift */,
 				0503F2A72D524D9300B2640C /* AccountViewController.swift */,
@@ -272,6 +275,14 @@
 				05B340B12D66222F000378A2 /* BasicInformationData.swift */,
 			);
 			path = Information;
+			sourceTree = "<group>";
+		};
+		05EC2B0E2D6A14BA006F1F3A /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,6 +398,7 @@
 				0503F2A82D524D9300B2640C /* AccountViewController.swift in Sources */,
 				050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */,
 				05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */,
+				05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */,
 				055704592D57839C0032C47C /* DataConstain.swift in Sources */,
 				0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */,
 				0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */,

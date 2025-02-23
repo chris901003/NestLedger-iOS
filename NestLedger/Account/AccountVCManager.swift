@@ -39,7 +39,9 @@ class AccountVCManager {
                     }
                     userInfo.avatar = path
                 } catch {
-                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "更新頭像失敗")
+                    await MainActor.run {
+                        XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "更新頭像失敗")
+                    }
                 }
             }
         }
@@ -65,7 +67,9 @@ class AccountVCManager {
             let response = try await apiManager.getBasicInformation()
             basicInformation = response.data
         } catch {
-            XOBottomBarInformationManager.showBottomInformation(type: .info, information: "無法取得最新資訊")
+            await MainActor.run {
+                XOBottomBarInformationManager.showBottomInformation(type: .info, information: "無法取得最新資訊")
+            }
         }
     }
 
@@ -73,7 +77,9 @@ class AccountVCManager {
         do {
             userInfo = try await apiManager.getUserInfo()
         } catch {
-            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "無法取得帳號資訊")
+            await MainActor.run {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "無法取得帳號資訊")
+            }
         }
     }
 
@@ -83,7 +89,9 @@ class AccountVCManager {
             let image = try await apiManager.fetchSinglePhoto(path: userInfo.avatar)
             avatar = image
         } catch {
-            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "無法取的頭像")
+            await MainActor.run {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "無法取的頭像")
+            }
         }
     }
 

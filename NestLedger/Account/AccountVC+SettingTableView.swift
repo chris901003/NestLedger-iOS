@@ -22,6 +22,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
     enum SettingRowType: String {
         // Basic Section
         case timeZone = "時區"
+        case imageQuality = "照片畫質"
         // Account Section
         case logout = "登出"
         case deleteAccount = "刪除帳號"
@@ -37,7 +38,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
     ]
 
     static let rows: [[AccountViewController.SettingRowType]] = [
-        [.timeZone],
+        [.timeZone, .imageQuality],
         [.logout, .deleteAccount],
         [.author, .privacy, .contactUs, .copyright]
     ]
@@ -58,7 +59,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
         let rowType = AccountViewController.rows[indexPath.section][indexPath.row]
         var cell = UITableViewCell()
         switch rowType {
-            case .timeZone, .privacy:
+            case .timeZone, .imageQuality, .privacy:
                 cell = settingTableView.dequeueReusableCell(withIdentifier: titleInfoIconCellId, for: indexPath)
             case .logout, .deleteAccount:
                 cell = settingTableView.dequeueReusableCell(withIdentifier: centerLabelCellId, for: indexPath)
@@ -70,6 +71,9 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             case .timeZone:
                 guard let cell = cell as? XOLeadingTrailingLabelWithIconCell else { return cell }
                 cell.config(title: rowType.rawValue, info: "GMT\(manager.userInfo.timeZone > 0 ? "+" : "")\(manager.userInfo.timeZone)")
+            case .imageQuality:
+                guard let cell = cell as? XOLeadingTrailingLabelWithIconCell else { return cell }
+                cell.config(title: rowType.rawValue, info: ImageQualitySettingViewController.QualityType.getType(value: manager.userInfo.imageQuality).rawValue)
             case .logout:
                 guard let cell = cell as? XOCenterLabelCell else { return cell }
                 cell.config(label: rowType.rawValue, font: .systemFont(ofSize: 16, weight: .semibold), color: .systemBlue)
@@ -101,6 +105,12 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 timeZoneSelectVC.delegate = self
                 timeZoneSelectVC.hidesBottomBarWhenPushed = true
                 navigationController?.pushViewController(timeZoneSelectVC, animated: true)
+            case .imageQuality:
+                let type = ImageQualitySettingViewController.QualityType.getType(value: manager.userInfo.imageQuality)
+                let imageQualitySettingVC = ImageQualitySettingViewController(type: type)
+                imageQualitySettingVC.hidesBottomBarWhenPushed = true
+                imageQualitySettingVC.delegate = self
+                navigationController?.pushViewController(imageQualitySettingVC, animated: true)
             case .logout:
                 let cancelAction = UIAlertAction(title: "取消", style: .cancel)
                 let logoutAction = UIAlertAction(title: "登出", style: .destructive) { [weak self] _ in
@@ -133,7 +143,19 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
 extension AccountViewController: XOTimeZoneSelectViewControllerDelegate {
     func selectedTimeZone(gmtOffsetHours: Int) {
         manager.userInfo.timeZone = gmtOffsetHours
-        Task { await MainActor.run { settingTableView.reloadData() } }
+        DispatchQueue.main.async { [weak self] in
+            self?.settingTableView.reloadData()
+        }
         navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - ImageQualitySettingVCDelegate
+extension AccountViewController: ImageQualitySettingVCDelegate {
+    func selectedQuality(type: ImageQualitySettingViewController.QualityType) {
+        manager.userInfo.imageQuality = type.value
+        DispatchQueue.main.async { [weak self] in
+            self?.settingTableView.reloadData()
+        }
     }
 }
