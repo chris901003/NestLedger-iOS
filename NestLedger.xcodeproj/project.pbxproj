@@ -59,6 +59,10 @@
 		05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B12D66222F000378A2 /* BasicInformationData.swift */; };
 		05B340B42D68B705000378A2 /* APIManager+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B32D68B705000378A2 /* APIManager+Photo.swift */; };
 		05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */; };
+		05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */; };
+		05EC2B162D6B54E2006F1F3A /* MRecentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */; };
+		05EC2B192D6B5916006F1F3A /* MQuickLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B182D6B5916006F1F3A /* MQuickLogView.swift */; };
+		05EC2B1C2D6CB316006F1F3A /* MQLPlusButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B1B2D6CB316006F1F3A /* MQLPlusButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +95,10 @@
 		05B340B12D66222F000378A2 /* BasicInformationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformationData.swift; sourceTree = "<group>"; };
 		05B340B32D68B705000378A2 /* APIManager+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Photo.swift"; sourceTree = "<group>"; };
 		05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageQualitySettingViewController.swift; sourceTree = "<group>"; };
+		05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
+		05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRecentContentView.swift; sourceTree = "<group>"; };
+		05EC2B182D6B5916006F1F3A /* MQuickLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQuickLogView.swift; sourceTree = "<group>"; };
+		05EC2B1B2D6CB316006F1F3A /* MQLPlusButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLPlusButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +188,8 @@
 		0503F2A92D524E0000B2640C /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				05EC2B172D6B5903006F1F3A /* QuickLog */,
+				05EC2B142D6B54B5006F1F3A /* RecentContent */,
 				0503F2AA2D524E0800B2640C /* MainViewController.swift */,
 			);
 			path = Main;
@@ -231,6 +241,7 @@
 				0508313E2D41E01C008C8831 /* Login */,
 				0503F2A92D524E0000B2640C /* Main */,
 				0503F2A32D524D1600B2640C /* RootViewController */,
+				05EC2B112D6B4F0B006F1F3A /* Utility */,
 				050830F52D41DA0F008C8831 /* AppDelegate.swift */,
 				050830FE2D41DA11008C8831 /* Assets.xcassets */,
 				050831032D41DA11008C8831 /* Info.plist */,
@@ -281,6 +292,39 @@
 			isa = PBXGroup;
 			children = (
 				05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		05EC2B112D6B4F0B006F1F3A /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		05EC2B142D6B54B5006F1F3A /* RecentContent */ = {
+			isa = PBXGroup;
+			children = (
+				05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */,
+			);
+			path = RecentContent;
+			sourceTree = "<group>";
+		};
+		05EC2B172D6B5903006F1F3A /* QuickLog */ = {
+			isa = PBXGroup;
+			children = (
+				05EC2B1A2D6CB30B006F1F3A /* Subviews */,
+				05EC2B182D6B5916006F1F3A /* MQuickLogView.swift */,
+			);
+			path = QuickLog;
+			sourceTree = "<group>";
+		};
+		05EC2B1A2D6CB30B006F1F3A /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				05EC2B1B2D6CB316006F1F3A /* MQLPlusButtonView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -398,13 +442,17 @@
 				0503F2A82D524D9300B2640C /* AccountViewController.swift in Sources */,
 				050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */,
 				05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */,
-				05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */,
 				055704592D57839C0032C47C /* DataConstain.swift in Sources */,
+				05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */,
 				0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */,
+				05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */,
 				0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */,
 				0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */,
 				050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */,
 				050831402D41E029008C8831 /* LoginViewController.swift in Sources */,
+				05EC2B1C2D6CB316006F1F3A /* MQLPlusButtonView.swift in Sources */,
+				05EC2B192D6B5916006F1F3A /* MQuickLogView.swift in Sources */,
+				05EC2B162D6B54E2006F1F3A /* MRecentContentView.swift in Sources */,
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,

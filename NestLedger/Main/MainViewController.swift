@@ -10,8 +10,49 @@ import Foundation
 import UIKit
 
 class MainViewController: UIViewController {
+    let todayLabel = UILabel()
+    let recentView = MRecentContentView()
+    let quickLogView = MQuickLogView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
+        layout()
+    }
+
+    private func setup() {
         view.backgroundColor = .white
+
+        todayLabel.text = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_dd_ch, date: Date.now)
+        todayLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        todayLabel.textColor = .black
+        todayLabel.numberOfLines = 1
+    }
+
+    private func layout() {
+        view.addSubview(todayLabel)
+        todayLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            todayLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            todayLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12)
+        ])
+
+        view.addSubview(recentView)
+        recentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            recentView.topAnchor.constraint(equalTo: todayLabel.bottomAnchor, constant: 12),
+            recentView.leadingAnchor.constraint(equalTo: todayLabel.leadingAnchor),
+            recentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
+            recentView.heightAnchor.constraint(equalToConstant: 150)
+        ])
+
+        view.addSubview(quickLogView)
+        quickLogView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            quickLogView.topAnchor.constraint(equalTo: recentView.bottomAnchor, constant: 24),
+            quickLogView.leadingAnchor.constraint(equalTo: recentView.leadingAnchor),
+            quickLogView.trailingAnchor.constraint(equalTo: recentView.trailingAnchor),
+            quickLogView.heightAnchor.constraint(equalToConstant: 150)
+        ])
     }
 }

@@ -22,6 +22,6 @@ class RootViewController: UITabBarController {
 
         viewControllers = [mainViewController, accountNavigationController]
 
-        selectedIndex = 1
+        selectedIndex = 0
     }
 }
