@@ -15,12 +15,14 @@ class MQuickLogView: UIView {
     let plus100 = MQLPlusButtonView(title: "+100", value: 100)
     let plus1000 = MQLPlusButtonView(title: "+1000", value: 1000)
 
+    let totalView = UIView()
     let totalIcon = UIImageView()
     let totalLabel = UITextField()
 
+    let incomeExpenditureSelectView = MQLIncomeExpenditureSelectView()
+
     var totalValue = 0 {
         didSet {
-            print("✅ New value: \(totalValue)")
             UIView.animate(withDuration: 0.1, animations: { [weak self] in
                 guard let self else { return }
                 totalLabel.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
@@ -32,6 +34,7 @@ class MQuickLogView: UIView {
             }
         }
     }
+    var valueType: MQLIncomeExpenditureSelectView.SelectedType = .income
 
     init() {
         super.init(frame: .zero)
@@ -81,10 +84,15 @@ class MQuickLogView: UIView {
         ])
         plus1000.layer.shadowPath = UIBezierPath(rect: plus1000.bounds).cgPath
 
+        totalView.layer.cornerRadius = 15.0
+        totalView.layer.borderWidth = 1.5
+        totalView.layer.borderColor = UIColor(red: 254 / 255, green: 204 / 255, blue: 90 / 255, alpha: 1).cgColor
+
         totalLabel.text = "\(totalValue)"
-        totalLabel.textColor = .black
+        totalLabel.textColor = UIColor(red: 254 / 255, green: 204 / 255, blue: 90 / 255, alpha: 1)
         totalLabel.font = .systemFont(ofSize: 20, weight: .semibold)
         totalLabel.keyboardType = .numberPad
+        totalLabel.delegate = self
     }
 
     private func setup() {
@@ -96,6 +104,8 @@ class MQuickLogView: UIView {
 
         totalIcon.image = UIImage(named: "coin")
         totalIcon.contentMode = .scaleAspectFit
+
+        incomeExpenditureSelectView.delegate = self
     }
 
     private func setupButton(plusView: MQLPlusButtonView) {
@@ -125,21 +135,39 @@ class MQuickLogView: UIView {
         addSubview(plus1000)
         plus1000.translatesAutoresizingMaskIntoConstraints = false
 
-        addSubview(totalIcon)
+        addSubview(totalView)
+        totalView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            totalView.topAnchor.constraint(equalTo: plus1.bottomAnchor, constant: 18),
+            totalView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            totalView.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -12)
+        ])
+
+        totalView.addSubview(totalIcon)
         totalIcon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            totalIcon.topAnchor.constraint(equalTo: plus1.bottomAnchor, constant: 18),
-            totalIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            totalIcon.topAnchor.constraint(equalTo: totalView.topAnchor, constant: 8),
+            totalIcon.leadingAnchor.constraint(equalTo: totalView.leadingAnchor, constant: 12),
+            totalIcon.bottomAnchor.constraint(equalTo: totalView.bottomAnchor, constant: -8),
             totalIcon.heightAnchor.constraint(equalToConstant: 35),
             totalIcon.widthAnchor.constraint(equalToConstant: 35)
         ])
 
-        addSubview(totalLabel)
+        totalView.addSubview(totalLabel)
         totalLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             totalLabel.leadingAnchor.constraint(equalTo: totalIcon.trailingAnchor, constant: 12),
             totalLabel.centerYAnchor.constraint(equalTo: totalIcon.centerYAnchor),
-            totalLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
+            totalLabel.trailingAnchor.constraint(equalTo: totalView.trailingAnchor, constant: -12)
+        ])
+
+        addSubview(incomeExpenditureSelectView)
+        incomeExpenditureSelectView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            incomeExpenditureSelectView.topAnchor.constraint(equalTo: plus1.bottomAnchor, constant: 18),
+            incomeExpenditureSelectView.leadingAnchor.constraint(equalTo: totalView.trailingAnchor, constant: 12),
+            incomeExpenditureSelectView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            incomeExpenditureSelectView.heightAnchor.constraint(equalTo: totalView.heightAnchor)
         ])
     }
 }
@@ -147,6 +175,7 @@ class MQuickLogView: UIView {
 extension MQuickLogView {
     @objc private func tapAction(_ sender: UITapGestureRecognizer) {
         guard let tappedView = sender.view as? MQLPlusButtonView else { return }
+        totalLabel.resignFirstResponder()
         UIView.animate(withDuration: 0.1, animations: {
             tappedView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         }) { _ in
@@ -156,5 +185,21 @@ extension MQuickLogView {
         }
 
         totalValue += tappedView.value
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension MQuickLogView: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text,
+              let value = Int(text) else { return }
+        totalValue = value
+    }
+}
+
+// MARK: - MQLIncomeExpenditureSelectViewDelegate
+extension MQuickLogView: MQLIncomeExpenditureSelectViewDelegate {
+    func changeValueType(type: MQLIncomeExpenditureSelectView.SelectedType) {
+        valueType = type
     }
 }
