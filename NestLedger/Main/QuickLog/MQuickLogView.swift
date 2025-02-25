@@ -20,6 +20,8 @@ class MQuickLogView: UIView {
     let totalLabel = UITextField()
 
     let incomeExpenditureSelectView = MQLIncomeExpenditureSelectView()
+    let tagView = MQLTagView()
+    let sendView = MQLSendView()
 
     var totalValue = 0 {
         didSet {
@@ -83,16 +85,6 @@ class MQuickLogView: UIView {
             plus1000.heightAnchor.constraint(equalToConstant: height)
         ])
         plus1000.layer.shadowPath = UIBezierPath(rect: plus1000.bounds).cgPath
-
-        totalView.layer.cornerRadius = 15.0
-        totalView.layer.borderWidth = 1.5
-        totalView.layer.borderColor = UIColor(red: 254 / 255, green: 204 / 255, blue: 90 / 255, alpha: 1).cgColor
-
-        totalLabel.text = "\(totalValue)"
-        totalLabel.textColor = UIColor(red: 254 / 255, green: 204 / 255, blue: 90 / 255, alpha: 1)
-        totalLabel.font = .systemFont(ofSize: 20, weight: .semibold)
-        totalLabel.keyboardType = .numberPad
-        totalLabel.delegate = self
     }
 
     private func setup() {
@@ -102,10 +94,24 @@ class MQuickLogView: UIView {
         setupButton(plusView: plus100)
         setupButton(plusView: plus1000)
 
+        totalView.layer.cornerRadius = 15.0
+        totalView.layer.borderWidth = 1.5
+        totalView.layer.borderColor = UIColor(red: 254 / 255, green: 204 / 255, blue: 90 / 255, alpha: 1).cgColor
+
         totalIcon.image = UIImage(named: "coin")
         totalIcon.contentMode = .scaleAspectFit
 
+        totalLabel.text = "\(totalValue)"
+        totalLabel.textColor = UIColor(red: 254 / 255, green: 204 / 255, blue: 90 / 255, alpha: 1)
+        totalLabel.font = .systemFont(ofSize: 20, weight: .semibold)
+        totalLabel.keyboardType = .numberPad
+        totalLabel.delegate = self
+
         incomeExpenditureSelectView.delegate = self
+
+        tagView.layer.cornerRadius = 15.0
+        tagView.layer.borderWidth = 1.5
+        tagView.layer.borderColor = UIColor.lightGray.cgColor
     }
 
     private func setupButton(plusView: MQLPlusButtonView) {
@@ -168,6 +174,23 @@ class MQuickLogView: UIView {
             incomeExpenditureSelectView.leadingAnchor.constraint(equalTo: totalView.trailingAnchor, constant: 12),
             incomeExpenditureSelectView.trailingAnchor.constraint(equalTo: trailingAnchor),
             incomeExpenditureSelectView.heightAnchor.constraint(equalTo: totalView.heightAnchor)
+        ])
+
+        addSubview(tagView)
+        tagView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tagView.topAnchor.constraint(equalTo: totalView.bottomAnchor, constant: 12),
+            tagView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tagView.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -12)
+        ])
+
+        addSubview(sendView)
+        sendView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            sendView.topAnchor.constraint(equalTo: totalView.bottomAnchor, constant: 12),
+            sendView.leadingAnchor.constraint(equalTo: centerXAnchor, constant: 12),
+            sendView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            sendView.heightAnchor.constraint(equalTo: tagView.heightAnchor)
         ])
     }
 }
