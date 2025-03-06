@@ -38,6 +38,8 @@ class MQuickLogView: UIView {
     }
     var valueType: MQLIncomeExpenditureSelectView.SelectedType = .income
 
+    let manager = MQLQuickLogManager()
+
     init() {
         super.init(frame: .zero)
         setup()
@@ -112,6 +114,8 @@ class MQuickLogView: UIView {
         tagView.layer.cornerRadius = 15.0
         tagView.layer.borderWidth = 1.5
         tagView.layer.borderColor = UIColor.lightGray.cgColor
+
+        sendView.delegate = manager
     }
 
     private func setupButton(plusView: MQLPlusButtonView) {

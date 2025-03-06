@@ -9,10 +9,16 @@
 import Foundation
 import UIKit
 
+protocol MQLSendViewDelegate: AnyObject {
+    func sendAction(completion: @escaping () -> Void)
+}
+
 class MQLSendView: UIView {
     let iconView = UIImageView()
     let label = UILabel()
     let spinner = UIActivityIndicatorView(style: .medium)
+
+    weak var delegate: MQLSendViewDelegate?
 
     var iconViewLeadingConstraint: NSLayoutConstraint?
 
@@ -33,7 +39,6 @@ class MQLSendView: UIView {
         iconView.image = UIImage(systemName: "play.fill")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
         iconView.contentMode = .scaleAspectFit
         iconView.isUserInteractionEnabled = true
-        iconView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAction)))
 
         label.text = "添加紀錄"
         label.textColor = .systemBlue
@@ -41,7 +46,6 @@ class MQLSendView: UIView {
         label.numberOfLines = 1
         label.textAlignment = .center
         label.isUserInteractionEnabled = true
-        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAction)))
 
         spinner.alpha = 0
     }
@@ -88,6 +92,24 @@ class MQLSendView: UIView {
                 guard let self else { return }
                 spinner.alpha = 1
                 spinner.startAnimating()
+                delegate?.sendAction(completion: finishedSend)
+            }
+        }
+    }
+
+    private func finishedSend() {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.25) { [weak self] in
+                guard let self else { return }
+                spinner.alpha = 0
+                spinner.stopAnimating()
+            }
+            UIView.animate(withDuration: 0.25) { [weak self] in
+                guard let self else { return }
+                label.alpha = 1
+                iconView.alpha = 1
+                iconViewLeadingConstraint?.constant = 0
+                layoutIfNeeded()
             }
         }
     }
