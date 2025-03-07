@@ -27,6 +27,8 @@ class MainViewController: UIViewController {
         todayLabel.font = .systemFont(ofSize: 18, weight: .bold)
         todayLabel.textColor = .black
         todayLabel.numberOfLines = 1
+
+        quickLogView.delegate = self
     }
 
     private func layout() {
@@ -52,7 +54,16 @@ class MainViewController: UIViewController {
             quickLogView.topAnchor.constraint(equalTo: recentView.bottomAnchor, constant: 24),
             quickLogView.leadingAnchor.constraint(equalTo: recentView.leadingAnchor),
             quickLogView.trailingAnchor.constraint(equalTo: recentView.trailingAnchor),
-            quickLogView.heightAnchor.constraint(equalToConstant: 150)
+            quickLogView.heightAnchor.constraint(equalToConstant: 250)
         ])
+    }
+}
+
+// MARK: - NLNeedPresent
+extension MainViewController: NLNeedPresent {
+    func presentVC(_ vc: UIViewController) {
+        DispatchQueue.main.async { [weak self] in
+            self?.present(vc, animated: true)
+        }
     }
 }

@@ -9,9 +9,15 @@
 import Foundation
 import UIKit
 
+protocol NLNeedPresent: AnyObject {
+    func presentVC(_ vc: UIViewController)
+}
+
 class MQLTagView: UIView {
     let colorView = UIView()
     let tagLabel = UILabel()
+
+    weak var delegate: NLNeedPresent?
 
     init() {
         super.init(frame: .zero)
@@ -24,6 +30,9 @@ class MQLTagView: UIView {
     }
 
     private func setup() {
+        isUserInteractionEnabled = true
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAction)))
+
         colorView.layer.cornerRadius = 15 / 2
         colorView.layer.borderWidth = 1
         colorView.layer.borderColor = UIColor.secondaryLabel.cgColor
@@ -53,5 +62,16 @@ class MQLTagView: UIView {
             tagLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12),
             tagLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
         ])
+    }
+}
+
+// MARK: - Utility
+extension MQLTagView {
+    @objc private func tapAction() {
+        let tagViewController = TagViewController(type: .selectTag)
+        if let sheet = tagViewController.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+        delegate?.presentVC(tagViewController)
     }
 }

@@ -39,6 +39,9 @@ class MQuickLogView: UIView {
     var valueType: MQLIncomeExpenditureSelectView.SelectedType = .income
 
     let manager = MQLQuickLogManager()
+    weak var delegate: NLNeedPresent? {
+        didSet { tagView.delegate = delegate }
+    }
 
     init() {
         super.init(frame: .zero)
@@ -212,6 +215,13 @@ extension MQuickLogView {
         }
 
         totalValue += tappedView.value
+    }
+}
+
+// MARK: - NLNeedPresent
+extension MQuickLogView: NLNeedPresent {
+    func presentVC(_ vc: UIViewController) {
+        delegate?.presentVC(vc)
     }
 }
 
