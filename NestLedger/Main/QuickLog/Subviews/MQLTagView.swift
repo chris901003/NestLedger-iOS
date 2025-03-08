@@ -69,8 +69,12 @@ class MQLTagView: UIView {
 extension MQLTagView {
     @objc private func tapAction() {
         let tagViewController = TagViewController(type: .selectTag)
+        let _70DetentId = UISheetPresentationController.Detent.Identifier("70")
+        let _70Detent = UISheetPresentationController.Detent.custom(identifier: _70DetentId) { context in
+            return UIScreen.main.bounds.height * 0.7
+        }
         if let sheet = tagViewController.sheetPresentationController {
-            sheet.detents = [.medium()]
+            sheet.detents = [_70Detent]
         }
         delegate?.presentVC(tagViewController)
     }

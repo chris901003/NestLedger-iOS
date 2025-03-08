@@ -15,6 +15,9 @@ enum TagVCType: String {
 }
 
 class TagViewController: UIViewController {
+    let tagCellId = "TagCellId"
+    let newTagCellId = "NewTagCellId"
+
     let type: TagVCType
 
     let topBar = UIView()
@@ -22,6 +25,7 @@ class TagViewController: UIViewController {
     let sepLine = UIView()
 
     let searchBar = XOSearchBarView()
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
 
     init(type: TagVCType) {
         self.type = type
@@ -36,6 +40,7 @@ class TagViewController: UIViewController {
         super.viewDidLoad()
         setup()
         layout()
+        registerCell()
     }
 
     private func setup() {
@@ -53,6 +58,9 @@ class TagViewController: UIViewController {
         sepLine.backgroundColor = .systemGray4
 
         searchBar.delegate = self
+
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
     private func layout() {
@@ -89,6 +97,20 @@ class TagViewController: UIViewController {
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12)
         ])
+
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
+    private func registerCell() {
+        tableView.register(TagCell.self, forCellReuseIdentifier: tagCellId)
+        tableView.register(NewTagCell.self, forCellReuseIdentifier: newTagCellId)
     }
 }
 
@@ -96,5 +118,56 @@ class TagViewController: UIViewController {
 extension TagViewController: XOSearchBarViewDelegate {
     func searchAction(text: String) {
         print("✅ Search: \(text)")
+    }
+}
+
+// MARK: - UITableViewDelegate, UITableViewDataSource
+extension TagViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        section == 1 ? 25 : 35
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        section == 1 ? "現有的標籤" : "添加新標籤"
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        section == 1 ? 15 : 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: tagCellId, for: indexPath) as? TagCell else {
+                return UITableViewCell()
+            }
+            cell.config(color: .orange, label: "吃的")
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: newTagCellId, for: indexPath) as? NewTagCell else {
+                return UITableViewCell()
+            }
+            cell.delegate = self
+            return cell
+        }
+    }
+}
+
+// MARK: - NLNeedPresent
+extension TagViewController: NLNeedPresent {
+    func presentVC(_ vc: UIViewController) {
+        DispatchQueue.main.async { [weak self] in
+            self?.present(vc, animated: true)
+        }
+    }
+}
+
+// MARK: - NewTagCellDelegate
+extension TagViewController: NewTagCellDelegate {
+    func sendNewTag(color: UIColor, label: String) {
+        print("✅ Send new tag: \(label)")
     }
 }

@@ -52,6 +52,7 @@
 		0529446F2D6E10B200943CAC /* MQLSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446E2D6E10B200943CAC /* MQLSendView.swift */; };
 		052944712D79E44300943CAC /* MQLQuickLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052944702D79E44300943CAC /* MQLQuickLogManager.swift */; };
 		052944752D79E9D700943CAC /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052944742D79E9D700943CAC /* TagViewController.swift */; };
+		054A09322D7C11E30092B7E8 /* NewTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054A09312D7C11E30092B7E8 /* NewTagCell.swift */; };
 		055704532D5781D30032C47C /* AccountVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055704522D5781D30032C47C /* AccountVCManager.swift */; };
 		055704572D5782A90032C47C /* UserInfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055704562D5782A90032C47C /* UserInfoData.swift */; };
 		055704592D57839C0032C47C /* DataConstain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055704582D57839C0032C47C /* DataConstain.swift */; };
@@ -63,6 +64,7 @@
 		05B340AF2D66218B000378A2 /* APIManager+Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AE2D66218B000378A2 /* APIManager+Information.swift */; };
 		05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B12D66222F000378A2 /* BasicInformationData.swift */; };
 		05B340B42D68B705000378A2 /* APIManager+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B32D68B705000378A2 /* APIManager+Photo.swift */; };
+		05C37B912D7B35FF005FCF89 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C37B902D7B35FF005FCF89 /* TagCell.swift */; };
 		05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */; };
 		05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */; };
 		05EC2B162D6B54E2006F1F3A /* MRecentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */; };
@@ -93,6 +95,7 @@
 		0529446E2D6E10B200943CAC /* MQLSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLSendView.swift; sourceTree = "<group>"; };
 		052944702D79E44300943CAC /* MQLQuickLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLQuickLogManager.swift; sourceTree = "<group>"; };
 		052944742D79E9D700943CAC /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
+		054A09312D7C11E30092B7E8 /* NewTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTagCell.swift; sourceTree = "<group>"; };
 		055704522D5781D30032C47C /* AccountVCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVCManager.swift; sourceTree = "<group>"; };
 		055704562D5782A90032C47C /* UserInfoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoData.swift; sourceTree = "<group>"; };
 		055704582D57839C0032C47C /* DataConstain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConstain.swift; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 		05B340AE2D66218B000378A2 /* APIManager+Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Information.swift"; sourceTree = "<group>"; };
 		05B340B12D66222F000378A2 /* BasicInformationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformationData.swift; sourceTree = "<group>"; };
 		05B340B32D68B705000378A2 /* APIManager+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Photo.swift"; sourceTree = "<group>"; };
+		05C37B902D7B35FF005FCF89 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageQualitySettingViewController.swift; sourceTree = "<group>"; };
 		05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRecentContentView.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 		052944732D79E9B500943CAC /* Tag */ = {
 			isa = PBXGroup;
 			children = (
+				05C37B8F2D7B35ED005FCF89 /* Cells */,
 				052944742D79E9D700943CAC /* TagViewController.swift */,
 			);
 			path = Tag;
@@ -313,6 +318,15 @@
 				05B340B12D66222F000378A2 /* BasicInformationData.swift */,
 			);
 			path = Information;
+			sourceTree = "<group>";
+		};
+		05C37B8F2D7B35ED005FCF89 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				054A09312D7C11E30092B7E8 /* NewTagCell.swift */,
+				05C37B902D7B35FF005FCF89 /* TagCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		05EC2B0E2D6A14BA006F1F3A /* Subviews */ = {
@@ -489,8 +503,10 @@
 				05EC2B192D6B5916006F1F3A /* MQuickLogView.swift in Sources */,
 				05EC2B162D6B54E2006F1F3A /* MRecentContentView.swift in Sources */,
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
+				054A09322D7C11E30092B7E8 /* NewTagCell.swift in Sources */,
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,
+				05C37B912D7B35FF005FCF89 /* TagCell.swift in Sources */,
 				052944752D79E9D700943CAC /* TagViewController.swift in Sources */,
 				0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */,
 				055704572D5782A90032C47C /* UserInfoData.swift in Sources */,
