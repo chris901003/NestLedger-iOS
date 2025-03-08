@@ -41,6 +41,8 @@ class NewTagCell: UITableViewCell {
         colorCircle.backgroundColor = .clear
         colorCircle.layer.borderColor = UIColor.systemGray5.cgColor
         colorCircle.layer.borderWidth = 1.5
+        colorCircle.isUserInteractionEnabled = true
+        colorCircle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectColorAction)))
 
         tagLabel.placeholder = "輸入新的標籤名稱"
         tagLabel.font = .systemFont(ofSize: 16, weight: .semibold)
@@ -84,10 +86,15 @@ class NewTagCell: UITableViewCell {
 
 // MARK: - Utility
 extension NewTagCell {
+    @objc private func selectColorAction() {
+        let controller = UIColorPickerViewController()
+        controller.delegate = self
+        delegate?.presentVC(controller)
+    }
+
     @objc private func sendAction() {
-        guard let color = colorCircle.backgroundColor,
-              color != .clear,
-              let label = tagLabel.text else {
+        guard let color = colorCircle.backgroundColor, color != .clear,
+              let label = tagLabel.text, !label.isEmpty else {
             let okAction = UIAlertAction(title: "確認", style: .default)
             let controller = UIAlertController(title: "添加失敗", message: "缺少顏色或是標籤名稱", preferredStyle: .alert)
             controller.addAction(okAction)
@@ -103,5 +110,12 @@ extension NewTagCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+// MARK: - UIColorPickerViewControllerDelegate
+extension NewTagCell: UIColorPickerViewControllerDelegate {
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        colorCircle.backgroundColor = viewController.selectedColor
     }
 }
