@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import xxooooxxCommonUI
 
+protocol TagViewControllerDelegate: AnyObject {
+    func selectedTag(vc: UIViewController, data: TagData)
+}
+
 enum TagVCType: String {
     case selectTag = "選擇標籤"
 }
@@ -28,6 +32,7 @@ class TagViewController: UIViewController {
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
 
     let manager = TagManager()
+    weak var delegate: TagViewControllerDelegate?
 
     init(type: TagVCType) {
         self.type = type
@@ -159,6 +164,12 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
         }
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let type = SectionType.allCases[indexPath.section]
+        guard type == .existTag else { return }
+        delegate?.selectedTag(vc: self, data: manager.showTags[indexPath.row])
+    }
 }
 
 // MARK: - NLNeedPresent
@@ -172,7 +183,7 @@ extension TagViewController: NLNeedPresent {
 
 // MARK: - NewTagCellDelegate
 extension TagViewController: NewTagCellDelegate {
-    func sendNewTag(color: UIColor, label: String) {
-        print("✅ Send new tag: \(label)")
+    func sendNewTag(data: TagData) {
+        delegate?.selectedTag(vc: self, data: data)
     }
 }

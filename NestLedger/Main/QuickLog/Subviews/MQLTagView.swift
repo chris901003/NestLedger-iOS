@@ -69,6 +69,7 @@ class MQLTagView: UIView {
 extension MQLTagView {
     @objc private func tapAction() {
         let tagViewController = TagViewController(type: .selectTag)
+        tagViewController.delegate = self
         let _70DetentId = UISheetPresentationController.Detent.Identifier("70")
         let _70Detent = UISheetPresentationController.Detent.custom(identifier: _70DetentId) { context in
             return UIScreen.main.bounds.height * 0.7
@@ -77,5 +78,15 @@ extension MQLTagView {
             sheet.detents = [_70Detent]
         }
         delegate?.presentVC(tagViewController)
+    }
+}
+
+// MARK: - TagViewControllerDelegate
+extension MQLTagView: TagViewControllerDelegate {
+    func selectedTag(vc: UIViewController, data: TagData) {
+        colorView.backgroundColor = data.getColor
+        colorView.layer.borderColor = data.getColor.cgColor
+        tagLabel.text = data.label
+        vc.dismiss(animated: true)
     }
 }

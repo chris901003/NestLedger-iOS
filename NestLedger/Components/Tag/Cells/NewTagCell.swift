@@ -8,9 +8,10 @@
 
 import Foundation
 import UIKit
+import xxooooxxCommonFunction
 
 protocol NewTagCellDelegate: NLNeedPresent {
-    func sendNewTag(color: UIColor, label: String)
+    func sendNewTag(data: TagData)
 }
 
 class NewTagCell: UITableViewCell {
@@ -101,7 +102,7 @@ extension NewTagCell {
             delegate?.presentVC(controller)
             return
         }
-        delegate?.sendNewTag(color: color, label: label)
+        delegate?.sendNewTag(data: .init(label: label, color: color.toHexString))
     }
 }
 
@@ -117,5 +118,9 @@ extension NewTagCell: UITextFieldDelegate {
 extension NewTagCell: UIColorPickerViewControllerDelegate {
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         colorCircle.backgroundColor = viewController.selectedColor
+    }
+
+    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
+        colorCircle.backgroundColor = color
     }
 }
