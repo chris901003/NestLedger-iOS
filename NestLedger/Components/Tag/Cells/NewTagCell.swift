@@ -102,7 +102,7 @@ extension NewTagCell {
             delegate?.presentVC(controller)
             return
         }
-        delegate?.sendNewTag(data: .init(label: label, color: color.toHexString))
+        delegate?.sendNewTag(data: .init(label: label, color: color.toHexString, ledgerId: "", version: TAG_DATA_VERSION))
     }
 }
 

@@ -49,4 +49,12 @@ class APIPath {
         // [POST]
         case create = "/ledger/create"
     }
+
+    enum Tag: String, APIPathProtocol {
+        // [GET]
+        case getByLedger = "/tag/get-by-ledger"
+
+        // [POST]
+        case create = "/tag/create"
+    }
 }

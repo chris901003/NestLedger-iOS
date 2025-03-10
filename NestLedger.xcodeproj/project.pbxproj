@@ -49,6 +49,9 @@
 		050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050831462D41E32C008C8831 /* LoginVCManager.swift */; };
 		051257D72D7F129E0066F3F2 /* APIManager+Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257D62D7F129E0066F3F2 /* APIManager+Ledger.swift */; };
 		051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257D92D7F16630066F3F2 /* LedgerData.swift */; };
+		051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257DD2D7F1AC80066F3F2 /* SingletonData.swift */; };
+		051257E02D7F1D070066F3F2 /* APIManager+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257DF2D7F1D070066F3F2 /* APIManager+Tag.swift */; };
+		051257E32D7F1DC10066F3F2 /* TagData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E22D7F1DC10066F3F2 /* TagData.swift */; };
 		0529446B2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446A2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift */; };
 		0529446D2D6E0AA500943CAC /* MQLTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446C2D6E0AA500943CAC /* MQLTagView.swift */; };
 		0529446F2D6E10B200943CAC /* MQLSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446E2D6E10B200943CAC /* MQLSendView.swift */; };
@@ -95,6 +98,9 @@
 		050831462D41E32C008C8831 /* LoginVCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVCManager.swift; sourceTree = "<group>"; };
 		051257D62D7F129E0066F3F2 /* APIManager+Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Ledger.swift"; sourceTree = "<group>"; };
 		051257D92D7F16630066F3F2 /* LedgerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerData.swift; sourceTree = "<group>"; };
+		051257DD2D7F1AC80066F3F2 /* SingletonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonData.swift; sourceTree = "<group>"; };
+		051257DF2D7F1D070066F3F2 /* APIManager+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Tag.swift"; sourceTree = "<group>"; };
+		051257E22D7F1DC10066F3F2 /* TagData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagData.swift; sourceTree = "<group>"; };
 		051AC9312D41EFAD00ECE40B /* NestLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NestLedger.entitlements; sourceTree = "<group>"; };
 		0529446A2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLIncomeExpenditureSelectView.swift; sourceTree = "<group>"; };
 		0529446C2D6E0AA500943CAC /* MQLTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLTagView.swift; sourceTree = "<group>"; };
@@ -182,6 +188,7 @@
 				05B340AE2D66218B000378A2 /* APIManager+Information.swift */,
 				051257D62D7F129E0066F3F2 /* APIManager+Ledger.swift */,
 				05B340B32D68B705000378A2 /* APIManager+Photo.swift */,
+				051257DF2D7F1D070066F3F2 /* APIManager+Tag.swift */,
 				05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */,
 				0503F2A12D52499200B2640C /* APIManager.swift */,
 				05B340A82D66123E000378A2 /* APIPath.swift */,
@@ -293,6 +300,14 @@
 			path = Ledger;
 			sourceTree = "<group>";
 		};
+		051257E12D7F1DB90066F3F2 /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				051257E22D7F1DC10066F3F2 /* TagData.swift */,
+			);
+			path = Tag;
+			sourceTree = "<group>";
+		};
 		052944722D79E91900943CAC /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,9 +332,11 @@
 			children = (
 				05B340B02D66221F000378A2 /* Information */,
 				051257D82D7F165A0066F3F2 /* Ledger */,
+				051257E12D7F1DB90066F3F2 /* Tag */,
 				055704552D5782A20032C47C /* UserInfo */,
 				05B340AC2D66201E000378A2 /* APIResponseData.swift */,
 				055704582D57839C0032C47C /* DataConstain.swift */,
+				051257DD2D7F1AC80066F3F2 /* SingletonData.swift */,
 			);
 			path = Datas;
 			sourceTree = "<group>";
@@ -499,6 +516,7 @@
 				05B340AF2D66218B000378A2 /* APIManager+Information.swift in Sources */,
 				051257D72D7F129E0066F3F2 /* APIManager+Ledger.swift in Sources */,
 				05B340B42D68B705000378A2 /* APIManager+Photo.swift in Sources */,
+				051257E02D7F1D070066F3F2 /* APIManager+Tag.swift in Sources */,
 				05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */,
 				0503F2A22D52499200B2640C /* APIManager.swift in Sources */,
 				05B340A92D66123E000378A2 /* APIPath.swift in Sources */,
@@ -528,8 +546,10 @@
 				054A09322D7C11E30092B7E8 /* NewTagCell.swift in Sources */,
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,
+				051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */,
 				054A09342D7C1DDB0092B7E8 /* TVC+TabelViewSetting.swift in Sources */,
 				05C37B912D7B35FF005FCF89 /* TagCell.swift in Sources */,
+				051257E32D7F1DC10066F3F2 /* TagData.swift in Sources */,
 				054A09362D7C20160092B7E8 /* TagManager.swift in Sources */,
 				052944752D79E9D700943CAC /* TagViewController.swift in Sources */,
 				0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */,

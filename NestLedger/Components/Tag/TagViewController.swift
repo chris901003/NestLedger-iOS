@@ -51,6 +51,8 @@ class TagViewController: UIViewController {
     }
 
     private func setup() {
+        manager.vc = self
+
         view.backgroundColor = .white
 
         topBar.backgroundColor = .systemGray5
@@ -184,6 +186,9 @@ extension TagViewController: NLNeedPresent {
 // MARK: - NewTagCellDelegate
 extension TagViewController: NewTagCellDelegate {
     func sendNewTag(data: TagData) {
-        delegate?.selectedTag(vc: self, data: data)
+        Task {
+            await manager.createTag(tag: data)
+            await MainActor.run { delegate?.selectedTag(vc: self, data: data) }
+        }
     }
 }

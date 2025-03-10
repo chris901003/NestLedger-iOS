@@ -8,17 +8,41 @@
 
 import Foundation
 import UIKit
-
-struct TagData {
-    let label: String
-    let color: String
-
-    var getColor: UIColor { UIColor(hexCode: color) }
-}
+import xxooooxxCommonUI
 
 class TagManager {
-    var showTags: [TagData] = [
-        .init(label: "Test 1", color: "#eb4034"),
-        .init(label: "Test 2", color: "#347deb")
-    ]
+    let apiManager = APIManager()
+    var ledgerId: String = ""
+    var showTags: [TagData] = []
+
+    weak var vc: TagViewController?
+
+    init() {
+        Task {
+            do {
+                try await fetchLedgerTags()
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取標籤資訊失敗")
+            }
+            await MainActor.run {
+                vc?.tableView.reloadData()
+            }
+        }
+    }
+
+    private func fetchLedgerTags() async throws {
+        guard let ledgerId = sharedUserInfo.ledgerIds.first else { return }
+        self.ledgerId = ledgerId
+        showTags = try await apiManager.getTagsBy(ledgerId: ledgerId)
+    }
+
+    func createTag(tag: TagData) async {
+        var tag = tag
+        tag.ledgerId = ledgerId
+        do {
+            try await apiManager.createTag(data: tag)
+        } catch {
+            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "創建標籤失敗")
+        }
+    }
 }
