@@ -16,6 +16,7 @@ struct UserInfoData: Codable {
     var avatar: String
     var timeZone: Int
     var imageQuality: Double
+    var ledgerIds: [String]
     var version: Int
 
     init(
@@ -25,6 +26,7 @@ struct UserInfoData: Codable {
         avatar: String = "",
         timeZone: Int = 8,
         imageQuality: Double = 0.5,
+        ledgerIds: [String] = [],
         version: Int = USER_INFO_DATA_VERSION
     ) {
         self.id = id
@@ -33,6 +35,7 @@ struct UserInfoData: Codable {
         self.avatar = avatar
         self.timeZone = timeZone
         self.imageQuality = imageQuality
+        self.ledgerIds = ledgerIds
         self.version = version
     }
 
@@ -44,6 +47,7 @@ struct UserInfoData: Codable {
             avatar: "",
             timeZone: 8,
             imageQuality: 0.5,
+            ledgerIds: [],
             version: USER_INFO_DATA_VERSION
         )
     }

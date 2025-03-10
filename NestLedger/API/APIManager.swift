@@ -34,10 +34,15 @@ class APIManager {
         set { APIManager._authToken = newValue }
     }
 
-    func genRequest(url: URL, method: HttpMethod) -> URLRequest {
+    func genRequest(url: URL, method: HttpMethod, body: [String: Any]? = nil) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.setValue(APIManager.authToken, forHTTPHeaderField: "Authorization")
+
+        if let body, let jsonData = try? JSONSerialization.data(withJSONObject: body) {
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+        }
         return request
     }
 }

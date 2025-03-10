@@ -9,3 +9,4 @@
 import Foundation
 
 let USER_INFO_DATA_VERSION = 1
+let LEDGER_DATA_VERSION = 1

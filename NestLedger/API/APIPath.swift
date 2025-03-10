@@ -44,4 +44,9 @@ class APIPath {
         // [POST]
         case single = "/photo/single"
     }
+
+    enum Ledger: String, APIPathProtocol {
+        // [POST]
+        case create = "/ledger/create"
+    }
 }
