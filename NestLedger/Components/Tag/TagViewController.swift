@@ -126,7 +126,7 @@ class TagViewController: UIViewController {
 // MARK: - XOSearchBarViewDelegate
 extension TagViewController: XOSearchBarViewDelegate {
     func searchAction(text: String) {
-        print("✅ Search: \(text)")
+        manager.search = text.isEmpty ? nil : text
     }
 }
 
@@ -146,6 +146,21 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         SectionType.allCases[section] == .newTag ? 1 : manager.showTags.count
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if !manager.isLoading,
+           !manager.isEnd,
+           SectionType.allCases[indexPath.section] == .existTag,
+           indexPath.row == manager.showTags.count - 1 {
+            Task {
+                do {
+                    try await manager.fetchMoreLedgerTags()
+                } catch {
+                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "加載更多標籤失敗")
+                }
+            }
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

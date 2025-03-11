@@ -45,9 +45,13 @@ extension APIManager {
         }
     }
 
-    func getTagsBy(ledgerId: String) async throws -> [TagData] {
+    func getTagsBy(ledgerId: String, search: String? = nil, page: Int? = nil, limit: Int? = nil) async throws -> [TagData] {
         guard var components = URLComponents(string: APIPath.Tag.getByLedger.getPath()) else { throw APIManagerError.badUrl }
         components.queryItems = [URLQueryItem(name: "ledgerId", value: ledgerId)]
+        if let search { components.queryItems?.append(.init(name: "search", value: search)) }
+        if let page { components.queryItems?.append(.init(name: "page", value: "\(page)")) }
+        if let limit { components.queryItems?.append(.init(name: "limit", value: "\(limit)")) }
+
         guard let url = components.url else { throw APIManagerError.badUrl }
         let request = genRequest(url: url, method: .GET)
         do {

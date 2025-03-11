@@ -13,14 +13,34 @@ import xxooooxxCommonUI
 class TagManager {
     let apiManager = APIManager()
     var ledgerId: String = ""
+    var search: String? {
+        didSet {
+            page = 1
+            showTags = []
+            Task {
+                do {
+                    try await fetchMoreLedgerTags()
+                } catch {
+                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "搜尋失敗")
+                }
+            }
+        }
+    }
+
     var showTags: [TagData] = []
+    var page: Int = 1
+    let limit: Int = 20
+    var isLoading: Bool = false
+    var isEnd: Bool = false
 
     weak var vc: TagViewController?
 
     init() {
         Task {
             do {
-                try await fetchLedgerTags()
+                guard let ledgerId = sharedUserInfo.ledgerIds.first else { return }
+                self.ledgerId = ledgerId
+                try await fetchMoreLedgerTags()
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取標籤資訊失敗")
             }
@@ -30,10 +50,16 @@ class TagManager {
         }
     }
 
-    private func fetchLedgerTags() async throws {
-        guard let ledgerId = sharedUserInfo.ledgerIds.first else { return }
-        self.ledgerId = ledgerId
-        showTags = try await apiManager.getTagsBy(ledgerId: ledgerId)
+    func fetchMoreLedgerTags() async throws {
+        await MainActor.run { isLoading = true }
+        let tags = try await apiManager.getTagsBy(ledgerId: ledgerId, search: search, page: page, limit: limit)
+        showTags.append(contentsOf: tags)
+        isEnd = tags.isEmpty
+        page += 1
+        await MainActor.run {
+            isLoading = false
+            vc?.tableView.reloadData()
+        }
     }
 
     func createTag(tag: TagData) async -> Bool {
