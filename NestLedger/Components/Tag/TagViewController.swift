@@ -187,8 +187,10 @@ extension TagViewController: NLNeedPresent {
 extension TagViewController: NewTagCellDelegate {
     func sendNewTag(data: TagData) {
         Task {
-            await manager.createTag(tag: data)
-            await MainActor.run { delegate?.selectedTag(vc: self, data: data) }
+            let result = await manager.createTag(tag: data)
+            if result {
+                await MainActor.run { delegate?.selectedTag(vc: self, data: data) }
+            }
         }
     }
 }
