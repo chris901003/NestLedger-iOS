@@ -34,14 +34,17 @@ class MQuickLogView: UIView {
                     self?.totalLabel.transform = .identity
                 }
             }
+            manager.transaction.money = totalValue
         }
     }
-    var valueType: MQLIncomeExpenditureSelectView.SelectedType = .income
+    var valueType: MQLIncomeExpenditureSelectView.SelectedType = .income {
+        didSet {
+            manager.transaction.type = valueType == .income ? .income : .expenditure
+        }
+    }
 
     let manager = MQLQuickLogManager()
-    weak var delegate: NLNeedPresent? {
-        didSet { tagView.delegate = delegate }
-    }
+    weak var delegate: NLNeedPresent?
 
     init() {
         super.init(frame: .zero)
@@ -117,6 +120,7 @@ class MQuickLogView: UIView {
         tagView.layer.cornerRadius = 15.0
         tagView.layer.borderWidth = 1.5
         tagView.layer.borderColor = UIColor.lightGray.cgColor
+        tagView.delegate = self
 
         sendView.delegate = manager
     }
@@ -218,10 +222,14 @@ extension MQuickLogView {
     }
 }
 
-// MARK: - NLNeedPresent
-extension MQuickLogView: NLNeedPresent {
+// MARK: - MQLTagViewDelegate
+extension MQuickLogView: MQLTagViewDelegate {
     func presentVC(_ vc: UIViewController) {
         delegate?.presentVC(vc)
+    }
+
+    func selectedTag(tag: TagData) {
+        manager.transaction.tagId = tag._id
     }
 }
 

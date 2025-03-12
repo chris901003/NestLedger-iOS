@@ -94,6 +94,7 @@ extension NewTagCell {
     }
 
     @objc private func sendAction() {
+        tagLabel.resignFirstResponder()
         guard let color = colorCircle.backgroundColor, color != .clear,
               let label = tagLabel.text, !label.isEmpty else {
             let okAction = UIAlertAction(title: "確認", style: .default)

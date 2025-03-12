@@ -26,8 +26,8 @@ extension APIManager {
 }
 
 extension APIManager {
-    func createTag(data: TagData) async throws {
-        guard let url = APIPath.Tag.create.getUrl() else { return }
+    func createTag(data: TagData) async throws -> TagData {
+        guard let url = APIPath.Tag.create.getUrl() else { throw APIManagerError.badUrl }
         let parameters: [String: Any] = [
             "label": data.label,
             "color": data.color,
@@ -36,10 +36,12 @@ extension APIManager {
         ]
         let request = genRequest(url: url, method: .POST, body: parameters)
         do {
-            let (_, response) = try await send(request: request)
+            let (data, response) = try await send(request: request)
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                 throw TagError.failedCreateTag
             }
+            let tagData = try APIManager.decoder.decode(TagDataResponse.self, from: data)
+            return tagData.data.Tag
         } catch {
             throw TagError.failedCreateTag
         }

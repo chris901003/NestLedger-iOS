@@ -203,8 +203,8 @@ extension TagViewController: NewTagCellDelegate {
     func sendNewTag(data: TagData) {
         Task {
             let result = await manager.createTag(tag: data)
-            if result {
-                await MainActor.run { delegate?.selectedTag(vc: self, data: data) }
+            if let result {
+                await MainActor.run { delegate?.selectedTag(vc: self, data: result) }
             }
         }
     }

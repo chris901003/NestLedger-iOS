@@ -13,11 +13,15 @@ protocol NLNeedPresent: AnyObject {
     func presentVC(_ vc: UIViewController)
 }
 
+protocol MQLTagViewDelegate: NLNeedPresent {
+    func selectedTag(tag: TagData)
+}
+
 class MQLTagView: UIView {
     let colorView = UIView()
     let tagLabel = UILabel()
 
-    weak var delegate: NLNeedPresent?
+    weak var delegate: MQLTagViewDelegate?
 
     init() {
         super.init(frame: .zero)
@@ -87,6 +91,7 @@ extension MQLTagView: TagViewControllerDelegate {
         colorView.backgroundColor = data.getColor
         colorView.layer.borderColor = data.getColor.cgColor
         tagLabel.text = data.label
+        delegate?.selectedTag(tag: data)
         vc.dismiss(animated: true)
     }
 }

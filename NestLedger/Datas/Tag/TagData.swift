@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 struct TagData: Codable {
+    var _id: String = ""
     var label: String
     var color: String
     var ledgerId: String

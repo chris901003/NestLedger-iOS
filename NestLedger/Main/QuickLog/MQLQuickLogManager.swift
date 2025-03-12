@@ -8,7 +8,9 @@
 
 import Foundation
 
-class MQLQuickLogManager { }
+class MQLQuickLogManager { 
+    var transaction = TransactionData.initEmpty()
+}
 
 extension MQLQuickLogManager: MQLSendViewDelegate {
     func sendAction(completion: @escaping () -> Void) {

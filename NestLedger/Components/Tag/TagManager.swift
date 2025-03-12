@@ -62,15 +62,14 @@ class TagManager {
         }
     }
 
-    func createTag(tag: TagData) async -> Bool {
+    func createTag(tag: TagData) async -> TagData? {
         var tag = tag
         tag.ledgerId = ledgerId
         do {
-            try await apiManager.createTag(data: tag)
-            return true
+            return try await apiManager.createTag(data: tag)
         } catch {
             XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "創建標籤失敗")
-            return false
+            return nil
         }
     }
 }
