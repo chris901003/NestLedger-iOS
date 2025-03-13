@@ -96,7 +96,6 @@ class MQuickLogView: UIView {
     }
 
     private func setup() {
-//        backgroundColor = .systemGray6
         manager.vc = self
 
         setupButton(plusView: plus1)
@@ -203,7 +202,8 @@ class MQuickLogView: UIView {
             sendView.topAnchor.constraint(equalTo: totalView.bottomAnchor, constant: 12),
             sendView.leadingAnchor.constraint(equalTo: centerXAnchor, constant: 12),
             sendView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            sendView.heightAnchor.constraint(equalTo: tagView.heightAnchor)
+            sendView.heightAnchor.constraint(equalTo: tagView.heightAnchor),
+            sendView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

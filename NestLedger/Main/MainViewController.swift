@@ -53,8 +53,7 @@ class MainViewController: UIViewController {
         NSLayoutConstraint.activate([
             quickLogView.topAnchor.constraint(equalTo: recentView.bottomAnchor, constant: 24),
             quickLogView.leadingAnchor.constraint(equalTo: recentView.leadingAnchor),
-            quickLogView.trailingAnchor.constraint(equalTo: recentView.trailingAnchor),
-            quickLogView.heightAnchor.constraint(equalToConstant: 250)
+            quickLogView.trailingAnchor.constraint(equalTo: recentView.trailingAnchor)
         ])
     }
 }
