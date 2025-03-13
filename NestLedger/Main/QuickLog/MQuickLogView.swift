@@ -97,6 +97,8 @@ class MQuickLogView: UIView {
 
     private func setup() {
 //        backgroundColor = .systemGray6
+        manager.vc = self
+
         setupButton(plusView: plus1)
         setupButton(plusView: plus10)
         setupButton(plusView: plus100)

@@ -53,6 +53,7 @@
 		051257E02D7F1D070066F3F2 /* APIManager+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257DF2D7F1D070066F3F2 /* APIManager+Tag.swift */; };
 		051257E32D7F1DC10066F3F2 /* TagData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E22D7F1DC10066F3F2 /* TagData.swift */; };
 		051257E62D81BE980066F3F2 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E52D81BE980066F3F2 /* TransactionData.swift */; };
+		051257E82D81CF770066F3F2 /* APIManager+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E72D81CF770066F3F2 /* APIManager+Transaction.swift */; };
 		0529446B2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446A2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift */; };
 		0529446D2D6E0AA500943CAC /* MQLTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446C2D6E0AA500943CAC /* MQLTagView.swift */; };
 		0529446F2D6E10B200943CAC /* MQLSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446E2D6E10B200943CAC /* MQLSendView.swift */; };
@@ -103,6 +104,7 @@
 		051257DF2D7F1D070066F3F2 /* APIManager+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Tag.swift"; sourceTree = "<group>"; };
 		051257E22D7F1DC10066F3F2 /* TagData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagData.swift; sourceTree = "<group>"; };
 		051257E52D81BE980066F3F2 /* TransactionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionData.swift; sourceTree = "<group>"; };
+		051257E72D81CF770066F3F2 /* APIManager+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Transaction.swift"; sourceTree = "<group>"; };
 		051AC9312D41EFAD00ECE40B /* NestLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NestLedger.entitlements; sourceTree = "<group>"; };
 		0529446A2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLIncomeExpenditureSelectView.swift; sourceTree = "<group>"; };
 		0529446C2D6E0AA500943CAC /* MQLTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLTagView.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				051257D62D7F129E0066F3F2 /* APIManager+Ledger.swift */,
 				05B340B32D68B705000378A2 /* APIManager+Photo.swift */,
 				051257DF2D7F1D070066F3F2 /* APIManager+Tag.swift */,
+				051257E72D81CF770066F3F2 /* APIManager+Transaction.swift */,
 				05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */,
 				0503F2A12D52499200B2640C /* APIManager.swift */,
 				05B340A82D66123E000378A2 /* APIPath.swift */,
@@ -528,6 +531,7 @@
 				051257D72D7F129E0066F3F2 /* APIManager+Ledger.swift in Sources */,
 				05B340B42D68B705000378A2 /* APIManager+Photo.swift in Sources */,
 				051257E02D7F1D070066F3F2 /* APIManager+Tag.swift in Sources */,
+				051257E82D81CF770066F3F2 /* APIManager+Transaction.swift in Sources */,
 				05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */,
 				0503F2A22D52499200B2640C /* APIManager.swift in Sources */,
 				05B340A92D66123E000378A2 /* APIPath.swift in Sources */,

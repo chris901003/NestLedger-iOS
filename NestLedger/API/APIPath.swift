@@ -57,4 +57,9 @@ class APIPath {
         // [POST]
         case create = "/tag/create"
     }
+
+    enum Transaction: String, APIPathProtocol {
+        // [POST]
+        case create = "/transaction/create"
+    }
 }

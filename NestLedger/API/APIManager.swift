@@ -27,7 +27,17 @@ class APIManager {
         }
     }
 
-    static let decoder = JSONDecoder()
+    static let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .custom({ decoder in
+            let container = try decoder.singleValueContainer()
+            let dateString = try container.decode(String.self)
+            let formatter = ISO8601DateFormatter()
+            formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            return formatter.date(from: dateString)!
+        })
+        return decoder
+    }()
     static private var _authToken = ""
     static var authToken: String {
         get { return "Bearer \(APIManager._authToken)" }

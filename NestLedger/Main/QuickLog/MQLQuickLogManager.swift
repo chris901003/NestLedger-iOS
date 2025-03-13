@@ -7,16 +7,49 @@
 
 
 import Foundation
+import xxooooxxCommonUI
 
 class MQLQuickLogManager { 
+    let apiManager = APIManager()
+
     var transaction = TransactionData.initEmpty()
+    weak var vc: MQuickLogView?
 }
 
 extension MQLQuickLogManager: MQLSendViewDelegate {
     func sendAction(completion: @escaping () -> Void) {
-        Task {
-            try? await Task.sleep(nanoseconds: 2_000_000_000)
+        guard let ledgerId = sharedUserInfo.ledgerIds.first else {
+            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "添加失敗，無法取得帳本")
             completion()
+            return
+        }
+        guard !transaction.tagId.isEmpty else {
+            XOBottomBarInformationManager.showBottomInformation(type: .info, information: "請先選擇標籤")
+            completion()
+            return
+        }
+        guard transaction.money != 0 else {
+            XOBottomBarInformationManager.showBottomInformation(type: .info, information: "金額不可為 0")
+            completion()
+            return
+        }
+
+        transaction.userId = sharedUserInfo.id
+        transaction.ledgerId = ledgerId
+
+        Task {
+            do {
+                _ = try await apiManager.createTransaction(data: transaction)
+                completion()
+                await MainActor.run {
+                    vc?.totalValue = 0
+                    vc?.tagView.reset()
+                    XOBottomBarInformationManager.showBottomInformation(type: .success, information: "添加成功")
+                }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "創建帳本失敗")
+                completion()
+            }
         }
     }
 }

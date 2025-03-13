@@ -33,6 +33,12 @@ class MQLTagView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func reset() {
+        colorView.backgroundColor = .clear
+        colorView.layer.borderColor = UIColor.secondaryLabel.cgColor
+        tagLabel.text = "點擊選擇類別"
+    }
+
     private func setup() {
         isUserInteractionEnabled = true
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAction)))
