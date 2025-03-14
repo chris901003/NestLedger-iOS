@@ -54,6 +54,8 @@
 		051257E32D7F1DC10066F3F2 /* TagData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E22D7F1DC10066F3F2 /* TagData.swift */; };
 		051257E62D81BE980066F3F2 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E52D81BE980066F3F2 /* TransactionData.swift */; };
 		051257E82D81CF770066F3F2 /* APIManager+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E72D81CF770066F3F2 /* APIManager+Transaction.swift */; };
+		051257EA2D8326260066F3F2 /* MRecntManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E92D8326260066F3F2 /* MRecntManager.swift */; };
+		051257ED2D8477C60066F3F2 /* MRCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257EC2D8477C60066F3F2 /* MRCCell.swift */; };
 		0529446B2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446A2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift */; };
 		0529446D2D6E0AA500943CAC /* MQLTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446C2D6E0AA500943CAC /* MQLTagView.swift */; };
 		0529446F2D6E10B200943CAC /* MQLSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446E2D6E10B200943CAC /* MQLSendView.swift */; };
@@ -105,6 +107,8 @@
 		051257E22D7F1DC10066F3F2 /* TagData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagData.swift; sourceTree = "<group>"; };
 		051257E52D81BE980066F3F2 /* TransactionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionData.swift; sourceTree = "<group>"; };
 		051257E72D81CF770066F3F2 /* APIManager+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Transaction.swift"; sourceTree = "<group>"; };
+		051257E92D8326260066F3F2 /* MRecntManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRecntManager.swift; sourceTree = "<group>"; };
+		051257EC2D8477C60066F3F2 /* MRCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCCell.swift; sourceTree = "<group>"; };
 		051AC9312D41EFAD00ECE40B /* NestLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NestLedger.entitlements; sourceTree = "<group>"; };
 		0529446A2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLIncomeExpenditureSelectView.swift; sourceTree = "<group>"; };
 		0529446C2D6E0AA500943CAC /* MQLTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLTagView.swift; sourceTree = "<group>"; };
@@ -321,6 +325,14 @@
 			path = Transaction;
 			sourceTree = "<group>";
 		};
+		051257EB2D8477B20066F3F2 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				051257EC2D8477C60066F3F2 /* MRCCell.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		052944722D79E91900943CAC /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,7 +411,9 @@
 		05EC2B142D6B54B5006F1F3A /* RecentContent */ = {
 			isa = PBXGroup;
 			children = (
+				051257EB2D8477B20066F3F2 /* Subviews */,
 				05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */,
+				051257E92D8326260066F3F2 /* MRecntManager.swift */,
 			);
 			path = RecentContent;
 			sourceTree = "<group>";
@@ -556,7 +570,9 @@
 				0529446F2D6E10B200943CAC /* MQLSendView.swift in Sources */,
 				0529446D2D6E0AA500943CAC /* MQLTagView.swift in Sources */,
 				05EC2B192D6B5916006F1F3A /* MQuickLogView.swift in Sources */,
+				051257ED2D8477C60066F3F2 /* MRCCell.swift in Sources */,
 				05EC2B162D6B54E2006F1F3A /* MRecentContentView.swift in Sources */,
+				051257EA2D8326260066F3F2 /* MRecntManager.swift in Sources */,
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
 				054A09322D7C11E30092B7E8 /* NewTagCell.swift in Sources */,
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,

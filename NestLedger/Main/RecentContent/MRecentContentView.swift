@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 class MRecentContentView: UIView {
+    let cellId = "CellID"
+
+    let manager = MRecntManager()
+
     let infoLabel = UILabel()
     let tableView = UITableView()
 
@@ -17,6 +21,7 @@ class MRecentContentView: UIView {
         super.init(frame: .zero)
         setup()
         layout()
+        registerCell()
     }
 
     required init?(coder: NSCoder) {
@@ -55,6 +60,10 @@ class MRecentContentView: UIView {
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4)
         ])
     }
+
+    private func registerCell() {
+        tableView.register(MRCCell.self, forCellReuseIdentifier: cellId)
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -64,9 +73,9 @@ extension MRecentContentView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.backgroundColor = .systemGray6
-        cell.textLabel?.text = "Just for test"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? MRCCell else {
+            return UITableViewCell()
+        }
         return cell
     }
 }

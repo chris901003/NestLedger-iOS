@@ -12,11 +12,14 @@ import Foundation
 extension APIManager {
     enum TransactionError: LocalizedError {
         case failedCreateTransaction
+        case failedGetTransaction
 
         var errorDescription: String? {
             switch self {
                 case .failedCreateTransaction:
                     return "創建帳目失敗"
+                case .failedGetTransaction:
+                    return "獲取帳目失敗"
             }
         }
     }
@@ -48,6 +51,58 @@ extension APIManager {
             return transactionData.data.transaction
         } catch {
             throw TransactionError.failedCreateTransaction
+        }
+    }
+}
+
+extension Int? {
+    func toString() -> String? {
+        self == nil ? nil : "\(self!)"
+    }
+}
+
+extension APIManager {
+    struct TransactionGetByLedgerQuery {
+        let ledgerId: String
+        let page: Int?
+        let limit: Int?
+        let search: String?
+        let startDate: Date?
+        let endDate: Date?
+        let tagId: String?
+        let type: TransactionType?
+        let userId: String?
+        let sortedOrder: APIManager.SortedOrderType?
+
+        func getUrl(path: String) throws -> URL {
+            guard var components = URLComponents(string: path) else { throw APIManagerError.badUrl }
+            components.queryItems = [
+                .init(name: "ledgerId", value: ledgerId),
+                .init(name: "page", value: page.toString()),
+                .init(name: "limit", value: limit.toString()),
+                .init(name: "search", value: search),
+                .init(name: "startDate", value: startDate?.formatted(.iso8601)),
+                .init(name: "endDate", value: endDate?.formatted(.iso8601)),
+                .init(name: "tagId", value: tagId),
+                .init(name: "type", value: type?.rawValue),
+                .init(name: "userId", value: userId),
+                .init(name: "sortedOrder", value: sortedOrder?.rawValue)
+            ]
+            guard let url = components.url else { throw APIManagerError.badUrl }
+            return url
+        }
+    }
+
+    func getTransactionByLedger(config: TransactionGetByLedgerQuery) async throws -> [TransactionData] {
+        let url = try config.getUrl(path: APIPath.Transaction.getByLedger.getPath())
+        let request = genRequest(url: url, method: .GET)
+        do {
+            let (data, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw TransactionError.failedGetTransaction }
+            let result = try APIManager.decoder.decode(TransactionsResponse.self, from: data)
+            return result.data.transactions
+        } catch {
+            throw TransactionError.failedGetTransaction
         }
     }
 }

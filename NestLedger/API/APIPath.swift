@@ -59,6 +59,9 @@ class APIPath {
     }
 
     enum Transaction: String, APIPathProtocol {
+        // [GET]
+        case getByLedger = "/transaction/get-by-ledger"
+
         // [POST]
         case create = "/transaction/create"
     }

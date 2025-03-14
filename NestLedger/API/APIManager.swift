@@ -27,6 +27,11 @@ class APIManager {
         }
     }
 
+    enum SortedOrderType: String {
+        case ascending = "1"
+        case descending = "-1"
+    }
+
     static let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .custom({ decoder in
