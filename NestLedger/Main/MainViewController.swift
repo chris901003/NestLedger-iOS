@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
     let todayLabel = UILabel()
     let recentView = MRecentContentView()
     let quickLogView = MQuickLogView()
+    let calendarView = MCalendarView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,15 @@ class MainViewController: UIViewController {
             quickLogView.topAnchor.constraint(equalTo: recentView.bottomAnchor, constant: 24),
             quickLogView.leadingAnchor.constraint(equalTo: recentView.leadingAnchor),
             quickLogView.trailingAnchor.constraint(equalTo: recentView.trailingAnchor)
+        ])
+
+        view.addSubview(calendarView)
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            calendarView.topAnchor.constraint(equalTo: quickLogView.bottomAnchor, constant: 24),
+            calendarView.leadingAnchor.constraint(equalTo: recentView.leadingAnchor),
+            calendarView.trailingAnchor.constraint(equalTo: recentView.trailingAnchor),
+            calendarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }

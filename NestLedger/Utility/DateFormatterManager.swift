@@ -12,6 +12,7 @@ enum DateFormatType: String {
     case yyyy_MM_dd = "yyyy-MM-dd"
     case yyyy_MM_dd_ch = "yyyy年 MM月 dd日"
     case MM_dd_HH_mm = "MM-dd HH:mm"
+    case yyyy_MM_ch = "yyyy年 MM月"
 }
 
 class DateFormatterManager {
