@@ -15,9 +15,15 @@ class MRecntManager {
     var ledgerId: String
     var recentTransactions: [TransactionData] = []
 
+    weak var vc: MRecentContentView?
+
     init() {
         ledgerId = sharedUserInfo.ledgerIds.first ?? ""
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
+        loadRecentTransaction()
+    }
 
+    private func loadRecentTransaction() {
         let searchConfig = APIManager.TransactionGetByLedgerQuery(
             ledgerId: ledgerId,
             page: 1,
@@ -31,14 +37,21 @@ class MRecntManager {
             sortedOrder: .descending
         )
 
-        
-
         Task {
             do {
                 recentTransactions = try await apiManager.getTransactionByLedger(config: searchConfig)
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "無法取得近期帳目")
             }
+        }
+    }
+
+    @objc private func receiveNewTransaction(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let transaction = userInfo["transaction"] as? TransactionData else { return }
+        recentTransactions.insert(transaction, at: 0)
+        DispatchQueue.main.async { [weak self] in
+            self?.vc?.tableView.reloadData()
         }
     }
 }

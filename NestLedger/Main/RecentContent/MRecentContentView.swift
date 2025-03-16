@@ -29,6 +29,8 @@ class MRecentContentView: UIView {
     }
 
     private func setup() {
+        manager.vc = self
+
         backgroundColor = .systemGray6
         layer.cornerRadius = 20.0
         clipsToBounds = true
