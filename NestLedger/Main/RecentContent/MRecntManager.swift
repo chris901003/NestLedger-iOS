@@ -31,6 +31,8 @@ class MRecntManager {
             sortedOrder: .descending
         )
 
+        
+
         Task {
             do {
                 recentTransactions = try await apiManager.getTransactionByLedger(config: searchConfig)

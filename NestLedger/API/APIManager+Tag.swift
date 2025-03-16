@@ -47,6 +47,22 @@ extension APIManager {
         }
     }
 
+    func getTag(tagId: String) async throws -> TagData {
+        guard var components = URLComponents(string: APIPath.Tag.get.getPath()) else { throw APIManagerError.badUrl }
+        components.queryItems = [URLQueryItem(name: "tagId", value: tagId)]
+
+        guard let url = components.url else { throw APIManagerError.badUrl }
+        let request = genRequest(url: url, method: .GET)
+        do {
+            let (data, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw TagError.failedGetTag }
+            let result = try APIManager.decoder.decode(TagDataResponse.self, from: data)
+            return result.data.Tag
+        } catch {
+            throw TagError.failedGetTag
+        }
+    }
+
     func getTagsBy(ledgerId: String, search: String? = nil, page: Int? = nil, limit: Int? = nil) async throws -> [TagData] {
         guard var components = URLComponents(string: APIPath.Tag.getByLedger.getPath()) else { throw APIManagerError.badUrl }
         components.queryItems = [URLQueryItem(name: "ledgerId", value: ledgerId)]

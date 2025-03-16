@@ -41,6 +41,9 @@ class MRecentContentView: UIView {
         tableView.backgroundColor = .systemGray6
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.layer.cornerRadius = 20.0
+        tableView.clipsToBounds = true
+        tableView.showsVerticalScrollIndicator = false
     }
 
     private func layout() {
@@ -69,13 +72,15 @@ class MRecentContentView: UIView {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension MRecentContentView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        20
+        manager.recentTransactions.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? MRCCell else {
             return UITableViewCell()
         }
+        let data = manager.recentTransactions[indexPath.row]
+        cell.config(data: data)
         return cell
     }
 }
