@@ -9,10 +9,57 @@
 import Foundation
 import UIKit
 
+extension MCalendarView {
+    enum CollectionViewSections: CaseIterable {
+        case titleSection
+        case dateSection
+
+        var getSectionLayoutConfig: NSCollectionLayoutSection {
+            get {
+                switch self {
+                    case .titleSection:
+                        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0 / 7.0), heightDimension: .fractionalHeight(1.0))
+                        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+                        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(30))
+                        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+                        let section = NSCollectionLayoutSection(group: group)
+                        return section
+                    case .dateSection:
+                        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0 / 7.0), heightDimension: .fractionalWidth(1.0 / 7.0))
+                        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+                        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(1.0 / 7.0))
+                        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                        group.interItemSpacing = .fixed(2)
+
+                        let section = NSCollectionLayoutSection(group: group)
+                        section.interGroupSpacing = 2
+                        return section
+                }
+            }
+        }
+    }
+}
+
 class MCalendarView: UIView {
     let yearMonthLabel = UILabel()
     let backIcon = UIImageView()
     let forwardIcon = UIImageView()
+    var collectionView: UICollectionView = {
+        var layout = UICollectionViewCompositionalLayout { sectionIdx, _ in
+            CollectionViewSections.allCases[sectionIdx].getSectionLayoutConfig
+        }
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+
+        collectionView.register(MCDateCell.self, forCellWithReuseIdentifier: MCDateCell.cellId)
+        collectionView.register(MCTitleCell.self, forCellWithReuseIdentifier: MCTitleCell.cellId)
+
+        collectionView.showsVerticalScrollIndicator = false
+        return collectionView
+    }()
 
     var selectedDay = Date.now
 
@@ -42,6 +89,8 @@ class MCalendarView: UIView {
         forwardIcon.contentMode = .scaleAspectFit
         forwardIcon.isUserInteractionEnabled = true
         forwardIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(nextMonthAction)))
+
+        collectionView.dataSource = self
     }
 
     private func layout() {
@@ -68,6 +117,50 @@ class MCalendarView: UIView {
             backIcon.heightAnchor.constraint(equalTo: forwardIcon.heightAnchor),
             backIcon.widthAnchor.constraint(equalTo: backIcon.heightAnchor)
         ])
+
+        addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: yearMonthLabel.bottomAnchor, constant: 12),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+extension MCalendarView: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        CollectionViewSections.allCases.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let sectionType = CollectionViewSections.allCases[section]
+        switch sectionType {
+            case .titleSection:
+                return 7
+            case .dateSection:
+                return 31
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let sectionType = CollectionViewSections.allCases[indexPath.section]
+        switch sectionType {
+            case .titleSection:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MCTitleCell.cellId, for: indexPath) as? MCTitleCell else {
+                    return UICollectionViewCell()
+                }
+                cell.config(indexPath.row)
+                return cell
+            case .dateSection:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MCDateCell.cellId, for: indexPath) as? MCDateCell else {
+                    return UICollectionViewCell()
+                }
+                cell.config(date: "\(indexPath.row + 1)")
+                return cell
+        }
     }
 }
 
