@@ -60,6 +60,7 @@
 		051B491C2D870ACC00834D72 /* MCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051B491B2D870ACC00834D72 /* MCalendarView.swift */; };
 		051B491F2D8859D400834D72 /* MCTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051B491E2D8859D400834D72 /* MCTitleCell.swift */; };
 		051B49212D8859FD00834D72 /* MCDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051B49202D8859FD00834D72 /* MCDateCell.swift */; };
+		051B49232D885B3500834D72 /* MCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051B49222D885B3500834D72 /* MCalendarManager.swift */; };
 		0529446B2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446A2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift */; };
 		0529446D2D6E0AA500943CAC /* MQLTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446C2D6E0AA500943CAC /* MQLTagView.swift */; };
 		0529446F2D6E10B200943CAC /* MQLSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446E2D6E10B200943CAC /* MQLSendView.swift */; };
@@ -118,6 +119,7 @@
 		051B491B2D870ACC00834D72 /* MCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCalendarView.swift; sourceTree = "<group>"; };
 		051B491E2D8859D400834D72 /* MCTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCTitleCell.swift; sourceTree = "<group>"; };
 		051B49202D8859FD00834D72 /* MCDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCDateCell.swift; sourceTree = "<group>"; };
+		051B49222D885B3500834D72 /* MCalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCalendarManager.swift; sourceTree = "<group>"; };
 		0529446A2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLIncomeExpenditureSelectView.swift; sourceTree = "<group>"; };
 		0529446C2D6E0AA500943CAC /* MQLTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLTagView.swift; sourceTree = "<group>"; };
 		0529446E2D6E10B200943CAC /* MQLSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLSendView.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 			children = (
 				051B491D2D8859BB00834D72 /* Subviews */,
 				051B491B2D870ACC00834D72 /* MCalendarView.swift */,
+				051B49222D885B3500834D72 /* MCalendarManager.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -591,6 +594,7 @@
 				0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */,
 				051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */,
 				050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */,
+				051B49232D885B3500834D72 /* MCalendarManager.swift in Sources */,
 				050831402D41E029008C8831 /* LoginViewController.swift in Sources */,
 				051B49212D8859FD00834D72 /* MCDateCell.swift in Sources */,
 				051B491F2D8859D400834D72 /* MCTitleCell.swift in Sources */,

@@ -61,7 +61,7 @@ class MCalendarView: UIView {
         return collectionView
     }()
 
-    var selectedDay = Date.now
+    let manager = MCalendarManager()
 
     init() {
         super.init(frame: .zero)
@@ -75,7 +75,9 @@ class MCalendarView: UIView {
 
     private func setup() {
 //        backgroundColor = .systemGray6
-        yearMonthLabel.text = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_ch, date: Date.now)
+        manager.vc = self
+
+        yearMonthLabel.text = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_ch, date: manager.selectedDay)
         yearMonthLabel.textColor = .black
         yearMonthLabel.font = .systemFont(ofSize: 16, weight: .bold)
         yearMonthLabel.numberOfLines = 1
@@ -141,7 +143,7 @@ extension MCalendarView: UICollectionViewDataSource {
             case .titleSection:
                 return 7
             case .dateSection:
-                return 31
+                return manager.daysInMonth() ?? 30
         }
     }
 
@@ -158,7 +160,7 @@ extension MCalendarView: UICollectionViewDataSource {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MCDateCell.cellId, for: indexPath) as? MCDateCell else {
                     return UICollectionViewCell()
                 }
-                cell.config(date: "\(indexPath.row + 1)")
+                cell.config(date: manager.getCollectionViewDate(index: indexPath.row))
                 return cell
         }
     }
@@ -167,10 +169,26 @@ extension MCalendarView: UICollectionViewDataSource {
 // MARK: - Utility
 extension MCalendarView {
     @objc private func previousMonthAction() {
-        print("✅ Previous Month")
+        let (year, month) = manager.getYearAndMonth()
+        let calendar = Calendar.current
+        var components = DateComponents()
+        components.year = year - (month == 1 ? 1 : 0)
+        components.month = month == 1 ? 12 : month - 1
+        components.day = 1
+        if let date = calendar.date(from: components) {
+            manager.selectedDay = date
+        }
     }
 
     @objc private func nextMonthAction() {
-        print("✅ Next Month")
+        let (year, month) = manager.getYearAndMonth()
+        let calendar = Calendar.current
+        var components = DateComponents()
+        components.year = year + (month == 12 ? 1 : 0)
+        components.month = month == 12 ? 1 : month + 1
+        components.day = 1
+        if let date = calendar.date(from: components) {
+            manager.selectedDay = date
+        }
     }
 }
