@@ -74,6 +74,30 @@ extension APIManager {
         let userId: String?
         let sortedOrder: APIManager.SortedOrderType?
 
+        init(
+            ledgerId: String,
+            page: Int? = nil,
+            limit: Int? = nil,
+            search: String? = nil,
+            startDate: Date? = nil,
+            endDate: Date? = nil,
+            tagId: String? = nil,
+            type: TransactionType? = nil,
+            userId: String? = nil,
+            sortedOrder: APIManager.SortedOrderType? = nil
+        ) {
+            self.ledgerId = ledgerId
+            self.page = page
+            self.limit = limit
+            self.search = search
+            self.startDate = startDate
+            self.endDate = endDate
+            self.tagId = tagId
+            self.type = type
+            self.userId = userId
+            self.sortedOrder = sortedOrder
+        }
+
         func getUrl(path: String) throws -> URL {
             guard var components = URLComponents(string: path) else { throw APIManagerError.badUrl }
             components.queryItems = [
