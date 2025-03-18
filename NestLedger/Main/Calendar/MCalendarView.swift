@@ -93,6 +93,7 @@ class MCalendarView: UIView {
         forwardIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(nextMonthAction)))
 
         collectionView.dataSource = self
+        collectionView.delegate = self
     }
 
     private func layout() {
@@ -132,7 +133,7 @@ class MCalendarView: UIView {
 }
 
 // MARK: - UICollectionViewDataSource
-extension MCalendarView: UICollectionViewDataSource {
+extension MCalendarView: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         CollectionViewSections.allCases.count
     }
@@ -160,8 +161,21 @@ extension MCalendarView: UICollectionViewDataSource {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MCDateCell.cellId, for: indexPath) as? MCDateCell else {
                     return UICollectionViewCell()
                 }
-                cell.config(date: manager.getCollectionViewDate(index: indexPath.row))
+                cell.date = manager.getCellDate(index: indexPath.row)
+                cell.config(date: manager.getCollectionViewDate(index: indexPath.row), amount: -1000)
+                cell.isSelected(cell.date == Calendar.current.startOfDay(for: Date.now))
                 return cell
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let sectionType = CollectionViewSections.allCases[indexPath.section]
+        switch sectionType {
+            case .titleSection:
+                return
+            case .dateSection:
+                let date = manager.getCollectionViewDate(index: indexPath.row)
+                if date == "" { return }
         }
     }
 }

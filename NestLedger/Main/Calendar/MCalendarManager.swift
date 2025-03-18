@@ -70,4 +70,11 @@ extension MCalendarManager {
         if index < curFirstWeekday { return "" }
         return "\(index - curFirstWeekday + 1)"
     }
+
+    func getCellDate(index: Int) -> Date? {
+        if index < curFirstWeekday { return nil }
+        let (year, month) = getYearAndMonth()
+        let dateComponents = DateComponents(year: year, month: month, day: index - curFirstWeekday + 1)
+        return Calendar.current.date(from: dateComponents)
+    }
 }
