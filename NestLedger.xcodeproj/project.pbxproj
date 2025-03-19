@@ -83,6 +83,7 @@
 		05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B12D66222F000378A2 /* BasicInformationData.swift */; };
 		05B340B42D68B705000378A2 /* APIManager+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B32D68B705000378A2 /* APIManager+Photo.swift */; };
 		05C37B912D7B35FF005FCF89 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C37B902D7B35FF005FCF89 /* TagCell.swift */; };
+		05C95D182D8AEE240058A8A8 /* MPCTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D172D8AEE240058A8A8 /* MPCTagCell.swift */; };
 		05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */; };
 		05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */; };
 		05EC2B162D6B54E2006F1F3A /* MRecentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */; };
@@ -144,6 +145,7 @@
 		05B340B12D66222F000378A2 /* BasicInformationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformationData.swift; sourceTree = "<group>"; };
 		05B340B32D68B705000378A2 /* APIManager+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Photo.swift"; sourceTree = "<group>"; };
 		05C37B902D7B35FF005FCF89 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
+		05C95D172D8AEE240058A8A8 /* MPCTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPCTagCell.swift; sourceTree = "<group>"; };
 		05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageQualitySettingViewController.swift; sourceTree = "<group>"; };
 		05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRecentContentView.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 		051B49242D8997DB00834D72 /* PieChart */ = {
 			isa = PBXGroup;
 			children = (
+				05C95D162D8AEE190058A8A8 /* Subviews */,
 				051B49272D89A06F00834D72 /* MPieChartManager.swift */,
 				051B49252D8997EF00834D72 /* MPieChartView.swift */,
 			);
@@ -435,6 +438,14 @@
 				05C37B902D7B35FF005FCF89 /* TagCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		05C95D162D8AEE190058A8A8 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				05C95D172D8AEE240058A8A8 /* MPCTagCell.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		05EC2B0E2D6A14BA006F1F3A /* Subviews */ = {
@@ -613,6 +624,7 @@
 				051B491F2D8859D400834D72 /* MCTitleCell.swift in Sources */,
 				051B49232D885B3500834D72 /* MCalendarManager.swift in Sources */,
 				051B491C2D870ACC00834D72 /* MCalendarView.swift in Sources */,
+				05C95D182D8AEE240058A8A8 /* MPCTagCell.swift in Sources */,
 				051B49282D89A06F00834D72 /* MPieChartManager.swift in Sources */,
 				051B49262D8997EF00834D72 /* MPieChartView.swift in Sources */,
 				0529446B2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift in Sources */,
