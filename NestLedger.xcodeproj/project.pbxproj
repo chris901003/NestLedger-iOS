@@ -84,6 +84,8 @@
 		05B340B42D68B705000378A2 /* APIManager+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B32D68B705000378A2 /* APIManager+Photo.swift */; };
 		05C37B912D7B35FF005FCF89 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C37B902D7B35FF005FCF89 /* TagCell.swift */; };
 		05C95D182D8AEE240058A8A8 /* MPCTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D172D8AEE240058A8A8 /* MPCTagCell.swift */; };
+		05C95D1B2D8AF7BF0058A8A8 /* LedgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D1A2D8AF7BF0058A8A8 /* LedgerViewController.swift */; };
+		05C95D1E2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D1D2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift */; };
 		05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */; };
 		05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */; };
 		05EC2B162D6B54E2006F1F3A /* MRecentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */; };
@@ -146,6 +148,8 @@
 		05B340B32D68B705000378A2 /* APIManager+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Photo.swift"; sourceTree = "<group>"; };
 		05C37B902D7B35FF005FCF89 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		05C95D172D8AEE240058A8A8 /* MPCTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPCTagCell.swift; sourceTree = "<group>"; };
+		05C95D1A2D8AF7BF0058A8A8 /* LedgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerViewController.swift; sourceTree = "<group>"; };
+		05C95D1D2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerCollectionViewCell.swift; sourceTree = "<group>"; };
 		05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageQualitySettingViewController.swift; sourceTree = "<group>"; };
 		05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRecentContentView.swift; sourceTree = "<group>"; };
@@ -297,6 +301,7 @@
 				0503F2AF2D54E1BF00B2640C /* Extensions */,
 				0503F2AC2D5251BB00B2640C /* Firebase */,
 				0503F2982D5241DE00B2640C /* Keychain */,
+				05C95D192D8AF7A60058A8A8 /* Ledger */,
 				0508313E2D41E01C008C8831 /* Login */,
 				0503F2A92D524E0000B2640C /* Main */,
 				0503F2A32D524D1600B2640C /* RootViewController */,
@@ -444,6 +449,23 @@
 			isa = PBXGroup;
 			children = (
 				05C95D172D8AEE240058A8A8 /* MPCTagCell.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		05C95D192D8AF7A60058A8A8 /* Ledger */ = {
+			isa = PBXGroup;
+			children = (
+				05C95D1C2D8B049B0058A8A8 /* Subviews */,
+				05C95D1A2D8AF7BF0058A8A8 /* LedgerViewController.swift */,
+			);
+			path = Ledger;
+			sourceTree = "<group>";
+		};
+		05C95D1C2D8B049B0058A8A8 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				05C95D1D2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -617,7 +639,9 @@
 				05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */,
 				0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */,
 				0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */,
+				05C95D1E2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift in Sources */,
 				051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */,
+				05C95D1B2D8AF7BF0058A8A8 /* LedgerViewController.swift in Sources */,
 				050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */,
 				050831402D41E029008C8831 /* LoginViewController.swift in Sources */,
 				051B49212D8859FD00834D72 /* MCDateCell.swift in Sources */,
