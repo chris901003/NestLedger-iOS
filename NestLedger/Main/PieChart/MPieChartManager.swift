@@ -34,6 +34,8 @@ class MPieChartManager {
         year = Calendar.current.component(.year, from: Date.now)
         month = Calendar.current.component(.month, from: Date.now)
 
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
+
         Task {
             do {
                 try await loadLedgerInfo()
@@ -41,6 +43,10 @@ class MPieChartManager {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳本資訊失敗")
             }
         }
+    }
+
+    @objc private func receiveNewTransaction() {
+        Task { try? await loadLedgerInfo() }
     }
 
     func loadLedgerInfo() async throws {

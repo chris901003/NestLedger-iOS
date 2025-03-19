@@ -57,23 +57,23 @@ class MPieChartView: UIView {
         addSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dateLabel.topAnchor.constraint(equalTo: topAnchor),
-            dateLabel.leadingAnchor.constraint(equalTo: leadingAnchor)
+            dateLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            dateLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
 
         addSubview(nextIcon)
         nextIcon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nextIcon.topAnchor.constraint(equalTo: topAnchor),
-            nextIcon.trailingAnchor.constraint(equalTo: trailingAnchor),
+            nextIcon.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor),
+            nextIcon.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 8),
             nextIcon.heightAnchor.constraint(equalToConstant: 20)
         ])
 
         addSubview(prevIcon)
         prevIcon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            prevIcon.topAnchor.constraint(equalTo: topAnchor),
-            prevIcon.trailingAnchor.constraint(equalTo: nextIcon.leadingAnchor, constant: -16),
+            prevIcon.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor),
+            prevIcon.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor, constant: -8),
             prevIcon.heightAnchor.constraint(equalToConstant: 20)
         ])
 
