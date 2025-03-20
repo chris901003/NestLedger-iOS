@@ -46,6 +46,9 @@ class APIPath {
     }
 
     enum Ledger: String, APIPathProtocol {
+        // [GET]
+        case get = "/ledger/get"
+
         // [POST]
         case create = "/ledger/create"
     }

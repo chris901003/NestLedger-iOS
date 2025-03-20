@@ -12,11 +12,14 @@ import Foundation
 extension APIManager {
     enum LedgerError: LocalizedError {
         case failedCreateLedger
+        case failedGetLedger
 
         var errorDescription: String? {
             switch self {
                 case .failedCreateLedger:
                     return "創建新帳本失敗"
+                case .failedGetLedger:
+                    return "獲取帳本失敗"
             }
         }
     }
@@ -36,9 +39,25 @@ extension APIManager {
                 throw LedgerError.failedCreateLedger
             }
             let result = try APIManager.decoder.decode(LedgerDataResponse.self, from: data)
-            return result.data.ledger
+            return result.data.Ledger
         } catch {
             throw LedgerError.failedCreateLedger
+        }
+    }
+
+    func getLedger(ledgerId: String) async throws -> LedgerData {
+        guard var component = URLComponents(string: APIPath.Ledger.get.getPath()) else { throw APIManagerError.badUrl }
+        component.queryItems = [URLQueryItem(name: "ledgerId", value: ledgerId)]
+
+        guard let url = component.url else { throw APIManagerError.badUrl }
+        let request = genRequest(url: url, method: .GET)
+        do {
+            let (data, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw LedgerError.failedGetLedger }
+            let result = try APIManager.decoder.decode(LedgerDataResponse.self, from: data)
+            return result.data.Ledger
+        } catch {
+            throw LedgerError.failedGetLedger
         }
     }
 }

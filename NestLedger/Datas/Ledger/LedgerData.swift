@@ -16,7 +16,7 @@ struct LedgerData: Codable {
 }
 
 struct LedgerDataWrapper: Codable {
-    let ledger: LedgerData
+    let Ledger: LedgerData
 }
 
 typealias LedgerDataResponse = APIResponseData<LedgerDataWrapper>

@@ -86,6 +86,7 @@
 		05C95D182D8AEE240058A8A8 /* MPCTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D172D8AEE240058A8A8 /* MPCTagCell.swift */; };
 		05C95D1B2D8AF7BF0058A8A8 /* LedgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D1A2D8AF7BF0058A8A8 /* LedgerViewController.swift */; };
 		05C95D1E2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D1D2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift */; };
+		05C95D202D8C5CD60058A8A8 /* LedgerVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D1F2D8C5CD60058A8A8 /* LedgerVCManager.swift */; };
 		05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */; };
 		05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */; };
 		05EC2B162D6B54E2006F1F3A /* MRecentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */; };
@@ -150,6 +151,7 @@
 		05C95D172D8AEE240058A8A8 /* MPCTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPCTagCell.swift; sourceTree = "<group>"; };
 		05C95D1A2D8AF7BF0058A8A8 /* LedgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerViewController.swift; sourceTree = "<group>"; };
 		05C95D1D2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerCollectionViewCell.swift; sourceTree = "<group>"; };
+		05C95D1F2D8C5CD60058A8A8 /* LedgerVCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerVCManager.swift; sourceTree = "<group>"; };
 		05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageQualitySettingViewController.swift; sourceTree = "<group>"; };
 		05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRecentContentView.swift; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 			children = (
 				05C95D1C2D8B049B0058A8A8 /* Subviews */,
 				05C95D1A2D8AF7BF0058A8A8 /* LedgerViewController.swift */,
+				05C95D1F2D8C5CD60058A8A8 /* LedgerVCManager.swift */,
 			);
 			path = Ledger;
 			sourceTree = "<group>";
@@ -674,6 +677,7 @@
 				051257E62D81BE980066F3F2 /* TransactionData.swift in Sources */,
 				0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */,
 				055704572D5782A90032C47C /* UserInfoData.swift in Sources */,
+				05C95D202D8C5CD60058A8A8 /* LedgerVCManager.swift in Sources */,
 				050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

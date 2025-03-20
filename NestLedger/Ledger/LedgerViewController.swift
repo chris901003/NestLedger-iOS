@@ -31,6 +31,8 @@ class LedgerViewController: UIViewController {
         return collectionView
     }()
 
+    let manager = LedgerVCManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -38,6 +40,8 @@ class LedgerViewController: UIViewController {
     }
 
     private func setup() {
+        manager.vc = self
+
         view.backgroundColor = .white
         navigationItem.title = "帳本列表"
 
@@ -57,7 +61,7 @@ class LedgerViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 12),
+            collectionView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 24),
             collectionView.leadingAnchor.constraint(equalTo: searchBarView.leadingAnchor, constant: 12),
             collectionView.trailingAnchor.constraint(equalTo: searchBarView.trailingAnchor, constant: -12),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -68,7 +72,7 @@ class LedgerViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension LedgerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        manager.ledgerDatas.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

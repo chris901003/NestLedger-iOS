@@ -90,10 +90,10 @@ class LedgerCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(ledgerView)
         ledgerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            ledgerView.topAnchor.constraint(equalTo: userIconsView.second.bottomAnchor, constant: 12),
+            ledgerView.topAnchor.constraint(equalTo: userIconsView.second.bottomAnchor, constant: 24),
             ledgerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             ledgerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            ledgerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            ledgerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
 
         ledgerView.addSubview(ledgerLabel)
