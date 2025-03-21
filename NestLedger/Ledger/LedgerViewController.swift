@@ -11,7 +11,6 @@ import UIKit
 import xxooooxxCommonUI
 
 class LedgerViewController: UIViewController {
-    let searchBarView = XOSearchBarView()
     let collectionView: UICollectionView = {
         var layout: UICollectionViewCompositionalLayout = {
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
@@ -51,20 +50,12 @@ class LedgerViewController: UIViewController {
     }
 
     private func layout() {
-        view.addSubview(searchBarView)
-        searchBarView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            searchBarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchBarView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
-            searchBarView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12)
-        ])
-
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: searchBarView.bottomAnchor, constant: 24),
-            collectionView.leadingAnchor.constraint(equalTo: searchBarView.leadingAnchor, constant: 12),
-            collectionView.trailingAnchor.constraint(equalTo: searchBarView.trailingAnchor, constant: -12),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
