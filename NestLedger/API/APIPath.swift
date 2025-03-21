@@ -30,6 +30,7 @@ class APIPath {
         // [GET]
         case login = "/user/login"
         case userInfo = "/user/get"
+        case getAvatar = "/user/get-avatar"
 
         // [PATCH]
         case update = "/user/update"

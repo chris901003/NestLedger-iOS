@@ -23,6 +23,8 @@ class LedgerCollectionViewCell: UICollectionViewCell {
     let ledgerView = UIView()
     let ledgerLabel = UILabel()
 
+    let apiManager = APIManager()
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setup()
@@ -33,9 +35,18 @@ class LedgerCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func config(ledgerData: LedgerData) {
+        if ledgerData.title == "[Main]:" + sharedUserInfo.id {
+            ledgerLabel.text = "我的帳本"
+        } else {
+            ledgerLabel.text = ledgerData.title
+        }
+        Task { await loadUserAvatar(data: ledgerData) }
+    }
+
     private func setupIcon(view: UIImageView) {
-        view.contentMode = .scaleAspectFit
-        view.backgroundColor = .blue
+        view.contentMode = .scaleAspectFill
+        view.backgroundColor = .clear
         view.layer.cornerRadius = 35 / 2
         view.clipsToBounds = true
     }
@@ -102,5 +113,31 @@ class LedgerCollectionViewCell: UICollectionViewCell {
             ledgerLabel.centerXAnchor.constraint(equalTo: ledgerView.centerXAnchor),
             ledgerLabel.centerYAnchor.constraint(equalTo: ledgerView.centerYAnchor)
         ])
+    }
+}
+
+extension LedgerCollectionViewCell {
+    private func loadUserAvatar(data: LedgerData) async {
+        let userIds = data.userIds.prefix(3)
+        let userAvatars = try? await withThrowingTaskGroup(of: UIImage?.self, returning: [UIImage].self) { group in
+            for userId in userIds {
+                group.addTask { [weak self] in
+                    try await self?.apiManager.getUserAvatar(userId: userId)
+                }
+            }
+            let results = (try await group.reduce(into: [UIImage]()) { $0.append($1) }).compactMap { $0 }
+            return results
+        }
+        print("✅ Avatar: \(userAvatars?.count ?? -1)")
+        guard let userAvatars else { return }
+        await MainActor.run {
+            userIconsView.first.image = userAvatars[0]
+            if userAvatars.count >= 2 {
+                userIconsView.second.image = userAvatars[1]
+            }
+            if userAvatars.count >= 3 {
+                userIconsView.third.image = userAvatars[2]
+            }
+        }
     }
 }

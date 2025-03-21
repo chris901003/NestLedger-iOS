@@ -46,6 +46,7 @@ class LedgerViewController: UIViewController {
         navigationItem.title = "帳本列表"
 
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.delegate = self
         collectionView.dataSource = self
     }
 
@@ -70,7 +71,7 @@ class LedgerViewController: UIViewController {
 }
 
 // MARK: - UICollectionViewDataSource
-extension LedgerViewController: UICollectionViewDataSource {
+extension LedgerViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         manager.ledgerDatas.count
     }
@@ -79,6 +80,22 @@ extension LedgerViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LedgerCollectionViewCell.cellId, for: indexPath) as? LedgerCollectionViewCell else {
             return UICollectionViewCell()
         }
+        let data = manager.ledgerDatas[indexPath.row]
+        cell.config(ledgerData: data)
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == manager.ledgerDatas.count - 1,
+           !manager.isLoading,
+           manager.ledgerDatas.count < manager.ledgerIds.count {
+            Task {
+                do {
+                    try await manager.loadMoreLedgers()
+                } catch {
+                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取更多帳本失敗")
+                }
+            }
+        }
     }
 }

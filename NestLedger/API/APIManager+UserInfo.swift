@@ -7,11 +7,12 @@
 
 
 import Foundation
+import UIKit
 
 // MARK: - UserInfo API
 extension APIManager {
     enum UserInfoError: LocalizedError {
-        case failedLogin, failedFetchUserInfo, failedEncode, failedUpdateUserInfo
+        case failedLogin, failedFetchUserInfo, failedEncode, failedUpdateUserInfo, failedGetAvatar
 
         var errorDescription: String? {
             switch self {
@@ -23,6 +24,8 @@ extension APIManager {
                     return "Encode 使用者資料失敗"
                 case .failedUpdateUserInfo:
                     return "更新使用者資訊失敗"
+                case .failedGetAvatar:
+                    return "獲取使用者頭像失敗"
             }
         }
     }
@@ -83,6 +86,22 @@ extension APIManager {
             }
         } catch {
             throw UserInfoError.failedUpdateUserInfo
+        }
+    }
+
+    func getUserAvatar(userId: String) async throws -> UIImage {
+        guard var component = URLComponents(string: APIPath.UserInfo.getAvatar.getPath()) else { throw APIManagerError.badUrl }
+        component.queryItems = [URLQueryItem(name: "uid", value: userId)]
+
+        guard let url = component.url else { throw APIManagerError.badUrl }
+        let request = genRequest(url: url, method: .GET)
+        do {
+            let (data, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw UserInfoError.failedGetAvatar }
+            guard let image = UIImage(data: data) else { throw UserInfoError.failedGetAvatar }
+            return image
+        } catch {
+            throw UserInfoError.failedGetAvatar
         }
     }
 }

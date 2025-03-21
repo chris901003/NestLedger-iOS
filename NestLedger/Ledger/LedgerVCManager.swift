@@ -15,13 +15,13 @@ class LedgerVCManager {
     var ledgerIds: [String] = sharedUserInfo.ledgerIds
     var ledgerDatas: [LedgerData] = [] {
         didSet {
-            print("✅ Ledger count: \(ledgerDatas.count)")
             DispatchQueue.main.async { [weak self] in
                 self?.vc?.collectionView.reloadData()
             }
         }
     }
 
+    @MainActor var isLoading = false
     weak var vc: LedgerViewController?
 
     init() {
@@ -34,7 +34,8 @@ class LedgerVCManager {
         }
     }
 
-    private func loadMoreLedgers() async throws {
+    func loadMoreLedgers() async throws {
+        await MainActor.run { isLoading = true }
         let datas = try await withThrowingTaskGroup(of: LedgerData?.self, returning: [LedgerData].self) { group in
             let startIdx = ledgerDatas.count
             let endIdx = min(startIdx + 10, ledgerIds.count)
@@ -48,5 +49,6 @@ class LedgerVCManager {
             return results
         }
         ledgerDatas.append(contentsOf: datas)
+        await MainActor.run { isLoading = false }
     }
 }
