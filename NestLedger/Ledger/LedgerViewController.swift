@@ -76,6 +76,12 @@ extension LedgerViewController: UICollectionViewDataSource, UICollectionViewDele
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let index = indexPath.row
+        let ledgerDetailVC = LedgerDetailViewController(ledgerData: manager.ledgerDatas[index])
+        navigationController?.pushViewController(ledgerDetailVC, animated: true)
+    }
+
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == manager.ledgerDatas.count - 1,
            !manager.isLoading,

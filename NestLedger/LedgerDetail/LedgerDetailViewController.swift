@@ -1,0 +1,94 @@
+// Created for NestLedger in 2025
+// Using Swift 5.0
+//
+//
+// Created by HongYan on 2025/3/24.
+// Copyright © 2025 HongYan. All rights reserved.
+
+
+import Foundation
+import UIKit
+import xxooooxxCommonUI
+
+class LedgerDetailViewController: UIViewController {
+    let manager: LedgerDetailManager
+
+    let backButton = XONavigationBackButtonView(title: "返回")
+    let titleLabel = UILabel()
+    let avatarListView: UICollectionView = {
+        var layout: UICollectionViewCompositionalLayout = {
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalHeight(1.0), heightDimension: .fractionalHeight(1.0))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            group.interItemSpacing = .fixed(4)
+
+            let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = 0
+            return UICollectionViewCompositionalLayout(section: section)
+        }()
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(AvatarCollectionViewCell.self, forCellWithReuseIdentifier: AvatarCollectionViewCell.cellId)
+        return collectionView
+    }()
+
+    init(ledgerData: LedgerData) {
+        manager = LedgerDetailManager(ledgerData: ledgerData)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
+        layout()
+    }
+
+    private func setup() {
+        view.backgroundColor = .white
+        backButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backAction)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+
+        navigationItem.titleView = titleLabel
+        titleLabel.text = manager.ledgerTitle
+        titleLabel.font = .systemFont(ofSize: 18, weight: .semibold)
+        titleLabel.numberOfLines = 1
+
+        avatarListView.backgroundColor = .orange
+        avatarListView.dataSource = self
+    }
+
+    private func layout() {
+        view.addSubview(avatarListView)
+        avatarListView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatarListView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            avatarListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            avatarListView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            avatarListView.heightAnchor.constraint(equalToConstant: 30)
+        ])
+    }
+
+    @objc private func backAction() {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+extension LedgerDetailViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        10
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AvatarCollectionViewCell.cellId, for: indexPath) as? AvatarCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        return cell
+    }
+}

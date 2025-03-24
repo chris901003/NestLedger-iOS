@@ -13,6 +13,10 @@ struct LedgerData: Codable {
     var title: String
     var userIds: [String]
     var version: Int = LEDGER_DATA_VERSION
+
+    static func initMock() -> LedgerData {
+        .init(_id: "", title: "", userIds: [])
+    }
 }
 
 struct LedgerDataWrapper: Codable {

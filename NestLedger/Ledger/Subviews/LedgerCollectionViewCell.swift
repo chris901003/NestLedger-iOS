@@ -128,7 +128,6 @@ extension LedgerCollectionViewCell {
             let results = (try await group.reduce(into: [UIImage]()) { $0.append($1) }).compactMap { $0 }
             return results
         }
-        print("✅ Avatar: \(userAvatars?.count ?? -1)")
         guard let userAvatars else { return }
         await MainActor.run {
             userIconsView.first.image = userAvatars[0]
