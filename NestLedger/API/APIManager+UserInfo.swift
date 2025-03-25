@@ -104,4 +104,20 @@ extension APIManager {
             throw UserInfoError.failedGetAvatar
         }
     }
+
+    func getMultipleUserInfo(userIds: [String]) async throws -> [UserInfoData] {
+        guard let url = APIPath.UserInfo.getMultipleUserInfo.getUrl() else { throw APIManagerError.badUrl }
+        let parameters: [String: Any] = ["uids": userIds]
+        let request = genRequest(url: url, method: .POST, body: parameters)
+        do {
+            let (data, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                throw UserInfoError.failedFetchUserInfo
+            }
+            let userInfos = try APIManager.decoder.decode(UserInfosResponse.self, from: data)
+            return userInfos.data.userInfos
+        } catch {
+            throw UserInfoError.failedFetchUserInfo
+        }
+    }
 }

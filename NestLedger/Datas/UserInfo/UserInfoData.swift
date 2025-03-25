@@ -57,4 +57,9 @@ struct UserInfoDataWrapper: Codable {
     let UserInfo: UserInfoData
 }
 
+struct UserInfosDataWrapper: Codable {
+    let userInfos: [UserInfoData]
+}
+
 typealias UserInfoResponse = APIResponseData<UserInfoDataWrapper>
+typealias UserInfosResponse = APIResponseData<UserInfosDataWrapper>

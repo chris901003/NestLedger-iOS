@@ -14,6 +14,8 @@ class AvatarCollectionViewCell: UICollectionViewCell {
 
     let imageView = UIImageView()
 
+    var imageViewHeightConstraint: NSLayoutConstraint?
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setup()
@@ -30,11 +32,12 @@ class AvatarCollectionViewCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        imageViewHeightConstraint?.constant = bounds.width
         imageView.layer.cornerRadius = bounds.width / 2
     }
 
     private func setup() {
-        imageView.image = UIImage(systemName: "person")
+        imageView.backgroundColor = .blue.withAlphaComponent(0.3)
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
     }
@@ -45,8 +48,9 @@ class AvatarCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 30),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
         ])
+        imageViewHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: 1)
+        imageViewHeightConstraint?.isActive = true
     }
 }
