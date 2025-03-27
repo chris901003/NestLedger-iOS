@@ -24,14 +24,20 @@ class LedgerDetailManager {
         self.ledgerData = ledgerData
         Task {
             do {
+                try await updateLedgerData()
                 try await getUsers()
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳本使用者敗")
             }
             await MainActor.run {
                 vc?.avatarListView.reloadData()
+                vc?.incomeExpenseView.config(income: self.ledgerData.totalIncome, expense: self.ledgerData.totalExpense)
             }
         }
+    }
+
+    private func updateLedgerData() async throws {
+        ledgerData = try await apiManager.getLedger(ledgerId: ledgerData._id)
     }
 
     private func getUsers() async throws {

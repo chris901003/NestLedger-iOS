@@ -38,7 +38,7 @@ class AvatarCollectionViewCell: UICollectionViewCell {
 
     private func setup() {
         imageView.backgroundColor = .blue.withAlphaComponent(0.3)
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
     }
 

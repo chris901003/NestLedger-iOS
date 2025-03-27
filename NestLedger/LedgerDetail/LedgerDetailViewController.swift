@@ -34,6 +34,7 @@ class LedgerDetailViewController: UIViewController {
         collectionView.register(AvatarCollectionViewCell.self, forCellWithReuseIdentifier: AvatarCollectionViewCell.cellId)
         return collectionView
     }()
+    let incomeExpenseView = LDIncomeExpenseView()
 
     weak var avatarListViewHeightConstraint: NSLayoutConstraint?
 
@@ -70,6 +71,8 @@ class LedgerDetailViewController: UIViewController {
         titleLabel.numberOfLines = 1
 
         avatarListView.dataSource = self
+
+        incomeExpenseView.config(income: manager.ledgerData.totalIncome, expense: manager.ledgerData.totalExpense)
     }
 
     private func layout() {
@@ -82,6 +85,14 @@ class LedgerDetailViewController: UIViewController {
         ])
         avatarListViewHeightConstraint = avatarListView.heightAnchor.constraint(equalToConstant: 30)
         avatarListViewHeightConstraint?.isActive = true
+
+        view.addSubview(incomeExpenseView)
+        incomeExpenseView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            incomeExpenseView.topAnchor.constraint(equalTo: avatarListView.bottomAnchor, constant: 8),
+            incomeExpenseView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            incomeExpenseView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
+        ])
     }
 
     @objc private func backAction() {
