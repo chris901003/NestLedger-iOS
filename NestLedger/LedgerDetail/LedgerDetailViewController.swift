@@ -36,10 +36,16 @@ class LedgerDetailViewController: UIViewController {
     }()
     let incomeExpenseView = LDIncomeExpenseView()
 
+    let scrollView = UIScrollView()
+    let contentView = UIView()
+    let calendarView: MCalendarView
+    let transactionsView = UIView()
+
     weak var avatarListViewHeightConstraint: NSLayoutConstraint?
 
     init(ledgerData: LedgerData) {
         manager = LedgerDetailManager(ledgerData: ledgerData)
+        calendarView = MCalendarView(ledgerId: ledgerData._id)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -71,8 +77,11 @@ class LedgerDetailViewController: UIViewController {
         titleLabel.numberOfLines = 1
 
         avatarListView.dataSource = self
+        avatarListView.alwaysBounceVertical = false
 
         incomeExpenseView.config(income: manager.ledgerData.totalIncome, expense: manager.ledgerData.totalExpense)
+
+        transactionsView.backgroundColor = .blue.withAlphaComponent(0.1)
     }
 
     private func layout() {
@@ -90,8 +99,48 @@ class LedgerDetailViewController: UIViewController {
         incomeExpenseView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             incomeExpenseView.topAnchor.constraint(equalTo: avatarListView.bottomAnchor, constant: 8),
-            incomeExpenseView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            incomeExpenseView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
+            incomeExpenseView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18),
+            incomeExpenseView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18)
+        ])
+
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: incomeExpenseView.bottomAnchor, constant: 8),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+
+        scrollView.addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+        let contentViewHeightConstraint = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+        contentViewHeightConstraint.priority = .defaultLow
+        contentViewHeightConstraint.isActive = true
+
+        contentView.addSubview(calendarView)
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            calendarView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            calendarView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            calendarView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+        ])
+
+        contentView.addSubview(transactionsView)
+        transactionsView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            transactionsView.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: 8),
+            transactionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            transactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            transactionsView.heightAnchor.constraint(equalToConstant: 500),
+            transactionsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 

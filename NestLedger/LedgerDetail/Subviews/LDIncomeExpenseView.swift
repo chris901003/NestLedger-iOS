@@ -41,28 +41,28 @@ class LDIncomeExpenseView: UIView {
             incomePercentage = CGFloat(income) / CGFloat(income + expense)
         }
         incomeLineWidthConstraint?.constant = bounds.width * incomePercentage
-        layoutIfNeeded()
 
         incomeLabel.text = "收入\n$\(income)"
         expenseLabel.text = "支出\n$\(expense)"
     }
 
     private func setup() {
-        lineView.layer.cornerRadius = 5.0
+        lineView.layer.cornerRadius = 10.0
         lineView.clipsToBounds = true
+        lineView.backgroundColor = .blue
 
         incomeLine.backgroundColor = UIColor(hexCode: "#B1DD8B")
         expenseLine.backgroundColor = UIColor(hexCode: "#FF8484")
 
         incomeLabel.text = "收入\n$0"
         incomeLabel.font = .systemFont(ofSize: 18, weight: .semibold)
-        incomeLabel.numberOfLines = 2
+        incomeLabel.numberOfLines = 0
         incomeLabel.textColor = UIColor(hexCode: "#B1DD8B")
         incomeLabel.textAlignment = .left
 
         expenseLabel.text = "支出\n$0"
         expenseLabel.font = .systemFont(ofSize: 18, weight: .semibold)
-        expenseLabel.numberOfLines = 2
+        expenseLabel.numberOfLines = 0
         expenseLabel.textColor = UIColor(hexCode: "#FF8484")
         expenseLabel.textAlignment = .right
     }
@@ -81,7 +81,7 @@ class LDIncomeExpenseView: UIView {
         NSLayoutConstraint.activate([
             incomeLine.topAnchor.constraint(equalTo: lineView.topAnchor),
             incomeLine.leadingAnchor.constraint(equalTo: lineView.leadingAnchor),
-            incomeLine.heightAnchor.constraint(equalToConstant: 10),
+            incomeLine.heightAnchor.constraint(equalToConstant: 25),
             incomeLine.bottomAnchor.constraint(equalTo: lineView.bottomAnchor)
         ])
         incomeLineWidthConstraint = incomeLine.widthAnchor.constraint(equalToConstant: 200)
@@ -90,24 +90,27 @@ class LDIncomeExpenseView: UIView {
         lineView.addSubview(expenseLine)
         expenseLine.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            expenseLine.topAnchor.constraint(equalTo: incomeLine.topAnchor),
+            expenseLine.topAnchor.constraint(equalTo: lineView.topAnchor),
             expenseLine.leadingAnchor.constraint(equalTo: incomeLine.trailingAnchor),
             expenseLine.trailingAnchor.constraint(equalTo: lineView.trailingAnchor),
-            expenseLine.bottomAnchor.constraint(equalTo: incomeLine.bottomAnchor)
+            expenseLine.heightAnchor.constraint(equalToConstant: 25),
+            expenseLine.bottomAnchor.constraint(equalTo: lineView.bottomAnchor)
         ])
 
         addSubview(incomeLabel)
         incomeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             incomeLabel.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 8),
-            incomeLabel.leadingAnchor.constraint(equalTo: leadingAnchor)
+            incomeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            bottomAnchor.constraint(greaterThanOrEqualTo: incomeLabel.bottomAnchor),
         ])
 
         addSubview(expenseLabel)
         expenseLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             expenseLabel.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 8),
-            expenseLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+            expenseLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            bottomAnchor.constraint(equalTo: expenseLabel.bottomAnchor)
         ])
     }
 }

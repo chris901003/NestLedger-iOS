@@ -61,9 +61,12 @@ class MCalendarView: UIView {
         return collectionView
     }()
 
-    let manager = MCalendarManager()
+    var collectionViewHeightConstraint: NSLayoutConstraint?
 
-    init() {
+    let manager: MCalendarManager
+
+    init(ledgerId: String) {
+        manager = MCalendarManager(ledgerId: ledgerId)
         super.init(frame: .zero)
         setup()
         layout()
@@ -73,8 +76,12 @@ class MCalendarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        collectionViewHeightConstraint?.constant = collectionView.contentSize.height
+    }
+
     private func setup() {
-//        backgroundColor = .systemGray6
         manager.vc = self
 
         yearMonthLabel.text = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_ch, date: manager.selectedDay)
@@ -94,6 +101,7 @@ class MCalendarView: UIView {
 
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.isScrollEnabled = false
     }
 
     private func layout() {
@@ -108,17 +116,18 @@ class MCalendarView: UIView {
         forwardIcon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             forwardIcon.trailingAnchor.constraint(equalTo: trailingAnchor),
-            forwardIcon.topAnchor.constraint(equalTo: yearMonthLabel.topAnchor),
-            forwardIcon.bottomAnchor.constraint(equalTo: yearMonthLabel.bottomAnchor),
-            forwardIcon.widthAnchor.constraint(equalTo: forwardIcon.heightAnchor)
+            forwardIcon.centerYAnchor.constraint(equalTo: yearMonthLabel.centerYAnchor),
+            forwardIcon.widthAnchor.constraint(equalToConstant: 20),
+            forwardIcon.heightAnchor.constraint(equalToConstant: 20)
         ])
 
         addSubview(backIcon)
         backIcon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             backIcon.trailingAnchor.constraint(equalTo: forwardIcon.leadingAnchor, constant: -8),
-            backIcon.heightAnchor.constraint(equalTo: forwardIcon.heightAnchor),
-            backIcon.widthAnchor.constraint(equalTo: backIcon.heightAnchor)
+            backIcon.centerYAnchor.constraint(equalTo: forwardIcon.centerYAnchor),
+            backIcon.widthAnchor.constraint(equalToConstant: 20),
+            backIcon.heightAnchor.constraint(equalToConstant: 20)
         ])
 
         addSubview(collectionView)
@@ -129,6 +138,8 @@ class MCalendarView: UIView {
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        collectionViewHeightConstraint = collectionView.heightAnchor.constraint(equalToConstant: 100)
+        collectionViewHeightConstraint?.isActive = true
     }
 }
 
@@ -161,8 +172,9 @@ extension MCalendarView: UICollectionViewDataSource, UICollectionViewDelegate {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MCDateCell.cellId, for: indexPath) as? MCDateCell else {
                     return UICollectionViewCell()
                 }
-                cell.date = manager.getCellDate(index: indexPath.row)
-                cell.config(date: manager.getCollectionViewDate(index: indexPath.row), amount: -1000)
+                let date = manager.getCellDate(index: indexPath.row) ?? Date.now
+                cell.date = date
+                cell.config(date: manager.getCollectionViewDate(index: indexPath.row), amount: manager.dayAmount[date, default: 1000])
                 cell.isSelected(cell.date == Calendar.current.startOfDay(for: Date.now))
                 return cell
         }

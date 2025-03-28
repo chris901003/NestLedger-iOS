@@ -21,9 +21,45 @@ class MCalendarManager {
         }
     }
     var curFirstWeekday: Int = 0
+    // 這裡的 key 應該是 string 才對
+    var dayAmount: [Date: Int] = [:]
+    var dayTransactions: [Date: [TransactionData]] = [:]
 
-    init() {
+    let ledgerId: String
+    let apiManager = APIManager()
+
+    init(ledgerId: String) {
+        self.ledgerId = ledgerId
         updateFirstWeekday()
+        Task {
+            try? await getTransactions()
+        }
+    }
+
+    func getTransactions() async throws {
+        var components = DateComponents()
+        components.year = Calendar.current.component(.year, from: selectedDay)
+        components.month = Calendar.current.component(.month, from: selectedDay)
+        components.day = 1
+        guard let startDate = Calendar.current.date(from: components) else { return }
+        components.day = Calendar.current.range(of: .day, in: .month, for: startDate)?.count
+        guard let endDate = Calendar.current.date(from: components) else { return }
+
+        let taipeiTimeZone = TimeZone(secondsFromGMT: 60 * 60 * 8)! // +8
+        var calendar = Calendar.current
+        calendar.timeZone = taipeiTimeZone
+
+        let transactions = try await apiManager.getTransactionByLedger(config: .init(
+            ledgerId: ledgerId,
+            startDate: startDate,
+            endDate: endDate
+        ))
+        for transaction in transactions {
+            let date = calendar.component(.day, from: transaction.date)
+            dayTransactions[transaction.date, default: []].append(transaction)
+            dayAmount[transaction.date, default: 0] += transaction.type == .income ? transaction.money : -transaction.money
+            print("✅ Date: \(transaction.date), Amount: \(dayAmount[transaction.date])")
+        }
     }
 }
 

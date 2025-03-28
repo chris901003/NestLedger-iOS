@@ -257,7 +257,6 @@
 		0503F2A92D524E0000B2640C /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				051B491A2D870A9400834D72 /* Calendar */,
 				051B49242D8997DB00834D72 /* PieChart */,
 				05EC2B172D6B5903006F1F3A /* QuickLog */,
 				05EC2B142D6B54B5006F1F3A /* RecentContent */,
@@ -459,6 +458,7 @@
 		05C5E3962D91893E00E36A3A /* LedgerDetail */ = {
 			isa = PBXGroup;
 			children = (
+				051B491A2D870A9400834D72 /* Calendar */,
 				05C5E39B2D91A6D600E36A3A /* Subviews */,
 				05C5E3992D91981A00E36A3A /* LedgerDetailManager.swift */,
 				05C5E3972D91894A00E36A3A /* LedgerDetailViewController.swift */,
