@@ -19,10 +19,14 @@ class LDIncomeExpenseView: UIView {
     var incomePercentage: CGFloat = 0.5
     var incomeLineWidthConstraint: NSLayoutConstraint?
 
+    var income: Int = 0
+    var expense: Int = 0
+
     init() {
         super.init(frame: .zero)
         setup()
         layout()
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -44,6 +48,9 @@ class LDIncomeExpenseView: UIView {
 
         incomeLabel.text = "收入\n$\(income)"
         expenseLabel.text = "支出\n$\(expense)"
+
+        self.income = income
+        self.expense = expense
     }
 
     private func setup() {
@@ -112,5 +119,18 @@ class LDIncomeExpenseView: UIView {
             expenseLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             bottomAnchor.constraint(equalTo: expenseLabel.bottomAnchor)
         ])
+    }
+}
+
+extension LDIncomeExpenseView {
+    @objc private func receiveNewTransaction(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let transaction = userInfo["transaction"] as? TransactionData else { return }
+        if transaction.type == .income {
+            income += transaction.money
+        } else if transaction.type == .expenditure {
+            expense += transaction.money
+        }
+        config(income: income, expense: expense)
     }
 }

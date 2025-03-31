@@ -7,6 +7,7 @@
 
 
 import Foundation
+import xxooooxxCommonUI
 
 class MCalendarManager {
     weak var vc: MCalendarView?
@@ -18,6 +19,7 @@ class MCalendarManager {
                 vc?.collectionView.reloadData()
                 vc?.yearMonthLabel.text = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_ch, date: selectedDay)
             }
+            updateTransaction()
         }
     }
     var curFirstWeekday: Int = 0
@@ -26,19 +28,43 @@ class MCalendarManager {
 
     let ledgerId: String
     let apiManager = APIManager()
+    let userTimeZone = TimeZone(secondsFromGMT: 60 * 60 * sharedUserInfo.timeZone)!
+    let formatter = DateFormatter()
 
     init(ledgerId: String) {
         self.ledgerId = ledgerId
+        formatter.timeZone = userTimeZone
+        formatter.dateFormat = "yyyy-MM-dd"
         updateFirstWeekday()
+        updateTransaction()
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
+    }
+
+    @objc private func receiveNewTransaction(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let transaction = userInfo["transaction"] as? TransactionData else { return }
+        let dateString = formatter.string(from: transaction.date)
+        dayTransactions[dateString, default: []].append(transaction)
+        dayAmount[dateString, default: 0] += transaction.type == .income ? transaction.money : -transaction.money
+        DispatchQueue.main.async { [weak self] in
+            self?.vc?.collectionView.reloadData()
+        }
+    }
+
+    func updateTransaction() {
+        dayAmount = [:]
+        dayTransactions = [:]
         Task {
-            try? await getTransactions()
-            await MainActor.run {
-                vc?.collectionView.reloadData()
+            do {
+                try await getTransactions()
+                await MainActor.run { vc?.collectionView.reloadData() }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳目失敗")
             }
         }
     }
 
-    func getTransactions() async throws {
+    private func getTransactions() async throws {
         var components = DateComponents()
         components.year = Calendar.current.component(.year, from: selectedDay)
         components.month = Calendar.current.component(.month, from: selectedDay)
@@ -49,11 +75,6 @@ class MCalendarManager {
         components.minute = 59
         components.second = 59
         guard let endDate = Calendar.current.date(from: components) else { return }
-
-        let taipeiTimeZone = TimeZone(secondsFromGMT: 60 * 60 * sharedUserInfo.timeZone)!
-        let formatter = DateFormatter()
-        formatter.timeZone = taipeiTimeZone
-        formatter.dateFormat = "yyyy-MM-dd"
 
         let transactions = try await apiManager.getTransactionByLedger(config: .init(
             ledgerId: ledgerId,
