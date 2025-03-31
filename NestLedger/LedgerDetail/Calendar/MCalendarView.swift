@@ -174,7 +174,8 @@ extension MCalendarView: UICollectionViewDataSource, UICollectionViewDelegate {
                 }
                 let date = manager.getCellDate(index: indexPath.row) ?? Date.now
                 cell.date = date
-                cell.config(date: manager.getCollectionViewDate(index: indexPath.row), amount: manager.dayAmount[date, default: 1000])
+                let dateString = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_dd, date: date)
+                cell.config(date: manager.getCollectionViewDate(index: indexPath.row), amount: manager.dayAmount[dateString, default: 0])
                 cell.isSelected(cell.date == Calendar.current.startOfDay(for: Date.now))
                 return cell
         }
