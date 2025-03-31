@@ -10,4 +10,5 @@ import Foundation
 
 extension Notification.Name {
     static let newRecentTransaction = Notification.Name("NewRecentTransaction")
+    static let ledgerDetailSelectDayTransactions = Notification.Name("LedgerDetailSelectDayTransactions")
 }

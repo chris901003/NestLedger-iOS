@@ -11,17 +11,18 @@ import xxooooxxCommonUI
 
 class MCalendarManager {
     weak var vc: MCalendarView?
-    var selectedDay = Date.now {
+    var calendarDay = Date.now {
         didSet {
             updateFirstWeekday()
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 vc?.collectionView.reloadData()
-                vc?.yearMonthLabel.text = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_ch, date: selectedDay)
+                vc?.yearMonthLabel.text = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_ch, date: calendarDay)
             }
             updateTransaction()
         }
     }
+    var selectedDay = Date.now
     var curFirstWeekday: Int = 0
     var dayAmount: [String: Int] = [:]
     var dayTransactions: [String: [TransactionData]] = [:]
@@ -57,7 +58,15 @@ class MCalendarManager {
         Task {
             do {
                 try await getTransactions()
-                await MainActor.run { vc?.collectionView.reloadData() }
+                await MainActor.run {
+                    vc?.collectionView.reloadData()
+                    let dateString = formatter.string(from: selectedDay)
+                    NotificationCenter.default.post(
+                        name: .ledgerDetailSelectDayTransactions,
+                        object: nil,
+                        userInfo: ["transactions": dayTransactions[dateString, default: []]]
+                    )
+                }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳目失敗")
             }
@@ -66,8 +75,8 @@ class MCalendarManager {
 
     private func getTransactions() async throws {
         var components = DateComponents()
-        components.year = Calendar.current.component(.year, from: selectedDay)
-        components.month = Calendar.current.component(.month, from: selectedDay)
+        components.year = Calendar.current.component(.year, from: calendarDay)
+        components.month = Calendar.current.component(.month, from: calendarDay)
         components.day = 1
         guard let startDate = Calendar.current.date(from: components) else { return }
         components.day = Calendar.current.range(of: .day, in: .month, for: startDate)?.count
@@ -107,8 +116,8 @@ extension MCalendarManager {
 
     func getYearAndMonth() -> (Int, Int) {
         let calendar = Calendar.current
-        let year = calendar.component(.year, from: selectedDay)
-        let month = calendar.component(.month, from: selectedDay)
+        let year = calendar.component(.year, from: calendarDay)
+        let month = calendar.component(.month, from: calendarDay)
         return (year, month)
     }
 

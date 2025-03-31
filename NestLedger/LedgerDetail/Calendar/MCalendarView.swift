@@ -84,7 +84,7 @@ class MCalendarView: UIView {
     private func setup() {
         manager.vc = self
 
-        yearMonthLabel.text = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_ch, date: manager.selectedDay)
+        yearMonthLabel.text = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_ch, date: manager.calendarDay)
         yearMonthLabel.textColor = .black
         yearMonthLabel.font = .systemFont(ofSize: 16, weight: .bold)
         yearMonthLabel.numberOfLines = 1
@@ -176,7 +176,9 @@ extension MCalendarView: UICollectionViewDataSource, UICollectionViewDelegate {
                 cell.date = date
                 let dateString = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_dd, date: date)
                 cell.config(date: manager.getCollectionViewDate(index: indexPath.row), amount: manager.dayAmount[dateString, default: 0])
-                cell.isSelected(cell.date == Calendar.current.startOfDay(for: Date.now))
+                if let date = manager.getCellDate(index: indexPath.row) {
+                    cell.isSelected(Calendar.current.isDate(date, inSameDayAs: manager.selectedDay))
+                }
                 return cell
         }
     }
@@ -187,8 +189,16 @@ extension MCalendarView: UICollectionViewDataSource, UICollectionViewDelegate {
             case .titleSection:
                 return
             case .dateSection:
-                let date = manager.getCollectionViewDate(index: indexPath.row)
-                if date == "" { return }
+                guard !manager.getCollectionViewDate(index: indexPath.row).isEmpty else { return }
+                let date = manager.getCellDate(index: indexPath.row) ?? Date.now
+                manager.selectedDay = date
+                collectionView.reloadData()
+                let dateString = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_dd, date: date)
+                NotificationCenter.default.post(
+                    name: .ledgerDetailSelectDayTransactions,
+                    object: nil,
+                    userInfo: ["transactions": manager.dayTransactions[dateString, default: []]]
+                )
         }
     }
 }
@@ -203,7 +213,7 @@ extension MCalendarView {
         components.month = month == 1 ? 12 : month - 1
         components.day = 1
         if let date = calendar.date(from: components) {
-            manager.selectedDay = date
+            manager.calendarDay = date
         }
     }
 
@@ -215,7 +225,7 @@ extension MCalendarView {
         components.month = month == 12 ? 1 : month + 1
         components.day = 1
         if let date = calendar.date(from: components) {
-            manager.selectedDay = date
+            manager.calendarDay = date
         }
     }
 }

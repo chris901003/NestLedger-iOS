@@ -39,7 +39,7 @@ class LedgerDetailViewController: UIViewController {
     let scrollView = UIScrollView()
     let contentView = UIView()
     let calendarView: MCalendarView
-    let transactionsView = UIView()
+    let transactionsView = LTransactionView()
 
     weak var avatarListViewHeightConstraint: NSLayoutConstraint?
 
@@ -80,8 +80,6 @@ class LedgerDetailViewController: UIViewController {
         avatarListView.alwaysBounceVertical = false
 
         incomeExpenseView.config(income: manager.ledgerData.totalIncome, expense: manager.ledgerData.totalExpense)
-
-        transactionsView.backgroundColor = .blue.withAlphaComponent(0.1)
     }
 
     private func layout() {
@@ -139,7 +137,6 @@ class LedgerDetailViewController: UIViewController {
             transactionsView.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: 8),
             transactionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             transactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            transactionsView.heightAnchor.constraint(equalToConstant: 500),
             transactionsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
