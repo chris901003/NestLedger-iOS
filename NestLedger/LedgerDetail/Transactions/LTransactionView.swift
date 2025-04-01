@@ -20,6 +20,7 @@ class LTransactionView: UIView {
         super.init(frame: .zero)
         setup()
         layout()
+        registerCell()
     }
 
     required init?(coder: NSCoder) {
@@ -52,6 +53,10 @@ class LTransactionView: UIView {
         tableViewHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: 10)
         tableViewHeightConstraint?.isActive = true
     }
+
+    private func registerCell() {
+        tableView.register(LTCell.self, forCellReuseIdentifier: LTCell.cellId)
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -61,8 +66,9 @@ extension LTransactionView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "\(manager.transactions[indexPath.row].money)"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: LTCell.cellId, for: indexPath) as? LTCell else {
+            return UITableViewCell()
+        }
         return cell
     }
 }

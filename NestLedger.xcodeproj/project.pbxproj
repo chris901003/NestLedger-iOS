@@ -78,6 +78,7 @@
 		0557045D2D5792830032C47C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0557045C2D5792830032C47C /* GoogleService-Info.plist */; };
 		0572C3C32D9AD54C008F99FB /* LTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C22D9AD54C008F99FB /* LTransactionView.swift */; };
 		0572C3C52D9ADA6C008F99FB /* LTransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C42D9ADA6C008F99FB /* LTransactionManager.swift */; };
+		0572C3C82D9C1911008F99FB /* LTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C72D9C1911008F99FB /* LTCell.swift */; };
 		05AF766B2D944A0800C27407 /* LDIncomeExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */; };
 		05B340A92D66123E000378A2 /* APIPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340A82D66123E000378A2 /* APIPath.swift */; };
 		05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */; };
@@ -149,6 +150,7 @@
 		0557045C2D5792830032C47C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0572C3C22D9AD54C008F99FB /* LTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTransactionView.swift; sourceTree = "<group>"; };
 		0572C3C42D9ADA6C008F99FB /* LTransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTransactionManager.swift; sourceTree = "<group>"; };
+		0572C3C72D9C1911008F99FB /* LTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTCell.swift; sourceTree = "<group>"; };
 		05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDIncomeExpenseView.swift; sourceTree = "<group>"; };
 		05B340A82D66123E000378A2 /* APIPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPath.swift; sourceTree = "<group>"; };
 		05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+UserInfo.swift"; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 		0572C3C12D9AD52F008F99FB /* Transactions */ = {
 			isa = PBXGroup;
 			children = (
+				0572C3C72D9C1911008F99FB /* LTCell.swift */,
 				0572C3C42D9ADA6C008F99FB /* LTransactionManager.swift */,
 				0572C3C22D9AD54C008F99FB /* LTransactionView.swift */,
 			);
@@ -686,6 +689,7 @@
 				0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */,
 				0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */,
 				05AF766B2D944A0800C27407 /* LDIncomeExpenseView.swift in Sources */,
+				0572C3C82D9C1911008F99FB /* LTCell.swift in Sources */,
 				0572C3C52D9ADA6C008F99FB /* LTransactionManager.swift in Sources */,
 				0572C3C32D9AD54C008F99FB /* LTransactionView.swift in Sources */,
 				05C95D1E2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift in Sources */,
