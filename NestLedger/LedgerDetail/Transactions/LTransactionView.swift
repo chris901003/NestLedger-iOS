@@ -69,6 +69,8 @@ extension LTransactionView: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LTCell.cellId, for: indexPath) as? LTCell else {
             return UITableViewCell()
         }
+        let transaction = manager.transactions[indexPath.row]
+        cell.config(transaction: transaction, avatar: manager.userAvatars[transaction.userId])
         return cell
     }
 }

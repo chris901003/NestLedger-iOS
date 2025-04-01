@@ -18,6 +18,8 @@ class LTCell: UITableViewCell {
     let amountLabel = UILabel()
     let titleLabel = UILabel()
 
+    let apiManager = APIManager()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -31,6 +33,20 @@ class LTCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         defaultSetup()
+    }
+
+    func config(transaction: TransactionData, avatar: UIImage?) {
+        avatarView.image = avatar
+
+        typeLabel.text = transaction.type.getLabel()
+        typeLabel.backgroundColor = transaction.type.getBackgroundColor()
+
+        amountLabel.text = "$\(transaction.money)"
+        amountLabel.textColor = transaction.type.getBackgroundColor()
+
+        titleLabel.text = transaction.title
+
+        Task { try? await fetchTagInfo(tagId: transaction.tagId) }
     }
 
     private func defaultSetup() {
@@ -54,6 +70,7 @@ class LTCell: UITableViewCell {
 
         avatarView.contentMode = .scaleAspectFill
         avatarView.layer.cornerRadius = 40 / 2
+        avatarView.clipsToBounds = true
         avatarView.backgroundColor = .systemGray5
 
         typeLabel.font = .systemFont(ofSize: 14, weight: .semibold)
@@ -116,6 +133,17 @@ class LTCell: UITableViewCell {
             titleLabel.centerYAnchor.constraint(equalTo: contentView.layoutMarginsGuide.centerYAnchor)
         ])
         titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+    }
+}
+
+extension LTCell {
+    private func fetchTagInfo(tagId: String) async throws {
+        let tagData = try await apiManager.getTag(tagId: tagId)
+        await MainActor.run {
+            tagLabel.text = tagData.label
+            tagLabel.textColor = tagData.getColor
+            tagLabel.backgroundColor = tagData.getColor.withAlphaComponent(0.3)
+        }
     }
 }
 
