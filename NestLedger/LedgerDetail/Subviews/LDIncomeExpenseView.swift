@@ -109,6 +109,7 @@ class LDIncomeExpenseView: UIView {
         NSLayoutConstraint.activate([
             incomeLabel.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 8),
             incomeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            incomeLabel.heightAnchor.constraint(equalToConstant: 60),
             bottomAnchor.constraint(greaterThanOrEqualTo: incomeLabel.bottomAnchor),
         ])
 
@@ -117,6 +118,7 @@ class LDIncomeExpenseView: UIView {
         NSLayoutConstraint.activate([
             expenseLabel.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 8),
             expenseLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            expenseLabel.heightAnchor.constraint(equalToConstant: 60),
             bottomAnchor.constraint(equalTo: expenseLabel.bottomAnchor)
         ])
     }

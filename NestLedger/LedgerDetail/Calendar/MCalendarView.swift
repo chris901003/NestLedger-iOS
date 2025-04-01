@@ -109,7 +109,8 @@ class MCalendarView: UIView {
         yearMonthLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             yearMonthLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            yearMonthLabel.topAnchor.constraint(equalTo: topAnchor)
+            yearMonthLabel.topAnchor.constraint(equalTo: topAnchor),
+            yearMonthLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
 
         addSubview(forwardIcon)
@@ -193,12 +194,6 @@ extension MCalendarView: UICollectionViewDataSource, UICollectionViewDelegate {
                 let date = manager.getCellDate(index: indexPath.row) ?? Date.now
                 manager.selectedDay = date
                 collectionView.reloadData()
-                let dateString = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_dd, date: date)
-                NotificationCenter.default.post(
-                    name: .ledgerDetailSelectDayTransactions,
-                    object: nil,
-                    userInfo: ["transactions": manager.dayTransactions[dateString, default: []]]
-                )
         }
     }
 }
@@ -214,6 +209,7 @@ extension MCalendarView {
         components.day = 1
         if let date = calendar.date(from: components) {
             manager.calendarDay = date
+            manager.selectedDay = date
         }
     }
 
@@ -226,6 +222,7 @@ extension MCalendarView {
         components.day = 1
         if let date = calendar.date(from: components) {
             manager.calendarDay = date
+            manager.selectedDay = date
         }
     }
 }

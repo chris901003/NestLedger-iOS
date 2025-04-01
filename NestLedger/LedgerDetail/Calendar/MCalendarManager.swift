@@ -22,7 +22,16 @@ class MCalendarManager {
             updateTransaction()
         }
     }
-    var selectedDay = Date.now
+    var selectedDay = Date.now {
+        didSet {
+            let dateString = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_dd, date: selectedDay)
+            NotificationCenter.default.post(
+                name: .ledgerDetailSelectDayTransactions,
+                object: nil,
+                userInfo: ["transactions": dayTransactions[dateString, default: []]]
+            )
+        }
+    }
     var curFirstWeekday: Int = 0
     var dayAmount: [String: Int] = [:]
     var dayTransactions: [String: [TransactionData]] = [:]
@@ -47,6 +56,9 @@ class MCalendarManager {
         let dateString = formatter.string(from: transaction.date)
         dayTransactions[dateString, default: []].append(transaction)
         dayAmount[dateString, default: 0] += transaction.type == .income ? transaction.money : -transaction.money
+        if dateString == formatter.string(from: selectedDay) {
+            NotificationCenter.default.post(name: .ledgerDetailSelectDayTransactions, object: nil, userInfo: ["transactions": dayTransactions[dateString, default: []]])
+        }
         DispatchQueue.main.async { [weak self] in
             self?.vc?.collectionView.reloadData()
         }

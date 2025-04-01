@@ -28,6 +28,12 @@ class MCDateCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        backgroundColor = .clear
+        dateLabel.text = ""
+    }
+
     func config(date: String, amount: Int) {
         self.amount = amount
         dateLabel.text = date

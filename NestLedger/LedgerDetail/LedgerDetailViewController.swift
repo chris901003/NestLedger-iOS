@@ -130,6 +130,7 @@ class LedgerDetailViewController: UIViewController {
             calendarView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             calendarView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
+        calendarView.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
         contentView.addSubview(transactionsView)
         transactionsView.translatesAutoresizingMaskIntoConstraints = false
@@ -139,6 +140,7 @@ class LedgerDetailViewController: UIViewController {
             transactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             transactionsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+        transactionsView.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
 
     @objc private func backAction() {
