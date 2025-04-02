@@ -66,6 +66,8 @@ class LTCell: UITableViewCell {
     }
 
     private func setup() {
+        selectionStyle = .none
+
         defaultSetup()
 
         avatarView.contentMode = .scaleAspectFill

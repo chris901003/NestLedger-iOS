@@ -15,6 +15,7 @@ class LTransactionView: UIView {
     var tableViewHeightConstraint: NSLayoutConstraint?
 
     let manager = LTransactionManager()
+    weak var delegate: NLNeedPresent?
 
     init() {
         super.init(frame: .zero)
@@ -72,5 +73,19 @@ extension LTransactionView: UITableViewDelegate, UITableViewDataSource {
         let transaction = manager.transactions[indexPath.row]
         cell.config(transaction: transaction, avatar: manager.userAvatars[transaction.userId])
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let data = manager.transactions[indexPath.row]
+        let editAction = UIContextualAction(style: .normal, title: "編輯") { [weak self] action, view, completionHandler in
+            guard let self else { return }
+            print("✅ 編輯觸發")
+            let transactionVC = TransactionViewController(transaction: data)
+            delegate?.presentVC(transactionVC)
+            completionHandler(true)
+        }
+        let config = UISwipeActionsConfiguration(actions: [editAction])
+        config.performsFirstActionWithFullSwipe = false
+        return config
     }
 }

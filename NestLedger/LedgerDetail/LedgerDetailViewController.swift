@@ -80,6 +80,8 @@ class LedgerDetailViewController: UIViewController {
         avatarListView.alwaysBounceVertical = false
 
         incomeExpenseView.config(income: manager.ledgerData.totalIncome, expense: manager.ledgerData.totalExpense)
+
+        transactionsView.delegate = self
     }
 
     private func layout() {
@@ -164,5 +166,12 @@ extension LedgerDetailViewController: UICollectionViewDataSource {
             await MainActor.run { cell.config(image: avatar) }
         }
         return cell
+    }
+}
+
+// MARK: - NLNeedPresent
+extension LedgerDetailViewController: NLNeedPresent {
+    func presentVC(_ vc: UIViewController) {
+        present(vc, animated: true)
     }
 }
