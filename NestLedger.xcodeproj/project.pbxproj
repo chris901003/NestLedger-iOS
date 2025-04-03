@@ -88,6 +88,7 @@
 		05B340B42D68B705000378A2 /* APIManager+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B32D68B705000378A2 /* APIManager+Photo.swift */; };
 		05B421132D9D68E4000C8ECC /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B421122D9D68E4000C8ECC /* TransactionViewController.swift */; };
 		05B421152D9D6AE0000C8ECC /* TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B421142D9D6AE0000C8ECC /* TransactionManager.swift */; };
+		05B421172D9EC432000C8ECC /* TTagSelectionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B421162D9EC432000C8ECC /* TTagSelectionButtonView.swift */; };
 		05C37B912D7B35FF005FCF89 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C37B902D7B35FF005FCF89 /* TagCell.swift */; };
 		05C5E3982D91894A00E36A3A /* LedgerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C5E3972D91894A00E36A3A /* LedgerDetailViewController.swift */; };
 		05C5E39A2D91981A00E36A3A /* LedgerDetailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C5E3992D91981A00E36A3A /* LedgerDetailManager.swift */; };
@@ -162,6 +163,7 @@
 		05B340B32D68B705000378A2 /* APIManager+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Photo.swift"; sourceTree = "<group>"; };
 		05B421122D9D68E4000C8ECC /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		05B421142D9D6AE0000C8ECC /* TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManager.swift; sourceTree = "<group>"; };
+		05B421162D9EC432000C8ECC /* TTagSelectionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTagSelectionButtonView.swift; sourceTree = "<group>"; };
 		05C37B902D7B35FF005FCF89 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		05C5E3972D91894A00E36A3A /* LedgerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerDetailViewController.swift; sourceTree = "<group>"; };
 		05C5E3992D91981A00E36A3A /* LedgerDetailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerDetailManager.swift; sourceTree = "<group>"; };
@@ -470,10 +472,19 @@
 		05B421112D9D6869000C8ECC /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				05B421182D9EC7D3000C8ECC /* Subviews */,
 				05B421142D9D6AE0000C8ECC /* TransactionManager.swift */,
 				05B421122D9D68E4000C8ECC /* TransactionViewController.swift */,
 			);
 			path = Transaction;
+			sourceTree = "<group>";
+		};
+		05B421182D9EC7D3000C8ECC /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				05B421162D9EC432000C8ECC /* TTagSelectionButtonView.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		05C37B8F2D7B35ED005FCF89 /* Cells */ = {
@@ -736,6 +747,7 @@
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,
 				051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */,
+				05B421172D9EC432000C8ECC /* TTagSelectionButtonView.swift in Sources */,
 				054A09342D7C1DDB0092B7E8 /* TVC+TabelViewSetting.swift in Sources */,
 				05C37B912D7B35FF005FCF89 /* TagCell.swift in Sources */,
 				051257E32D7F1DC10066F3F2 /* TagData.swift in Sources */,

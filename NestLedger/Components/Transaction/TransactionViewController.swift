@@ -8,140 +8,7 @@
 
 import Foundation
 import UIKit
-
-class ExpandingLineView: UIView {
-
-    private let maskLayer = CALayer()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupLine()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupLine()
-    }
-    
-    private func setupLine() {
-        backgroundColor = .systemGray5
-        maskLayer.backgroundColor = UIColor.black.cgColor
-
-        layer.addSublayer(maskLayer)
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if maskLayer.frame.height == 0 {
-            maskLayer.frame = .init(x: bounds.midX, y: bounds.midY, width: 0, height: 2)
-        }
-    }
-
-    func startAnimation() {
-        let finalWidth = bounds.width
-        let finalFrame = CGRect(x: 0, y: 0, width: finalWidth, height: bounds.height)
-
-        maskLayer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        maskLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
-        maskLayer.bounds = CGRect(x: 0, y: 0, width: 0, height: bounds.height)
-
-        let widthAnimation = CABasicAnimation(keyPath: "bounds.size.width")
-        widthAnimation.fromValue = 0
-        widthAnimation.toValue = finalWidth
-
-        widthAnimation.duration = 1.0
-        widthAnimation.timingFunction = CAMediaTimingFunction(name: .linear)
-
-        maskLayer.bounds.size.width = finalWidth
-        maskLayer.add(widthAnimation, forKey: "expand")
-    }
-
-    func retractAnimation() {
-        let retractAnimation = CABasicAnimation(keyPath: "bounds.size.width")
-        retractAnimation.fromValue = bounds.width
-        retractAnimation.toValue = 0
-        retractAnimation.duration = 1.0
-        retractAnimation.timingFunction = CAMediaTimingFunction(name: .linear)
-
-        maskLayer.bounds.size.width = 0
-        maskLayer.add(retractAnimation, forKey: "retract")
-    }
-}
-
-class XOTitleWithUnderlineInputView: UIView {
-    let titleLabel = UILabel()
-    let textField = UITextField()
-    let bottomLineView = ExpandingLineView()
-
-    init(title: String, placeholder: String) {
-        super.init(frame: .zero)
-        setup(title, placeholder)
-        layout()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setup(_ title: String, _ placeholder: String) {
-        titleLabel.text = title
-        titleLabel.numberOfLines = 1
-
-        textField.placeholder = placeholder
-        textField.textAlignment = .center
-        textField.delegate = self
-        textField.returnKeyType = .done
-    }
-
-    private func layout() {
-        addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor)
-        ])
-        titleLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-
-        addSubview(textField)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            textField.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 4),
-            textField.trailingAnchor.constraint(equalTo: trailingAnchor),
-            textField.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
-        ])
-        textField.setContentHuggingPriority(.defaultLow, for: .horizontal)
-
-        addSubview(bottomLineView)
-        bottomLineView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            bottomLineView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 4),
-            bottomLineView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            bottomLineView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            bottomLineView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            bottomLineView.heightAnchor.constraint(equalToConstant: 2)
-        ])
-        bottomLineView.setContentHuggingPriority(.defaultLow, for: .horizontal)
-    }
-}
-
-extension XOTitleWithUnderlineInputView: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        DispatchQueue.main.async { [weak self] in
-            self?.bottomLineView.startAnimation()
-        }
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        DispatchQueue.main.async { [weak self] in
-            self?.bottomLineView.retractAnimation()
-        }
-    }
-}
+import xxooooxxCommonUI
 
 class TransactionViewController: UIViewController {
     let manager: TransactionManager
@@ -150,6 +17,7 @@ class TransactionViewController: UIViewController {
     let cancelLabel = UILabel()
     let saveLabel = UILabel()
     let titleView = XOTitleWithUnderlineInputView(title: "標題:", placeholder: "可留白")
+    let tagSelectView = TTagSelectionButtonView()
 
     init(transaction: TransactionData? = nil) {
         manager = TransactionManager(transactionData: transaction)
@@ -167,6 +35,7 @@ class TransactionViewController: UIViewController {
     }
 
     private func setup() {
+        manager.delegate = self
         view.backgroundColor = .white
 
         topLabel.text = "帳目資訊"
@@ -184,6 +53,11 @@ class TransactionViewController: UIViewController {
         saveLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         saveLabel.textColor = .systemBlue
         saveLabel.numberOfLines = 1
+
+        titleView.delegate = manager
+
+        tagSelectView.isUserInteractionEnabled = true
+        tagSelectView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapTagSelectAction)))
     }
 
     private func layout() {
@@ -217,5 +91,44 @@ class TransactionViewController: UIViewController {
             titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
+
+        view.addSubview(tagSelectView)
+        tagSelectView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tagSelectView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 24),
+            tagSelectView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            tagSelectView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+        ])
+    }
+}
+
+// MARK: - Tag
+extension TransactionViewController: TagViewControllerDelegate {
+    @objc private func tapTagSelectAction() {
+        let tagVC = TagViewController(type: .selectTag)
+        tagVC.delegate = self
+        let _70DetentId = UISheetPresentationController.Detent.Identifier("70")
+        let _70Detent = UISheetPresentationController.Detent.custom(identifier: _70DetentId) { context in
+            UIScreen.main.bounds.height * 0.7
+        }
+        if let sheet = tagVC.sheetPresentationController {
+            sheet.detents = [_70Detent]
+        }
+        present(tagVC, animated: true)
+    }
+
+    func selectedTag(vc: UIViewController, data: TagData) {
+        manager.tagData = data
+        DispatchQueue.main.async { [weak self] in
+            self?.tagSelectView.config(tag: data)
+        }
+        vc.dismiss(animated: true)
+    }
+}
+
+// MARK: - TransactionManagerDelegate
+extension TransactionViewController: TransactionManagerDelegate {
+    func updateTagInformation(tag: TagData) {
+        tagSelectView.config(tag: tag)
     }
 }

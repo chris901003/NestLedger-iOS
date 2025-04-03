@@ -17,6 +17,10 @@ struct TagData: Codable {
     var version: Int
 
     var getColor: UIColor { UIColor(hexCode: color) }
+
+    static func initEmpty() -> TagData {
+        .init(label: "", color: "", ledgerId: "", version: TAG_DATA_VERSION)
+    }
 }
 
 struct TagDataWrapper: Codable {
