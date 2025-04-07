@@ -18,6 +18,7 @@ class TransactionViewController: UIViewController {
     let saveLabel = UILabel()
     let titleView = XOTitleWithUnderlineInputView(title: "標題:", placeholder: "可留白")
     let tagSelectView = TTagSelectionButtonView()
+    let dateSelectView = TDateSelectionView()
 
     init(transaction: TransactionData? = nil) {
         manager = TransactionManager(transactionData: transaction)
@@ -58,6 +59,9 @@ class TransactionViewController: UIViewController {
 
         tagSelectView.isUserInteractionEnabled = true
         tagSelectView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapTagSelectAction)))
+
+        dateSelectView.config(date: manager.transactionData.date)
+        dateSelectView.delegate = manager
     }
 
     private func layout() {
@@ -98,6 +102,14 @@ class TransactionViewController: UIViewController {
             tagSelectView.topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: 24),
             tagSelectView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             tagSelectView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+        ])
+
+        view.addSubview(dateSelectView)
+        dateSelectView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dateSelectView.topAnchor.constraint(equalTo: tagSelectView.bottomAnchor, constant: 24),
+            dateSelectView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            dateSelectView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
     }
 }

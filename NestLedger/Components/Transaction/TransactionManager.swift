@@ -45,3 +45,10 @@ extension TransactionManager: XOTitleWithUnderlineInputDelegate {
         transactionData.title = text
     }
 }
+
+// MARK: - TDateSelectionViewDelegate
+extension TransactionManager: TDateSelectionViewDelegate {
+    func changeDate(newDate: Date) {
+        transactionData.date = newDate
+    }
+}
