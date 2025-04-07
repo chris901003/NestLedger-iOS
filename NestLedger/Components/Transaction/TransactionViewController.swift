@@ -19,6 +19,7 @@ class TransactionViewController: UIViewController {
     let titleView = XOTitleWithUnderlineInputView(title: "標題:", placeholder: "可留白")
     let tagSelectView = TTagSelectionButtonView()
     let dateSelectView = TDateSelectionView()
+    let incomeExpenseSelectView = TIncomeExpenseSelectorView()
 
     init(transaction: TransactionData? = nil) {
         manager = TransactionManager(transactionData: transaction)
@@ -62,6 +63,9 @@ class TransactionViewController: UIViewController {
 
         dateSelectView.config(date: manager.transactionData.date)
         dateSelectView.delegate = manager
+
+        incomeExpenseSelectView.delegate = manager
+        incomeExpenseSelectView.config(type: manager.transactionData.type)
     }
 
     private func layout() {
@@ -110,6 +114,14 @@ class TransactionViewController: UIViewController {
             dateSelectView.topAnchor.constraint(equalTo: tagSelectView.bottomAnchor, constant: 24),
             dateSelectView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             dateSelectView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+        ])
+
+        view.addSubview(incomeExpenseSelectView)
+        incomeExpenseSelectView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            incomeExpenseSelectView.topAnchor.constraint(equalTo: dateSelectView.bottomAnchor, constant: 24),
+            incomeExpenseSelectView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            incomeExpenseSelectView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
     }
 }

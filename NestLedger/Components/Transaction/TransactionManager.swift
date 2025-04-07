@@ -52,3 +52,10 @@ extension TransactionManager: TDateSelectionViewDelegate {
         transactionData.date = newDate
     }
 }
+
+// MARK: - TIncomeExpenseSelectorViewDelegate
+extension TransactionManager: TIncomeExpenseSelectorViewDelegate {
+    func changeType(type: TransactionType) {
+        transactionData.type = type
+    }
+}
