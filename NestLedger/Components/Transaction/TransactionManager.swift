@@ -59,3 +59,10 @@ extension TransactionManager: TIncomeExpenseSelectorViewDelegate {
         transactionData.type = type
     }
 }
+
+// MARK: - TAmountViewDelegate
+extension TransactionManager: TAmountViewDelegate {
+    func updateAmount(amount: Int) {
+        transactionData.money = amount
+    }
+}
