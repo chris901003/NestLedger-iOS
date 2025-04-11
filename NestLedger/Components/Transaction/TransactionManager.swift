@@ -15,12 +15,14 @@ protocol TransactionManagerDelegate: AnyObject {
 
 class TransactionManager {
     let apiManager = APIManager()
+    let oldTransactionData: TransactionData?
     var transactionData: TransactionData
     var tagData: TagData = TagData.initEmpty()
 
     weak var delegate: TransactionManagerDelegate?
 
     init(transactionData: TransactionData?) {
+        self.oldTransactionData = transactionData ?? nil
         self.transactionData = transactionData ?? TransactionData.initEmpty()
         Task {
             do {
@@ -39,7 +41,12 @@ class TransactionManager {
     }
 
     func saveTransasction() async throws {
-        try await apiManager.updateTransasction(data: transactionData)
+        if let oldTransactionData {
+            try await apiManager.updateTransasction(data: transactionData)
+            NLNotification.sendUpdateTransaction(oldTransaction: oldTransactionData, newTransaction: transactionData)
+        } else {
+            // TODO: Create new transaction data
+        }
     }
 }
 

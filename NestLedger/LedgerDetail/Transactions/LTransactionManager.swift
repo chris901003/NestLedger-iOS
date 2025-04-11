@@ -19,6 +19,7 @@ class LTransactionManager {
 
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(selectDayTransactions), name: .ledgerDetailSelectDayTransactions, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
     }
 
     @objc private func selectDayTransactions(_ notification: Notification) {
@@ -51,6 +52,24 @@ class LTransactionManager {
                 guard let data else { continue }
                 userAvatars[data.0] = data.1
             }
+        }
+    }
+}
+
+extension LTransactionManager {
+    @objc private func receiveUpdateTransaction(_ notification: Notification) {
+        guard let (oldTransaction, newTransaction) = NLNotification.decodeUpdateTransacton(notification) else { return }
+        if let idx = (transactions.firstIndex { $0._id == oldTransaction._id }) {
+            transactions.remove(at: idx)
+        }
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(secondsFromGMT: 60 * 60 * sharedUserInfo.timeZone)!
+        if calendar.isDate(oldTransaction.date, inSameDayAs: newTransaction.date) {
+            transactions.append(newTransaction)
+        }
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            vc?.tableView.reloadData()
         }
     }
 }

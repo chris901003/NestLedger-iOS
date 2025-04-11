@@ -22,6 +22,7 @@ class LedgerDetailManager {
 
     init(ledgerData: LedgerData) {
         self.ledgerData = ledgerData
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
         Task {
             do {
                 try await updateLedgerData()
@@ -47,5 +48,26 @@ class LedgerDetailManager {
 
     func getUserAvatar(userId: String) async -> UIImage? {
         try? await apiManager.getUserAvatar(userId: userId)
+    }
+}
+
+extension LedgerDetailManager {
+    @objc private func receiveUpdateTransaction(_ notification: Notification) {
+        guard let (oldTransaction, newTransaction) = NLNotification.decodeUpdateTransacton(notification) else { return }
+        guard newTransaction.ledgerId == ledgerData._id else { return }
+        if oldTransaction.type == .income {
+            ledgerData.totalIncome -= oldTransaction.money
+        } else {
+            ledgerData.totalExpense -= oldTransaction.money
+        }
+        if newTransaction.type == .income {
+            ledgerData.totalIncome += newTransaction.money
+        } else {
+            ledgerData.totalExpense += newTransaction.money
+        }
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            vc?.incomeExpenseView.config(income: ledgerData.totalIncome, expense: ledgerData.totalExpense)
+        }
     }
 }

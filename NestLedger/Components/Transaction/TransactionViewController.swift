@@ -252,6 +252,7 @@ extension TransactionViewController: TagViewControllerDelegate {
 
     func selectedTag(vc: UIViewController, data: TagData) {
         manager.tagData = data
+        manager.transactionData.tagId = data._id
         DispatchQueue.main.async { [weak self] in
             self?.tagSelectView.config(tag: data)
         }

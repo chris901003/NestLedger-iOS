@@ -48,6 +48,7 @@ class MCalendarManager {
         updateFirstWeekday()
         updateTransaction()
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
     }
 
     @objc private func receiveNewTransaction(_ notification: Notification) {
@@ -59,6 +60,21 @@ class MCalendarManager {
         if dateString == formatter.string(from: selectedDay) {
             NotificationCenter.default.post(name: .ledgerDetailSelectDayTransactions, object: nil, userInfo: ["transactions": dayTransactions[dateString, default: []]])
         }
+        DispatchQueue.main.async { [weak self] in
+            self?.vc?.collectionView.reloadData()
+        }
+    }
+
+    @objc private func receiveUpdateTransaction(_ notification: Notification) {
+        guard let (oldTransaction, newTransaction) = NLNotification.decodeUpdateTransacton(notification) else { return }
+        var dateString = formatter.string(from: oldTransaction.date)
+        if let index = dayTransactions[dateString, default: []].firstIndex(where: { $0._id == oldTransaction._id }) {
+            dayTransactions[dateString, default: []].remove(at: index)
+            dayAmount[dateString, default: 0] -= oldTransaction.type == .income ? oldTransaction.money : -oldTransaction.money
+        }
+        dateString = formatter.string(from: newTransaction.date)
+        dayTransactions[dateString, default: []].append(newTransaction)
+        dayAmount[dateString, default: 0] += newTransaction.type == .income ? newTransaction.money : -newTransaction.money
         DispatchQueue.main.async { [weak self] in
             self?.vc?.collectionView.reloadData()
         }
