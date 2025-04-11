@@ -37,6 +37,10 @@ class TransactionManager {
     private func getTagInformation() async throws -> TagData {
         try await apiManager.getTag(tagId: transactionData.tagId)
     }
+
+    func saveTransasction() async throws {
+        try await apiManager.updateTransasction(data: transactionData)
+    }
 }
 
 // MARK: - XOTitleWithUnderlineInputDelegate

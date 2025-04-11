@@ -13,6 +13,7 @@ extension APIManager {
     enum TransactionError: LocalizedError {
         case failedCreateTransaction
         case failedGetTransaction
+        case failedUpdateTransaction
 
         var errorDescription: String? {
             switch self {
@@ -20,6 +21,8 @@ extension APIManager {
                     return "創建帳目失敗"
                 case .failedGetTransaction:
                     return "獲取帳目失敗"
+                case .failedUpdateTransaction:
+                    return "更新帳目失敗"
             }
         }
     }
@@ -51,6 +54,29 @@ extension APIManager {
             return transactionData.data.transaction
         } catch {
             throw TransactionError.failedCreateTransaction
+        }
+    }
+}
+
+// MARK: - Update Transaction
+extension APIManager {
+    fileprivate struct UpdateTransactionData: Codable {
+        let transactionId: String
+        let transaction: TransactionData
+    }
+
+    func updateTransasction(data: TransactionData) async throws {
+        guard let url = APIPath.Transaction.update.getUrl() else { throw APIManagerError.badUrl }
+        let payload = UpdateTransactionData(transactionId: data._id, transaction: data)
+        let request = try genRequest(url: url, method: .PATCH, body: payload)
+
+        do {
+            let (_, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                throw TransactionError.failedUpdateTransaction
+            }
+        } catch {
+            throw TransactionError.failedUpdateTransaction
         }
     }
 }

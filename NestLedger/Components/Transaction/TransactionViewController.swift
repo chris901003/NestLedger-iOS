@@ -60,11 +60,15 @@ class TransactionViewController: UIViewController {
         cancelLabel.font = .systemFont(ofSize: 16)
         cancelLabel.textColor = .systemRed
         cancelLabel.numberOfLines = 1
+        cancelLabel.isUserInteractionEnabled = true
+        cancelLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCancelAction)))
 
         saveLabel.text = "保存"
         saveLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         saveLabel.textColor = .systemBlue
         saveLabel.numberOfLines = 1
+        saveLabel.isUserInteractionEnabled = true
+        saveLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapSaveAction)))
 
         scrollView.keyboardDismissMode = .interactive
 
@@ -213,6 +217,24 @@ class TransactionViewController: UIViewController {
     }
 }
 
+// MARK: - Utility
+extension TransactionViewController {
+    @objc private func tapCancelAction() {
+        dismiss(animated: true)
+    }
+
+    @objc private func tapSaveAction() {
+        Task {
+            do {
+                try await manager.saveTransasction()
+                await MainActor.run { dismiss(animated: true) }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "更新帳本失敗")
+            }
+        }
+    }
+}
+
 // MARK: - Tag
 extension TransactionViewController: TagViewControllerDelegate {
     @objc private func tapTagSelectAction() {
@@ -244,6 +266,7 @@ extension TransactionViewController: TransactionManagerDelegate {
     }
 }
 
+// MARK: - UITextViewDelegate
 extension TransactionViewController: UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         DispatchQueue.main.async { [weak self] in

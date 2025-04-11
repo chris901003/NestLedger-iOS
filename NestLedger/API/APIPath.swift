@@ -70,5 +70,8 @@ class APIPath {
 
         // [POST]
         case create = "/transaction/create"
+
+        // [PATCH]
+        case update = "/transaction/update"
     }
 }

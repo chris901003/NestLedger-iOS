@@ -32,6 +32,11 @@ class APIManager {
         case descending = "-1"
     }
 
+    static let encoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        return encoder
+    }()
     static let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .custom({ decoder in
@@ -58,6 +63,17 @@ class APIManager {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = jsonData
         }
+        return request
+    }
+
+    func genRequest(url: URL, method: HttpMethod, body: Encodable) throws -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        request.setValue(APIManager.authToken, forHTTPHeaderField: "Authorization")
+
+        let jsonData = try APIManager.encoder.encode(body)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
         return request
     }
 }
