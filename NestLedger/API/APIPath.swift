@@ -73,5 +73,8 @@ class APIPath {
 
         // [PATCH]
         case update = "/transaction/update"
+
+        // [DELETE]
+        case delete = "/transaction/delete"
     }
 }

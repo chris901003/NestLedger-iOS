@@ -14,6 +14,7 @@ extension APIManager {
         case failedCreateTransaction
         case failedGetTransaction
         case failedUpdateTransaction
+        case failedDeleteTransaction
 
         var errorDescription: String? {
             switch self {
@@ -23,6 +24,8 @@ extension APIManager {
                     return "獲取帳目失敗"
                 case .failedUpdateTransaction:
                     return "更新帳目失敗"
+                case .failedDeleteTransaction:
+                    return "刪除帳目失敗"
             }
         }
     }
@@ -77,6 +80,22 @@ extension APIManager {
             }
         } catch {
             throw TransactionError.failedUpdateTransaction
+        }
+    }
+}
+
+// MARK: - Delete Transaction
+extension APIManager {
+    func deleteTransaction(data: TransactionData) async throws {
+        guard let url = APIPath.Transaction.delete.getUrl() else { throw APIManagerError.badUrl }
+        let payload = ["transactionId": data._id]
+        let request = try genRequest(url: url, method: .DELETE, body: payload)
+
+        do {
+            let (_, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw TransactionError.failedDeleteTransaction }
+        } catch {
+            throw TransactionError.failedDeleteTransaction
         }
     }
 }

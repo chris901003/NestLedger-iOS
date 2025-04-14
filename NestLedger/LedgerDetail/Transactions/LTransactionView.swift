@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import xxooooxxCommonUI
 
 class LTransactionView: UIView {
     let tableView = UITableView()
@@ -83,8 +84,36 @@ extension LTransactionView: UITableViewDelegate, UITableViewDataSource {
             delegate?.presentVC(transactionVC)
             completionHandler(true)
         }
-        let config = UISwipeActionsConfiguration(actions: [editAction])
-        config.performsFirstActionWithFullSwipe = false
+        let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] action, view, completionHandler in
+            guard let self else { return }
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
+                completionHandler(true)
+            }
+            let removeAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
+                let apiManager = APIManager()
+                Task {
+                    do {
+                        try await apiManager.deleteTransaction(data: data)
+                        await MainActor.run { [weak self] in
+                            guard let self else { return }
+                            manager.transactions.remove(at: indexPath.row)
+                            tableView.deleteRows(at: [indexPath], with: .left)
+                            tableView.reloadData()
+                            completionHandler(true)
+                        }
+                    } catch {
+                        XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "刪除帳目失敗")
+                    }
+                }
+            }
+            let controller = UIAlertController(title: "刪除帳目", message: "確定要刪除帳目嗎?", preferredStyle: .alert)
+            controller.addAction(cancelAction)
+            controller.addAction(removeAction)
+            delegate?.presentVC(controller)
+        }
+
+        let config = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        config.performsFirstActionWithFullSwipe = true
         return config
     }
 
