@@ -87,4 +87,12 @@ extension LTransactionView: UITableViewDelegate, UITableViewDataSource {
         config.performsFirstActionWithFullSwipe = false
         return config
     }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        UIView()
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        80
+    }
 }

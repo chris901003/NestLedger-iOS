@@ -40,6 +40,7 @@ class LedgerDetailViewController: UIViewController {
     let contentView = UIView()
     let calendarView: MCalendarView
     let transactionsView = LTransactionView()
+    let addButtonView = LDAddTransactionView()
 
     weak var avatarListViewHeightConstraint: NSLayoutConstraint?
 
@@ -143,6 +144,15 @@ class LedgerDetailViewController: UIViewController {
             transactionsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         transactionsView.setContentHuggingPriority(.defaultLow, for: .vertical)
+
+        view.addSubview(addButtonView)
+        addButtonView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            addButtonView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+            addButtonView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
+            addButtonView.widthAnchor.constraint(equalToConstant: 60),
+            addButtonView.heightAnchor.constraint(equalToConstant: 60)
+        ])
     }
 
     @objc private func backAction() {

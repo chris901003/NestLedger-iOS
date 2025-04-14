@@ -56,6 +56,7 @@
 		051257E82D81CF770066F3F2 /* APIManager+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E72D81CF770066F3F2 /* APIManager+Transaction.swift */; };
 		051257EA2D8326260066F3F2 /* MRecntManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E92D8326260066F3F2 /* MRecntManager.swift */; };
 		051257ED2D8477C60066F3F2 /* MRCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257EC2D8477C60066F3F2 /* MRCCell.swift */; };
+		051441582DAD3C0F00197191 /* LDAddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051441572DAD3C0F00197191 /* LDAddTransactionView.swift */; };
 		051B49192D87077800834D72 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051B49182D87077800834D72 /* NotificationName+Extension.swift */; };
 		051B491C2D870ACC00834D72 /* MCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051B491B2D870ACC00834D72 /* MCalendarView.swift */; };
 		051B491F2D8859D400834D72 /* MCTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051B491E2D8859D400834D72 /* MCTitleCell.swift */; };
@@ -133,6 +134,7 @@
 		051257E72D81CF770066F3F2 /* APIManager+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Transaction.swift"; sourceTree = "<group>"; };
 		051257E92D8326260066F3F2 /* MRecntManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRecntManager.swift; sourceTree = "<group>"; };
 		051257EC2D8477C60066F3F2 /* MRCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCCell.swift; sourceTree = "<group>"; };
+		051441572DAD3C0F00197191 /* LDAddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDAddTransactionView.swift; sourceTree = "<group>"; };
 		051AC9312D41EFAD00ECE40B /* NestLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NestLedger.entitlements; sourceTree = "<group>"; };
 		051B49182D87077800834D72 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		051B491B2D870ACC00834D72 /* MCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCalendarView.swift; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				05C5E39C2D91A6E000E36A3A /* AvatarCollectionViewCell.swift */,
+				051441572DAD3C0F00197191 /* LDAddTransactionView.swift */,
 				05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */,
 			);
 			path = Subviews;
@@ -722,6 +725,7 @@
 				05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */,
 				0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */,
 				0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */,
+				051441582DAD3C0F00197191 /* LDAddTransactionView.swift in Sources */,
 				05AF766B2D944A0800C27407 /* LDIncomeExpenseView.swift in Sources */,
 				0572C3C82D9C1911008F99FB /* LTCell.swift in Sources */,
 				0572C3C52D9ADA6C008F99FB /* LTransactionManager.swift in Sources */,
