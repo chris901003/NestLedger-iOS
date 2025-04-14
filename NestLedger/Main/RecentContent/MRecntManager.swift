@@ -20,6 +20,7 @@ class MRecntManager {
     init() {
         ledgerId = sharedUserInfo.ledgerIds.first ?? ""
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
         loadRecentTransaction()
     }
 
@@ -50,6 +51,15 @@ class MRecntManager {
         guard let userInfo = notification.userInfo,
               let transaction = userInfo["transaction"] as? TransactionData else { return }
         recentTransactions.insert(transaction, at: 0)
+        DispatchQueue.main.async { [weak self] in
+            self?.vc?.tableView.reloadData()
+        }
+    }
+
+    @objc private func receiveUpdateTransaction(_ notification: Notification) {
+        guard let (oldTransaction, newTransaction) = NLNotification.decodeUpdateTransacton(notification) else { return }
+        guard let idx = recentTransactions.firstIndex(where: { $0._id == oldTransaction._id }) else { return }
+        recentTransactions[idx] = newTransaction
         DispatchQueue.main.async { [weak self] in
             self?.vc?.tableView.reloadData()
         }

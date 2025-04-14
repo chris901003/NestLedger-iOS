@@ -57,6 +57,11 @@ class TIncomeExpenseSelectorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        selectedViewLeadingConstraint?.constant = type == .income ? 0 : selectedView.bounds.width
+    }
+
     func config(type: TransactionType) {
         self.type = type
     }
