@@ -26,9 +26,11 @@ class TransactionManager {
         self.transactionData = transactionData ?? TransactionData.initEmpty()
         Task {
             do {
-                tagData = try await getTagInformation()
-                await MainActor.run {
-                    delegate?.updateTagInformation(tag: tagData)
+                if !self.transactionData.tagId.isEmpty {
+                    tagData = try await getTagInformation()
+                    await MainActor.run {
+                        delegate?.updateTagInformation(tag: tagData)
+                    }
                 }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取標籤資訊失敗")
@@ -40,12 +42,28 @@ class TransactionManager {
         try await apiManager.getTag(tagId: transactionData.tagId)
     }
 
-    func saveTransasction() async throws {
+    func saveTransasction() async -> String? {
         if let oldTransactionData {
-            try await apiManager.updateTransasction(data: transactionData)
-            NLNotification.sendUpdateTransaction(oldTransaction: oldTransactionData, newTransaction: transactionData)
+            do {
+                try await apiManager.updateTransasction(data: transactionData)
+                NLNotification.sendUpdateTransaction(oldTransaction: oldTransactionData, newTransaction: transactionData)
+                return nil
+            } catch {
+                return "更新帳目失敗"
+            }
         } else {
-            // TODO: Create new transaction data
+            if let message = transactionData.isValid() {
+                return message
+            }
+            do {
+                let newTransaction = try await apiManager.createTransaction(data: transactionData)
+                await MainActor.run {
+                    NLNotification.sendNewRecentTransaction(newTransaction: newTransaction)
+                }
+            } catch {
+                return "創建帳目失敗"
+            }
+            return nil
         }
     }
 }

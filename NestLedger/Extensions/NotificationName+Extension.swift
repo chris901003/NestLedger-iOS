@@ -15,6 +15,16 @@ extension Notification.Name {
 }
 
 class NLNotification {
+    static func sendNewRecentTransaction(newTransaction: TransactionData) {
+        NotificationCenter.default.post(name: .newRecentTransaction, object: nil, userInfo: ["transaction": newTransaction])
+    }
+
+    static func decodeNewRecentTransaction(_ notification: Notification) -> TransactionData? {
+        guard let userInfo = notification.userInfo,
+              let transaction = userInfo["transaction"] as? TransactionData else { return nil }
+        return transaction
+    }
+
     // MARK: - Update Transaction
     static func sendUpdateTransaction(oldTransaction: TransactionData, newTransaction: TransactionData) {
         NotificationCenter.default.post(name: .updateTransaction, object: nil, userInfo: ["oldTransaction": oldTransaction, "newTransaction": newTransaction])

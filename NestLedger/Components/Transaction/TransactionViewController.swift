@@ -31,8 +31,9 @@ class TransactionViewController: UIViewController {
 
     var noteContentViewBottomConstraint: NSLayoutConstraint?
 
-    init(transaction: TransactionData? = nil) {
+    init(transaction: TransactionData? = nil, ledgerId: String? = nil) {
         manager = TransactionManager(transactionData: transaction)
+        if let ledgerId { manager.transactionData.ledgerId = ledgerId }
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -225,11 +226,10 @@ extension TransactionViewController {
 
     @objc private func tapSaveAction() {
         Task {
-            do {
-                try await manager.saveTransasction()
+            if let message = await manager.saveTransasction() {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: message)
+            } else {
                 await MainActor.run { dismiss(animated: true) }
-            } catch {
-                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "更新帳本失敗")
             }
         }
     }

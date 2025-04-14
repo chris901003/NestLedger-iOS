@@ -39,6 +39,12 @@ struct TransactionData: Codable {
             version: TRANSACTION_DATA_VERSION
         )
     }
+
+    func isValid() -> String? {
+        guard money > 0 else { return "金額不可為 0" }
+        guard !tagId.isEmpty else { return "請選擇標籤" }
+        return nil
+    }
 }
 
 struct TransactionDataWrapper: Codable {

@@ -83,6 +83,9 @@ class LedgerDetailViewController: UIViewController {
         incomeExpenseView.config(income: manager.ledgerData.totalIncome, expense: manager.ledgerData.totalExpense)
 
         transactionsView.delegate = self
+
+        addButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAddTransaction)))
+        addButtonView.isUserInteractionEnabled = true
     }
 
     private func layout() {
@@ -157,6 +160,12 @@ class LedgerDetailViewController: UIViewController {
 
     @objc private func backAction() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc private func tapAddTransaction() {
+        let ledgerId = manager.ledgerData._id
+        let transactionViewController = TransactionViewController(ledgerId: ledgerId)
+        present(transactionViewController, animated: true)
     }
 }
 
