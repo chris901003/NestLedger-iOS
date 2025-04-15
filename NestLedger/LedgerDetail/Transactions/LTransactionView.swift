@@ -99,6 +99,7 @@ extension LTransactionView: UITableViewDelegate, UITableViewDataSource {
                             manager.transactions.remove(at: indexPath.row)
                             tableView.deleteRows(at: [indexPath], with: .left)
                             tableView.reloadData()
+                            NLNotification.sendDeleteTransaction(deleteTransaction: data)
                             completionHandler(true)
                         }
                     } catch {

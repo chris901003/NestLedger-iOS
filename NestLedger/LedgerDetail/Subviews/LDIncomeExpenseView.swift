@@ -26,7 +26,6 @@ class LDIncomeExpenseView: UIView {
         super.init(frame: .zero)
         setup()
         layout()
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -121,18 +120,5 @@ class LDIncomeExpenseView: UIView {
             expenseLabel.heightAnchor.constraint(equalToConstant: 60),
             bottomAnchor.constraint(equalTo: expenseLabel.bottomAnchor)
         ])
-    }
-}
-
-extension LDIncomeExpenseView {
-    @objc private func receiveNewTransaction(_ notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let transaction = userInfo["transaction"] as? TransactionData else { return }
-        if transaction.type == .income {
-            income += transaction.money
-        } else if transaction.type == .expenditure {
-            expense += transaction.money
-        }
-        config(income: income, expense: expense)
     }
 }

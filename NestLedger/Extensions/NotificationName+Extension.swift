@@ -12,9 +12,11 @@ extension Notification.Name {
     static let newRecentTransaction = Notification.Name("NewRecentTransaction")
     static let ledgerDetailSelectDayTransactions = Notification.Name("LedgerDetailSelectDayTransactions")
     static let updateTransaction = Notification.Name("UpdateTransaction")
+    static let deleteTransaction = Notification.Name("DeleteTransaction")
 }
 
 class NLNotification {
+    // MARK: - Send New Transaction
     static func sendNewRecentTransaction(newTransaction: TransactionData) {
         NotificationCenter.default.post(name: .newRecentTransaction, object: nil, userInfo: ["transaction": newTransaction])
     }
@@ -35,5 +37,16 @@ class NLNotification {
               let oldTransaction = userInfo["oldTransaction"] as? TransactionData,
               let newTransaction = userInfo["newTransaction"] as? TransactionData else { return nil }
         return (oldTransaction, newTransaction)
+    }
+
+    // MARK: - Delete Transaction
+    static func sendDeleteTransaction(deleteTransaction: TransactionData) {
+        NotificationCenter.default.post(name: .deleteTransaction, object: nil, userInfo: ["transaction": deleteTransaction])
+    }
+
+    static func decodeDeleteTransaction(_ notification: Notification) -> TransactionData? {
+        guard let userInfo = notification.userInfo,
+              let deleteTransaction = userInfo["transaction"] as? TransactionData else { return nil }
+        return deleteTransaction
     }
 }

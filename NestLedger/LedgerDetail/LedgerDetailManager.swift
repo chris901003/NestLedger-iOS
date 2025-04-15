@@ -22,7 +22,9 @@ class LedgerDetailManager {
 
     init(ledgerData: LedgerData) {
         self.ledgerData = ledgerData
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveDeleteTransaction), name: .deleteTransaction, object: nil)
         Task {
             do {
                 try await updateLedgerData()
@@ -52,6 +54,19 @@ class LedgerDetailManager {
 }
 
 extension LedgerDetailManager {
+    @objc private func receiveNewTransaction(_ notification: Notification) {
+        guard let transaction = NLNotification.decodeNewRecentTransaction(notification) else { return }
+        if transaction.type == .income {
+            ledgerData.totalIncome += transaction.money
+        } else if transaction.type == .expenditure {
+            ledgerData.totalExpense += transaction.money
+        }
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            vc?.incomeExpenseView.config(income: ledgerData.totalIncome, expense: ledgerData.totalExpense)
+        }
+    }
+
     @objc private func receiveUpdateTransaction(_ notification: Notification) {
         guard let (oldTransaction, newTransaction) = NLNotification.decodeUpdateTransacton(notification) else { return }
         guard newTransaction.ledgerId == ledgerData._id else { return }
@@ -64,6 +79,20 @@ extension LedgerDetailManager {
             ledgerData.totalIncome += newTransaction.money
         } else {
             ledgerData.totalExpense += newTransaction.money
+        }
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            vc?.incomeExpenseView.config(income: ledgerData.totalIncome, expense: ledgerData.totalExpense)
+        }
+    }
+
+    @objc private func receiveDeleteTransaction(_ notification: Notification) {
+        guard let deleteTransaction = NLNotification.decodeDeleteTransaction(notification) else { return }
+        guard deleteTransaction.ledgerId == ledgerData._id else { return }
+        if deleteTransaction.type == .income {
+            ledgerData.totalIncome -= deleteTransaction.money
+        } else {
+            ledgerData.totalExpense -= deleteTransaction.money
         }
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }

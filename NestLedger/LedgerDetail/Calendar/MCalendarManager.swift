@@ -49,6 +49,7 @@ class MCalendarManager {
         updateTransaction()
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveDeleteTransaction), name: .deleteTransaction, object: nil)
     }
 
     @objc private func receiveNewTransaction(_ notification: Notification) {
@@ -75,6 +76,18 @@ class MCalendarManager {
         dateString = formatter.string(from: newTransaction.date)
         dayTransactions[dateString, default: []].append(newTransaction)
         dayAmount[dateString, default: 0] += newTransaction.type == .income ? newTransaction.money : -newTransaction.money
+        DispatchQueue.main.async { [weak self] in
+            self?.vc?.collectionView.reloadData()
+        }
+    }
+
+    @objc private func receiveDeleteTransaction(_ notification: Notification) {
+        guard let deleteTransaction = NLNotification.decodeDeleteTransaction(notification) else { return }
+        var dateString = formatter.string(from: deleteTransaction.date)
+        if let index = dayTransactions[dateString, default: []].firstIndex(where: { $0._id == deleteTransaction._id }) {
+            dayTransactions[dateString, default: []].remove(at: index)
+            dayAmount[dateString, default: 0] -= deleteTransaction.type == .income ? deleteTransaction.money : -deleteTransaction.money
+        }
         DispatchQueue.main.async { [weak self] in
             self?.vc?.collectionView.reloadData()
         }

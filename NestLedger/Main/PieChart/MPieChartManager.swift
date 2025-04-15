@@ -34,8 +34,9 @@ class MPieChartManager {
         year = Calendar.current.component(.year, from: Date.now)
         month = Calendar.current.component(.month, from: Date.now)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadLedgerInfo), name: .newRecentTransaction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadLedgerInfo), name: .updateTransaction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadLedgerInfo), name: .deleteTransaction, object: nil)
 
         Task {
             do {
@@ -46,11 +47,7 @@ class MPieChartManager {
         }
     }
 
-    @objc private func receiveNewTransaction() {
-        Task { try? await loadLedgerInfo() }
-    }
-
-    @objc private func receiveUpdateTransaction() {
+    @objc private func reloadLedgerInfo() {
         Task { try? await loadLedgerInfo() }
     }
 

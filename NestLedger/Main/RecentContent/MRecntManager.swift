@@ -21,6 +21,7 @@ class MRecntManager {
         ledgerId = sharedUserInfo.ledgerIds.first ?? ""
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveDeleteTransaction), name: .deleteTransaction, object: nil)
         loadRecentTransaction()
     }
 
@@ -60,6 +61,15 @@ class MRecntManager {
         guard let (oldTransaction, newTransaction) = NLNotification.decodeUpdateTransacton(notification) else { return }
         guard let idx = recentTransactions.firstIndex(where: { $0._id == oldTransaction._id }) else { return }
         recentTransactions[idx] = newTransaction
+        DispatchQueue.main.async { [weak self] in
+            self?.vc?.tableView.reloadData()
+        }
+    }
+
+    @objc private func receiveDeleteTransaction(_ notification: Notification) {
+        guard let deleteTransaction = NLNotification.decodeDeleteTransaction(notification) else { return }
+        guard let idx = recentTransactions.firstIndex(where: { $0._id == deleteTransaction._id }) else { return }
+        recentTransactions.remove(at: idx)
         DispatchQueue.main.async { [weak self] in
             self?.vc?.tableView.reloadData()
         }
