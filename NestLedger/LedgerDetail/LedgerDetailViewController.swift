@@ -14,6 +14,7 @@ class LedgerDetailViewController: UIViewController {
     let manager: LedgerDetailManager
 
     let backButton = XONavigationBackButtonView(title: "返回")
+    let settingButton = UIImageView()
     let titleLabel = UILabel()
     let avatarListView: UICollectionView = {
         var layout: UICollectionViewCompositionalLayout = {
@@ -71,6 +72,10 @@ class LedgerDetailViewController: UIViewController {
         view.backgroundColor = .white
         backButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backAction)))
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+
+        settingButton.image = UIImage(systemName: "gear")
+        settingButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapSettingAction)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingButton)
 
         navigationItem.titleView = titleLabel
         titleLabel.text = manager.ledgerTitle
@@ -160,6 +165,18 @@ class LedgerDetailViewController: UIViewController {
 
     @objc private func backAction() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc private func tapSettingAction() {
+        let settingViewController = LDSettingViewController(ledgerData: manager.ledgerData)
+        let _50DetentId = UISheetPresentationController.Detent.Identifier("50")
+        let _50Detent = UISheetPresentationController.Detent.custom(identifier: _50DetentId) { context in
+            return UIScreen.main.bounds.height * 0.5
+        }
+        if let sheet = settingViewController.sheetPresentationController {
+            sheet.detents = [_50Detent]
+        }
+        present(settingViewController, animated: true)
     }
 
     @objc private func tapAddTransaction() {
