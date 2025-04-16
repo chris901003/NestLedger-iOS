@@ -9,6 +9,8 @@
 import Foundation
 
 class LDSettingManager {
+    weak var vc: LDSettingViewController?
+
     var ledgerData: LedgerData
     var ledgerTitle: String {
         get { ledgerData.title == "[Main]:\(sharedUserInfo.id)" ? "我的帳本" : ledgerData.title }
@@ -16,5 +18,14 @@ class LDSettingManager {
 
     init(ledgerData: LedgerData) {
         self.ledgerData = ledgerData
+    }
+}
+
+// MARK: - LDSLedgerNameViewControllerDelegate
+extension LDSettingManager: LDSLedgerNameViewControllerDelegate {
+    func updateLedgerName(title: String) {
+        guard !title.isEmpty else { return }
+        ledgerData.title = title
+        DispatchQueue.main.async { [weak self] in self?.vc?.tableView.reloadData() }
     }
 }

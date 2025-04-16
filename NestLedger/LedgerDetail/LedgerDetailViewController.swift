@@ -169,14 +169,15 @@ class LedgerDetailViewController: UIViewController {
 
     @objc private func tapSettingAction() {
         let settingViewController = LDSettingViewController(ledgerData: manager.ledgerData)
+        let navigationVC = UINavigationController(rootViewController: settingViewController)
         let _50DetentId = UISheetPresentationController.Detent.Identifier("50")
         let _50Detent = UISheetPresentationController.Detent.custom(identifier: _50DetentId) { context in
             return UIScreen.main.bounds.height * 0.5
         }
-        if let sheet = settingViewController.sheetPresentationController {
+        if let sheet = navigationVC.sheetPresentationController {
             sheet.detents = [_50Detent]
         }
-        present(settingViewController, animated: true)
+        present(navigationVC, animated: true)
     }
 
     @objc private func tapAddTransaction() {

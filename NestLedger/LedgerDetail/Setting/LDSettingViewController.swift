@@ -52,6 +52,7 @@ class LDSettingViewController: UIViewController {
     }
 
     private func setup() {
+        manager.vc = self
         view.backgroundColor = .white
 
         topBarView.backgroundColor = .systemGray5
@@ -130,5 +131,18 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let cell = UITableViewCell()
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let row = LDSRow.getRows(LDSSection.allCases[indexPath.section])[indexPath.row]
+        switch row {
+            case .name:
+                let nameVC = LDSLedgerNameViewController(title: manager.ledgerTitle, isVariable: manager.ledgerTitle == manager.ledgerData.title)
+                nameVC.delegate = manager
+                navigationController?.pushViewController(nameVC, animated: true)
+            case .member:
+                break
+        }
     }
 }
