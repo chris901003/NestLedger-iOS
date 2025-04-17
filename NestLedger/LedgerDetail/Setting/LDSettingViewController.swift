@@ -18,6 +18,7 @@ fileprivate enum LDSSection: String, CaseIterable {
 fileprivate enum LDSRow: String, CaseIterable {
     // [base]
     case name = "帳本名稱"
+    case tag = "標籤管理"
 
     // [member]
     case member = "帳本成員"
@@ -25,7 +26,7 @@ fileprivate enum LDSRow: String, CaseIterable {
     static func getRows(_ section: LDSSection) -> [LDSRow] {
         switch section {
             case .base:
-                return [.name]
+                return [.name, .tag]
             case .member:
                 return [.member]
         }
@@ -123,6 +124,11 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.config(title: row.rawValue, info: manager.ledgerTitle)
                     return cell
                 }
+            case .tag:
+                if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelWithIconCell.cellId, for: indexPath) as? XOLeadingTrailingLabelWithIconCell {
+                    cell.config(title: row.rawValue, info: "")
+                    return cell
+                }
             case .member:
                 if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelWithIconCell.cellId, for: indexPath) as? XOLeadingTrailingLabelWithIconCell {
                     cell.config(title: row.rawValue, info: "1")
@@ -141,8 +147,11 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                 let nameVC = LDSLedgerNameViewController(title: manager.ledgerTitle, isVariable: manager.ledgerTitle == manager.ledgerData.title)
                 nameVC.delegate = manager
                 navigationController?.pushViewController(nameVC, animated: true)
-            case .member:
+            case .tag:
                 break
+            case .member:
+                let memberVC = LDSLedgerMemberViewController()
+                navigationController?.pushViewController(memberVC, animated: true)
         }
     }
 }
