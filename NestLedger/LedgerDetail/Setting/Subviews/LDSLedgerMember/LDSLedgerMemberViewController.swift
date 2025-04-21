@@ -17,6 +17,7 @@ class LDSLedgerMemberViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         setup()
         layout()
+        registerCell()
     }
 
     required init?(coder: NSCoder) {
@@ -27,8 +28,11 @@ class LDSLedgerMemberViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "帳目成員"
 
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
     }
 
     private func layout() {
@@ -49,6 +53,10 @@ class LDSLedgerMemberViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+
+    private func registerCell() {
+        tableView.register(LDSLMCell.self, forCellReuseIdentifier: LDSLMCell.cellId)
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -58,8 +66,7 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "Just for test"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSLMCell.cellId, for: indexPath) as? LDSLMCell else { return UITableViewCell() }
         return cell
     }
 }
