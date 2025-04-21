@@ -52,6 +52,7 @@ class LDSLMCell: UITableViewCell {
         avatarView.backgroundColor = .black
         avatarView.contentMode = .scaleAspectFill
         avatarView.layer.cornerRadius = 20.0
+        avatarView.clipsToBounds = true
 
         userNameLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         userNameLabel.textColor = .black

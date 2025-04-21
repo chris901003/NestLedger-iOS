@@ -150,7 +150,7 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
             case .tag:
                 break
             case .member:
-                let memberVC = LDSLedgerMemberViewController()
+                let memberVC = LDSLedgerMemberViewController(ledgerId: manager.ledgerData._id)
                 navigationController?.pushViewController(memberVC, animated: true)
         }
     }

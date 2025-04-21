@@ -1,0 +1,39 @@
+// Created for NestLedger in 2025
+// Using Swift 5.0
+//
+//
+// Created by HongYan on 2025/4/21.
+// Copyright © 2025 HongYan. All rights reserved.
+
+
+import Foundation
+import UIKit
+import xxooooxxCommonUI
+
+class LDSLedgerMemberManager {
+    weak var vc: LDSLedgerMemberViewController?
+
+    let apiManager = APIManager()
+    let ledgerId: String
+    var ledgerData = LedgerData.initMock()
+    var userInfos: [UserInfoData] = []
+
+    init(ledgerId: String) {
+        self.ledgerId = ledgerId
+        Task { await initData() }
+    }
+
+    private func initData() async {
+        do {
+            ledgerData = try await apiManager.getLedger(ledgerId: ledgerId)
+            userInfos = try await apiManager.getMultipleUserInfo(userIds: ledgerData.userIds)
+            await MainActor.run { vc?.tableView.reloadData() }
+        } catch {
+            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳目失敗")
+        }
+    }
+
+    func getUserAvatar(userId: String) async -> UIImage? {
+        try? await apiManager.getUserAvatar(userId: userId)
+    }
+}

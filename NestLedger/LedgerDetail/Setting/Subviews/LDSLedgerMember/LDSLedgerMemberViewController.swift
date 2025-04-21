@@ -10,10 +10,13 @@ import Foundation
 import UIKit
 
 class LDSLedgerMemberViewController: UIViewController {
+    let manager: LDSLedgerMemberManager
+
     let addNewMemberView = LDSLMAddNewMemberView()
     let tableView = UITableView()
 
-    init() {
+    init(ledgerId: String) {
+        manager = LDSLedgerMemberManager(ledgerId: ledgerId)
         super.init(nibName: nil, bundle: nil)
         setup()
         layout()
@@ -25,6 +28,8 @@ class LDSLedgerMemberViewController: UIViewController {
     }
 
     private func setup() {
+        manager.vc = self
+
         view.backgroundColor = .white
         navigationItem.title = "帳目成員"
 
@@ -62,11 +67,16 @@ class LDSLedgerMemberViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        manager.userInfos.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSLMCell.cellId, for: indexPath) as? LDSLMCell else { return UITableViewCell() }
+        let data = manager.userInfos[indexPath.row]
+        Task {
+            let avatar = await manager.getUserAvatar(userId: data.id)
+            await MainActor.run { cell.config(avatar: avatar, userName: data.userName) }
+        }
         return cell
     }
 }

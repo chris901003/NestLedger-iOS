@@ -82,6 +82,7 @@
 		0572C3C32D9AD54C008F99FB /* LTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C22D9AD54C008F99FB /* LTransactionView.swift */; };
 		0572C3C52D9ADA6C008F99FB /* LTransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C42D9ADA6C008F99FB /* LTransactionManager.swift */; };
 		0572C3C82D9C1911008F99FB /* LTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C72D9C1911008F99FB /* LTCell.swift */; };
+		05764D942DB676C6007292D7 /* LDSLedgerMemberManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D932DB676C6007292D7 /* LDSLedgerMemberManager.swift */; };
 		05AF766B2D944A0800C27407 /* LDIncomeExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */; };
 		05B340A92D66123E000378A2 /* APIPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340A82D66123E000378A2 /* APIPath.swift */; };
 		05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */; };
@@ -167,6 +168,7 @@
 		0572C3C22D9AD54C008F99FB /* LTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTransactionView.swift; sourceTree = "<group>"; };
 		0572C3C42D9ADA6C008F99FB /* LTransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTransactionManager.swift; sourceTree = "<group>"; };
 		0572C3C72D9C1911008F99FB /* LTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTCell.swift; sourceTree = "<group>"; };
+		05764D932DB676C6007292D7 /* LDSLedgerMemberManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLedgerMemberManager.swift; sourceTree = "<group>"; };
 		05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDIncomeExpenseView.swift; sourceTree = "<group>"; };
 		05B340A82D66123E000378A2 /* APIPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPath.swift; sourceTree = "<group>"; };
 		05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+UserInfo.swift"; sourceTree = "<group>"; };
@@ -638,6 +640,7 @@
 			isa = PBXGroup;
 			children = (
 				05FFF71B2DB144FD00CC425B /* Subviews */,
+				05764D932DB676C6007292D7 /* LDSLedgerMemberManager.swift */,
 				05FFF7182DAFF89900CC425B /* LDSLedgerMemberViewController.swift */,
 			);
 			path = LDSLedgerMember;
@@ -779,6 +782,7 @@
 				05AF766B2D944A0800C27407 /* LDIncomeExpenseView.swift in Sources */,
 				05FFF71D2DB1451400CC425B /* LDSLMAddNewMemberView.swift in Sources */,
 				05FFF71F2DB14D9F00CC425B /* LDSLMCell.swift in Sources */,
+				05764D942DB676C6007292D7 /* LDSLedgerMemberManager.swift in Sources */,
 				05FFF7192DAFF89900CC425B /* LDSLedgerMemberViewController.swift in Sources */,
 				05FFF7172DAFED5200CC425B /* LDSLedgerNameViewController.swift in Sources */,
 				0514415D2DAEA5EC00197191 /* LDSettingManager.swift in Sources */,
