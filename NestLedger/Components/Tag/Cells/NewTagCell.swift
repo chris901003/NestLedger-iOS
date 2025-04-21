@@ -36,6 +36,11 @@ class NewTagCell: UITableViewCell {
         colorCircle.layer.cornerRadius = colorCircle.bounds.width / 2
     }
 
+    private func setDefault() {
+        colorCircle.backgroundColor = .clear
+        tagLabel.text = ""
+    }
+
     private func setup() {
         selectionStyle = .none
 
@@ -104,6 +109,7 @@ extension NewTagCell {
             return
         }
         delegate?.sendNewTag(data: .init(label: label, color: color.toHexString, ledgerId: "", version: TAG_DATA_VERSION))
+        setDefault()
     }
 }
 

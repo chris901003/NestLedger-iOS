@@ -16,6 +16,7 @@ protocol TagViewControllerDelegate: AnyObject {
 
 enum TagVCType: String {
     case selectTag = "選擇標籤"
+    case editTag = "編輯標籤"
 }
 
 class TagViewController: UIViewController {
@@ -183,9 +184,11 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let type = SectionType.allCases[indexPath.section]
-        guard type == .existTag else { return }
-        delegate?.selectedTag(vc: self, data: manager.showTags[indexPath.row])
+        if type == .selectTag {
+            let type = SectionType.allCases[indexPath.section]
+            guard type == .existTag else { return }
+            delegate?.selectedTag(vc: self, data: manager.showTags[indexPath.row])
+        }
     }
 }
 
@@ -204,7 +207,13 @@ extension TagViewController: NewTagCellDelegate {
         Task {
             let result = await manager.createTag(tag: data)
             if let result {
-                await MainActor.run { delegate?.selectedTag(vc: self, data: result) }
+                switch type {
+                    case .selectTag:
+                        await MainActor.run { delegate?.selectedTag(vc: self, data: result) }
+                    case .editTag:
+                        manager.showTags.append(data)
+                        await MainActor.run { tableView.reloadData() }
+                }
             }
         }
     }
