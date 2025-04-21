@@ -190,6 +190,28 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
             delegate?.selectedTag(vc: self, data: manager.showTags[indexPath.row])
         }
     }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if type == .selectTag { return nil }
+
+        let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] action, view, completionHandler in
+            guard let self else { return }
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+            let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
+                // TODO: 刪除部分
+                print("✅ Delete action")
+            }
+            let controller = UIAlertController(title: "刪除標籤", message: "確定要刪除標籤嗎?", preferredStyle: .alert)
+            controller.addAction(cancelAction)
+            controller.addAction(deleteAction)
+            present(controller, animated: true)
+        }
+
+        let config = UISwipeActionsConfiguration(actions: [deleteAction])
+        config.performsFirstActionWithFullSwipe = true
+
+        return config
+    }
 }
 
 // MARK: - NLNeedPresent
