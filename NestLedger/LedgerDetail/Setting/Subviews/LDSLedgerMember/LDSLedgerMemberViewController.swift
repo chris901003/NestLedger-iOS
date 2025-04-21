@@ -72,10 +72,11 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSLMCell.cellId, for: indexPath) as? LDSLMCell else { return UITableViewCell() }
+        cell.delegate = manager
         let data = manager.userInfos[indexPath.row]
         Task {
             let avatar = await manager.getUserAvatar(userId: data.id)
-            await MainActor.run { cell.config(avatar: avatar, userName: data.userName) }
+            await MainActor.run { cell.config(avatar: avatar, userName: data.userName, userId: data.id) }
         }
         return cell
     }

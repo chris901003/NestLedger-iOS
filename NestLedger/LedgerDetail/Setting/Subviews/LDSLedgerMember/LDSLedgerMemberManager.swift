@@ -37,3 +37,16 @@ class LDSLedgerMemberManager {
         try? await apiManager.getUserAvatar(userId: userId)
     }
 }
+
+// MARK: - LDSLMCellDelegate
+extension LDSLedgerMemberManager: LDSLMCellDelegate {
+    func presentVC(_ vc: UIViewController) {
+        DispatchQueue.main.async {
+            self.vc?.present(vc, animated: true)
+        }
+    }
+
+    func tapDeleteAction(userId: String) {
+        print("✅ Delete user: \(userId)")
+    }
+}

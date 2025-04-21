@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import xxooooxxCommonUI
 
+protocol LDSLMCellDelegate: NLNeedPresent {
+    func tapDeleteAction(userId: String)
+}
+
 class LDSLMCell: UITableViewCell {
     static let cellId = "LDSLMCellId"
 
@@ -21,6 +25,9 @@ class LDSLMCell: UITableViewCell {
         image: UIImage(systemName: "xmark")?.withTintColor(.red, renderingMode: .alwaysOriginal)
     )
 
+    var userId: String = ""
+    weak var delegate: LDSLMCellDelegate?
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -31,9 +38,10 @@ class LDSLMCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func config(avatar: UIImage?, userName: String) {
+    func config(avatar: UIImage?, userName: String, userId: String) {
         avatarView.image = avatar
         userNameLabel.text = userName
+        self.userId = userId
     }
 
     private func setDefault() {
@@ -62,6 +70,8 @@ class LDSLMCell: UITableViewCell {
         deleteIcon.backgroundColor = .red.withAlphaComponent(0.2)
         deleteIcon.layer.cornerRadius = 10.0
         deleteIcon.clipsToBounds = true
+        deleteIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapDeleteAction)))
+        deleteIcon.isUserInteractionEnabled = true
     }
 
     private func layout() {
@@ -99,5 +109,19 @@ class LDSLMCell: UITableViewCell {
             deleteIcon.widthAnchor.constraint(equalToConstant: 30),
             deleteIcon.heightAnchor.constraint(equalToConstant: 30)
         ])
+    }
+}
+
+extension LDSLMCell {
+    @objc private func tapDeleteAction() {
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        let deleteAction = UIAlertAction(title: "確定", style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            delegate?.tapDeleteAction(userId: userId)
+        }
+        let controller = UIAlertController(title: "刪除使用者", message: "確定要刪除該使用者嗎?", preferredStyle: .alert)
+        controller.addAction(cancelAction)
+        controller.addAction(deleteAction)
+        delegate?.presentVC(controller)
     }
 }
