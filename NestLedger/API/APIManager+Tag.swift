@@ -13,6 +13,8 @@ extension APIManager {
     enum TagError: LocalizedError {
         case failedCreateTag
         case failedGetTag
+        case failedDeleteTag
+        case tagStillUsedInTransaction
 
         var errorDescription: String? {
             switch self {
@@ -20,6 +22,10 @@ extension APIManager {
                     return "創建標籤失敗"
                 case .failedGetTag:
                     return "獲取標籤失敗"
+                case .failedDeleteTag:
+                    return "刪除標籤失敗"
+                case .tagStillUsedInTransaction:
+                    return "因該標籤還在使用中，無法刪除標籤"
             }
         }
     }
@@ -79,6 +85,33 @@ extension APIManager {
             return result.data.tags
         } catch {
             throw TagError.failedGetTag
+        }
+    }
+}
+
+extension APIManager {
+    fileprivate struct DeleteTagResponse: Codable { }
+
+    func deleteTag(tagId: String) async throws {
+        guard var components = URLComponents(string: APIPath.Tag.delete.getPath()) else { throw APIManagerError.badUrl }
+        components.queryItems = [URLQueryItem(name: "tagId", value: tagId)]
+
+        guard let url = components.url else { throw APIManagerError.badUrl }
+        let request = genRequest(url: url, method: .DELETE)
+        do {
+            let (data, response) = try await send(request: request)
+            let result = try APIManager.decoder.decode(APIResponseData<DeleteTagResponse>.self, from: data)
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 { return }
+            if result.message == "Tag still used in transaction" {
+                throw TagError.tagStillUsedInTransaction
+            }
+        } catch {
+            switch error {
+                case TagError.tagStillUsedInTransaction:
+                    throw error
+                default:
+                    throw TagError.failedDeleteTag
+            }
         }
     }
 }

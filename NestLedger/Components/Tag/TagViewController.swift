@@ -196,10 +196,22 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
 
         let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] action, view, completionHandler in
             guard let self else { return }
+            let data = manager.showTags[indexPath.row]
             let cancelAction = UIAlertAction(title: "取消", style: .cancel)
             let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
-                // TODO: 刪除部分
-                print("✅ Delete action")
+                Task { [weak self] in
+                    guard let self else { return }
+                    do {
+                        try await manager.deleteTag(tagId: data._id)
+                        await MainActor.run { [weak self] in
+                            guard let self else { return }
+                            manager.showTags.remove(at: indexPath.row)
+                            tableView.deleteRows(at: [indexPath], with: .left)
+                        }
+                    } catch {
+                        XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
+                    }
+                }
             }
             let controller = UIAlertController(title: "刪除標籤", message: "確定要刪除標籤嗎?", preferredStyle: .alert)
             controller.addAction(cancelAction)

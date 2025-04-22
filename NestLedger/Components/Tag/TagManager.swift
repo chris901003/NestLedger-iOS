@@ -72,4 +72,8 @@ class TagManager {
             return nil
         }
     }
+
+    func deleteTag(tagId: String) async throws {
+        try await apiManager.deleteTag(tagId: tagId)
+    }
 }
