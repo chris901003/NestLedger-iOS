@@ -33,6 +33,9 @@ class LDSLedgerMemberViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "帳目成員"
 
+        addNewMemberView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAddNewMemberAction)))
+        addNewMemberView.isUserInteractionEnabled = true
+
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
@@ -61,6 +64,19 @@ class LDSLedgerMemberViewController: UIViewController {
 
     private func registerCell() {
         tableView.register(LDSLMCell.self, forCellReuseIdentifier: LDSLMCell.cellId)
+    }
+}
+
+extension LDSLedgerMemberViewController {
+    @objc private func tapAddNewMemberAction() {
+        let enterNewMemberVC = LDSLMEnterNewMemberViewController()
+        // overCurrentContext => 保持可以看到背後的 view，但是只會覆蓋父 view 的畫面，假設父 view 不是全畫面的則現在的 view 也不會是全畫面
+        // overFullScreen => 保持可以看到背後的 view，會將當前的 view 覆蓋整個畫面
+        enterNewMemberVC.modalPresentationStyle = .overFullScreen
+        enterNewMemberVC.modalTransitionStyle = .crossDissolve
+        //definesPresentationContext => 當現在在 NavigationController 當中並且使用 overCurrentContext 時會保留 NavigationItem 的部分
+        // definesPresentationContext = true
+        present(enterNewMemberVC, animated: true)
     }
 }
 
