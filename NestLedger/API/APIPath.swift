@@ -81,4 +81,9 @@ class APIPath {
         // [DELETE]
         case delete = "/transaction/delete"
     }
+
+    enum LedgerInvite: String, APIPathProtocol {
+        // [POST]
+        case create = "/ledger-invite/create"
+    }
 }

@@ -58,7 +58,8 @@ extension LDSLedgerMemberManager: LDSLMEnterNewMemberDelegate {
         Task {
             do {
                 let inviteUserInfo = try await apiManager.getUserByEmailAddress(emailAddress: address)
-                print("✅ UserInfo: \(inviteUserInfo)")
+                let ledgerInviteData = LedgerInviteData(ledgerId: ledgerId, sendUserId: sharedUserInfo.id, receiveUserId: inviteUserInfo.id)
+                try await apiManager.createLedgerInvite(data: ledgerInviteData)
             } catch {
                 print("✅ Error: \(error.localizedDescription)")
             }

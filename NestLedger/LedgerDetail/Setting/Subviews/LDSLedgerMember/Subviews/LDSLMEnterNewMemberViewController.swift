@@ -52,6 +52,7 @@ class LDSLMEnterNewMemberViewController: UIViewController {
         textField.placeholder = "輸入使用者電子郵件"
         textField.font = .systemFont(ofSize: 16, weight: .semibold)
         textField.keyboardType = .emailAddress
+        textField.autocapitalizationType = .none
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 10.0
         textField.clipsToBounds = true
