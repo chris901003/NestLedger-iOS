@@ -105,6 +105,22 @@ extension APIManager {
         }
     }
 
+    func getUserByEmailAddress(emailAddress: String) async throws -> UserInfoData {
+        guard var components = URLComponents(string: APIPath.UserInfo.getByEmailAddress.getPath()) else { throw APIManagerError.badUrl }
+        components.queryItems = [URLQueryItem(name: "email", value: emailAddress)]
+
+        guard let url = components.url else { throw APIManagerError.badUrl }
+        let request = genRequest(url: url, method: .GET)
+        do {
+            let (data, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw UserInfoError.failedFetchUserInfo }
+            let result = try APIManager.decoder.decode(UserInfoResponse.self, from: data)
+            return result.data.UserInfo
+        } catch {
+            throw UserInfoError.failedFetchUserInfo
+        }
+    }
+
     func getMultipleUserInfo(userIds: [String]) async throws -> [UserInfoData] {
         guard let url = APIPath.UserInfo.getMultipleUserInfo.getUrl() else { throw APIManagerError.badUrl }
         let parameters: [String: Any] = ["uids": userIds]

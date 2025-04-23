@@ -76,6 +76,7 @@ extension LDSLedgerMemberViewController {
         enterNewMemberVC.modalTransitionStyle = .crossDissolve
         //definesPresentationContext => 當現在在 NavigationController 當中並且使用 overCurrentContext 時會保留 NavigationItem 的部分
         // definesPresentationContext = true
+        enterNewMemberVC.delegate = manager
         present(enterNewMemberVC, animated: true)
     }
 }

@@ -50,3 +50,18 @@ extension LDSLedgerMemberManager: LDSLMCellDelegate {
         print("✅ Delete user: \(userId)")
     }
 }
+
+// MARK: - LDSLMEnterNewMemberDelegate
+extension LDSLedgerMemberManager: LDSLMEnterNewMemberDelegate {
+    func sendLedgerInvite(address: String) {
+        guard !address.isEmpty else { return }
+        Task {
+            do {
+                let inviteUserInfo = try await apiManager.getUserByEmailAddress(emailAddress: address)
+                print("✅ UserInfo: \(inviteUserInfo)")
+            } catch {
+                print("✅ Error: \(error.localizedDescription)")
+            }
+        }
+    }
+}

@@ -31,6 +31,7 @@ class APIPath {
         case login = "/user/login"
         case userInfo = "/user/get"
         case getAvatar = "/user/get-avatar"
+        case getByEmailAddress = "/user/get-user-by-email"
         case getMultipleUserInfo = "/user/get-multiple-user-info"
 
         // [PATCH]
