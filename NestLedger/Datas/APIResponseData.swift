@@ -13,3 +13,8 @@ struct APIResponseData<T: Codable>: Codable {
     let message: String
     let data: T
 }
+
+struct APIFailedResponseData: Codable {
+    let success: Bool
+    let message: String
+}

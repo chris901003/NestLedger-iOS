@@ -60,8 +60,20 @@ extension LDSLedgerMemberManager: LDSLMEnterNewMemberDelegate {
                 let inviteUserInfo = try await apiManager.getUserByEmailAddress(emailAddress: address)
                 let ledgerInviteData = LedgerInviteData(ledgerId: ledgerId, sendUserId: sharedUserInfo.id, receiveUserId: inviteUserInfo.id)
                 try await apiManager.createLedgerInvite(data: ledgerInviteData)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    XOBottomBarInformationManager.showBottomInformation(type: .success, information: "成功發出邀請")
+                }
             } catch {
-                print("✅ Error: \(error.localizedDescription)")
+                switch error {
+                    case APIManager.UserInfoError.failedFetchUserInfo:
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "使用者不存在")
+                        }
+                    default:
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
+                        }
+                }
             }
         }
     }

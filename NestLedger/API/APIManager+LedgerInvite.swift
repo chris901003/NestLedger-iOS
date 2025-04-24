@@ -22,17 +22,47 @@ extension APIManager {
 }
 
 extension APIManager {
+    fileprivate enum CreateLedgerInviteError: String, LocalizedError {
+        case ledgerNotFound = "Ledger not found"
+        case memberAlreadyExists = "Member already exists"
+        case inviteAlreadyExists = "Invite already exists"
+
+        var errorDescription: String? {
+            switch self {
+                case .ledgerNotFound:
+                    return "帳目不存在"
+                case .memberAlreadyExists:
+                    return "該使用者已經在帳目成員當中"
+                case .inviteAlreadyExists:
+                    return "該使用者已經在邀請當中"
+            }
+        }
+    }
+
     @discardableResult
     func createLedgerInvite(data: LedgerInviteData) async throws -> LedgerInviteData {
         guard let url = APIPath.LedgerInvite.create.getUrl(),
               let request = try? genRequest(url: url, method: .POST, body: data)else { throw APIManagerError.badUrl }
         do {
             let (data, response) = try await send(request: request)
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw LedgerInviteError.failedCreateLedgerInvite }
-            let ledgerInvite = try APIManager.decoder.decode(LedgerInviteResponse.self, from: data)
-            return ledgerInvite.data.ledgerInvite
+            guard let response = response as? HTTPURLResponse else { throw APIManagerError.badUrl }
+            if response.statusCode == 200 {
+                let ledgerInvite = try APIManager.decoder.decode(LedgerInviteResponse.self, from: data)
+                return ledgerInvite.data.ledgerInvite
+            } else {
+                let failedResponse = try APIManager.decoder.decode(APIFailedResponseData.self, from: data)
+                if let errorType = CreateLedgerInviteError(rawValue: failedResponse.message) {
+                    throw errorType
+                } else {
+                    throw LedgerInviteError.failedCreateLedgerInvite
+                }
+            }
         } catch {
-            throw LedgerInviteError.failedCreateLedgerInvite
+            if error is CreateLedgerInviteError {
+                throw error
+            } else {
+                throw LedgerInviteError.failedCreateLedgerInvite
+            }
         }
     }
 }
