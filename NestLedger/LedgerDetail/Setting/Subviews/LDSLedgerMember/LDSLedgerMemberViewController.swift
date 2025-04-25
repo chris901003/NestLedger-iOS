@@ -55,7 +55,7 @@ class LDSLedgerMemberViewController: UIViewController {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: addNewMemberView.bottomAnchor, constant: 12),
+            tableView.topAnchor.constraint(equalTo: addNewMemberView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -82,19 +82,52 @@ extension LDSLedgerMemberViewController {
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
+extension LDSLedgerMemberViewController {
+    fileprivate enum SectionType: String, CaseIterable {
+        case member = "帳目成員"
+        case invite = "正在邀請"
+    }
+}
+
 extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        SectionType.allCases.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        manager.userInfos.count
+        let type = SectionType.allCases[section]
+        switch type {
+            case .member:
+                return manager.userInfos.count
+            case .invite:
+                return 1
+        }
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        SectionType.allCases[section].rawValue
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        20
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSLMCell.cellId, for: indexPath) as? LDSLMCell else { return UITableViewCell() }
-        cell.delegate = manager
-        let data = manager.userInfos[indexPath.row]
-        Task {
-            let avatar = await manager.getUserAvatar(userId: data.id)
-            await MainActor.run { cell.config(avatar: avatar, userName: data.userName, userId: data.id) }
+        let type = SectionType.allCases[indexPath.section]
+        switch type {
+            case .member:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSLMCell.cellId, for: indexPath) as? LDSLMCell else { return UITableViewCell() }
+                cell.delegate = manager
+                let data = manager.userInfos[indexPath.row]
+                Task {
+                    let avatar = await manager.getUserAvatar(userId: data.id)
+                    await MainActor.run { cell.config(avatar: avatar, userName: data.userName, userId: data.id) }
+                }
+                return cell
+            case .invite:
+                let cell = UITableViewCell()
+                cell.textLabel?.text = "ABC"
+                return cell
         }
-        return cell
     }
 }

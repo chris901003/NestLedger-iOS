@@ -11,11 +11,14 @@ import Foundation
 extension APIManager {
     enum LedgerInviteError: LocalizedError {
         case failedCreateLedgerInvite
+        case failedGetLedgerInvite
 
         var errorDescription: String? {
             switch self {
                 case .failedCreateLedgerInvite:
                     return "創建帳本邀請失敗"
+                case .failedGetLedgerInvite:
+                    return "獲取帳本邀請失敗"
             }
         }
     }
@@ -63,6 +66,27 @@ extension APIManager {
             } else {
                 throw LedgerInviteError.failedCreateLedgerInvite
             }
+        }
+    }
+}
+
+extension APIManager {
+    func getLedgerInvites(ledgerId: String?, receiveUserId: String?) async throws -> [LedgerInviteData] {
+        if ledgerId == nil && receiveUserId == nil { throw APIManagerError.badUrl }
+        guard var components = URLComponents(string: APIPath.LedgerInvite.get.getPath()) else { throw APIManagerError.badUrl }
+        components.queryItems = []
+        if let ledgerId { components.queryItems?.append(.init(name: "ledgerId", value: ledgerId)) }
+        if let receiveUserId { components.queryItems?.append(.init(name: "receiveUserId", value: receiveUserId)) }
+
+        guard let url = components.url else { throw APIManagerError.badUrl }
+        let request = genRequest(url: url, method: .GET)
+        do {
+            let (data, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw LedgerInviteError.failedGetLedgerInvite }
+            let ledgerInvites = try APIManager.decoder.decode(LedgerInvitesResponse.self, from: data)
+            return ledgerInvites.data.ledgerInvites
+        } catch {
+            throw LedgerInviteError.failedGetLedgerInvite
         }
     }
 }

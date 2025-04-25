@@ -17,6 +17,7 @@ class LDSLedgerMemberManager {
     let ledgerId: String
     var ledgerData = LedgerData.initMock()
     var userInfos: [UserInfoData] = []
+    var inviteUserInfos: [UserInfoData] = []
 
     init(ledgerId: String) {
         self.ledgerId = ledgerId
@@ -27,6 +28,11 @@ class LDSLedgerMemberManager {
         do {
             ledgerData = try await apiManager.getLedger(ledgerId: ledgerId)
             userInfos = try await apiManager.getMultipleUserInfo(userIds: ledgerData.userIds)
+
+            let ledgerInvites = try await apiManager.getLedgerInvites(ledgerId: ledgerId, receiveUserId: nil)
+            let inviteUserIds = ledgerInvites.map { $0.receiveUserId }
+            inviteUserInfos = try await apiManager.getMultipleUserInfo(userIds: inviteUserIds)
+            print("✅ Invite user infos: \(inviteUserInfos)")
             await MainActor.run { vc?.tableView.reloadData() }
         } catch {
             XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳目失敗")
