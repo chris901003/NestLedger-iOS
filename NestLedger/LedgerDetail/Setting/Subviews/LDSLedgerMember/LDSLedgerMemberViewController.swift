@@ -64,6 +64,7 @@ class LDSLedgerMemberViewController: UIViewController {
 
     private func registerCell() {
         tableView.register(LDSLMCell.self, forCellReuseIdentifier: LDSLMCell.cellId)
+        tableView.register(LDSLMInviteCell.self, forCellReuseIdentifier: LDSLMInviteCell.cellId)
     }
 }
 
@@ -100,7 +101,7 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
             case .member:
                 return manager.userInfos.count
             case .invite:
-                return 1
+                return manager.inviteUserInfos.count
         }
     }
 
@@ -125,8 +126,7 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
                 }
                 return cell
             case .invite:
-                let cell = UITableViewCell()
-                cell.textLabel?.text = "ABC"
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSLMInviteCell.cellId, for: indexPath) as? LDSLMInviteCell else { return UITableViewCell() }
                 return cell
         }
     }

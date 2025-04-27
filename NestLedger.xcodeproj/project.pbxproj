@@ -86,6 +86,7 @@
 		05764D982DB7E32F007292D7 /* LDSLMEnterNewMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D972DB7E32F007292D7 /* LDSLMEnterNewMemberViewController.swift */; };
 		05764D9A2DB93037007292D7 /* APIManager+LedgerInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D992DB93037007292D7 /* APIManager+LedgerInvite.swift */; };
 		05764D9D2DB93082007292D7 /* LedgerInviteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D9C2DB93082007292D7 /* LedgerInviteData.swift */; };
+		059CBE412DBBCEB2000B7F22 /* LDSLMInviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */; };
 		05AF766B2D944A0800C27407 /* LDIncomeExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */; };
 		05B340A92D66123E000378A2 /* APIPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340A82D66123E000378A2 /* APIPath.swift */; };
 		05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */; };
@@ -175,6 +176,7 @@
 		05764D972DB7E32F007292D7 /* LDSLMEnterNewMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMEnterNewMemberViewController.swift; sourceTree = "<group>"; };
 		05764D992DB93037007292D7 /* APIManager+LedgerInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+LedgerInvite.swift"; sourceTree = "<group>"; };
 		05764D9C2DB93082007292D7 /* LedgerInviteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerInviteData.swift; sourceTree = "<group>"; };
+		059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMInviteCell.swift; sourceTree = "<group>"; };
 		05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDIncomeExpenseView.swift; sourceTree = "<group>"; };
 		05B340A82D66123E000378A2 /* APIPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPath.swift; sourceTree = "<group>"; };
 		05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+UserInfo.swift"; sourceTree = "<group>"; };
@@ -668,6 +670,7 @@
 				05FFF71C2DB1451400CC425B /* LDSLMAddNewMemberView.swift */,
 				05FFF71E2DB14D9F00CC425B /* LDSLMCell.swift */,
 				05764D972DB7E32F007292D7 /* LDSLMEnterNewMemberViewController.swift */,
+				059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -801,6 +804,7 @@
 				05FFF71D2DB1451400CC425B /* LDSLMAddNewMemberView.swift in Sources */,
 				05FFF71F2DB14D9F00CC425B /* LDSLMCell.swift in Sources */,
 				05764D982DB7E32F007292D7 /* LDSLMEnterNewMemberViewController.swift in Sources */,
+				059CBE412DBBCEB2000B7F22 /* LDSLMInviteCell.swift in Sources */,
 				05764D942DB676C6007292D7 /* LDSLedgerMemberManager.swift in Sources */,
 				05FFF7192DAFF89900CC425B /* LDSLedgerMemberViewController.swift in Sources */,
 				05FFF7172DAFED5200CC425B /* LDSLedgerNameViewController.swift in Sources */,
