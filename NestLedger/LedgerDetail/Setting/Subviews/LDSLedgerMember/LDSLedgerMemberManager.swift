@@ -57,10 +57,16 @@ extension LDSLedgerMemberManager: LDSLMCellDelegate, LDSLMInviteCellDelegate {
         print("✅ Delete user: \(userId)")
     }
 
-    func deleteInviteUser(ledgerInviteId: String) {
+    func deleteInviteUser(ledgerInviteId: String, indexPath: IndexPath?) {
         Task {
             do {
                 try await apiManager.deleteLedgerInvite(ledgerInviteId: ledgerInviteId, type: .retriveLedgerInvite)
+                await MainActor.run {
+                    if let indexPath {
+                        ledgerInvites.remove(at: indexPath.row)
+                        vc?.tableView.deleteRows(at: [indexPath], with: .left)
+                    }
+                }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
             }
