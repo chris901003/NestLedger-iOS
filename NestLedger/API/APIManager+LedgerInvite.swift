@@ -12,6 +12,7 @@ extension APIManager {
     enum LedgerInviteError: LocalizedError {
         case failedCreateLedgerInvite
         case failedGetLedgerInvite
+        case failedDeleteLedgerInvite
 
         var errorDescription: String? {
             switch self {
@@ -19,11 +20,15 @@ extension APIManager {
                     return "創建帳本邀請失敗"
                 case .failedGetLedgerInvite:
                     return "獲取帳本邀請失敗"
+                case .failedDeleteLedgerInvite:
+                    return "刪除邀請失敗"
             }
         }
     }
 }
 
+
+// MARK: - Create Ledger Invite
 extension APIManager {
     fileprivate enum CreateLedgerInviteError: String, LocalizedError {
         case ledgerNotFound = "Ledger not found"
@@ -70,6 +75,7 @@ extension APIManager {
     }
 }
 
+// MARK: - Get Ledger Invites
 extension APIManager {
     func getLedgerInvites(ledgerId: String?, receiveUserId: String?) async throws -> [LedgerInviteData] {
         if ledgerId == nil && receiveUserId == nil { throw APIManagerError.badUrl }
@@ -87,6 +93,69 @@ extension APIManager {
             return ledgerInvites.data.ledgerInvites
         } catch {
             throw LedgerInviteError.failedGetLedgerInvite
+        }
+    }
+}
+
+// MARK: - Delete Ledger Invite
+extension APIManager {
+    enum DeleteLedgerInviteType: String {
+        case acceptLedgerInvite = "同意邀請"
+        case rejectLedgerInvite = "拒絕邀請"
+        case retriveLedgerInvite = "收回邀請"
+
+        func getAcceptValue() -> String {
+            switch self {
+                case .acceptLedgerInvite:
+                    return "true"
+                case .rejectLedgerInvite, .retriveLedgerInvite:
+                    return "false"
+            }
+        }
+
+        func getErrorType() -> DeleteLedgerInviteError {
+            switch self {
+                case .acceptLedgerInvite:
+                    return .failedAccept
+                case .rejectLedgerInvite:
+                    return .failedReject
+                case .retriveLedgerInvite:
+                    return .failedRetrive
+            }
+        }
+    }
+
+    enum DeleteLedgerInviteError: LocalizedError {
+        case failedAccept, failedReject, failedRetrive
+
+        var errorDescription: String? {
+            switch self {
+                case .failedAccept:
+                    return "同意邀請失敗"
+                case .failedReject:
+                    return "拒絕邀請失敗"
+                case .failedRetrive:
+                    return "收回邀請失敗"
+            }
+        }
+    }
+
+    @discardableResult
+    func deleteLedgerInvite(ledgerInviteId: String, type: DeleteLedgerInviteType) async throws -> Bool {
+        guard var components = URLComponents(string: APIPath.LedgerInvite.delete.getPath()) else { throw APIManagerError.badUrl }
+        components.queryItems = [
+            URLQueryItem(name: "ledgerInviteId", value: ledgerInviteId),
+            URLQueryItem(name: "accept", value: type.getAcceptValue())
+        ]
+
+        guard let url = components.url else { throw APIManagerError.badUrl }
+        let request = genRequest(url: url, method: .DELETE)
+        do {
+            let (_, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw type.getErrorType() }
+            return true
+        } catch {
+            throw LedgerInviteError.failedDeleteLedgerInvite
         }
     }
 }

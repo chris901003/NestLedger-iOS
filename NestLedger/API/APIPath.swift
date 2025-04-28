@@ -89,5 +89,8 @@ class APIPath {
 
         // [POST]
         case create = "/ledger-invite/create"
+
+        // [DELETE]
+        case delete = "/ledger-invite/delete"
     }
 }

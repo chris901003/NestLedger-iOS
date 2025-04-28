@@ -11,7 +11,7 @@ import UIKit
 import xxooooxxCommonUI
 
 protocol LDSLMInviteCellDelegate: NLNeedPresent {
-    func deleteInviteUser(userId: String)
+    func deleteInviteUser(ledgerInviteId: String)
 }
 
 class LDSLMInviteCell: UITableViewCell {
@@ -27,7 +27,7 @@ class LDSLMInviteCell: UITableViewCell {
         image: UIImage(systemName: "delete.backward")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
     )
 
-    var userId: String = "Mock id"
+    var ledgerInviteId: String = "Mock Ledger Invite Id"
     weak var delegate: LDSLMInviteCellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -51,11 +51,11 @@ class LDSLMInviteCell: UITableViewCell {
         receiveAvatarView.image = nil
     }
 
-    func config(senderAvatar: UIImage?, receiveAvatar: UIImage?, receiveName: String, receiverUid: String) {
+    func config(senderAvatar: UIImage?, receiveAvatar: UIImage?, receiveName: String, ledgerInviteId: String) {
         senderAvatarView.image = senderAvatar
         receiveAvatarView.image = receiveAvatar
         nameLabel.text = receiveName
-        userId = receiverUid
+        self.ledgerInviteId = ledgerInviteId
     }
 
     private func setup() {
@@ -146,8 +146,7 @@ class LDSLMInviteCell: UITableViewCell {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { [weak self] _ in
             guard let self else { return }
-            print("✅ Delete action")
-            delegate?.deleteInviteUser(userId: userId)
+            delegate?.deleteInviteUser(ledgerInviteId: ledgerInviteId)
         }
         let alertController = UIAlertController(title: "刪除邀請", message: "確定要取消此邀請嗎?", preferredStyle: .alert)
         alertController.addAction(cancelAction)

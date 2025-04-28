@@ -138,7 +138,7 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
                             senderAvatar: senderAvatar,
                             receiveAvatar: receiveAvatar,
                             receiveName: receiveUserInfo?.userName ?? "讀取失敗",
-                            receiverUid: ledgerInvite.receiveUserId
+                            ledgerInviteId: ledgerInvite._id
                         )
                     }
                 }
