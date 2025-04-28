@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import xxooooxxCommonUI
 
+protocol LDSLMInviteCellDelegate: NLNeedPresent {
+    func deleteInviteUser(userId: String)
+}
+
 class LDSLMInviteCell: UITableViewCell {
     static let cellId = "LDSLMInviteCellId"
 
@@ -23,6 +27,9 @@ class LDSLMInviteCell: UITableViewCell {
         image: UIImage(systemName: "delete.backward")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
     )
 
+    var userId: String = "Mock id"
+    weak var delegate: LDSLMInviteCellDelegate?
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -33,7 +40,28 @@ class LDSLMInviteCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        defaultConfig()
+    }
+
+    private func defaultConfig() {
+        nameLabel.text = "Unknown User"
+        senderAvatarView.image = nil
+        receiveAvatarView.image = nil
+    }
+
+    func config(senderAvatar: UIImage?, receiveAvatar: UIImage?, receiveName: String, receiverUid: String) {
+        senderAvatarView.image = senderAvatar
+        receiveAvatarView.image = receiveAvatar
+        nameLabel.text = receiveName
+        userId = receiverUid
+    }
+
     private func setup() {
+        selectionStyle = .none
+        defaultConfig()
+
         mainContentView.layer.cornerRadius = 15.0
         mainContentView.layer.borderWidth = 1.5
         mainContentView.layer.borderColor = UIColor.black.cgColor
@@ -49,13 +77,14 @@ class LDSLMInviteCell: UITableViewCell {
         receiveAvatarView.layer.cornerRadius = 20.0
         receiveAvatarView.clipsToBounds = true
 
-        nameLabel.text = "Unknown User"
         nameLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         nameLabel.numberOfLines = 1
 
         deleteIcon.backgroundColor = .systemBlue.withAlphaComponent(0.2)
         deleteIcon.layer.cornerRadius = 10.0
         deleteIcon.clipsToBounds = true
+        deleteIcon.isUserInteractionEnabled = true
+        deleteIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapDeleteAction)))
     }
 
     private func layout() {
@@ -111,5 +140,18 @@ class LDSLMInviteCell: UITableViewCell {
             deleteIcon.widthAnchor.constraint(equalToConstant: 30),
             deleteIcon.heightAnchor.constraint(equalToConstant: 30)
         ])
+    }
+
+    @objc private func tapDeleteAction() {
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            print("✅ Delete action")
+            delegate?.deleteInviteUser(userId: userId)
+        }
+        let alertController = UIAlertController(title: "刪除邀請", message: "確定要取消此邀請嗎?", preferredStyle: .alert)
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        delegate?.presentVC(alertController)
     }
 }

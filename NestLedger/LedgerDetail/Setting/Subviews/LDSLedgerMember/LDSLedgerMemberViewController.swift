@@ -101,7 +101,7 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
             case .member:
                 return manager.userInfos.count
             case .invite:
-                return manager.inviteUserInfos.count
+                return manager.ledgerInvites.count
         }
     }
 
@@ -127,6 +127,21 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
                 return cell
             case .invite:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSLMInviteCell.cellId, for: indexPath) as? LDSLMInviteCell else { return UITableViewCell() }
+                cell.delegate = manager
+                let ledgerInvite = manager.ledgerInvites[indexPath.row]
+                Task {
+                    let senderAvatar = await manager.getUserAvatar(userId: ledgerInvite.sendUserId)
+                    let receiveAvatar = await manager.getUserAvatar(userId: ledgerInvite.receiveUserId)
+                    let receiveUserInfo = try? await manager.getUserInfo(userId: ledgerInvite.receiveUserId)
+                    await MainActor.run {
+                        cell.config(
+                            senderAvatar: senderAvatar,
+                            receiveAvatar: receiveAvatar,
+                            receiveName: receiveUserInfo?.userName ?? "讀取失敗",
+                            receiverUid: ledgerInvite.receiveUserId
+                        )
+                    }
+                }
                 return cell
         }
     }
