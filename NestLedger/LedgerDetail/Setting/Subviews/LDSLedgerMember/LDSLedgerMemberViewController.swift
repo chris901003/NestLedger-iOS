@@ -122,7 +122,7 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
                 let data = manager.userInfos[indexPath.row]
                 Task {
                     let avatar = await manager.getUserAvatar(userId: data.id)
-                    await MainActor.run { cell.config(avatar: avatar, userName: data.userName, userId: data.id) }
+                    await MainActor.run { cell.config(avatar: avatar, userName: data.userName, userId: data.id, indexPath: indexPath) }
                 }
                 return cell
             case .invite:

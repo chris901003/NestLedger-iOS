@@ -53,8 +53,21 @@ extension LDSLedgerMemberManager: LDSLMCellDelegate, LDSLMInviteCellDelegate {
         }
     }
 
-    func tapDeleteAction(userId: String) {
-        print("✅ Delete user: \(userId)")
+    func tapDeleteAction(userId: String, indexPath: IndexPath?) {
+        Task {
+            do {
+                try await apiManager.deleteLedgerMember(ledgerId: ledgerId, userId: userId)
+                await MainActor.run {
+                    if let indexPath,
+                       let idx = (userInfos.firstIndex { $0.id == userId }) {
+                           userInfos.remove(at: idx)
+                           vc?.tableView.deleteRows(at: [indexPath], with: .left)
+                    }
+                }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "刪除成員失敗")
+            }
+        }
     }
 
     func deleteInviteUser(ledgerInviteId: String, indexPath: IndexPath?) {
@@ -62,8 +75,9 @@ extension LDSLedgerMemberManager: LDSLMCellDelegate, LDSLMInviteCellDelegate {
             do {
                 try await apiManager.deleteLedgerInvite(ledgerInviteId: ledgerInviteId, type: .retriveLedgerInvite)
                 await MainActor.run {
-                    if let indexPath {
-                        ledgerInvites.remove(at: indexPath.row)
+                    if let indexPath,
+                       let idx = (ledgerInvites.firstIndex { $0._id == ledgerInviteId }) {
+                        ledgerInvites.remove(at: idx)
                         vc?.tableView.deleteRows(at: [indexPath], with: .left)
                     }
                 }

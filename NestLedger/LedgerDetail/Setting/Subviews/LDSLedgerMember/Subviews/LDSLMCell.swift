@@ -11,7 +11,7 @@ import UIKit
 import xxooooxxCommonUI
 
 protocol LDSLMCellDelegate: NLNeedPresent {
-    func tapDeleteAction(userId: String)
+    func tapDeleteAction(userId: String, indexPath: IndexPath?)
 }
 
 class LDSLMCell: UITableViewCell {
@@ -26,6 +26,7 @@ class LDSLMCell: UITableViewCell {
     )
 
     var userId: String = ""
+    var indexPath: IndexPath?
     weak var delegate: LDSLMCellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -38,10 +39,11 @@ class LDSLMCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func config(avatar: UIImage?, userName: String, userId: String) {
+    func config(avatar: UIImage?, userName: String, userId: String, indexPath: IndexPath) {
         avatarView.image = avatar
         userNameLabel.text = userName
         self.userId = userId
+        self.indexPath = indexPath
     }
 
     private func setDefault() {
@@ -117,7 +119,7 @@ extension LDSLMCell {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         let deleteAction = UIAlertAction(title: "確定", style: .destructive) { [weak self] _ in
             guard let self else { return }
-            delegate?.tapDeleteAction(userId: userId)
+            delegate?.tapDeleteAction(userId: userId, indexPath: indexPath)
         }
         let controller = UIAlertController(title: "刪除使用者", message: "確定要刪除該使用者嗎?", preferredStyle: .alert)
         controller.addAction(cancelAction)

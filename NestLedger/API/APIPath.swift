@@ -55,6 +55,9 @@ class APIPath {
 
         // [POST]
         case create = "/ledger/create"
+
+        // [DELETE]
+        case deleteLedgerMember = "/ledger/delete-ledger-member"
     }
 
     enum Tag: String, APIPathProtocol {
