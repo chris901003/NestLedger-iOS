@@ -54,6 +54,10 @@ extension LDSLedgerMemberManager: LDSLMCellDelegate, LDSLMInviteCellDelegate {
     }
 
     func tapDeleteAction(userId: String, indexPath: IndexPath?) {
+        if sharedUserInfo.id == userId {
+            XOBottomBarInformationManager.showBottomInformation(type: .info, information: "無法將自己從帳本中移除")
+            return
+        }
         Task {
             do {
                 try await apiManager.deleteLedgerMember(ledgerId: ledgerId, userId: userId)
@@ -97,8 +101,11 @@ extension LDSLedgerMemberManager: LDSLMEnterNewMemberDelegate {
                 let inviteUserInfo = try await apiManager.getUserByEmailAddress(emailAddress: address)
                 let ledgerInviteData = LedgerInviteData(ledgerId: ledgerId, sendUserId: sharedUserInfo.id, receiveUserId: inviteUserInfo.id)
                 try await apiManager.createLedgerInvite(data: ledgerInviteData)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                    guard let self else { return }
                     XOBottomBarInformationManager.showBottomInformation(type: .success, information: "成功發出邀請")
+                    ledgerInvites.append(ledgerInviteData)
+                    vc?.tableView.reloadData()
                 }
             } catch {
                 switch error {
