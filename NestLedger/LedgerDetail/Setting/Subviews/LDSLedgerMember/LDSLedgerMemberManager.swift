@@ -19,6 +19,8 @@ class LDSLedgerMemberManager {
     var userInfos: [UserInfoData] = []
     var ledgerInvites: [LedgerInviteData] = []
 
+    var isMainLedger: Bool { get { ledgerData.title.hasPrefix("[Main]") } }
+
     init(ledgerId: String) {
         self.ledgerId = ledgerId
         Task { await initData() }

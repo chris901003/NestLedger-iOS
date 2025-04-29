@@ -13,6 +13,7 @@ extension APIManager {
     enum LedgerError: LocalizedError {
         case failedCreateLedger
         case failedGetLedger
+        case failedUpdateLedger
         case failedRemoveLedgerMember
 
         var errorDescription: String? {
@@ -21,6 +22,8 @@ extension APIManager {
                     return "創建新帳本失敗"
                 case .failedGetLedger:
                     return "獲取帳本失敗"
+                case .failedUpdateLedger:
+                    return "更新帳本失敗"
                 case . failedRemoveLedgerMember:
                     return "刪除帳本成員失敗"
             }
@@ -61,6 +64,27 @@ extension APIManager {
             return result.data.Ledger
         } catch {
             throw LedgerError.failedGetLedger
+        }
+    }
+}
+
+// MARK: - Update Ledger Data
+extension APIManager {
+    fileprivate struct UpdateLedgerData: Codable {
+        let ledgerId: String
+        let ledger: LedgerData
+    }
+
+    func updateLedger(ledgerData: LedgerData) async throws {
+        guard let url = APIPath.Ledger.update.getUrl() else { throw APIManagerError.badUrl }
+        let body = UpdateLedgerData(ledgerId: ledgerData._id, ledger: ledgerData)
+        guard let request = try? genRequest(url: url, method: .PATCH, body: body) else { throw APIManagerError.badUrl }
+        do {
+            let (_, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw LedgerError.failedUpdateLedger }
+            return
+        } catch {
+            throw LedgerError.failedUpdateLedger
         }
     }
 }

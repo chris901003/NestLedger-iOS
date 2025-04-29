@@ -79,6 +79,7 @@ extension LedgerViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = indexPath.row
         let ledgerDetailVC = LedgerDetailViewController(ledgerData: manager.ledgerDatas[index])
+        manager.ledgerDetailVC = ledgerDetailVC
         navigationController?.pushViewController(ledgerDetailVC, animated: true)
     }
 

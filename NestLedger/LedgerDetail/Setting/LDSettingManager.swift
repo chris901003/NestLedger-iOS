@@ -7,17 +7,43 @@
 
 
 import Foundation
+import xxooooxxCommonUI
 
 class LDSettingManager {
     weak var vc: LDSettingViewController?
+
+    let apiManager = APIManager()
 
     var ledgerData: LedgerData
     var ledgerTitle: String {
         get { ledgerData.title == "[Main]:\(sharedUserInfo.id)" ? "我的帳本" : ledgerData.title }
     }
+    var isMainLedger: Bool { get { ledgerData.title.hasPrefix("[Main]") } }
 
     init(ledgerData: LedgerData) {
         self.ledgerData = ledgerData
+    }
+
+    func quitLedger() {
+        if isMainLedger {
+            XOBottomBarInformationManager.showBottomInformation(type: .info, information: "無法離開主帳本")
+            return
+        }
+
+        if let idx = ledgerData.userIds.firstIndex(of: sharedUserInfo.id) {
+            ledgerData.userIds.remove(at: idx)
+            Task {
+                do {
+                    try await apiManager.updateLedger(ledgerData: ledgerData)
+                    await MainActor.run {
+                        vc?.dismiss(animated: true)
+                        NLNotification.sendQuitLedger(ledgerId: ledgerData._id)
+                    }
+                } catch {
+                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "離開帳本失敗")
+                }
+            }
+        }
     }
 }
 

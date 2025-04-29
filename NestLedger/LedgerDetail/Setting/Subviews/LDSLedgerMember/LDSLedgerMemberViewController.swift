@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import xxooooxxCommonUI
 
 class LDSLedgerMemberViewController: UIViewController {
     let manager: LDSLedgerMemberManager
@@ -70,6 +71,10 @@ class LDSLedgerMemberViewController: UIViewController {
 
 extension LDSLedgerMemberViewController {
     @objc private func tapAddNewMemberAction() {
+        if manager.isMainLedger {
+            XOBottomBarInformationManager.showBottomInformation(type: .info, information: "主帳本無法添加其他使用者")
+            return
+        }
         let enterNewMemberVC = LDSLMEnterNewMemberViewController()
         // overCurrentContext => 保持可以看到背後的 view，但是只會覆蓋父 view 的畫面，假設父 view 不是全畫面的則現在的 view 也不會是全畫面
         // overFullScreen => 保持可以看到背後的 view，會將當前的 view 覆蓋整個畫面

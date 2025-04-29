@@ -56,6 +56,9 @@ class APIPath {
         // [POST]
         case create = "/ledger/create"
 
+        // [PATCH]
+        case update = "/ledger/update"
+
         // [DELETE]
         case deleteLedgerMember = "/ledger/delete-ledger-member"
     }

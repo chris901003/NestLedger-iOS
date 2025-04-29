@@ -22,13 +22,14 @@ fileprivate enum LDSRow: String, CaseIterable {
 
     // [member]
     case member = "帳本成員"
+    case exit = "退出帳本"
 
     static func getRows(_ section: LDSSection) -> [LDSRow] {
         switch section {
             case .base:
                 return [.name, .tag]
             case .member:
-                return [.member]
+                return [.member, .exit]
         }
     }
 }
@@ -99,6 +100,7 @@ class LDSettingViewController: UIViewController {
     private func registerCell() {
         tableView.register(XOLeadingTrailingLabelCell.self, forCellReuseIdentifier: XOLeadingTrailingLabelCell.cellId)
         tableView.register(XOLeadingTrailingLabelWithIconCell.self, forCellReuseIdentifier: XOLeadingTrailingLabelWithIconCell.cellId)
+        tableView.register(XOCenterLabelCell.self, forCellReuseIdentifier: XOCenterLabelCell.cellId)
     }
 }
 
@@ -134,6 +136,11 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.config(title: row.rawValue, info: "1")
                     return cell
                 }
+            case .exit:
+                if let cell = tableView.dequeueReusableCell(withIdentifier: XOCenterLabelCell.cellId, for: indexPath) as? XOCenterLabelCell {
+                    cell.config(label: row.rawValue, font: .systemFont(ofSize: 16, weight: .semibold), color: .red)
+                    return cell
+                }
         }
         let cell = UITableViewCell()
         return cell
@@ -153,6 +160,16 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
             case .member:
                 let memberVC = LDSLedgerMemberViewController(ledgerId: manager.ledgerData._id)
                 navigationController?.pushViewController(memberVC, animated: true)
+            case .exit:
+                let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+                let deleteAction = UIAlertAction(title: "退出", style: .destructive) { [weak self] _ in
+                    guard let self else { return }
+                    manager.quitLedger()
+                }
+                let controller = UIAlertController(title: "退出帳本", message: "您確定要退出此帳本嗎?", preferredStyle: .alert)
+                controller.addAction(cancelAction)
+                controller.addAction(deleteAction)
+                present(controller, animated: true)
         }
     }
 }
