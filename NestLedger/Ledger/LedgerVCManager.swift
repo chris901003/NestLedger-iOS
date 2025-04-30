@@ -56,10 +56,12 @@ class LedgerVCManager {
 
     @objc private func receiveQuitLedgerNotification(_ notification: Notification) {
         guard let ledgerId = NLNotification.decodeQuitLedger(notification),
-              let idx = (ledgerDatas.firstIndex { $0._id == ledgerId }) else { return }
+              let ledgerIdx = (ledgerIds.firstIndex { $0 == ledgerId }),
+              let ledgerDataIdx = (ledgerDatas.firstIndex { $0._id == ledgerId }) else { return }
         DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
             guard let self else { return }
-            ledgerDatas.remove(at: idx)
+            ledgerIds.remove(at: ledgerIdx)
+            ledgerDatas.remove(at: ledgerDataIdx)
             vc?.collectionView.reloadData()
             vc?.navigationController?.popViewController(animated: true)
         }

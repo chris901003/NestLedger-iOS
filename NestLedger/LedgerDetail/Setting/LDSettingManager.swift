@@ -35,6 +35,10 @@ class LDSettingManager {
             Task {
                 do {
                     try await apiManager.updateLedger(ledgerData: ledgerData)
+                    if let idx = sharedUserInfo.ledgerIds.firstIndex(of: ledgerData._id) {
+                        sharedUserInfo.ledgerIds.remove(at: idx)
+                        try await apiManager.updateUserInfo(sharedUserInfo)
+                    }
                     await MainActor.run {
                         vc?.dismiss(animated: true)
                         NLNotification.sendQuitLedger(ledgerId: ledgerData._id)
