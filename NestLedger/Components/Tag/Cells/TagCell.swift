@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class TagCell: UITableViewCell {
+    static let cellId = "TagCellId"
+
     let colorView = UIView()
     let titleLabel = UILabel()
 

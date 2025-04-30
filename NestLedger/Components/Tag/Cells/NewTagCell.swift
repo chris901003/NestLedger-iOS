@@ -15,6 +15,8 @@ protocol NewTagCellDelegate: NLNeedPresent {
 }
 
 class NewTagCell: UITableViewCell {
+    static let cellId = "NewTagCellId"
+
     let colorCircle = UIView()
     let tagLabel = UITextField()
     let sendIcon = UIImageView()

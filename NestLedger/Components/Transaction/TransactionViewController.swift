@@ -238,7 +238,7 @@ extension TransactionViewController {
 // MARK: - Tag
 extension TransactionViewController: TagViewControllerDelegate {
     @objc private func tapTagSelectAction() {
-        let tagVC = TagViewController(type: .selectTag)
+        let tagVC = TagViewController(type: .selectTag, ledgerId: manager.transactionData.ledgerId)
         tagVC.delegate = self
         let _70DetentId = UISheetPresentationController.Detent.Identifier("70")
         let _70Detent = UISheetPresentationController.Detent.custom(identifier: _70DetentId) { context in

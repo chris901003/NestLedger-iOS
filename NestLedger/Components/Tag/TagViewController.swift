@@ -20,9 +20,6 @@ enum TagVCType: String {
 }
 
 class TagViewController: UIViewController {
-    let tagCellId = "TagCellId"
-    let newTagCellId = "NewTagCellId"
-
     let type: TagVCType
 
     let topBar = UIView()
@@ -32,11 +29,12 @@ class TagViewController: UIViewController {
     let searchBar = XOSearchBarView()
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
 
-    let manager = TagManager()
+    let manager: TagManager
     weak var delegate: TagViewControllerDelegate?
 
-    init(type: TagVCType) {
+    init(type: TagVCType, ledgerId: String) {
         self.type = type
+        self.manager = TagManager(ledgerId: ledgerId)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -119,8 +117,8 @@ class TagViewController: UIViewController {
     }
 
     private func registerCell() {
-        tableView.register(TagCell.self, forCellReuseIdentifier: tagCellId)
-        tableView.register(NewTagCell.self, forCellReuseIdentifier: newTagCellId)
+        tableView.register(TagCell.self, forCellReuseIdentifier: TagCell.cellId)
+        tableView.register(NewTagCell.self, forCellReuseIdentifier: NewTagCell.cellId)
     }
 }
 
@@ -168,14 +166,14 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
         let type = SectionType.allCases[indexPath.section]
         switch type {
             case .existTag:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: tagCellId, for: indexPath) as? TagCell else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: TagCell.cellId, for: indexPath) as? TagCell else {
                     return UITableViewCell()
                 }
                 let data = manager.showTags[indexPath.row]
                 cell.config(color: data.getColor, label: data.label)
                 return cell
             case .newTag:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: newTagCellId, for: indexPath) as? NewTagCell else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: NewTagCell.cellId, for: indexPath) as? NewTagCell else {
                     return UITableViewCell()
                 }
                 cell.delegate = self

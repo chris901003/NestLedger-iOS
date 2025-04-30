@@ -155,7 +155,7 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                 nameVC.delegate = manager
                 navigationController?.pushViewController(nameVC, animated: true)
             case .tag:
-                let tagVC = TagViewController(type: .editTag)
+                let tagVC = TagViewController(type: .editTag, ledgerId: manager.ledgerData._id)
                 navigationController?.pushViewController(tagVC, animated: true)
             case .member:
                 let memberVC = LDSLedgerMemberViewController(ledgerId: manager.ledgerData._id)

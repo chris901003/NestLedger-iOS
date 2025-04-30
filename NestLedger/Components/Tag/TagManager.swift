@@ -12,7 +12,7 @@ import xxooooxxCommonUI
 
 class TagManager {
     let apiManager = APIManager()
-    var ledgerId: String = ""
+    var ledgerId: String
     var search: String? {
         didSet {
             page = 1
@@ -35,11 +35,10 @@ class TagManager {
 
     weak var vc: TagViewController?
 
-    init() {
+    init(ledgerId: String) {
+        self.ledgerId = ledgerId
         Task {
             do {
-                guard let ledgerId = sharedUserInfo.ledgerIds.first else { return }
-                self.ledgerId = ledgerId
                 try await fetchMoreLedgerTags()
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取標籤資訊失敗")
