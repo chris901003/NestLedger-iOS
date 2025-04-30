@@ -31,14 +31,17 @@ extension APIManager {
     }
 }
 
+// MARK: - Create Ledger
 extension APIManager {
-    func createLedger(title: String, version: Int) async throws -> LedgerData {
+    fileprivate struct CreateLedgerData: Encodable {
+        let title: String
+        let version: Int = LEDGER_DATA_VERSION
+    }
+
+    func createLedger(title: String) async throws -> LedgerData {
         guard let url = APIPath.Ledger.create.getUrl() else { throw APIManagerError.badUrl }
-        let parameters: [String: Any] = [
-            "title": title,
-            "version": version
-        ]
-        let request = genRequest(url: url, method: .POST, body: parameters)
+        let body = CreateLedgerData(title: title)
+        guard let request = try? genRequest(url: url, method: .POST, body: body) else { throw APIManagerError.badUrl }
         do {
             let (data, response) = try await send(request: request)
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
@@ -50,6 +53,9 @@ extension APIManager {
             throw LedgerError.failedCreateLedger
         }
     }
+}
+
+extension APIManager {
 
     func getLedger(ledgerId: String) async throws -> LedgerData {
         guard var component = URLComponents(string: APIPath.Ledger.get.getPath()) else { throw APIManagerError.badUrl }

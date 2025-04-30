@@ -65,3 +65,28 @@ class LedgerVCManager {
         }
     }
 }
+
+// MARK: - CreateLedgerViewControllerDelegate
+extension LedgerVCManager: CreateLedgerViewControllerDelegate {
+    func createLedger(title: String) {
+        if title.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                XOBottomBarInformationManager.showBottomInformation(type: .info, information: "帳本名稱不可為空")
+            }
+            return
+        }
+
+        Task {
+            do {
+                let newLedgerData = try await apiManager.createLedger(title: title)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    XOBottomBarInformationManager.showBottomInformation(type: .success, information: "創建帳本成功")
+                }
+            } catch {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "創建帳本失敗")
+                }
+            }
+        }
+    }
+}

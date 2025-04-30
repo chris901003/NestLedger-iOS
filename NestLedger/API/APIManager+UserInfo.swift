@@ -43,7 +43,7 @@ extension APIManager {
             // Create main ledger if needed
             var userInfo = try await getUserInfo()
             if userInfo.ledgerIds.isEmpty {
-                let ledger = try await createLedger(title: "[Main]:\(userInfo.id)", version: LEDGER_DATA_VERSION)
+                let ledger = try await createLedger(title: "[Main]:\(userInfo.id)")
                 userInfo.ledgerIds.append(ledger._id)
                 try await updateUserInfo(userInfo)
             }

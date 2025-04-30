@@ -69,6 +69,7 @@ class LedgerViewController: UIViewController {
             let createLedgerVC = CreateLedgerViewController()
             createLedgerVC.modalPresentationStyle = .overCurrentContext
             createLedgerVC.modalTransitionStyle = .crossDissolve
+            createLedgerVC.delegate = manager
             present(createLedgerVC, animated: true)
         }
         let ledgerInviteAction = UIAction(title: "帳本邀請") { _ in
