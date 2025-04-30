@@ -79,6 +79,12 @@ extension LedgerVCManager: CreateLedgerViewControllerDelegate {
         Task {
             do {
                 let newLedgerData = try await apiManager.createLedger(title: title)
+                sharedUserInfo.ledgerIds.append(newLedgerData._id)
+                try await apiManager.updateUserInfo(sharedUserInfo)
+                await MainActor.run {
+                    ledgerIds.append(newLedgerData._id)
+                    ledgerDatas.append(newLedgerData)
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     XOBottomBarInformationManager.showBottomInformation(type: .success, information: "創建帳本成功")
                 }

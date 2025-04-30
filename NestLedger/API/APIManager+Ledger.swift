@@ -39,6 +39,7 @@ extension APIManager {
     }
 
     func createLedger(title: String) async throws -> LedgerData {
+        // Note: You have to update user info at same time
         guard let url = APIPath.Ledger.create.getUrl() else { throw APIManagerError.badUrl }
         let body = CreateLedgerData(title: title)
         guard let request = try? genRequest(url: url, method: .POST, body: body) else { throw APIManagerError.badUrl }
