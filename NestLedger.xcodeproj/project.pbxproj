@@ -87,6 +87,7 @@
 		05764D9A2DB93037007292D7 /* APIManager+LedgerInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D992DB93037007292D7 /* APIManager+LedgerInvite.swift */; };
 		05764D9D2DB93082007292D7 /* LedgerInviteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D9C2DB93082007292D7 /* LedgerInviteData.swift */; };
 		059CBE412DBBCEB2000B7F22 /* LDSLMInviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */; };
+		059CBE442DC119D7000B7F22 /* CreateLedgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */; };
 		05AF766B2D944A0800C27407 /* LDIncomeExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */; };
 		05B340A92D66123E000378A2 /* APIPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340A82D66123E000378A2 /* APIPath.swift */; };
 		05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */; };
@@ -177,6 +178,7 @@
 		05764D992DB93037007292D7 /* APIManager+LedgerInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+LedgerInvite.swift"; sourceTree = "<group>"; };
 		05764D9C2DB93082007292D7 /* LedgerInviteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerInviteData.swift; sourceTree = "<group>"; };
 		059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMInviteCell.swift; sourceTree = "<group>"; };
+		059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLedgerViewController.swift; sourceTree = "<group>"; };
 		05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDIncomeExpenseView.swift; sourceTree = "<group>"; };
 		05B340A82D66123E000378A2 /* APIPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPath.swift; sourceTree = "<group>"; };
 		05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+UserInfo.swift"; sourceTree = "<group>"; };
@@ -511,6 +513,14 @@
 			path = LedgerInvite;
 			sourceTree = "<group>";
 		};
+		059CBE422DC119BB000B7F22 /* CreateLedger */ = {
+			isa = PBXGroup;
+			children = (
+				059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */,
+			);
+			path = CreateLedger;
+			sourceTree = "<group>";
+		};
 		05B340B02D66221F000378A2 /* Information */ = {
 			isa = PBXGroup;
 			children = (
@@ -593,6 +603,7 @@
 		05C95D1C2D8B049B0058A8A8 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				059CBE422DC119BB000B7F22 /* CreateLedger */,
 				05C95D1D2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift */,
 			);
 			path = Subviews;
@@ -793,6 +804,7 @@
 				050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */,
 				05C5E39D2D91A6E000E36A3A /* AvatarCollectionViewCell.swift in Sources */,
 				05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */,
+				059CBE442DC119D7000B7F22 /* CreateLedgerViewController.swift in Sources */,
 				055704592D57839C0032C47C /* DataConstain.swift in Sources */,
 				05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */,
 				0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */,

@@ -44,6 +44,9 @@ class LedgerViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "帳本列表"
 
+        let addButton = UIBarButtonItem(systemItem: .add, primaryAction: nil, menu: createMenu())
+        navigationItem.rightBarButtonItem = addButton
+
         collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -58,6 +61,20 @@ class LedgerViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+
+    private func createMenu() -> UIMenu {
+        let addNewLedgerAction = UIAction(title: "新增帳本") { [weak self] _ in
+            guard let self else { return }
+            let createLedgerVC = CreateLedgerViewController()
+            createLedgerVC.modalPresentationStyle = .overCurrentContext
+            createLedgerVC.modalTransitionStyle = .crossDissolve
+            present(createLedgerVC, animated: true)
+        }
+        let ledgerInviteAction = UIAction(title: "帳本邀請") { _ in
+            print("✅ Action 2")
+        }
+        return UIMenu(title: "帳本選單", children: [addNewLedgerAction, ledgerInviteAction])
     }
 }
 
