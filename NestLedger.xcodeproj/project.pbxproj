@@ -88,6 +88,8 @@
 		05764D9D2DB93082007292D7 /* LedgerInviteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D9C2DB93082007292D7 /* LedgerInviteData.swift */; };
 		059CBE412DBBCEB2000B7F22 /* LDSLMInviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */; };
 		059CBE442DC119D7000B7F22 /* CreateLedgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */; };
+		05ADF39D2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ADF39C2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift */; };
+		05ADF3A02DC3BB6A00DF8391 /* RLICell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ADF39F2DC3BB6A00DF8391 /* RLICell.swift */; };
 		05AF766B2D944A0800C27407 /* LDIncomeExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */; };
 		05B340A92D66123E000378A2 /* APIPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340A82D66123E000378A2 /* APIPath.swift */; };
 		05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */; };
@@ -179,6 +181,8 @@
 		05764D9C2DB93082007292D7 /* LedgerInviteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerInviteData.swift; sourceTree = "<group>"; };
 		059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMInviteCell.swift; sourceTree = "<group>"; };
 		059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLedgerViewController.swift; sourceTree = "<group>"; };
+		05ADF39C2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveLedgerInviteViewController.swift; sourceTree = "<group>"; };
+		05ADF39F2DC3BB6A00DF8391 /* RLICell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLICell.swift; sourceTree = "<group>"; };
 		05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDIncomeExpenseView.swift; sourceTree = "<group>"; };
 		05B340A82D66123E000378A2 /* APIPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPath.swift; sourceTree = "<group>"; };
 		05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+UserInfo.swift"; sourceTree = "<group>"; };
@@ -521,6 +525,23 @@
 			path = CreateLedger;
 			sourceTree = "<group>";
 		};
+		05ADF39B2DC268D700DF8391 /* ReceiveLedgerInvite */ = {
+			isa = PBXGroup;
+			children = (
+				05ADF39E2DC3BB4C00DF8391 /* Subviews */,
+				05ADF39C2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift */,
+			);
+			path = ReceiveLedgerInvite;
+			sourceTree = "<group>";
+		};
+		05ADF39E2DC3BB4C00DF8391 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				05ADF39F2DC3BB6A00DF8391 /* RLICell.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		05B340B02D66221F000378A2 /* Information */ = {
 			isa = PBXGroup;
 			children = (
@@ -593,6 +614,7 @@
 		05C95D192D8AF7A60058A8A8 /* Ledger */ = {
 			isa = PBXGroup;
 			children = (
+				05ADF39B2DC268D700DF8391 /* ReceiveLedgerInvite */,
 				05C95D1C2D8B049B0058A8A8 /* Subviews */,
 				05C95D1F2D8C5CD60058A8A8 /* LedgerVCManager.swift */,
 				05C95D1A2D8AF7BF0058A8A8 /* LedgerViewController.swift */,
@@ -853,6 +875,8 @@
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
 				054A09322D7C11E30092B7E8 /* NewTagCell.swift in Sources */,
 				051B49192D87077800834D72 /* NotificationName+Extension.swift in Sources */,
+				05ADF3A02DC3BB6A00DF8391 /* RLICell.swift in Sources */,
+				05ADF39D2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift in Sources */,
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,
 				051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */,
