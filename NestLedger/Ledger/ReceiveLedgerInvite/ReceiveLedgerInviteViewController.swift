@@ -123,11 +123,11 @@ extension ReceiveLedgerInviteViewController: UITableViewDelegate, UITableViewDat
                 let sendUserInfo = try await manager.fetchUserInfo(ledgerInviteData: data)
                 let sendUserAvatar = try? await manager.fetchUserAvatar(userUid: sendUserInfo.id)
                 await MainActor.run {
-                    cell.config(title: ledgerData.title, avatar: sendUserAvatar, userName: sendUserInfo.userName, ledgerInviteData: data)
+                    cell.config(title: ledgerData.title, avatar: sendUserAvatar, userName: sendUserInfo.userName, ledgerInviteData: data, indexPath: indexPath)
                 }
             } catch {
                 await MainActor.run {
-                    cell.config(title: "讀取標題失敗", avatar: nil, userName: "讀取發送者失敗", ledgerInviteData: nil)
+                    cell.config(title: "讀取標題失敗", avatar: nil, userName: "讀取發送者失敗", ledgerInviteData: nil, indexPath: indexPath)
                 }
             }
         }

@@ -11,8 +11,8 @@ import UIKit
 import xxooooxxCommonUI
 
 protocol RLICellDelegate: AnyObject {
-    func acceptInvite(ledgerInviteData: LedgerInviteData)
-    func rejectInvite(ledgerInviteData: LedgerInviteData)
+    func acceptInvite(ledgerInviteData: LedgerInviteData, indexPath: IndexPath?)
+    func rejectInvite(ledgerInviteData: LedgerInviteData, indexPath: IndexPath?)
 }
 
 class RLICell: UITableViewCell {
@@ -26,6 +26,7 @@ class RLICell: UITableViewCell {
     let rejectView = XOBorderLabel("拒絕", color: .systemRed, padding: .init(top: 8, left: 8, bottom: 8, right: 8))
 
     var ledgerInviteData: LedgerInviteData?
+    var indexPath: IndexPath?
     weak var delegate: RLICellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -43,11 +44,12 @@ class RLICell: UITableViewCell {
         defaultConfig()
     }
 
-    func config(title: String, avatar: UIImage?, userName: String, ledgerInviteData: LedgerInviteData?) {
+    func config(title: String, avatar: UIImage?, userName: String, ledgerInviteData: LedgerInviteData?, indexPath: IndexPath) {
         ledgerTitleLabel.text = title
         inviteUserAvatar.image = avatar
         inviteUserNameLabel.text = userName
         self.ledgerInviteData = ledgerInviteData
+        self.indexPath = indexPath
     }
 
     private func defaultConfig() {
@@ -133,10 +135,10 @@ class RLICell: UITableViewCell {
     }
 
     @objc private func acceptAction() {
-        if let ledgerInviteData { delegate?.acceptInvite(ledgerInviteData: ledgerInviteData) }
+        if let ledgerInviteData { delegate?.acceptInvite(ledgerInviteData: ledgerInviteData, indexPath: indexPath) }
     }
 
     @objc private func rejectAction() {
-        if let ledgerInviteData { delegate?.rejectInvite(ledgerInviteData: ledgerInviteData) }
+        if let ledgerInviteData { delegate?.rejectInvite(ledgerInviteData: ledgerInviteData, indexPath: indexPath) }
     }
 }

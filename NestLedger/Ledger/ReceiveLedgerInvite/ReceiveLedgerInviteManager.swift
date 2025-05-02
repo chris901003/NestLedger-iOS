@@ -48,12 +48,29 @@ class ReceiveLedgerInviteManager {
     }
 }
 
+// MARK: - RLICellDelegate
 extension ReceiveLedgerInviteManager: RLICellDelegate {
-    func acceptInvite(ledgerInviteData: LedgerInviteData) {
-        print("✅ Accept invite")
+    func acceptInvite(ledgerInviteData: LedgerInviteData, indexPath: IndexPath?) {
+        Task {
+            await MainActor.run { sharedUserInfo.ledgerIds.append(ledgerInviteData._id) }
+            do {
+                try await apiManager.deleteLedgerInvite(ledgerInviteId: ledgerInviteData._id, type: .acceptLedgerInvite)
+                try await apiManager.updateUserInfo(sharedUserInfo)
+                await MainActor.run {
+                    if let indexPath,
+                       let idx = (ledgerInviteDatas.firstIndex { $0._id == ledgerInviteData._id }) {
+                        // TODO: Send Notification Udate Ledger List
+                        ledgerInviteDatas.remove(at: idx)
+                        vc?.tableView.deleteRows(at: [indexPath], with: .left)
+                    }
+                }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "加入帳本失敗")
+            }
+        }
     }
 
-    func rejectInvite(ledgerInviteData: LedgerInviteData) {
+    func rejectInvite(ledgerInviteData: LedgerInviteData, indexPath: IndexPath?) {
         print("✅ Reject invite")
     }
 }
