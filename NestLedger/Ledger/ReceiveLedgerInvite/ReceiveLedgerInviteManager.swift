@@ -57,11 +57,7 @@ extension ReceiveLedgerInviteManager: RLICellDelegate {
                 try await apiManager.deleteLedgerInvite(ledgerInviteId: ledgerInviteData._id, type: .acceptLedgerInvite)
                 try await apiManager.updateUserInfo(sharedUserInfo)
                 await MainActor.run {
-                    if let indexPath,
-                       let idx = (ledgerInviteDatas.firstIndex { $0._id == ledgerInviteData._id }) {
-                        ledgerInviteDatas.remove(at: idx)
-                        vc?.tableView.deleteRows(at: [indexPath], with: .left)
-                    }
+                    removeCellAnimation(indexPath, ledgerInviteData._id)
                     vc?.delegate?.joinLedger(ledgerId: ledgerInviteData.ledgerId)
                 }
             } catch {
@@ -71,6 +67,22 @@ extension ReceiveLedgerInviteManager: RLICellDelegate {
     }
 
     func rejectInvite(ledgerInviteData: LedgerInviteData, indexPath: IndexPath?) {
-        print("✅ Reject invite")
+        Task {
+            do {
+                try await apiManager.deleteLedgerInvite(ledgerInviteId: ledgerInviteData._id, type: .rejectLedgerInvite)
+                await removeCellAnimation(indexPath, ledgerInviteData._id)
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "拒絕加入帳本失敗")
+            }
+        }
+    }
+
+    @MainActor
+    func removeCellAnimation(_ indexPath: IndexPath?, _ id: String) {
+        if let indexPath,
+           let idx = (ledgerInviteDatas.firstIndex { $0._id == id }) {
+            ledgerInviteDatas.remove(at: idx)
+            vc?.tableView.deleteRows(at: [indexPath], with: .left)
+        }
     }
 }
