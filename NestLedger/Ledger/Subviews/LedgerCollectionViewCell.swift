@@ -122,10 +122,10 @@ extension LedgerCollectionViewCell {
         let userAvatars = try? await withThrowingTaskGroup(of: UIImage?.self, returning: [UIImage].self) { group in
             for userId in userIds {
                 group.addTask { [weak self] in
-                    try await self?.apiManager.getUserAvatar(userId: userId)
+                    try? await self?.apiManager.getUserAvatar(userId: userId)
                 }
             }
-            let results = (try await group.reduce(into: [UIImage]()) { $0.append($1) }).compactMap { $0 }
+            let results = (try await group.reduce(into: [UIImage]()) { $0.append($1 ?? generateBlackImage(size: .init(width: 100, height: 100))) }).compactMap { $0 }
             return results
         }
         guard let userAvatars else { return }
@@ -137,6 +137,14 @@ extension LedgerCollectionViewCell {
             if userAvatars.count >= 3 {
                 userIconsView.third.image = userAvatars[2]
             }
+        }
+    }
+
+    func generateBlackImage(size: CGSize) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { context in
+            UIColor.black.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
         }
     }
 }

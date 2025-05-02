@@ -58,7 +58,7 @@ extension ReceiveLedgerInviteManager: RLICellDelegate {
                 try await apiManager.updateUserInfo(sharedUserInfo)
                 await MainActor.run {
                     if let indexPath,
-                       let idx = (ledgerInviteDatas.firstIndex { $0._id == ledgerInviteData._id }) {
+                       let idx = (ledgerInviteDatas.firstIndex { $0._id == ledgerInviteData.ledgerId }) {
                         // TODO: Send Notification Udate Ledger List
                         ledgerInviteDatas.remove(at: idx)
                         vc?.tableView.deleteRows(at: [indexPath], with: .left)
