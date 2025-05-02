@@ -27,6 +27,7 @@ class LedgerVCManager {
 
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveQuitLedgerNotification), name: .quitLedger, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateLedger), name: .updateLedger, object: nil)
         Task {
             do {
                 try await loadMoreLedgers()
@@ -64,6 +65,16 @@ class LedgerVCManager {
             ledgerDatas.remove(at: ledgerDataIdx)
             vc?.collectionView.reloadData()
             vc?.navigationController?.popViewController(animated: true)
+        }
+    }
+
+    @objc private func receiveUpdateLedger(_ notification: Notification) {
+        guard let ledgerData = NLNotification.decodeUpdateLedger(notification),
+              let idx = (ledgerDatas.firstIndex { $0._id == ledgerData._id }) else { return }
+        ledgerDatas[idx] = ledgerData
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            vc?.collectionView.reloadData()
         }
     }
 }

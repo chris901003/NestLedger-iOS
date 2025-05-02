@@ -56,6 +56,16 @@ extension LDSettingManager: LDSLedgerNameViewControllerDelegate {
     func updateLedgerName(title: String) {
         guard !title.isEmpty else { return }
         ledgerData.title = title
-        DispatchQueue.main.async { [weak self] in self?.vc?.tableView.reloadData() }
+        Task {
+            do {
+                try await apiManager.updateLedger(ledgerData: ledgerData)
+                await MainActor.run {
+                    vc?.tableView.reloadData()
+                    NLNotification.sendUpdateLedger(ledgerData: ledgerData)
+                }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "更新帳本名稱失敗")
+            }
+        }
     }
 }

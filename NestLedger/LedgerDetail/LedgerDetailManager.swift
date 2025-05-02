@@ -25,6 +25,7 @@ class LedgerDetailManager {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveDeleteTransaction), name: .deleteTransaction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateLedger), name: .updateLedger, object: nil)
         Task {
             do {
                 try await updateLedgerData()
@@ -96,6 +97,18 @@ extension LedgerDetailManager {
         }
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
+            vc?.incomeExpenseView.config(income: ledgerData.totalIncome, expense: ledgerData.totalExpense)
+        }
+    }
+
+    @objc private func receiveUpdateLedger(_ notification: Notification) {
+        guard let newLedgerData = NLNotification.decodeUpdateLedger(notification),
+              newLedgerData._id == ledgerData._id else { return }
+        ledgerData = newLedgerData
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            vc?.titleLabel.text = ledgerData.title
+            vc?.titleLabel.sizeToFit()
             vc?.incomeExpenseView.config(income: ledgerData.totalIncome, expense: ledgerData.totalExpense)
         }
     }

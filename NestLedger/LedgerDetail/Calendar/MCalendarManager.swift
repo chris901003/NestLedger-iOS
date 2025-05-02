@@ -83,7 +83,7 @@ class MCalendarManager {
 
     @objc private func receiveDeleteTransaction(_ notification: Notification) {
         guard let deleteTransaction = NLNotification.decodeDeleteTransaction(notification) else { return }
-        var dateString = formatter.string(from: deleteTransaction.date)
+        let dateString = formatter.string(from: deleteTransaction.date)
         if let index = dayTransactions[dateString, default: []].firstIndex(where: { $0._id == deleteTransaction._id }) {
             dayTransactions[dateString, default: []].remove(at: index)
             dayAmount[dateString, default: 0] -= deleteTransaction.type == .income ? deleteTransaction.money : -deleteTransaction.money

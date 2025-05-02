@@ -95,6 +95,11 @@ class LDSLedgerNameViewController: UIViewController {
 
 // MARK: - UITextFieldDelegate
 extension LDSLedgerNameViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         delegate?.updateLedgerName(title: textField.text ?? "")
     }
