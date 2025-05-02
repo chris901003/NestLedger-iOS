@@ -52,17 +52,17 @@ class ReceiveLedgerInviteManager {
 extension ReceiveLedgerInviteManager: RLICellDelegate {
     func acceptInvite(ledgerInviteData: LedgerInviteData, indexPath: IndexPath?) {
         Task {
-            await MainActor.run { sharedUserInfo.ledgerIds.append(ledgerInviteData._id) }
+            await MainActor.run { sharedUserInfo.ledgerIds.append(ledgerInviteData.ledgerId) }
             do {
                 try await apiManager.deleteLedgerInvite(ledgerInviteId: ledgerInviteData._id, type: .acceptLedgerInvite)
                 try await apiManager.updateUserInfo(sharedUserInfo)
                 await MainActor.run {
                     if let indexPath,
-                       let idx = (ledgerInviteDatas.firstIndex { $0._id == ledgerInviteData.ledgerId }) {
-                        // TODO: Send Notification Udate Ledger List
+                       let idx = (ledgerInviteDatas.firstIndex { $0._id == ledgerInviteData._id }) {
                         ledgerInviteDatas.remove(at: idx)
                         vc?.tableView.deleteRows(at: [indexPath], with: .left)
                     }
+                    vc?.delegate?.joinLedger(ledgerId: ledgerInviteData.ledgerId)
                 }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "加入帳本失敗")

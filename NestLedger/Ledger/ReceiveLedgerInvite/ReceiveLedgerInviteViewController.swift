@@ -9,8 +9,13 @@
 import Foundation
 import UIKit
 
+protocol ReceiveLedgerViewControllerDelegate: AnyObject {
+    func joinLedger(ledgerId: String)
+}
+
 class ReceiveLedgerInviteViewController: UIViewController {
     let manager = ReceiveLedgerInviteManager()
+    weak var delegate: ReceiveLedgerViewControllerDelegate?
 
     let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     let contentView = UIView()

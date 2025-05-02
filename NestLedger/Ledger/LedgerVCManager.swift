@@ -109,3 +109,15 @@ extension LedgerVCManager: CreateLedgerViewControllerDelegate {
         }
     }
 }
+
+// MARK: - ReceiveLedgerViewControllerDelegate
+extension LedgerVCManager: ReceiveLedgerViewControllerDelegate {
+    func joinLedger(ledgerId: String) {
+        Task {
+            if let ledgerData = try? await apiManager.getLedger(ledgerId: ledgerId) {
+                ledgerIds.append(ledgerData._id)
+                ledgerDatas.append(ledgerData)
+            }
+        }
+    }
+}

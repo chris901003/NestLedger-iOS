@@ -77,6 +77,7 @@ class LedgerViewController: UIViewController {
             let receiveLedgerInviteVC = ReceiveLedgerInviteViewController()
             receiveLedgerInviteVC.modalPresentationStyle = .overCurrentContext
             receiveLedgerInviteVC.modalTransitionStyle = .crossDissolve
+            receiveLedgerInviteVC.delegate = manager
             present(receiveLedgerInviteVC, animated: true)
         }
         return UIMenu(title: "帳本選單", children: [addNewLedgerAction, ledgerInviteAction])
