@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class ReceiveLedgerInviteViewController: UIViewController {
+    let manager = ReceiveLedgerInviteManager()
+
     let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     let contentView = UIView()
     let titleLabel = UILabel()
@@ -28,6 +30,8 @@ class ReceiveLedgerInviteViewController: UIViewController {
     }
 
     private func setup() {
+        manager.vc = self
+
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 15.0
 
@@ -104,12 +108,28 @@ class ReceiveLedgerInviteViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension ReceiveLedgerInviteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        20
+        manager.ledgerInviteDatas.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RLICell.cellId, for: indexPath) as? RLICell else {
             return UITableViewCell()
+        }
+        let data = manager.ledgerInviteDatas[indexPath.row]
+        cell.delegate = manager
+        Task {
+            do {
+                let ledgerData = try await manager.fetchLedgerData(ledgerInviteData: data)
+                let sendUserInfo = try await manager.fetchUserInfo(ledgerInviteData: data)
+                let sendUserAvatar = try? await manager.fetchUserAvatar(userUid: sendUserInfo.id)
+                await MainActor.run {
+                    cell.config(title: ledgerData.title, avatar: sendUserAvatar, userName: sendUserInfo.userName, ledgerInviteData: data)
+                }
+            } catch {
+                await MainActor.run {
+                    cell.config(title: "讀取標題失敗", avatar: nil, userName: "讀取發送者失敗", ledgerInviteData: nil)
+                }
+            }
         }
         return cell
     }

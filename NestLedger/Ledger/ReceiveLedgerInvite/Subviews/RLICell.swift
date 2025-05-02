@@ -10,6 +10,11 @@ import Foundation
 import UIKit
 import xxooooxxCommonUI
 
+protocol RLICellDelegate: AnyObject {
+    func acceptInvite(ledgerInviteData: LedgerInviteData)
+    func rejectInvite(ledgerInviteData: LedgerInviteData)
+}
+
 class RLICell: UITableViewCell {
     static let cellId = "RLICellId"
 
@@ -19,6 +24,9 @@ class RLICell: UITableViewCell {
     let inviteUserNameLabel = UILabel()
     let acceptView = XOBorderLabel("同意", color: .systemBlue, padding: .init(top: 8, left: 8, bottom: 8, right: 8))
     let rejectView = XOBorderLabel("拒絕", color: .systemRed, padding: .init(top: 8, left: 8, bottom: 8, right: 8))
+
+    var ledgerInviteData: LedgerInviteData?
+    weak var delegate: RLICellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,6 +41,13 @@ class RLICell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         defaultConfig()
+    }
+
+    func config(title: String, avatar: UIImage?, userName: String, ledgerInviteData: LedgerInviteData?) {
+        ledgerTitleLabel.text = title
+        inviteUserAvatar.image = avatar
+        inviteUserNameLabel.text = userName
+        self.ledgerInviteData = ledgerInviteData
     }
 
     private func defaultConfig() {
@@ -60,6 +75,12 @@ class RLICell: UITableViewCell {
         inviteUserNameLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         inviteUserNameLabel.textAlignment = .left
         inviteUserNameLabel.numberOfLines = 1
+
+        acceptView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(acceptAction)))
+        acceptView.isUserInteractionEnabled = true
+
+        rejectView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(rejectAction)))
+        rejectView.isUserInteractionEnabled = true
     }
 
     private func layout() {
@@ -109,5 +130,13 @@ class RLICell: UITableViewCell {
             rejectView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -8),
             rejectView.topAnchor.constraint(equalTo: mainContentView.centerYAnchor, constant: 4)
         ])
+    }
+
+    @objc private func acceptAction() {
+        if let ledgerInviteData { delegate?.acceptInvite(ledgerInviteData: ledgerInviteData) }
+    }
+
+    @objc private func rejectAction() {
+        if let ledgerInviteData { delegate?.rejectInvite(ledgerInviteData: ledgerInviteData) }
     }
 }
