@@ -37,6 +37,9 @@ class APIPath {
 
         // [PATCH]
         case update = "/user/update"
+
+        // [DELETE]
+        case delete = "/user/delete"
     }
 
     enum Information: String, APIPathProtocol {

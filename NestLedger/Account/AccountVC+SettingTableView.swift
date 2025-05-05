@@ -122,8 +122,8 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 present(alertController, animated: true)
             case .deleteAccount:
                 let cancelAction = UIAlertAction(title: "取消", style: .cancel)
-                let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
-                    print("✅ Delete Action")
+                let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { [weak self] _ in
+                    self?.manager.deleteAccount()
                 }
                 let alertController = UIAlertController(title: "刪除帳號", message: "刪除帳號後所有資料將移除", preferredStyle: .alert)
                 alertController.addAction(cancelAction)

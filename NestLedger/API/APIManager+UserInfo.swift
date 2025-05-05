@@ -12,7 +12,7 @@ import UIKit
 // MARK: - UserInfo API
 extension APIManager {
     enum UserInfoError: LocalizedError {
-        case failedLogin, failedFetchUserInfo, failedEncode, failedUpdateUserInfo, failedGetAvatar
+        case failedLogin, failedFetchUserInfo, failedEncode, failedUpdateUserInfo, failedGetAvatar, failedDeleteAccount
 
         var errorDescription: String? {
             switch self {
@@ -26,6 +26,8 @@ extension APIManager {
                     return "更新使用者資訊失敗"
                 case .failedGetAvatar:
                     return "獲取使用者頭像失敗"
+                case .failedDeleteAccount:
+                    return "刪除帳號失敗"
             }
         }
     }
@@ -150,6 +152,20 @@ extension APIManager {
             return userInfos.data.userInfos
         } catch {
             throw UserInfoError.failedFetchUserInfo
+        }
+    }
+
+    func deleteAccount(uid: String) async throws {
+        guard var components = URLComponents(string: APIPath.UserInfo.delete.getPath()) else { throw APIManagerError.badUrl }
+        components.queryItems = [URLQueryItem(name: "uid", value: uid)]
+
+        guard let url = components.url else { throw APIManagerError.badUrl }
+        let request = genRequest(url: url, method: .DELETE)
+        do {
+            let (_, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw UserInfoError.failedDeleteAccount }
+        } catch {
+            throw UserInfoError.failedDeleteAccount
         }
     }
 }

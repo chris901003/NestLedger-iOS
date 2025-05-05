@@ -95,19 +95,42 @@ class AccountVCManager {
         }
     }
 
-    func logout() {
-        do {
-            try Auth.auth().signOut()
-            try KeychainManager.shared.deleteToken(forKey: AUTH_TOKEN)
-
+    private func showLoginVC() {
+        DispatchQueue.main.async {
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
                 let loginView = LoginViewController()
                 window.rootViewController = loginView
                 UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil)
             }
+        }
+    }
+
+    func logout() {
+        do {
+            try Auth.auth().signOut()
+            try KeychainManager.shared.deleteToken(forKey: AUTH_TOKEN)
+
+            showLoginVC()
         } catch {
             XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "登出帳號失敗")
+        }
+    }
+
+    func deleteAccount() {
+        guard let user = Auth.auth().currentUser else {
+            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "刪除帳號失敗")
+            return
+        }
+
+        Task {
+            do {
+                try await apiManager.deleteAccount(uid: sharedUserInfo.id)
+                try await user.delete()
+                showLoginVC()
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "刪除帳號失敗")
+            }
         }
     }
 }
