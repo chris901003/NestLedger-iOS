@@ -17,6 +17,7 @@ struct UserInfoData: Codable {
     var timeZone: Int
     var imageQuality: Double
     var ledgerIds: [String]
+    var isDelete: Bool
     var version: Int
 
     init(
@@ -27,6 +28,7 @@ struct UserInfoData: Codable {
         timeZone: Int = 8,
         imageQuality: Double = 0.5,
         ledgerIds: [String] = [],
+        isDelete: Bool = false,
         version: Int = USER_INFO_DATA_VERSION
     ) {
         self.id = id
@@ -36,6 +38,7 @@ struct UserInfoData: Codable {
         self.timeZone = timeZone
         self.imageQuality = imageQuality
         self.ledgerIds = ledgerIds
+        self.isDelete = isDelete
         self.version = version
     }
 
@@ -48,6 +51,7 @@ struct UserInfoData: Codable {
             timeZone: 8,
             imageQuality: 0.5,
             ledgerIds: [],
+            isDelete: false,
             version: USER_INFO_DATA_VERSION
         )
     }
