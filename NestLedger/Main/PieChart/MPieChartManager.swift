@@ -20,7 +20,7 @@ extension MPieChartManager {
 }
 
 class MPieChartManager {
-    let ledgerId: String
+    var ledgerId: String
     var year: Int
     var month: Int
 
@@ -37,6 +37,7 @@ class MPieChartManager {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadLedgerInfo), name: .newRecentTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadLedgerInfo), name: .updateTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadLedgerInfo), name: .deleteTransaction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveSetMainLedger), name: .setMainLedger, object: nil)
 
         Task {
             do {
@@ -88,5 +89,14 @@ class MPieChartManager {
         if remainAmount > 0 {
             pieChartData.append(.init(tagLabel: "其他", tagColor: UIColor.systemGray5, tagAmount: remainAmount, percent: Int(Float(remainAmount) / Float(totalAmount) * 100)))
         }
+    }
+}
+
+extension MPieChartManager {
+    @objc private func receiveSetMainLedger(_ notification: Notification) {
+        guard let mainLedgerId = NLNotification.decodeSetMainLedger(notification),
+              mainLedgerId != ledgerId else { return }
+        ledgerId = mainLedgerId
+        reloadLedgerInfo()
     }
 }
