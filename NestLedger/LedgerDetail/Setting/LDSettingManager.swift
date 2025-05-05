@@ -49,6 +49,19 @@ class LDSettingManager {
             }
         }
     }
+
+    func setMainLedger() {
+        guard let idx = sharedUserInfo.ledgerIds.firstIndex(of: ledgerData._id) else { return }
+        sharedUserInfo.ledgerIds.swapAt(0, idx)
+        Task {
+            do {
+                try await apiManager.updateUserInfo(sharedUserInfo)
+                XOBottomBarInformationManager.showBottomInformation(type: .success, information: "設定成功")
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "設定失敗")
+            }
+        }
+    }
 }
 
 // MARK: - LDSLedgerNameViewControllerDelegate
