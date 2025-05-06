@@ -197,9 +197,9 @@ extension LedgerDetailViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AvatarCollectionViewCell.cellId, for: indexPath) as? AvatarCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let userId = manager.userInfos[indexPath.row].id
+        let userData = manager.userInfos[indexPath.row]
         Task {
-            let avatar = await manager.getUserAvatar(userId: userId)
+            let avatar = await manager.getUserAvatar(userData: userData)
             await MainActor.run { cell.config(image: avatar) }
         }
         return cell

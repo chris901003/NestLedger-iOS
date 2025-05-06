@@ -49,8 +49,12 @@ class LedgerDetailManager {
         self.userInfos = userInfos
     }
 
-    func getUserAvatar(userId: String) async -> UIImage? {
-        try? await apiManager.getUserAvatar(userId: userId)
+    func getUserAvatar(userData: UserInfoData) async -> UIImage? {
+        if userData.isDelete {
+            return UIImage.getDeleteUserAvatar()
+        } else {
+            return try? await apiManager.getUserAvatar(userId: userData.id)
+        }
     }
 }
 

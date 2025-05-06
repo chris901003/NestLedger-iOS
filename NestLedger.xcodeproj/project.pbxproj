@@ -47,6 +47,7 @@
 		050831432D41E048008C8831 /* xxooooxxCommonFunction in Frameworks */ = {isa = PBXBuildFile; productRef = 050831422D41E048008C8831 /* xxooooxxCommonFunction */; };
 		050831452D41E048008C8831 /* xxooooxxCommonUI in Frameworks */ = {isa = PBXBuildFile; productRef = 050831442D41E048008C8831 /* xxooooxxCommonUI */; };
 		050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050831462D41E32C008C8831 /* LoginVCManager.swift */; };
+		050EB9B22DCA3BB900F8C04F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */; };
 		051257D72D7F129E0066F3F2 /* APIManager+Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257D62D7F129E0066F3F2 /* APIManager+Ledger.swift */; };
 		051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257D92D7F16630066F3F2 /* LedgerData.swift */; };
 		051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257DD2D7F1AC80066F3F2 /* SingletonData.swift */; };
@@ -140,6 +141,7 @@
 		050831032D41DA11008C8831 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0508313F2D41E029008C8831 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		050831462D41E32C008C8831 /* LoginVCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVCManager.swift; sourceTree = "<group>"; };
+		050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		051257D62D7F129E0066F3F2 /* APIManager+Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Ledger.swift"; sourceTree = "<group>"; };
 		051257D92D7F16630066F3F2 /* LedgerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerData.swift; sourceTree = "<group>"; };
 		051257DD2D7F1AC80066F3F2 /* SingletonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonData.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				051B49182D87077800834D72 /* NotificationName+Extension.swift */,
+				050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */,
 				0503F2B02D54E1D200B2640C /* UIView+Extension.swift */,
 			);
 			path = Extensions;
@@ -896,6 +899,7 @@
 				051257E62D81BE980066F3F2 /* TransactionData.swift in Sources */,
 				05B421152D9D6AE0000C8ECC /* TransactionManager.swift in Sources */,
 				05B421132D9D68E4000C8ECC /* TransactionViewController.swift in Sources */,
+				050EB9B22DCA3BB900F8C04F /* UIImage+Extension.swift in Sources */,
 				0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */,
 				055704572D5782A90032C47C /* UserInfoData.swift in Sources */,
 				050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */,

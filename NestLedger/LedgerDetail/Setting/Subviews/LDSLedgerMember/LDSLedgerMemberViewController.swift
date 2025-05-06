@@ -142,7 +142,7 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
                         cell.config(
                             senderAvatar: senderAvatar,
                             receiveAvatar: receiveAvatar,
-                            receiveName: receiveUserInfo?.userName ?? "讀取失敗",
+                            receiveName: (receiveUserInfo?.isDelete ?? true) ? "使用者已刪除" : receiveUserInfo?.userName ?? "讀取失敗",
                             ledgerInviteId: ledgerInvite._id,
                             indexPath: indexPath
                         )
