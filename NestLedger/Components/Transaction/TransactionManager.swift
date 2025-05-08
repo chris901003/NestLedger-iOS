@@ -21,9 +21,10 @@ class TransactionManager {
 
     weak var delegate: TransactionManagerDelegate?
 
-    init(transactionData: TransactionData?) {
+    init(transactionData: TransactionData?, initialDate: Date? = nil) {
         self.oldTransactionData = transactionData ?? nil
         self.transactionData = transactionData ?? TransactionData.initEmpty()
+        if let initialDate { self.transactionData.date = initialDate }
         Task {
             do {
                 if !self.transactionData.tagId.isEmpty {

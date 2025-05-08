@@ -182,7 +182,7 @@ class LedgerDetailViewController: UIViewController {
 
     @objc private func tapAddTransaction() {
         let ledgerId = manager.ledgerData._id
-        let transactionViewController = TransactionViewController(ledgerId: ledgerId)
+        let transactionViewController = TransactionViewController(ledgerId: ledgerId, initialDate: manager.selectedDate)
         present(transactionViewController, animated: true)
     }
 }

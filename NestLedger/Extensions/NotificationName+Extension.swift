@@ -11,6 +11,7 @@ import Foundation
 extension Notification.Name {
     static let newRecentTransaction = Notification.Name("NewRecentTransaction")
     static let ledgerDetailSelectDayTransactions = Notification.Name("LedgerDetailSelectDayTransactions")
+    static let ledgerDetailSelectDay = Notification.Name("LedgerDetailSelectDay")
     static let updateTransaction = Notification.Name("UpdateTransaction")
     static let deleteTransaction = Notification.Name("DeleteTransaction")
     static let updateLedger = Notification.Name("UpdateLedger")
@@ -28,6 +29,28 @@ class NLNotification {
         guard let userInfo = notification.userInfo,
               let transaction = userInfo["transaction"] as? TransactionData else { return nil }
         return transaction
+    }
+
+    // MARK: - Ledger Detail Select Day Transactions
+    static func sendLedgerDetailSelectDayTransactions(dayTransactions: [TransactionData]) {
+        NotificationCenter.default.post(name: .ledgerDetailSelectDayTransactions, object: nil, userInfo: ["transactions": dayTransactions])
+    }
+
+    static func decodeLedgerDetailSelectDayTransactions(_ notification: Notification) -> [TransactionData]? {
+        guard let userInfo = notification.userInfo,
+              let transactions = userInfo["transactions"] as? [TransactionData] else { return nil }
+        return transactions
+    }
+
+    // MARK: - Ledger Detail Select Day
+    static func sendLedgerDetailSelectDay(date: Date) {
+        NotificationCenter.default.post(name: .ledgerDetailSelectDay, object: nil, userInfo: ["selectedDay": date])
+    }
+
+    static func decodeLedgerDetailSelectDay(_ notification: Notification) -> Date? {
+        guard let userInfo = notification.userInfo,
+              let selectedDay = userInfo["selectedDay"] as? Date else { return nil }
+        return selectedDay
     }
 
     // MARK: - Update Transaction

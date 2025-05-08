@@ -31,8 +31,8 @@ class TransactionViewController: UIViewController {
 
     var noteContentViewBottomConstraint: NSLayoutConstraint?
 
-    init(transaction: TransactionData? = nil, ledgerId: String? = nil) {
-        manager = TransactionManager(transactionData: transaction)
+    init(transaction: TransactionData? = nil, ledgerId: String? = nil, initialDate: Date? = nil) {
+        manager = TransactionManager(transactionData: transaction, initialDate: initialDate)
         if let ledgerId { manager.transactionData.ledgerId = ledgerId }
         super.init(nibName: nil, bundle: nil)
     }

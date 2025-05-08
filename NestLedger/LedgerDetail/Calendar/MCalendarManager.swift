@@ -25,11 +25,8 @@ class MCalendarManager {
     var selectedDay = Date.now {
         didSet {
             let dateString = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_dd, date: selectedDay)
-            NotificationCenter.default.post(
-                name: .ledgerDetailSelectDayTransactions,
-                object: nil,
-                userInfo: ["transactions": dayTransactions[dateString, default: []]]
-            )
+            NLNotification.sendLedgerDetailSelectDayTransactions(dayTransactions: dayTransactions[dateString, default: []])
+            NLNotification.sendLedgerDetailSelectDay(date: selectedDay)
         }
     }
     var curFirstWeekday: Int = 0
@@ -59,7 +56,7 @@ class MCalendarManager {
         dayTransactions[dateString, default: []].append(transaction)
         dayAmount[dateString, default: 0] += transaction.type == .income ? transaction.money : -transaction.money
         if dateString == formatter.string(from: selectedDay) {
-            NotificationCenter.default.post(name: .ledgerDetailSelectDayTransactions, object: nil, userInfo: ["transactions": dayTransactions[dateString, default: []]])
+            NLNotification.sendLedgerDetailSelectDayTransactions(dayTransactions: dayTransactions[dateString, default: []])
         }
         DispatchQueue.main.async { [weak self] in
             self?.vc?.collectionView.reloadData()
@@ -102,11 +99,7 @@ class MCalendarManager {
                 await MainActor.run {
                     vc?.collectionView.reloadData()
                     let dateString = formatter.string(from: selectedDay)
-                    NotificationCenter.default.post(
-                        name: .ledgerDetailSelectDayTransactions,
-                        object: nil,
-                        userInfo: ["transactions": dayTransactions[dateString, default: []]]
-                    )
+                    NLNotification.sendLedgerDetailSelectDayTransactions(dayTransactions: dayTransactions[dateString, default: []])
                 }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳目失敗")

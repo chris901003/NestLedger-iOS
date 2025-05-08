@@ -23,8 +23,7 @@ class LTransactionManager {
     }
 
     @objc private func selectDayTransactions(_ notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let transactions = userInfo["transactions"] as? [TransactionData] else { return }
+        guard let transactions = NLNotification.decodeLedgerDetailSelectDayTransactions(notification) else { return }
         self.transactions = transactions
         Task {
             try? await fetchUserAvatar()

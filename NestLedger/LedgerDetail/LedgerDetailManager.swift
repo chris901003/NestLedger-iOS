@@ -19,6 +19,7 @@ class LedgerDetailManager {
         get { ledgerData.title == "[Main]:\(sharedUserInfo.id)" ? "我的帳本" : ledgerData.title }
     }
     var userInfos: [UserInfoData] = []
+    var selectedDate: Date = Date.now
 
     init(ledgerData: LedgerData) {
         self.ledgerData = ledgerData
@@ -26,6 +27,7 @@ class LedgerDetailManager {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveDeleteTransaction), name: .deleteTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateLedger), name: .updateLedger, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveLedgerDetailSelectDay), name: .ledgerDetailSelectDay, object: nil)
         Task {
             do {
                 try await updateLedgerData()
@@ -115,5 +117,10 @@ extension LedgerDetailManager {
             vc?.titleLabel.sizeToFit()
             vc?.incomeExpenseView.config(income: ledgerData.totalIncome, expense: ledgerData.totalExpense)
         }
+    }
+
+    @objc private func receiveLedgerDetailSelectDay(_ notification: Notification) {
+        guard let selectedDay = NLNotification.decodeLedgerDetailSelectDay(notification) else { return }
+        self.selectedDate = selectedDay
     }
 }
