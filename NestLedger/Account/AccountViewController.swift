@@ -57,7 +57,7 @@ class AccountViewController: UIViewController {
         userNameView.backgroundColor = .white
         userNameView.autocorrectionType = .no
         userNameView.placeholder = "暱稱"
-        userNameView.keyboardType = .asciiCapable
+        userNameView.keyboardType = .default
         userNameView.text = manager.userInfo.userName
         userNameView.font = .systemFont(ofSize: 18, weight: .bold)
         userNameView.textColor = .black
