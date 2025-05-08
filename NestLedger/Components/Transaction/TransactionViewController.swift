@@ -50,6 +50,7 @@ class TransactionViewController: UIViewController {
     private func setup() {
         manager.delegate = self
         view.backgroundColor = .white
+        addTapBackgroundDismissKeyboard()
 
         topLabel.text = "帳目資訊"
         topLabel.font = .systemFont(ofSize: 16, weight: .semibold)
