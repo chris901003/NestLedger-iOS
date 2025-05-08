@@ -10,6 +10,20 @@ import Foundation
 import UIKit
 import xxooooxxCommonUI
 
+extension TransactionViewController {
+    struct CreateData {
+        let transaction: TransactionData?
+        let ledgerId: String?
+        let initialDate: Date?
+
+        init(transaction: TransactionData? = nil, ledgerId: String? = nil, initialDate: Date? = nil) {
+            self.transaction = transaction
+            self.ledgerId = ledgerId
+            self.initialDate = initialDate
+        }
+    }
+}
+
 class TransactionViewController: UIViewController {
     let manager: TransactionManager
 
@@ -31,9 +45,9 @@ class TransactionViewController: UIViewController {
 
     var noteContentViewBottomConstraint: NSLayoutConstraint?
 
-    init(transaction: TransactionData? = nil, ledgerId: String? = nil, initialDate: Date? = nil) {
-        manager = TransactionManager(transactionData: transaction, initialDate: initialDate)
-        if let ledgerId { manager.transactionData.ledgerId = ledgerId }
+    init(_ data: CreateData) {
+        manager = TransactionManager(transactionData: data.transaction, initialDate: data.initialDate)
+        if let ledgerId = data.ledgerId { manager.transactionData.ledgerId = ledgerId }
         super.init(nibName: nil, bundle: nil)
     }
 

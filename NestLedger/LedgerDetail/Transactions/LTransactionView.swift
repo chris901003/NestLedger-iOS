@@ -80,7 +80,7 @@ extension LTransactionView: UITableViewDelegate, UITableViewDataSource {
         let data = manager.transactions[indexPath.row]
         let editAction = UIContextualAction(style: .normal, title: "編輯") { [weak self] action, view, completionHandler in
             guard let self else { return }
-            let transactionVC = TransactionViewController(transaction: data)
+            let transactionVC = TransactionViewController(.init(transaction: data))
             delegate?.presentVC(transactionVC)
             completionHandler(true)
         }
