@@ -217,7 +217,20 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
             present(controller, animated: true)
         }
 
-        let config = UISwipeActionsConfiguration(actions: [deleteAction])
+        let editAction = UIContextualAction(style: .normal, title: "編輯") { [weak self] action, view, complectionHandler in
+            guard let self else { return }
+            let data = manager.showTags[indexPath.row]
+            let tagEditVC = TagEditViewController()
+            tagEditVC.modalPresentationStyle = .overFullScreen
+            tagEditVC.modalTransitionStyle = .crossDissolve
+            tagEditVC.config(data)
+            // TODO: Add Update Delegate
+            present(tagEditVC, animated: true)
+        }
+
+        var actions = [deleteAction]
+        if type == .editTag { actions.append(editAction) }
+        let config = UISwipeActionsConfiguration(actions: actions)
         config.performsFirstActionWithFullSwipe = true
 
         return config
