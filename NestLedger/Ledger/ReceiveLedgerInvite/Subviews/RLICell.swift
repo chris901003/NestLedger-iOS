@@ -54,7 +54,10 @@ class RLICell: UITableViewCell {
 
     private func defaultConfig() {
         ledgerTitleLabel.text = "默認帳本名稱"
+
         inviteUserAvatar.image = nil
+        inviteUserAvatar.contentMode = .scaleAspectFill
+
         inviteUserNameLabel.text = "未知使用者"
     }
 
