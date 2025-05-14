@@ -18,6 +18,7 @@ class TagEditViewController: UIViewController {
     let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     let contentView = UIView()
     let titleLabel = UILabel()
+    let mainContentView = UIView()
     let labelColor = UIView()
     let textField = XOTextField(.init(top: 12, left: 12, bottom: 12, right: 12))
     let cancelView = XOBorderLabel("取消", color: .systemPink, padding: .init(top: 10, left: 16, bottom: 10, right: 16))
@@ -100,21 +101,30 @@ class TagEditViewController: UIViewController {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
         ])
 
-        contentView.addSubview(textField)
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(mainContentView)
+        mainContentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
-            textField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            textField.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 2 / 5)
+            mainContentView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+            mainContentView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
 
-        contentView.addSubview(labelColor)
+        mainContentView.addSubview(labelColor)
         labelColor.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            labelColor.trailingAnchor.constraint(equalTo: textField.leadingAnchor, constant: -12),
-            labelColor.centerYAnchor.constraint(equalTo: textField.centerYAnchor),
+            labelColor.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor),
+            labelColor.centerYAnchor.constraint(equalTo: mainContentView.centerYAnchor),
             labelColor.widthAnchor.constraint(equalToConstant: 20),
             labelColor.heightAnchor.constraint(equalToConstant: 20)
+        ])
+
+        mainContentView.addSubview(textField)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textField.topAnchor.constraint(equalTo: mainContentView.topAnchor),
+            textField.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor),
+            textField.leadingAnchor.constraint(equalTo: labelColor.trailingAnchor, constant: 12),
+            textField.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor),
+            textField.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 2 / 5)
         ])
 
         contentView.addSubview(cancelView)
