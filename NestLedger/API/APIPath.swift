@@ -74,6 +74,9 @@ class APIPath {
         // [POST]
         case create = "/tag/create"
 
+        // [PATCH]
+        case update = "/tag/update"
+
         // [DELETE]
         case delete = "/tag/delete"
     }

@@ -15,6 +15,7 @@ extension APIManager {
         case failedGetTag
         case failedDeleteTag
         case tagStillUsedInTransaction
+        case failedUpdateTag
 
         var errorDescription: String? {
             switch self {
@@ -26,6 +27,8 @@ extension APIManager {
                     return "刪除標籤失敗"
                 case .tagStillUsedInTransaction:
                     return "因該標籤還在使用中，無法刪除標籤"
+                case .failedUpdateTag:
+                    return "更新標籤失敗"
             }
         }
     }
@@ -85,6 +88,28 @@ extension APIManager {
             return result.data.tags
         } catch {
             throw TagError.failedGetTag
+        }
+    }
+}
+
+// MARK: - Update Tag
+extension APIManager {
+    fileprivate struct UpdateTagData: Encodable {
+        let tagId: String
+        let tag: TagData
+    }
+
+    func updateTag(tagData: TagData) async throws -> TagData {
+        guard let url = APIPath.Tag.update.getUrl() else { throw APIManagerError.badUrl }
+        let body = UpdateTagData(tagId: tagData._id, tag: tagData)
+        guard let request = try? genRequest(url: url, method: .PATCH, body: body) else { throw APIManagerError.badUrl }
+        do {
+            let (data, response) = try await send(request: request)
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw TagError.failedUpdateTag }
+            let result = try APIManager.decoder.decode(TagDataResponse.self, from: data)
+            return result.data.Tag
+        } catch {
+            throw TagError.failedDeleteTag
         }
     }
 }

@@ -76,3 +76,24 @@ class TagManager {
         try await apiManager.deleteTag(tagId: tagId)
     }
 }
+
+// MARK: - TagEditViewControllerDelegate
+extension TagManager: TagEditViewControllerDelegate {
+    func updateTag(data: TagData) {
+        if data.label.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "標籤更新失敗，標籤名稱不能為空")
+            }
+            return
+        }
+
+        Task {
+            do {
+                let updatedTagData = try await apiManager.updateTag(tagData: data)
+                print("✅ Update tag data: \(updatedTagData)")
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "標籤更新失敗")
+            }
+        }
+    }
+}
