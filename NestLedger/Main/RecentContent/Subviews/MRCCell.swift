@@ -16,10 +16,14 @@ class MRCCell: UITableViewCell {
     let titleLabel = UILabel()
     let amountLabel = UILabel()
 
+    var tagId = ""
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
         layout()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTagNotification), name: .updateTag, object: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -34,6 +38,8 @@ class MRCCell: UITableViewCell {
 
         amountLabel.text = (data.type == .income ? "+" : "-") + "\(data.money)"
         amountLabel.textColor = data.type.getBackgroundColor()
+
+        tagId = data.tagId
 
         Task {
             do {
@@ -137,5 +143,13 @@ extension MRCCell {
     private func getTagInformation(tagId: String) async throws -> TagData {
         let apiManager = APIManager()
         return try await apiManager.getTag(tagId: tagId)
+    }
+
+    @objc private func receiveUpdateTagNotification(_ notification: Notification) {
+        guard let updateTagData = NLNotification.decodeUpdateTag(notification),
+              updateTagData._id == tagId else { return }
+        tagLabel.text = updateTagData.label
+        tagLabel.textColor = updateTagData.getColor
+        tagLabel.backgroundColor = updateTagData.getColor.withAlphaComponent(0.3)
     }
 }
