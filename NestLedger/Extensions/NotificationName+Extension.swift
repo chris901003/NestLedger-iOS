@@ -17,6 +17,7 @@ extension Notification.Name {
     static let updateLedger = Notification.Name("UpdateLedger")
     static let quitLedger = Notification.Name("QuitLedger")
     static let setMainLedger = Notification.Name("SetMainLedger")
+    static let updateTag = Notification.Name("UpdateTag")
 }
 
 class NLNotification {
@@ -107,5 +108,16 @@ class NLNotification {
         guard let userInfo = notification.userInfo,
               let ledgerId = userInfo["ledgerId"] as? String else { return nil }
         return ledgerId
+    }
+
+    // MARK: - Update Tag
+    static func sendUpdateTag(tagData: TagData) {
+        NotificationCenter.default.post(name: .updateTag, object: nil, userInfo: ["tagData": tagData])
+    }
+
+    static func decodeUpdateTag(_ notification: Notification) -> TagData? {
+        guard let userInfo = notification.userInfo,
+              let tagData = userInfo["tagData"] as? TagData else { return nil }
+        return tagData
     }
 }

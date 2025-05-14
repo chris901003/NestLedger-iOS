@@ -11,7 +11,7 @@ import UIKit
 import xxooooxxCommonUI
 
 protocol TagEditViewControllerDelegate: AnyObject {
-    func updateTag(data: TagData)
+    func updateTag(data: TagData, indexPath: IndexPath?)
 }
 
 class TagEditViewController: UIViewController {
@@ -25,6 +25,7 @@ class TagEditViewController: UIViewController {
     let updateView = XOBorderLabel("更改", color: .systemBlue, padding: .init(top: 10, left: 16, bottom: 10, right: 16))
 
     var tagData: TagData = .initEmpty()
+    var indexPath: IndexPath?
     weak var delegate: TagEditViewControllerDelegate?
 
     init() {
@@ -37,8 +38,9 @@ class TagEditViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func config(_ data: TagData) {
+    func config(_ data: TagData, indexPath: IndexPath) {
         self.tagData = data
+        self.indexPath = indexPath
 
         labelColor.backgroundColor = data.getColor
         textField.text = data.label
@@ -161,7 +163,7 @@ extension TagEditViewController {
     @objc private func updateAction() {
         tagData.label = textField.text ?? ""
         tagData.color = labelColor.backgroundColor?.toHexString ?? ""
-        delegate?.updateTag(data: tagData)
+        delegate?.updateTag(data: tagData, indexPath: indexPath)
         dismiss(animated: true)
     }
 

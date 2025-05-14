@@ -224,7 +224,7 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
             let tagEditVC = TagEditViewController()
             tagEditVC.modalPresentationStyle = .overFullScreen
             tagEditVC.modalTransitionStyle = .crossDissolve
-            tagEditVC.config(data)
+            tagEditVC.config(data, indexPath: indexPath)
             tagEditVC.delegate = manager
             present(tagEditVC, animated: true)
             completionHandler(true)
