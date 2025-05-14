@@ -19,11 +19,14 @@ class LTCell: UITableViewCell {
     let titleLabel = UILabel()
 
     let apiManager = APIManager()
+    var tagId = ""
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
         layout()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTagNotification), name: .updateTag, object: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -46,6 +49,7 @@ class LTCell: UITableViewCell {
 
         titleLabel.text = transaction.title
 
+        tagId = transaction.tagId
         Task { try? await fetchTagInfo(tagId: transaction.tagId) }
     }
 
@@ -146,6 +150,15 @@ extension LTCell {
             tagLabel.textColor = tagData.getColor
             tagLabel.backgroundColor = tagData.getColor.withAlphaComponent(0.3)
         }
+    }
+
+    @objc private func receiveUpdateTagNotification(_ notification: Notification) {
+        guard let newTagData = NLNotification.decodeUpdateTag(notification),
+              newTagData._id == tagId else { return }
+
+        tagLabel.text = newTagData.label
+        tagLabel.textColor = newTagData.getColor
+        tagLabel.backgroundColor = newTagData.getColor.withAlphaComponent(0.3)
     }
 }
 
