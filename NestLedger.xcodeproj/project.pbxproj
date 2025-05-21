@@ -20,6 +20,7 @@
 		0505336A2DDE07B9003245E0 /* UserInfoUpdateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533692DDE07B9003245E0 /* UserInfoUpdateRequestData.swift */; };
 		0505336C2DDE1333003245E0 /* NewAPIManager+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505336B2DDE1333003245E0 /* NewAPIManager+Tag.swift */; };
 		0505336E2DDE13C4003245E0 /* TagCreateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505336D2DDE13C4003245E0 /* TagCreateRequestData.swift */; };
+		050533702DDE1ADB003245E0 /* TagQueryRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505336F2DDE1ADB003245E0 /* TagQueryRequestData.swift */; };
 		050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F52D41DA0F008C8831 /* AppDelegate.swift */; };
 		050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F72D41DA0F008C8831 /* SceneDelegate.swift */; };
 		050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F92D41DA0F008C8831 /* ViewController.swift */; };
@@ -147,6 +148,7 @@
 		050533692DDE07B9003245E0 /* UserInfoUpdateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateRequestData.swift; sourceTree = "<group>"; };
 		0505336B2DDE1333003245E0 /* NewAPIManager+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Tag.swift"; sourceTree = "<group>"; };
 		0505336D2DDE13C4003245E0 /* TagCreateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCreateRequestData.swift; sourceTree = "<group>"; };
+		0505336F2DDE1ADB003245E0 /* TagQueryRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagQueryRequestData.swift; sourceTree = "<group>"; };
 		050830F22D41DA0F008C8831 /* NestLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		050830F52D41DA0F008C8831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		050830F72D41DA0F008C8831 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 			children = (
 				0505336D2DDE13C4003245E0 /* TagCreateRequestData.swift */,
 				051257E22D7F1DC10066F3F2 /* TagData.swift */,
+				0505336F2DDE1ADB003245E0 /* TagQueryRequestData.swift */,
 			);
 			path = Tag;
 			sourceTree = "<group>";
@@ -957,6 +960,7 @@
 				051257E32D7F1DC10066F3F2 /* TagData.swift in Sources */,
 				051B27C62DD23364000B7E0C /* TagEditViewController.swift in Sources */,
 				054A09362D7C20160092B7E8 /* TagManager.swift in Sources */,
+				050533702DDE1ADB003245E0 /* TagQueryRequestData.swift in Sources */,
 				052944752D79E9D700943CAC /* TagViewController.swift in Sources */,
 				051257E62D81BE980066F3F2 /* TransactionData.swift in Sources */,
 				05B421152D9D6AE0000C8ECC /* TransactionManager.swift in Sources */,

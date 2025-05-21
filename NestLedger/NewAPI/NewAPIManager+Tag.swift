@@ -42,3 +42,24 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Query Tag
+extension NewAPIManager {
+    func queryTag(data: TagQueryRequestData) async throws -> [TagData] {
+        let responseData = await session.request(
+            NewAPIPath.Tag.query.getPath(),
+            method: .post,
+            parameters: data,
+            encoder: JSONParameterEncoder.default)
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanTagsDataResponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw TagError.failedDecodeTagData
+        }
+    }
+}

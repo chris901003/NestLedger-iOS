@@ -16,7 +16,7 @@ class TagManager {
     var ledgerId: String
     var search: String? {
         didSet {
-            page = 1
+            searchData = TagQueryRequestData(ledgerId: ledgerId, search: search, tagId: nil, page: 1, limit: limit)
             showTags = []
             Task {
                 do {
@@ -27,9 +27,9 @@ class TagManager {
             }
         }
     }
+    var searchData: TagQueryRequestData
 
     var showTags: [TagData] = []
-    var page: Int = 1
     let limit: Int = 20
     var isLoading: Bool = false
     var isEnd: Bool = false
@@ -38,6 +38,7 @@ class TagManager {
 
     init(ledgerId: String) {
         self.ledgerId = ledgerId
+        self.searchData = TagQueryRequestData(ledgerId: ledgerId, search: nil, tagId: nil, page: 1, limit: limit)
         Task {
             do {
                 try await fetchMoreLedgerTags()
@@ -52,10 +53,10 @@ class TagManager {
 
     func fetchMoreLedgerTags() async throws {
         await MainActor.run { isLoading = true }
-        let tags = try await apiManager.getTagsBy(ledgerId: ledgerId, search: search, page: page, limit: limit)
+        let tags = try await newApiManager.queryTag(data: searchData)
         showTags.append(contentsOf: tags)
         isEnd = tags.isEmpty
-        page += 1
+        searchData.page = (searchData.page ?? 1) + 1
         await MainActor.run {
             isLoading = false
             vc?.tableView.reloadData()
