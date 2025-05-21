@@ -12,6 +12,7 @@ import xxooooxxCommonUI
 
 class TagManager {
     let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
     var ledgerId: String
     var search: String? {
         didSet {
@@ -65,7 +66,7 @@ class TagManager {
         var tag = tag
         tag.ledgerId = ledgerId
         do {
-            return try await apiManager.createTag(data: tag)
+            return try await newApiManager.createTag(data: TagCreateRequestData(tag))
         } catch {
             XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "創建標籤失敗")
             return nil

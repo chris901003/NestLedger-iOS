@@ -46,4 +46,9 @@ class NewAPIPath {
         // [GET]
         case basic = "/v1/information/basic"
     }
+
+    enum Tag: String, NewAPIPathProtocol {
+        // [POST]
+        case create = "/v1/tag/create"
+    }
 }

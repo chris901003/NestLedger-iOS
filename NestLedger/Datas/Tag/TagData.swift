@@ -33,3 +33,4 @@ struct TagsDataWrapper: Codable {
 
 typealias TagDataResponse = APIResponseData<TagDataWrapper>
 typealias TagsDataResponse = APIResponseData<TagsDataWrapper>
+typealias CleanTagDataResponse = APIResponseData<TagData>

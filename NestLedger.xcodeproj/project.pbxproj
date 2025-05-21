@@ -18,6 +18,8 @@
 		050533662DDCD066003245E0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 050533652DDCD066003245E0 /* Alamofire */; };
 		050533682DDDA12A003245E0 /* NewAPIManager+Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */; };
 		0505336A2DDE07B9003245E0 /* UserInfoUpdateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533692DDE07B9003245E0 /* UserInfoUpdateRequestData.swift */; };
+		0505336C2DDE1333003245E0 /* NewAPIManager+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505336B2DDE1333003245E0 /* NewAPIManager+Tag.swift */; };
+		0505336E2DDE13C4003245E0 /* TagCreateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505336D2DDE13C4003245E0 /* TagCreateRequestData.swift */; };
 		050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F52D41DA0F008C8831 /* AppDelegate.swift */; };
 		050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F72D41DA0F008C8831 /* SceneDelegate.swift */; };
 		050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F92D41DA0F008C8831 /* ViewController.swift */; };
@@ -143,6 +145,8 @@
 		0503F2B02D54E1D200B2640C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Information.swift"; sourceTree = "<group>"; };
 		050533692DDE07B9003245E0 /* UserInfoUpdateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateRequestData.swift; sourceTree = "<group>"; };
+		0505336B2DDE1333003245E0 /* NewAPIManager+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Tag.swift"; sourceTree = "<group>"; };
+		0505336D2DDE13C4003245E0 /* TagCreateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCreateRequestData.swift; sourceTree = "<group>"; };
 		050830F22D41DA0F008C8831 /* NestLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		050830F52D41DA0F008C8831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		050830F72D41DA0F008C8831 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -419,6 +423,7 @@
 		051257E12D7F1DB90066F3F2 /* Tag */ = {
 			isa = PBXGroup;
 			children = (
+				0505336D2DDE13C4003245E0 /* TagCreateRequestData.swift */,
 				051257E22D7F1DC10066F3F2 /* TagData.swift */,
 			);
 			path = Tag;
@@ -717,6 +722,7 @@
 			isa = PBXGroup;
 			children = (
 				050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */,
+				0505336B2DDE1333003245E0 /* NewAPIManager+Tag.swift */,
 				05EE3D102DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift */,
 				05EE3D0E2DDCBE7600CC22AA /* NewAPIManager.swift */,
 				05EE3D0C2DDCBD5D00CC22AA /* NewAPIPath.swift */,
@@ -929,6 +935,7 @@
 				051257EA2D8326260066F3F2 /* MRecntManager.swift in Sources */,
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
 				050533682DDDA12A003245E0 /* NewAPIManager+Information.swift in Sources */,
+				0505336C2DDE1333003245E0 /* NewAPIManager+Tag.swift in Sources */,
 				05EE3D112DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift in Sources */,
 				05EE3D0F2DDCBE7F00CC22AA /* NewAPIManager.swift in Sources */,
 				05EE3D0D2DDCBD5D00CC22AA /* NewAPIPath.swift in Sources */,
@@ -938,7 +945,6 @@
 				05ADF3A22DC4F0CC00DF8391 /* ReceiveLedgerInviteManager.swift in Sources */,
 				05ADF39D2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift in Sources */,
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,
-				0505336A2DDE07B9003245E0 /* UserInfoUpdateRequestData.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,
 				051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */,
 				05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */,
@@ -947,6 +953,7 @@
 				05B421172D9EC432000C8ECC /* TTagSelectionButtonView.swift in Sources */,
 				054A09342D7C1DDB0092B7E8 /* TVC+TabelViewSetting.swift in Sources */,
 				05C37B912D7B35FF005FCF89 /* TagCell.swift in Sources */,
+				0505336E2DDE13C4003245E0 /* TagCreateRequestData.swift in Sources */,
 				051257E32D7F1DC10066F3F2 /* TagData.swift in Sources */,
 				051B27C62DD23364000B7E0C /* TagEditViewController.swift in Sources */,
 				054A09362D7C20160092B7E8 /* TagManager.swift in Sources */,
@@ -958,6 +965,7 @@
 				0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */,
 				051B27C22DCCF0F7000B7E0C /* UIViewController+Extension.swift in Sources */,
 				055704572D5782A90032C47C /* UserInfoData.swift in Sources */,
+				0505336A2DDE07B9003245E0 /* UserInfoUpdateRequestData.swift in Sources */,
 				050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
