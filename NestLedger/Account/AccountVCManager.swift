@@ -117,16 +117,10 @@ class AccountVCManager {
     }
 
     func deleteAccount() {
-        guard let user = Auth.auth().currentUser else {
-            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "刪除帳號失敗")
-            return
-        }
-
         Task {
             do {
-                try await apiManager.deleteAccount(uid: sharedUserInfo.id)
-                try await user.delete()
-                showLoginVC()
+                try await newApiManager.deleteUserInfo()
+                await MainActor.run { showLoginVC() }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "刪除帳號失敗")
             }

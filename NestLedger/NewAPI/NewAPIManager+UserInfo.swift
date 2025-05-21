@@ -123,3 +123,13 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Delete User Info
+extension NewAPIManager {
+    func deleteUserInfo() async throws {
+        let response = await session.request(NewAPIPath.UserInfo.delete.getPath(), method: .delete)
+            .serializingData()
+            .response
+        try checkResponse(responseData: response)
+    }
+}
