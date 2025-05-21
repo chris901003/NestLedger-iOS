@@ -30,6 +30,10 @@ class NewAPIPath {
         // [GET]
         case login = "/v1/user/login"
         case get = "/v1/user/get"
+        case avatar = "/v1/user/avatar"
+
+        // [POST]
+        case uploadAvatar = "/v1/user/upload-avatar"
     }
 
     enum Information: String, NewAPIPathProtocol {

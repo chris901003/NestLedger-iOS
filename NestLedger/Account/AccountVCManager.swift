@@ -20,6 +20,7 @@ class AccountVCManager {
     var userInfo = UserInfoData.initMock() {
         didSet {
             if !startUpdate { return }
+            newSharedUserInfo = userInfo
             Task {
                 try? await apiManager.updateUserInfo(userInfo)
                 await MainActor.run {
@@ -34,11 +35,8 @@ class AccountVCManager {
             guard let image = avatar else { return }
             Task {
                 do {
-                    let path = try await apiManager.uploadSinglePhoto(image, path: "avatar")
-                    if !userInfo.avatar.isEmpty {
-                        try await apiManager.deleteSinglePhoto(path: userInfo.avatar)
-                    }
-                    userInfo.avatar = path
+                    let userInfoData = try await newApiManager.uploadUserAvatar(image: image)
+                    self.userInfo.avatar = userInfoData.avatar
                 } catch {
                     await MainActor.run {
                         XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "更新頭像失敗")
@@ -84,9 +82,8 @@ class AccountVCManager {
     }
 
     private func getAvatar() async {
-        guard !userInfo.avatar.isEmpty else { return }
         do {
-            let image = try await apiManager.fetchSinglePhoto(path: userInfo.avatar)
+            let image = try await newApiManager.getUserAvatar(uid: userInfo.id)
             avatar = image
         } catch {
             await MainActor.run {
