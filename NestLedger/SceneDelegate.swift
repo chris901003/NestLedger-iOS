@@ -21,15 +21,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         let apiManager = APIManager()
+        let newApiManager = NewAPIManager()
 
         if let user = Auth.auth().currentUser,
            let lastToken = KeychainManager.shared.getToken(forKey: AUTH_TOKEN) {
             print("✅ 已登入: \(user.uid)")
             APIManager.authToken = lastToken
+            NewAPIManager.authToken = lastToken
             Task {
                 do {
                     try await FirebaseAuthManager.shared.refreshTokenIfNeeded()
                     try await apiManager.login()
+                    try await newApiManager.login()
                     let rootViewController = RootViewController()
                     window?.rootViewController = rootViewController
                 } catch {
