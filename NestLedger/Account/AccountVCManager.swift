@@ -15,7 +15,6 @@ import xxooooxxCommonUI
 class AccountVCManager {
     weak var controller: AccountViewController?
 
-    let apiManager = APIManager()
     let newApiManager = NewAPIManager()
     var userInfo = UserInfoData.initMock() {
         didSet {
