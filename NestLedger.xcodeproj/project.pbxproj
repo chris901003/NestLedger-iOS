@@ -17,6 +17,7 @@
 		0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2B02D54E1D200B2640C /* UIView+Extension.swift */; };
 		050533662DDCD066003245E0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 050533652DDCD066003245E0 /* Alamofire */; };
 		050533682DDDA12A003245E0 /* NewAPIManager+Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */; };
+		0505336A2DDE07B9003245E0 /* UserInfoUpdateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533692DDE07B9003245E0 /* UserInfoUpdateRequestData.swift */; };
 		050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F52D41DA0F008C8831 /* AppDelegate.swift */; };
 		050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F72D41DA0F008C8831 /* SceneDelegate.swift */; };
 		050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F92D41DA0F008C8831 /* ViewController.swift */; };
@@ -141,6 +142,7 @@
 		0503F2AD2D5251D600B2640C /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		0503F2B02D54E1D200B2640C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Information.swift"; sourceTree = "<group>"; };
+		050533692DDE07B9003245E0 /* UserInfoUpdateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateRequestData.swift; sourceTree = "<group>"; };
 		050830F22D41DA0F008C8831 /* NestLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		050830F52D41DA0F008C8831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		050830F72D41DA0F008C8831 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -526,6 +528,7 @@
 			isa = PBXGroup;
 			children = (
 				055704562D5782A90032C47C /* UserInfoData.swift */,
+				050533692DDE07B9003245E0 /* UserInfoUpdateRequestData.swift */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -935,6 +938,7 @@
 				05ADF3A22DC4F0CC00DF8391 /* ReceiveLedgerInviteManager.swift in Sources */,
 				05ADF39D2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift in Sources */,
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,
+				0505336A2DDE07B9003245E0 /* UserInfoUpdateRequestData.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,
 				051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */,
 				05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */,

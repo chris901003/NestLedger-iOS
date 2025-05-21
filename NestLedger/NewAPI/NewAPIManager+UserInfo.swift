@@ -102,3 +102,24 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Update User Info
+extension NewAPIManager {
+    func updateUserInfo(requestData: UserInfoUpdateRequestData) async throws -> UserInfoData {
+        let response = await session.request(
+            NewAPIPath.UserInfo.update.getPath(),
+            method: .patch,
+            parameters: requestData,
+            encoder: JSONParameterEncoder.default)
+            .serializingData()
+            .response
+        try checkResponse(responseData: response)
+        do {
+            guard let data = response.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanUserInforesponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw UserInfoError.decodeUserInfoError
+        }
+    }
+}

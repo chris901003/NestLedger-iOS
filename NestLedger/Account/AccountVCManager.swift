@@ -22,7 +22,9 @@ class AccountVCManager {
             if !startUpdate { return }
             newSharedUserInfo = userInfo
             Task {
-                try? await apiManager.updateUserInfo(userInfo)
+                let _ = try? await newApiManager.updateUserInfo(
+                    requestData: UserInfoUpdateRequestData(userInfo)
+                )
                 await MainActor.run {
                     XOBottomBarInformationManager.showBottomInformation(type: .success,information: "資料已更新")
                 }

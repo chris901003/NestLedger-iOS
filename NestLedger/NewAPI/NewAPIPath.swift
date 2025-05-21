@@ -34,6 +34,9 @@ class NewAPIPath {
 
         // [POST]
         case uploadAvatar = "/v1/user/upload-avatar"
+
+        // [PATCH]
+        case update = "/v1/user/update"
     }
 
     enum Information: String, NewAPIPathProtocol {
