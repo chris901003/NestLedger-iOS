@@ -16,6 +16,7 @@ class AccountVCManager {
     weak var controller: AccountViewController?
 
     let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
     var userInfo = UserInfoData.initMock() {
         didSet {
             if !startUpdate { return }
@@ -64,8 +65,7 @@ class AccountVCManager {
 
     private func getBasicInformation() async {
         do {
-            let response = try await apiManager.getBasicInformation()
-            basicInformation = response.data
+            basicInformation = try await newApiManager.getBasicInformation()
         } catch {
             await MainActor.run {
                 XOBottomBarInformationManager.showBottomInformation(type: .info, information: "無法取得最新資訊")

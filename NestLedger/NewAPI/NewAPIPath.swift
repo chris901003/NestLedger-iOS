@@ -30,4 +30,9 @@ class NewAPIPath {
         // [GET]
         case login = "/v1/user/login"
     }
+
+    enum Information: String, NewAPIPathProtocol {
+        // [GET]
+        case basic = "/v1/information/basic"
+    }
 }
