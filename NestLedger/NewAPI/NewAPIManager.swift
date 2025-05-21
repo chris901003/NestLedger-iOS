@@ -83,7 +83,7 @@ class NewAPIManager {
     let session = Session(interceptor: AuthInterceptor())
 
     func checkResponse(responseData: DataResponse<Data, AFError>) throws {
-        if let error = responseData.error { throw NewAPIManagerError.badRequest }
+        if let _ = responseData.error { throw NewAPIManagerError.badRequest }
         guard let response = responseData.response else { throw NewAPIManagerError.badResponse }
         if response.statusCode == 403 { throw NewAPIManagerError.authFailed }
         guard response.statusCode == 200 else { throw NewAPIManagerError.othersStatusCodeFailed }

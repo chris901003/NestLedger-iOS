@@ -75,7 +75,7 @@ class AccountVCManager {
 
     private func getUserInfo() async {
         do {
-            userInfo = try await apiManager.getUserInfo()
+            userInfo = try await newApiManager.getUserInfo()
         } catch {
             await MainActor.run {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "無法取得帳號資訊")
