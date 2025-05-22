@@ -12,6 +12,7 @@ import UIKit
 
 class ReceiveLedgerInviteManager {
     let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
 
     var ledgerInviteDatas: [LedgerInviteData] = []
     weak var vc: ReceiveLedgerInviteViewController?
@@ -32,19 +33,19 @@ class ReceiveLedgerInviteManager {
     }
 
     private func loadLedgerInviteData() async throws {
-        ledgerInviteDatas = try await apiManager.getLedgerInvites(ledgerId: nil, receiveUserId: sharedUserInfo.id)
+        ledgerInviteDatas = try await newApiManager.getLedgerInvite(ledgerId: nil, receiveUserId: newSharedUserInfo.id)
     }
 
     func fetchLedgerData(ledgerInviteData: LedgerInviteData) async throws -> LedgerData {
-        try await apiManager.getLedger(ledgerId: ledgerInviteData.ledgerId)
+        try await newApiManager.getLedger(ledgerId: ledgerInviteData.ledgerId)
     }
 
     func fetchUserInfo(ledgerInviteData: LedgerInviteData) async throws -> UserInfoData {
-        try await apiManager.getUserByUid(uid: ledgerInviteData.sendUserId)
+        try await newApiManager.getUserInfoByUid(uid: ledgerInviteData.sendUserId)
     }
 
     func fetchUserAvatar(userUid: String) async throws -> UIImage? {
-        try await apiManager.getUserAvatar(userId: userUid)
+        try await newApiManager.getUserAvatar(uid: userUid)
     }
 }
 

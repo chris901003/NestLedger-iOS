@@ -64,6 +64,23 @@ extension NewAPIManager {
     }
 }
 
+// MARK: - Get User Info By Uid
+extension NewAPIManager {
+    func getUserInfoByUid(uid: String) async throws -> UserInfoData {
+        let responseData = await session.request(NewAPIPath.UserInfo.getUserById.getPath(), method: .get, parameters: ["uid": uid])
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanUserInforesponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw UserInfoError.decodeUserInfoError
+        }
+    }
+}
+
 // MARK: - Get User Avatar
 extension NewAPIManager {
     func getUserAvatar(uid: String) async throws -> UIImage {

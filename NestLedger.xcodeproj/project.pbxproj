@@ -27,6 +27,7 @@
 		050533782DDED4CF003245E0 /* TransactionQueryRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533772DDED4CF003245E0 /* TransactionQueryRequestData.swift */; };
 		0505337A2DDF1A6C003245E0 /* NewAPIManager+Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533792DDF1A6C003245E0 /* NewAPIManager+Ledger.swift */; };
 		0505337C2DDF1D31003245E0 /* LedgerCreateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505337B2DDF1D31003245E0 /* LedgerCreateRequestData.swift */; };
+		0505337E2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505337D2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift */; };
 		050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F52D41DA0F008C8831 /* AppDelegate.swift */; };
 		050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F72D41DA0F008C8831 /* SceneDelegate.swift */; };
 		050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F92D41DA0F008C8831 /* ViewController.swift */; };
@@ -161,6 +162,7 @@
 		050533772DDED4CF003245E0 /* TransactionQueryRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionQueryRequestData.swift; sourceTree = "<group>"; };
 		050533792DDF1A6C003245E0 /* NewAPIManager+Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Ledger.swift"; sourceTree = "<group>"; };
 		0505337B2DDF1D31003245E0 /* LedgerCreateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerCreateRequestData.swift; sourceTree = "<group>"; };
+		0505337D2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+LedgerInvite.swift"; sourceTree = "<group>"; };
 		050830F22D41DA0F008C8831 /* NestLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		050830F52D41DA0F008C8831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		050830F72D41DA0F008C8831 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -742,6 +744,7 @@
 			children = (
 				050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */,
 				050533792DDF1A6C003245E0 /* NewAPIManager+Ledger.swift */,
+				0505337D2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift */,
 				0505336B2DDE1333003245E0 /* NewAPIManager+Tag.swift */,
 				050533732DDEC97E003245E0 /* NewAPIManager+Transaction.swift */,
 				05EE3D102DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift */,
@@ -958,6 +961,7 @@
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
 				050533682DDDA12A003245E0 /* NewAPIManager+Information.swift in Sources */,
 				0505337A2DDF1A6C003245E0 /* NewAPIManager+Ledger.swift in Sources */,
+				0505337E2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift in Sources */,
 				0505336C2DDE1333003245E0 /* NewAPIManager+Tag.swift in Sources */,
 				050533742DDEC97E003245E0 /* NewAPIManager+Transaction.swift in Sources */,
 				05EE3D112DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift in Sources */,

@@ -31,6 +31,7 @@ class NewAPIPath {
         case login = "/v1/user/login"
         case get = "/v1/user/get"
         case avatar = "/v1/user/avatar"
+        case getUserById = "/v1/user/get-user-by-uid"
 
         // [POST]
         case uploadAvatar = "/v1/user/upload-avatar"
@@ -72,5 +73,10 @@ class NewAPIPath {
 
         // [POST]
         case create = "/v1/ledger/create"
+    }
+
+    enum LedgerInvite: String, NewAPIPathProtocol {
+        // [GET]
+        case get = "/v1/ledger-invite/get"
     }
 }
