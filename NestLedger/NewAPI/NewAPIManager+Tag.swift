@@ -46,6 +46,23 @@ extension NewAPIManager {
     }
 }
 
+// MARK: - Get Tag
+extension NewAPIManager {
+    func getTag(tagId: String) async throws -> TagData {
+        let responseData = await session.request(NewAPIPath.Tag.get.getPath(), method: .get, parameters: ["tagId": tagId])
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanTagDataResponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw TagError.failedDecodeTagData
+        }
+    }
+}
+
 // MARK: - Query Tag
 extension NewAPIManager {
     func queryTag(data: TagQueryRequestData) async throws -> [TagData] {

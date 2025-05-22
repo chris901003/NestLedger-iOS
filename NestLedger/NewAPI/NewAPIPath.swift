@@ -50,6 +50,7 @@ class NewAPIPath {
     enum Tag: String, NewAPIPathProtocol {
         // [POST]
         case create = "/v1/tag/create"
+        case get = "/v1/tag/get"
         case query = "/v1/tag/query"
 
         // [PATCH]

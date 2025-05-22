@@ -141,8 +141,8 @@ fileprivate extension TransactionType {
 // MARK: - Utility
 extension MRCCell {
     private func getTagInformation(tagId: String) async throws -> TagData {
-        let apiManager = APIManager()
-        return try await apiManager.getTag(tagId: tagId)
+        let newApiManager = NewAPIManager()
+        return try await newApiManager.getTag(tagId: tagId)
     }
 
     @objc private func receiveUpdateTagNotification(_ notification: Notification) {
