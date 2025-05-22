@@ -11,7 +11,6 @@ import UIKit
 import xxooooxxCommonUI
 
 class TagManager {
-    let apiManager = APIManager()
     let newApiManager = NewAPIManager()
     var ledgerId: String
     var search: String? {
@@ -22,7 +21,7 @@ class TagManager {
                 do {
                     try await fetchMoreLedgerTags()
                 } catch {
-                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "搜尋失敗")
+                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
                 }
             }
         }
@@ -43,7 +42,7 @@ class TagManager {
             do {
                 try await fetchMoreLedgerTags()
             } catch {
-                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取標籤資訊失敗")
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
             }
             await MainActor.run {
                 vc?.tableView.reloadData()
@@ -69,7 +68,7 @@ class TagManager {
         do {
             return try await newApiManager.createTag(data: TagCreateRequestData(tag))
         } catch {
-            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "創建標籤失敗")
+            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
             return nil
         }
     }

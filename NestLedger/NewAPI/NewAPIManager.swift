@@ -52,7 +52,7 @@ extension NewAPIManager {
                 case .othersStatusCodeFailed:
                     return "Invalid status code (Server Error)"
                 case .responseDataNotFound:
-                    return "Response data not found"
+                    return "無法取得回傳資訊"
                 case .apiResponseError(let message):
                     return message
             }

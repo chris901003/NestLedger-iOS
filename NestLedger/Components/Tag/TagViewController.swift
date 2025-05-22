@@ -156,7 +156,7 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
                 do {
                     try await manager.fetchMoreLedgerTags()
                 } catch {
-                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "加載更多標籤失敗")
+                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
                 }
             }
         }
