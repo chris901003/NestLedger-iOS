@@ -10,9 +10,9 @@ import Foundation
 import xxooooxxCommonUI
 
 class LedgerVCManager {
-    let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
 
-    var ledgerIds: [String] = sharedUserInfo.ledgerIds
+    var ledgerIds: [String] = newSharedUserInfo.ledgerIds
     var ledgerDatas: [LedgerData] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
@@ -45,7 +45,7 @@ class LedgerVCManager {
             for idx in startIdx..<endIdx {
                 group.addTask { [weak self] in
                     guard let self else { return nil }
-                    return try await apiManager.getLedger(ledgerId: ledgerIds[idx])
+                    return try await newApiManager.getLedger(ledgerId: ledgerIds[idx])
                 }
             }
             let results = (try await group.reduce(into: [LedgerData]()) { $0.append($1) }).compactMap { $0 }
@@ -91,9 +91,8 @@ extension LedgerVCManager: CreateLedgerViewControllerDelegate {
 
         Task {
             do {
-                let newLedgerData = try await apiManager.createLedger(title: title)
-                sharedUserInfo.ledgerIds.append(newLedgerData._id)
-                try await apiManager.updateUserInfo(sharedUserInfo)
+                let newLedgerData = try await newApiManager.createLedger(data: .init(title: title, userId: newSharedUserInfo.id))
+                newSharedUserInfo = try await newApiManager.getUserInfo()
                 await MainActor.run {
                     ledgerIds.append(newLedgerData._id)
                     ledgerDatas.append(newLedgerData)
@@ -114,7 +113,7 @@ extension LedgerVCManager: CreateLedgerViewControllerDelegate {
 extension LedgerVCManager: ReceiveLedgerViewControllerDelegate {
     func joinLedger(ledgerId: String) {
         Task {
-            if let ledgerData = try? await apiManager.getLedger(ledgerId: ledgerId) {
+            if let ledgerData = try? await newApiManager.getLedger(ledgerId: ledgerId) {
                 ledgerIds.append(ledgerData._id)
                 ledgerDatas.append(ledgerData)
             }

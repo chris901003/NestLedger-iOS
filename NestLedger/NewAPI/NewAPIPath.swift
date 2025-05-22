@@ -65,4 +65,12 @@ class NewAPIPath {
         case create = "/v1/transaction/create"
         case query = "/v1/transaction/query"
     }
+
+    enum Ledger: String, NewAPIPathProtocol {
+        // [GET]
+        case get = "/v1/ledger/get"
+
+        // [POST]
+        case create = "/v1/ledger/create"
+    }
 }

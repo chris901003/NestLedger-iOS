@@ -25,6 +25,8 @@
 		050533742DDEC97E003245E0 /* NewAPIManager+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533732DDEC97E003245E0 /* NewAPIManager+Transaction.swift */; };
 		050533762DDECA5F003245E0 /* TransactionCreateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533752DDECA5F003245E0 /* TransactionCreateRequestData.swift */; };
 		050533782DDED4CF003245E0 /* TransactionQueryRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533772DDED4CF003245E0 /* TransactionQueryRequestData.swift */; };
+		0505337A2DDF1A6C003245E0 /* NewAPIManager+Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533792DDF1A6C003245E0 /* NewAPIManager+Ledger.swift */; };
+		0505337C2DDF1D31003245E0 /* LedgerCreateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505337B2DDF1D31003245E0 /* LedgerCreateRequestData.swift */; };
 		050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F52D41DA0F008C8831 /* AppDelegate.swift */; };
 		050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F72D41DA0F008C8831 /* SceneDelegate.swift */; };
 		050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F92D41DA0F008C8831 /* ViewController.swift */; };
@@ -157,6 +159,8 @@
 		050533732DDEC97E003245E0 /* NewAPIManager+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Transaction.swift"; sourceTree = "<group>"; };
 		050533752DDECA5F003245E0 /* TransactionCreateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCreateRequestData.swift; sourceTree = "<group>"; };
 		050533772DDED4CF003245E0 /* TransactionQueryRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionQueryRequestData.swift; sourceTree = "<group>"; };
+		050533792DDF1A6C003245E0 /* NewAPIManager+Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Ledger.swift"; sourceTree = "<group>"; };
+		0505337B2DDF1D31003245E0 /* LedgerCreateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerCreateRequestData.swift; sourceTree = "<group>"; };
 		050830F22D41DA0F008C8831 /* NestLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		050830F52D41DA0F008C8831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		050830F72D41DA0F008C8831 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -425,6 +429,7 @@
 		051257D82D7F165A0066F3F2 /* Ledger */ = {
 			isa = PBXGroup;
 			children = (
+				0505337B2DDF1D31003245E0 /* LedgerCreateRequestData.swift */,
 				051257D92D7F16630066F3F2 /* LedgerData.swift */,
 			);
 			path = Ledger;
@@ -736,6 +741,7 @@
 			isa = PBXGroup;
 			children = (
 				050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */,
+				050533792DDF1A6C003245E0 /* NewAPIManager+Ledger.swift */,
 				0505336B2DDE1333003245E0 /* NewAPIManager+Tag.swift */,
 				050533732DDEC97E003245E0 /* NewAPIManager+Transaction.swift */,
 				05EE3D102DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift */,
@@ -924,6 +930,7 @@
 				0572C3C52D9ADA6C008F99FB /* LTransactionManager.swift in Sources */,
 				0572C3C32D9AD54C008F99FB /* LTransactionView.swift in Sources */,
 				05C95D1E2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift in Sources */,
+				0505337C2DDF1D31003245E0 /* LedgerCreateRequestData.swift in Sources */,
 				051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */,
 				05C5E39A2D91981A00E36A3A /* LedgerDetailManager.swift in Sources */,
 				05C5E3982D91894A00E36A3A /* LedgerDetailViewController.swift in Sources */,
@@ -950,6 +957,7 @@
 				051257EA2D8326260066F3F2 /* MRecntManager.swift in Sources */,
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
 				050533682DDDA12A003245E0 /* NewAPIManager+Information.swift in Sources */,
+				0505337A2DDF1A6C003245E0 /* NewAPIManager+Ledger.swift in Sources */,
 				0505336C2DDE1333003245E0 /* NewAPIManager+Tag.swift in Sources */,
 				050533742DDEC97E003245E0 /* NewAPIManager+Transaction.swift in Sources */,
 				05EE3D112DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift in Sources */,
@@ -975,11 +983,11 @@
 				054A09362D7C20160092B7E8 /* TagManager.swift in Sources */,
 				050533702DDE1ADB003245E0 /* TagQueryRequestData.swift in Sources */,
 				050533722DDEC1C4003245E0 /* TagUpdateRequestData.swift in Sources */,
-				050533782DDED4CF003245E0 /* TransactionQueryRequestData.swift in Sources */,
 				052944752D79E9D700943CAC /* TagViewController.swift in Sources */,
 				050533762DDECA5F003245E0 /* TransactionCreateRequestData.swift in Sources */,
 				051257E62D81BE980066F3F2 /* TransactionData.swift in Sources */,
 				05B421152D9D6AE0000C8ECC /* TransactionManager.swift in Sources */,
+				050533782DDED4CF003245E0 /* TransactionQueryRequestData.swift in Sources */,
 				05B421132D9D68E4000C8ECC /* TransactionViewController.swift in Sources */,
 				050EB9B22DCA3BB900F8C04F /* UIImage+Extension.swift in Sources */,
 				0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */,
