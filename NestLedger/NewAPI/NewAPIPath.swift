@@ -32,6 +32,7 @@ class NewAPIPath {
         case get = "/v1/user/get"
         case avatar = "/v1/user/avatar"
         case getUserById = "/v1/user/get-user-by-uid"
+        case getMultipleUserInfo = "/v1/user/get-multiple-user-info"
 
         // [POST]
         case uploadAvatar = "/v1/user/upload-avatar"

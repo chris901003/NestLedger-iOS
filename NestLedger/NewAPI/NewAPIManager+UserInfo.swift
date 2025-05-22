@@ -81,6 +81,27 @@ extension NewAPIManager {
     }
 }
 
+// MARK: - Get Multiple User Info
+extension NewAPIManager {
+    func getMultipleUserInfo(uids: [String]) async throws -> [UserInfoData] {
+        let responseData = await session.request(
+            NewAPIPath.UserInfo.getMultipleUserInfo.getPath(),
+            method: .post,
+            parameters: ["uids": uids],
+            encoder: JSONParameterEncoder.default)
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanUserInfosResponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw UserInfoError.decodeUserInfoError
+        }
+    }
+}
+
 // MARK: - Get User Avatar
 extension NewAPIManager {
     func getUserAvatar(uid: String) async throws -> UIImage {

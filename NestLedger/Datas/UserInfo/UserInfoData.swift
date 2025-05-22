@@ -68,3 +68,4 @@ struct UserInfosDataWrapper: Codable {
 typealias UserInfoResponse = APIResponseData<UserInfoDataWrapper>
 typealias UserInfosResponse = APIResponseData<UserInfosDataWrapper>
 typealias CleanUserInforesponse = APIResponseData<UserInfoData>
+typealias CleanUserInfosResponse = APIResponseData<[UserInfoData]>

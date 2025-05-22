@@ -11,12 +11,12 @@ import UIKit
 import xxooooxxCommonUI
 
 class LedgerDetailManager {
-    let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
     weak var vc: LedgerDetailViewController?
 
     var ledgerData: LedgerData
     var ledgerTitle: String {
-        get { ledgerData.title == "[Main]:\(sharedUserInfo.id)" ? "我的帳本" : ledgerData.title }
+        get { ledgerData.title == "[Main]:\(newSharedUserInfo.id)" ? "我的帳本" : ledgerData.title }
     }
     var userInfos: [UserInfoData] = []
     var selectedDate: Date = Date.now
@@ -30,7 +30,7 @@ class LedgerDetailManager {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveLedgerDetailSelectDay), name: .ledgerDetailSelectDay, object: nil)
         Task {
             do {
-                try await updateLedgerData()
+                try await getLedgerData()
                 try await getUsers()
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳本使用者敗")
@@ -42,12 +42,12 @@ class LedgerDetailManager {
         }
     }
 
-    private func updateLedgerData() async throws {
-        ledgerData = try await apiManager.getLedger(ledgerId: ledgerData._id)
+    private func getLedgerData() async throws {
+        ledgerData = try await newApiManager.getLedger(ledgerId: ledgerData._id)
     }
 
     private func getUsers() async throws {
-        let userInfos = try await apiManager.getMultipleUserInfo(userIds: ledgerData.userIds)
+        let userInfos = try await newApiManager.getMultipleUserInfo(uids: ledgerData.userIds)
         self.userInfos = userInfos
     }
 
@@ -55,7 +55,7 @@ class LedgerDetailManager {
         if userData.isDelete {
             return UIImage.getDeleteUserAvatar()
         } else {
-            return try? await apiManager.getUserAvatar(userId: userData.id)
+            return try? await newApiManager.getUserAvatar(uid: userData.id)
         }
     }
 }
