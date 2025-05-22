@@ -23,7 +23,7 @@ class LedgerCollectionViewCell: UICollectionViewCell {
     let ledgerView = UIView()
     let ledgerLabel = UILabel()
 
-    let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -122,7 +122,7 @@ extension LedgerCollectionViewCell {
         let userAvatars = try? await withThrowingTaskGroup(of: UIImage?.self, returning: [UIImage].self) { group in
             for userId in userIds {
                 group.addTask { [weak self] in
-                    try? await self?.apiManager.getUserAvatar(userId: userId)
+                    try? await self?.newApiManager.getUserAvatar(uid: userId)
                 }
             }
             let results = (try await group.reduce(into: [UIImage]()) { $0.append($1 ?? generateBlackImage(size: .init(width: 100, height: 100))) }).compactMap { $0 }
