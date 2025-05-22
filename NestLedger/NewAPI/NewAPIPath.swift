@@ -58,4 +58,9 @@ class NewAPIPath {
         // [DELETE]
         case delete = "/v1/tag/delete"
     }
+
+    enum Transaction: String, NewAPIPathProtocol {
+        // [POST]
+        case create = "/v1/transaction/create"
+    }
 }

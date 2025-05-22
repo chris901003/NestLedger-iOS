@@ -9,8 +9,8 @@
 import Foundation
 import xxooooxxCommonUI
 
-class MQLQuickLogManager { 
-    let apiManager = APIManager()
+class MQLQuickLogManager {
+    let newApiManager = NewAPIManager()
 
     var transaction = TransactionData.initEmpty()
     weak var vc: MQuickLogView?
@@ -18,7 +18,7 @@ class MQLQuickLogManager {
 
 extension MQLQuickLogManager: MQLSendViewDelegate {
     func sendAction(completion: @escaping () -> Void) {
-        guard let ledgerId = sharedUserInfo.ledgerIds.first else {
+        guard let ledgerId = newSharedUserInfo.ledgerIds.first else {
             XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "添加失敗，無法取得帳本")
             completion()
             return
@@ -34,12 +34,12 @@ extension MQLQuickLogManager: MQLSendViewDelegate {
             return
         }
 
-        transaction.userId = sharedUserInfo.id
+        transaction.userId = newSharedUserInfo.id
         transaction.ledgerId = ledgerId
 
         Task {
             do {
-                let newTransaction = try await apiManager.createTransaction(data: transaction)
+                let newTransaction = try await newApiManager.createTransaction(data: TransactionCreateRequestData(transaction))
                 completion()
                 await MainActor.run {
                     NotificationCenter.default.post(name: .newRecentTransaction, object: nil, userInfo: ["transaction": newTransaction])
@@ -48,7 +48,7 @@ extension MQLQuickLogManager: MQLSendViewDelegate {
                     XOBottomBarInformationManager.showBottomInformation(type: .success, information: "添加成功")
                 }
             } catch {
-                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "創建帳本失敗")
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
                 completion()
             }
         }
