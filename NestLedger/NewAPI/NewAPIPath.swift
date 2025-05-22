@@ -51,5 +51,11 @@ class NewAPIPath {
         // [POST]
         case create = "/v1/tag/create"
         case query = "/v1/tag/query"
+
+        // [PATCH]
+        case update = "/v1/tag/update"
+
+        // [DELETE]
+        case delete = "/v1/tag/delete"
     }
 }

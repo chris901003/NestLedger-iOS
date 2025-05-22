@@ -39,6 +39,7 @@ extension NewAPIManager {
         case authFailed
         case othersStatusCodeFailed
         case responseDataNotFound
+        case apiResponseError(String)
 
         var errorDescription: String? {
             switch self {
@@ -52,6 +53,8 @@ extension NewAPIManager {
                     return "Invalid status code (Server Error)"
                 case .responseDataNotFound:
                     return "Response data not found"
+                case .apiResponseError(let message):
+                    return message
             }
         }
     }
@@ -87,5 +90,11 @@ class NewAPIManager {
         guard let response = responseData.response else { throw NewAPIManagerError.badResponse }
         if response.statusCode == 403 { throw NewAPIManagerError.authFailed }
         guard response.statusCode == 200 else { throw NewAPIManagerError.othersStatusCodeFailed }
+        if let data = responseData.data,
+           let resp = try? NewAPIManager.decoder.decode(APIBaseResponseData.self, from: data),
+           resp.code != 200 {
+            print("❌ API error code: \(resp.code), message: \(resp.message)")
+            throw NewAPIManagerError.apiResponseError(resp.message)
+        }
     }
 }

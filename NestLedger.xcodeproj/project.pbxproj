@@ -21,6 +21,7 @@
 		0505336C2DDE1333003245E0 /* NewAPIManager+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505336B2DDE1333003245E0 /* NewAPIManager+Tag.swift */; };
 		0505336E2DDE13C4003245E0 /* TagCreateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505336D2DDE13C4003245E0 /* TagCreateRequestData.swift */; };
 		050533702DDE1ADB003245E0 /* TagQueryRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505336F2DDE1ADB003245E0 /* TagQueryRequestData.swift */; };
+		050533722DDEC1C4003245E0 /* TagUpdateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533712DDEC1C4003245E0 /* TagUpdateRequestData.swift */; };
 		050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F52D41DA0F008C8831 /* AppDelegate.swift */; };
 		050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F72D41DA0F008C8831 /* SceneDelegate.swift */; };
 		050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F92D41DA0F008C8831 /* ViewController.swift */; };
@@ -149,6 +150,7 @@
 		0505336B2DDE1333003245E0 /* NewAPIManager+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Tag.swift"; sourceTree = "<group>"; };
 		0505336D2DDE13C4003245E0 /* TagCreateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCreateRequestData.swift; sourceTree = "<group>"; };
 		0505336F2DDE1ADB003245E0 /* TagQueryRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagQueryRequestData.swift; sourceTree = "<group>"; };
+		050533712DDEC1C4003245E0 /* TagUpdateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagUpdateRequestData.swift; sourceTree = "<group>"; };
 		050830F22D41DA0F008C8831 /* NestLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		050830F52D41DA0F008C8831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		050830F72D41DA0F008C8831 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 				0505336D2DDE13C4003245E0 /* TagCreateRequestData.swift */,
 				051257E22D7F1DC10066F3F2 /* TagData.swift */,
 				0505336F2DDE1ADB003245E0 /* TagQueryRequestData.swift */,
+				050533712DDEC1C4003245E0 /* TagUpdateRequestData.swift */,
 			);
 			path = Tag;
 			sourceTree = "<group>";
@@ -947,6 +950,7 @@
 				05ADF3A02DC3BB6A00DF8391 /* RLICell.swift in Sources */,
 				05ADF3A22DC4F0CC00DF8391 /* ReceiveLedgerInviteManager.swift in Sources */,
 				05ADF39D2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift in Sources */,
+				050533722DDEC1C4003245E0 /* TagUpdateRequestData.swift in Sources */,
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,
 				051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */,

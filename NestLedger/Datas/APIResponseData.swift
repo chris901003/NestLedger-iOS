@@ -8,6 +8,12 @@
 
 import Foundation
 
+struct APIBaseResponseData: Decodable {
+    let code: Int
+    let success: Bool
+    let message: String
+}
+
 struct APIResponseData<T: Codable>: Codable {
     let success: Bool
     let message: String

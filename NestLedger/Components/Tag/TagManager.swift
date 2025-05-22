@@ -75,7 +75,7 @@ class TagManager {
     }
 
     func deleteTag(tagId: String) async throws {
-        try await apiManager.deleteTag(tagId: tagId)
+        try await newApiManager.deleteTag(tagId: tagId)
     }
 }
 
@@ -91,7 +91,7 @@ extension TagManager: TagEditViewControllerDelegate {
 
         Task {
             do {
-                let updatedTagData = try await apiManager.updateTag(tagData: data)
+                let updatedTagData = try await newApiManager.updateTag(data: TagUpdateRequestData(data))
                 await MainActor.run {
                     if let indexPath,
                        let cell = vc?.tableView.cellForRow(at: indexPath) as? TagCell {
@@ -100,7 +100,9 @@ extension TagManager: TagEditViewControllerDelegate {
                     NLNotification.sendUpdateTag(tagData: updatedTagData)
                 }
             } catch {
-                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "標籤更新失敗")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
+                }
             }
         }
     }

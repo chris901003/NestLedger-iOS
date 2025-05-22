@@ -78,7 +78,7 @@ class MQLTagView: UIView {
 // MARK: - Utility
 extension MQLTagView {
     @objc private func tapAction() {
-        let tagViewController = TagViewController(type: .selectTag, ledgerId: newSharedUserInfo.ledgerIds.first ?? "")
+        let tagViewController = TagViewController(type: .editTag, ledgerId: newSharedUserInfo.ledgerIds.first ?? "")
         tagViewController.delegate = self
         let _70DetentId = UISheetPresentationController.Detent.Identifier("70")
         let _70Detent = UISheetPresentationController.Detent.custom(identifier: _70DetentId) { context in
