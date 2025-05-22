@@ -42,3 +42,24 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Query Transaction
+extension NewAPIManager {
+    func queryTransaction(data: TransactionQueryRequestData) async throws -> [TransactionData] {
+        let responseData = await session.request(
+            NewAPIPath.Transaction.query.getPath(),
+            method: .post,
+            parameters: data,
+            encoder: JSONParameterEncoder(encoder: NewAPIManager.encoder))
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanTransactionsResponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw TransactionError.decodeTransactionFailed
+        }
+    }
+}

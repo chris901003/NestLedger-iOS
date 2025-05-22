@@ -62,5 +62,6 @@ class NewAPIPath {
     enum Transaction: String, NewAPIPathProtocol {
         // [POST]
         case create = "/v1/transaction/create"
+        case query = "/v1/transaction/query"
     }
 }

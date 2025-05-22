@@ -24,6 +24,7 @@
 		050533722DDEC1C4003245E0 /* TagUpdateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533712DDEC1C4003245E0 /* TagUpdateRequestData.swift */; };
 		050533742DDEC97E003245E0 /* NewAPIManager+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533732DDEC97E003245E0 /* NewAPIManager+Transaction.swift */; };
 		050533762DDECA5F003245E0 /* TransactionCreateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533752DDECA5F003245E0 /* TransactionCreateRequestData.swift */; };
+		050533782DDED4CF003245E0 /* TransactionQueryRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533772DDED4CF003245E0 /* TransactionQueryRequestData.swift */; };
 		050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F52D41DA0F008C8831 /* AppDelegate.swift */; };
 		050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F72D41DA0F008C8831 /* SceneDelegate.swift */; };
 		050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F92D41DA0F008C8831 /* ViewController.swift */; };
@@ -155,6 +156,7 @@
 		050533712DDEC1C4003245E0 /* TagUpdateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagUpdateRequestData.swift; sourceTree = "<group>"; };
 		050533732DDEC97E003245E0 /* NewAPIManager+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Transaction.swift"; sourceTree = "<group>"; };
 		050533752DDECA5F003245E0 /* TransactionCreateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCreateRequestData.swift; sourceTree = "<group>"; };
+		050533772DDED4CF003245E0 /* TransactionQueryRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionQueryRequestData.swift; sourceTree = "<group>"; };
 		050830F22D41DA0F008C8831 /* NestLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		050830F52D41DA0F008C8831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		050830F72D41DA0F008C8831 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 			children = (
 				050533752DDECA5F003245E0 /* TransactionCreateRequestData.swift */,
 				051257E52D81BE980066F3F2 /* TransactionData.swift */,
+				050533772DDED4CF003245E0 /* TransactionQueryRequestData.swift */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -972,6 +975,7 @@
 				054A09362D7C20160092B7E8 /* TagManager.swift in Sources */,
 				050533702DDE1ADB003245E0 /* TagQueryRequestData.swift in Sources */,
 				050533722DDEC1C4003245E0 /* TagUpdateRequestData.swift in Sources */,
+				050533782DDED4CF003245E0 /* TransactionQueryRequestData.swift in Sources */,
 				052944752D79E9D700943CAC /* TagViewController.swift in Sources */,
 				050533762DDECA5F003245E0 /* TransactionCreateRequestData.swift in Sources */,
 				051257E62D81BE980066F3F2 /* TransactionData.swift in Sources */,

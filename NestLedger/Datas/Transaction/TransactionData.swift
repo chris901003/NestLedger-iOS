@@ -58,3 +58,4 @@ struct TransactionsDataWrapper: Codable {
 typealias TransactionResponse = APIResponseData<TransactionDataWrapper>
 typealias TransactionsResponse = APIResponseData<TransactionsDataWrapper>
 typealias CleanTransactionResponse = APIResponseData<TransactionData>
+typealias CleanTransactionsResponse = APIResponseData<[TransactionData]>

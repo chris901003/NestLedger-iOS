@@ -11,6 +11,7 @@ import xxooooxxCommonUI
 
 class MRecntManager {
     let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
 
     var ledgerId: String
     var recentTransactions: [TransactionData] = []
@@ -18,7 +19,7 @@ class MRecntManager {
     weak var vc: MRecentContentView?
 
     init() {
-        ledgerId = sharedUserInfo.ledgerIds.first ?? ""
+        ledgerId = newSharedUserInfo.ledgerIds.first ?? ""
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveDeleteTransaction), name: .deleteTransaction, object: nil)
@@ -27,22 +28,22 @@ class MRecntManager {
     }
 
     private func loadRecentTransaction() {
-        let searchConfig = APIManager.TransactionGetByLedgerQuery(
+        let searchConfig = TransactionQueryRequestData(
             ledgerId: ledgerId,
-            page: 1,
-            limit: 10,
             search: nil,
             startDate: nil,
             endDate: nil,
             tagId: nil,
             type: nil,
             userId: nil,
-            sortedOrder: .descending
+            sortOrder: .descending,
+            page: 1,
+            limit: 10
         )
 
         Task {
             do {
-                recentTransactions = try await apiManager.getTransactionByLedger(config: searchConfig)
+                recentTransactions = try await newApiManager.queryTransaction(data: searchConfig)
                 await MainActor.run { vc?.tableView.reloadData() }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "無法取得近期帳目")
