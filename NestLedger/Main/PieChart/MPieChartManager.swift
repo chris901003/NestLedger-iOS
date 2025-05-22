@@ -24,13 +24,13 @@ class MPieChartManager {
     var year: Int
     var month: Int
 
-    let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
     var pieChartData: [MPieChartData] = []
 
     weak var vc: MPieChartView?
 
     init() {
-        ledgerId = sharedUserInfo.ledgerIds.first ?? ""
+        ledgerId = newSharedUserInfo.ledgerIds.first ?? ""
         year = Calendar.current.component(.year, from: Date.now)
         month = Calendar.current.component(.month, from: Date.now)
 
@@ -71,7 +71,9 @@ class MPieChartManager {
         let startComponent = DateComponents(year: year, month: month, day: 1)
         guard let startDate = Calendar.current.date(from: startComponent),
               let endDate = Calendar.current.date(byAdding: DateComponents(month: 1, second: -1), to: startDate) else { return }
-        let transactions = try await apiManager.getTransactionByLedger(config: .init(ledgerId: ledgerId, startDate: startDate, endDate: endDate))
+        
+        let queryConfig = TransactionQueryRequestData(ledgerId: ledgerId, startDate: startDate, endDate: endDate)
+        let transactions = try await newApiManager.queryTransaction(data: queryConfig)
         var totalAmount = 0
         var tagAmount: [String: Int] = [:]
         for transaction in transactions {
@@ -82,7 +84,7 @@ class MPieChartManager {
         let sortedTagAmount = tagAmount.sorted { $0.value > $1.value }
         let topKTags = sortedTagAmount.prefix(min(4, sortedTagAmount.count))
         for topTag in topKTags {
-            let tagData = try await apiManager.getTag(tagId: topTag.key)
+            let tagData = try await newApiManager.getTag(tagId: topTag.key)
             pieChartData.append(.init(tagLabel: tagData.label, tagColor: tagData.getColor, tagAmount: topTag.value, percent: Int(Float(topTag.value) / Float(totalAmount) * 100)))
             remainAmount -= topTag.value
         }

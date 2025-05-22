@@ -24,4 +24,27 @@ struct TransactionQueryRequestData: Encodable {
     let sortOrder: TransactionQuerySortOrder?
     let page: Int?
     let limit: Int?
+
+    init(ledgerId: String,
+         search: String? = nil,
+         startDate: Date? = nil,
+         endDate: Date? = nil,
+         tagId: String? = nil,
+         type: TransactionType? = nil,
+         userId: String? = nil,
+         sortOrder: TransactionQuerySortOrder? = nil,
+         page: Int? = nil,
+         limit: Int? = nil
+    ) {
+        self.ledgerId = ledgerId
+        self.search = search
+        self.startDate = startDate
+        self.endDate = endDate
+        self.tagId = tagId
+        self.type = type
+        self.userId = userId
+        self.sortOrder = sortOrder
+        self.page = page
+        self.limit = limit
+    }
 }
