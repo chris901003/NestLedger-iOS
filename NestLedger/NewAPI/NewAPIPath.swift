@@ -78,5 +78,8 @@ class NewAPIPath {
     enum LedgerInvite: String, NewAPIPathProtocol {
         // [GET]
         case get = "/v1/ledger-invite/get"
+
+        // [DELETE]
+        case delete = "/v1/ledger-invite/delete"
     }
 }

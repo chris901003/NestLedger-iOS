@@ -11,7 +11,6 @@ import xxooooxxCommonUI
 import UIKit
 
 class ReceiveLedgerInviteManager {
-    let apiManager = APIManager()
     let newApiManager = NewAPIManager()
 
     var ledgerInviteDatas: [LedgerInviteData] = []
@@ -55,8 +54,7 @@ extension ReceiveLedgerInviteManager: RLICellDelegate {
         Task {
             await MainActor.run { sharedUserInfo.ledgerIds.append(ledgerInviteData.ledgerId) }
             do {
-                try await apiManager.deleteLedgerInvite(ledgerInviteId: ledgerInviteData._id, type: .acceptLedgerInvite)
-                try await apiManager.updateUserInfo(sharedUserInfo)
+                try await newApiManager.deleteLedgerInvite(inviteId: ledgerInviteData._id, accept: true)
                 await MainActor.run {
                     removeCellAnimation(indexPath, ledgerInviteData._id)
                     vc?.delegate?.joinLedger(ledgerId: ledgerInviteData.ledgerId)
@@ -70,7 +68,7 @@ extension ReceiveLedgerInviteManager: RLICellDelegate {
     func rejectInvite(ledgerInviteData: LedgerInviteData, indexPath: IndexPath?) {
         Task {
             do {
-                try await apiManager.deleteLedgerInvite(ledgerInviteId: ledgerInviteData._id, type: .rejectLedgerInvite)
+                try await newApiManager.deleteLedgerInvite(inviteId: ledgerInviteData._id, accept: false)
                 await removeCellAnimation(indexPath, ledgerInviteData._id)
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "拒絕加入帳本失敗")

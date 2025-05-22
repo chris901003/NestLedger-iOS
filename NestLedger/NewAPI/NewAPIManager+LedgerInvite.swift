@@ -44,3 +44,16 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Delete Ledger Invite
+extension NewAPIManager {
+    func deleteLedgerInvite(inviteId: String, accept: Bool) async throws {
+        let responseData = await session.request(
+            NewAPIPath.LedgerInvite.delete.getPath(),
+            method: .delete,
+            parameters: ["inviteId": inviteId, "accept": accept ? "true" : "false"])
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+    }
+}
