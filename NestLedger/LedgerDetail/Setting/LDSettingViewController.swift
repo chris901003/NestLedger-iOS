@@ -139,7 +139,7 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             case .member:
                 if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelWithIconCell.cellId, for: indexPath) as? XOLeadingTrailingLabelWithIconCell {
-                    cell.config(title: row.rawValue, info: "1")
+                    cell.config(title: row.rawValue, info: "\(manager.ledgerData.userIds.count)")
                     return cell
                 }
             case .exit:

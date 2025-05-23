@@ -13,7 +13,6 @@ import xxooooxxCommonUI
 class LDSLedgerMemberManager {
     weak var vc: LDSLedgerMemberViewController?
 
-    let apiManager = APIManager()
     let newApiManager = NewAPIManager()
     let ledgerId: String
     var ledgerData = LedgerData.initMock()
@@ -57,7 +56,7 @@ extension LDSLedgerMemberManager: LDSLMCellDelegate, LDSLMInviteCellDelegate {
     }
 
     func tapDeleteAction(userId: String, indexPath: IndexPath?) {
-        if sharedUserInfo.id == userId {
+        if newSharedUserInfo.id == userId {
             XOBottomBarInformationManager.showBottomInformation(type: .info, information: "無法將自己從帳本中移除")
             return
         }
