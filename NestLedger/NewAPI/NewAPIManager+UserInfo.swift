@@ -102,6 +102,26 @@ extension NewAPIManager {
     }
 }
 
+// MARK: - Get User By Email
+extension NewAPIManager {
+    func getUserByEmail(emailAddress: String) async throws -> UserInfoData {
+        let responseData = await session.request(
+            NewAPIPath.UserInfo.getUserByEmail.getPath(),
+            method: .get,
+            parameters: ["email": emailAddress])
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanUserInforesponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw UserInfoError.decodeUserInfoError
+        }
+    }
+}
+
 // MARK: - Get User Avatar
 extension NewAPIManager {
     func getUserAvatar(uid: String) async throws -> UIImage {

@@ -45,6 +45,27 @@ extension NewAPIManager {
     }
 }
 
+// MARK: - Create Ledger Invite
+extension NewAPIManager {
+    func createLedgerInvite(data: LedgerInviteCreateRequestData) async throws -> LedgerInviteData {
+        let responseData = await session.request(
+            NewAPIPath.LedgerInvite.create.getPath(),
+            method: .post,
+            parameters: data,
+            encoder: JSONParameterEncoder.default)
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanLedgerInviteResponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw LedgerInviteError.decodeLedgerInviteFailed
+        }
+    }
+}
+
 // MARK: - Delete Ledger Invite
 extension NewAPIManager {
     func deleteLedgerInvite(inviteId: String, accept: Bool) async throws {

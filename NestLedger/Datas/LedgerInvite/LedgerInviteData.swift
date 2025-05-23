@@ -30,4 +30,5 @@ struct LedgerInvitesDataWrapper: Codable {
 
 typealias LedgerInviteResponse = APIResponseData<LedgerInviteDataWrapper>
 typealias LedgerInvitesResponse = APIResponseData<LedgerInvitesDataWrapper>
+typealias CleanLedgerInviteResponse = APIResponseData<LedgerInviteData>
 typealias CleanLedgerInvitesResponse = APIResponseData<[LedgerInviteData]>

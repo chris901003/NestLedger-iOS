@@ -14,6 +14,7 @@ class LDSLedgerMemberManager {
     weak var vc: LDSLedgerMemberViewController?
 
     let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
     let ledgerId: String
     var ledgerData = LedgerData.initMock()
     var userInfos: [UserInfoData] = []
@@ -28,10 +29,10 @@ class LDSLedgerMemberManager {
 
     private func initData() async {
         do {
-            ledgerData = try await apiManager.getLedger(ledgerId: ledgerId)
-            userInfos = try await apiManager.getMultipleUserInfo(userIds: ledgerData.userIds)
+            ledgerData = try await newApiManager.getLedger(ledgerId: ledgerId)
+            userInfos = try await newApiManager.getMultipleUserInfo(uids: ledgerData.userIds)
 
-            ledgerInvites = try await apiManager.getLedgerInvites(ledgerId: ledgerId, receiveUserId: nil)
+            ledgerInvites = try await newApiManager.getLedgerInvite(ledgerId: ledgerId, receiveUserId: nil)
             await MainActor.run { vc?.tableView.reloadData() }
         } catch {
             XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳目失敗")
@@ -39,11 +40,11 @@ class LDSLedgerMemberManager {
     }
 
     func getUserInfo(userId: String) async throws -> UserInfoData {
-        try await apiManager.getUserByUid(uid: userId)
+        try await newApiManager.getUserInfoByUid(uid: userId)
     }
 
     func getUserAvatar(userId: String) async -> UIImage? {
-        try? await apiManager.getUserAvatar(userId: userId)
+        try? await newApiManager.getUserAvatar(uid: userId)
     }
 }
 
@@ -62,7 +63,7 @@ extension LDSLedgerMemberManager: LDSLMCellDelegate, LDSLMInviteCellDelegate {
         }
         Task {
             do {
-                try await apiManager.deleteLedgerMember(ledgerId: ledgerId, userId: userId)
+                _ = try await newApiManager.leaveLedger(uid: userId, ledgerId: ledgerId)
                 await MainActor.run {
                     if let indexPath,
                        let idx = (userInfos.firstIndex { $0.id == userId }) {
@@ -79,7 +80,7 @@ extension LDSLedgerMemberManager: LDSLMCellDelegate, LDSLMInviteCellDelegate {
     func deleteInviteUser(ledgerInviteId: String, indexPath: IndexPath?) {
         Task {
             do {
-                try await apiManager.deleteLedgerInvite(ledgerInviteId: ledgerInviteId, type: .retriveLedgerInvite)
+                try await newApiManager.deleteLedgerInvite(inviteId: ledgerInviteId, accept: false)
                 await MainActor.run {
                     if let indexPath,
                        let idx = (ledgerInvites.firstIndex { $0._id == ledgerInviteId }) {
@@ -100,9 +101,9 @@ extension LDSLedgerMemberManager: LDSLMEnterNewMemberDelegate {
         guard !address.isEmpty else { return }
         Task {
             do {
-                let inviteUserInfo = try await apiManager.getUserByEmailAddress(emailAddress: address)
-                let ledgerInviteData = LedgerInviteData(ledgerId: ledgerId, sendUserId: sharedUserInfo.id, receiveUserId: inviteUserInfo.id)
-                try await apiManager.createLedgerInvite(data: ledgerInviteData)
+                let inviteUserInfo = try await newApiManager.getUserByEmail(emailAddress: address)
+                let ledgerInviteData = try await newApiManager.createLedgerInvite(
+                    data: .init(ledgerId: ledgerId, sendUserId: newSharedUserInfo.id, receiveUserId: inviteUserInfo.id))
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                     guard let self else { return }
                     XOBottomBarInformationManager.showBottomInformation(type: .success, information: "成功發出邀請")

@@ -29,6 +29,7 @@
 		0505337C2DDF1D31003245E0 /* LedgerCreateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505337B2DDF1D31003245E0 /* LedgerCreateRequestData.swift */; };
 		0505337E2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505337D2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift */; };
 		050533802DE061A0003245E0 /* LedgerUpdateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505337F2DE061A0003245E0 /* LedgerUpdateRequestData.swift */; };
+		050533822DE0B42C003245E0 /* LedgerInviteCreateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533812DE0B42C003245E0 /* LedgerInviteCreateRequestData.swift */; };
 		050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F52D41DA0F008C8831 /* AppDelegate.swift */; };
 		050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F72D41DA0F008C8831 /* SceneDelegate.swift */; };
 		050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F92D41DA0F008C8831 /* ViewController.swift */; };
@@ -165,6 +166,7 @@
 		0505337B2DDF1D31003245E0 /* LedgerCreateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerCreateRequestData.swift; sourceTree = "<group>"; };
 		0505337D2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+LedgerInvite.swift"; sourceTree = "<group>"; };
 		0505337F2DE061A0003245E0 /* LedgerUpdateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerUpdateRequestData.swift; sourceTree = "<group>"; };
+		050533812DE0B42C003245E0 /* LedgerInviteCreateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerInviteCreateRequestData.swift; sourceTree = "<group>"; };
 		050830F22D41DA0F008C8831 /* NestLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		050830F52D41DA0F008C8831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		050830F72D41DA0F008C8831 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -576,6 +578,7 @@
 			isa = PBXGroup;
 			children = (
 				05764D9C2DB93082007292D7 /* LedgerInviteData.swift */,
+				050533812DE0B42C003245E0 /* LedgerInviteCreateRequestData.swift */,
 			);
 			path = LedgerInvite;
 			sourceTree = "<group>";
@@ -957,6 +960,7 @@
 				052944712D79E44300943CAC /* MQLQuickLogManager.swift in Sources */,
 				0529446F2D6E10B200943CAC /* MQLSendView.swift in Sources */,
 				0529446D2D6E0AA500943CAC /* MQLTagView.swift in Sources */,
+				050533822DE0B42C003245E0 /* LedgerInviteCreateRequestData.swift in Sources */,
 				05EC2B192D6B5916006F1F3A /* MQuickLogView.swift in Sources */,
 				050533802DE061A0003245E0 /* LedgerUpdateRequestData.swift in Sources */,
 				051257ED2D8477C60066F3F2 /* MRCCell.swift in Sources */,
