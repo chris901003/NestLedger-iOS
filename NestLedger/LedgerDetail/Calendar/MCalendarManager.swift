@@ -34,7 +34,7 @@ class MCalendarManager {
     var dayTransactions: [String: [TransactionData]] = [:]
 
     let ledgerId: String
-    let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
     let userTimeZone = TimeZone(secondsFromGMT: 60 * 60 * sharedUserInfo.timeZone)!
     let formatter = DateFormatter()
 
@@ -108,22 +108,23 @@ class MCalendarManager {
     }
 
     private func getTransactions() async throws {
+        var calendar = Calendar.current
+        if let timeZone = TimeZone(secondsFromGMT: newSharedUserInfo.timeZone * 60 * 60) {
+            calendar.timeZone = timeZone
+        }
         var components = DateComponents()
         components.year = Calendar.current.component(.year, from: calendarDay)
         components.month = Calendar.current.component(.month, from: calendarDay)
         components.day = 1
-        guard let startDate = Calendar.current.date(from: components) else { return }
+        guard let startDate = calendar.date(from: components) else { return }
         components.day = Calendar.current.range(of: .day, in: .month, for: startDate)?.count
         components.hour = 23
         components.minute = 59
         components.second = 59
-        guard let endDate = Calendar.current.date(from: components) else { return }
+        guard let endDate = calendar.date(from: components) else { return }
 
-        let transactions = try await apiManager.getTransactionByLedger(config: .init(
-            ledgerId: ledgerId,
-            startDate: startDate,
-            endDate: endDate
-        ))
+        let queryConfig = TransactionQueryRequestData(ledgerId: ledgerId, startDate: startDate, endDate: endDate)
+        let transactions = try await newApiManager.queryTransaction(data: queryConfig)
         for transaction in transactions {
             let dateString = formatter.string(from: transaction.date)
             dayTransactions[dateString, default: []].append(transaction)
