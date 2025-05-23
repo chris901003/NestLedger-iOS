@@ -14,7 +14,7 @@ protocol TransactionManagerDelegate: AnyObject {
 }
 
 class TransactionManager {
-    let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
     let oldTransactionData: TransactionData?
     var transactionData: TransactionData
     var tagData: TagData = TagData.initEmpty()
@@ -40,13 +40,13 @@ class TransactionManager {
     }
 
     private func getTagInformation() async throws -> TagData {
-        try await apiManager.getTag(tagId: transactionData.tagId)
+        try await newApiManager.getTag(tagId: transactionData.tagId)
     }
 
     func saveTransasction() async -> String? {
         if let oldTransactionData {
             do {
-                try await apiManager.updateTransasction(data: transactionData)
+                transactionData = try await newApiManager.updateTransaction(data: .init(transactionData))
                 NLNotification.sendUpdateTransaction(oldTransaction: oldTransactionData, newTransaction: transactionData)
                 return nil
             } catch {
@@ -57,7 +57,8 @@ class TransactionManager {
                 return message
             }
             do {
-                let newTransaction = try await apiManager.createTransaction(data: transactionData)
+                transactionData.userId = newSharedUserInfo.id
+                let newTransaction = try await newApiManager.createTransaction(data: .init(transactionData))
                 await MainActor.run {
                     NLNotification.sendNewRecentTransaction(newTransaction: newTransaction)
                 }
