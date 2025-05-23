@@ -44,7 +44,6 @@ class LoginVCManager {
             let authDataResult = try await Auth.auth().signIn(with: credentail)
             let authToken = try await authDataResult.user.getIDToken()
             try KeychainManager.shared.saveToken(authToken, forKey: AUTH_TOKEN)
-            APIManager.authToken = authToken
             NewAPIManager.authToken = authToken
             try await newApiManager.login()
             await MainActor.run {

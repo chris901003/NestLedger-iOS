@@ -110,15 +110,8 @@ extension LDSLedgerMemberManager: LDSLMEnterNewMemberDelegate {
                     vc?.tableView.reloadData()
                 }
             } catch {
-                switch error {
-                    case APIManager.UserInfoError.failedFetchUserInfo:
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "使用者不存在")
-                        }
-                    default:
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
-                        }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
                 }
             }
         }

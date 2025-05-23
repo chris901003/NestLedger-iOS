@@ -25,7 +25,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let user = Auth.auth().currentUser,
            let lastToken = KeychainManager.shared.getToken(forKey: AUTH_TOKEN) {
             print("✅ 已登入: \(user.uid)")
-            APIManager.authToken = lastToken
             NewAPIManager.authToken = lastToken
             Task {
                 do {

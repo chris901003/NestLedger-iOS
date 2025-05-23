@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2992D52420000B2640C /* KeychainManager.swift */; };
 		0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F29C2D52448700B2640C /* KeychainKey.swift */; };
-		0503F2A22D52499200B2640C /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2A12D52499200B2640C /* APIManager.swift */; };
 		0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2A42D524D2200B2640C /* RootViewController.swift */; };
 		0503F2A82D524D9300B2640C /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2A72D524D9300B2640C /* AccountViewController.swift */; };
 		0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2AA2D524E0800B2640C /* MainViewController.swift */; };
@@ -64,13 +63,10 @@
 		050831452D41E048008C8831 /* xxooooxxCommonUI in Frameworks */ = {isa = PBXBuildFile; productRef = 050831442D41E048008C8831 /* xxooooxxCommonUI */; };
 		050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050831462D41E32C008C8831 /* LoginVCManager.swift */; };
 		050EB9B22DCA3BB900F8C04F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */; };
-		051257D72D7F129E0066F3F2 /* APIManager+Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257D62D7F129E0066F3F2 /* APIManager+Ledger.swift */; };
 		051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257D92D7F16630066F3F2 /* LedgerData.swift */; };
 		051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257DD2D7F1AC80066F3F2 /* SingletonData.swift */; };
-		051257E02D7F1D070066F3F2 /* APIManager+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257DF2D7F1D070066F3F2 /* APIManager+Tag.swift */; };
 		051257E32D7F1DC10066F3F2 /* TagData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E22D7F1DC10066F3F2 /* TagData.swift */; };
 		051257E62D81BE980066F3F2 /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E52D81BE980066F3F2 /* TransactionData.swift */; };
-		051257E82D81CF770066F3F2 /* APIManager+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E72D81CF770066F3F2 /* APIManager+Transaction.swift */; };
 		051257EA2D8326260066F3F2 /* MRecntManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257E92D8326260066F3F2 /* MRecntManager.swift */; };
 		051257ED2D8477C60066F3F2 /* MRCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257EC2D8477C60066F3F2 /* MRCCell.swift */; };
 		051441582DAD3C0F00197191 /* LDAddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051441572DAD3C0F00197191 /* LDAddTransactionView.swift */; };
@@ -103,7 +99,6 @@
 		0572C3C82D9C1911008F99FB /* LTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C72D9C1911008F99FB /* LTCell.swift */; };
 		05764D942DB676C6007292D7 /* LDSLedgerMemberManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D932DB676C6007292D7 /* LDSLedgerMemberManager.swift */; };
 		05764D982DB7E32F007292D7 /* LDSLMEnterNewMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D972DB7E32F007292D7 /* LDSLMEnterNewMemberViewController.swift */; };
-		05764D9A2DB93037007292D7 /* APIManager+LedgerInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D992DB93037007292D7 /* APIManager+LedgerInvite.swift */; };
 		05764D9D2DB93082007292D7 /* LedgerInviteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D9C2DB93082007292D7 /* LedgerInviteData.swift */; };
 		059CBE412DBBCEB2000B7F22 /* LDSLMInviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */; };
 		059CBE442DC119D7000B7F22 /* CreateLedgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */; };
@@ -111,12 +106,8 @@
 		05ADF3A02DC3BB6A00DF8391 /* RLICell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ADF39F2DC3BB6A00DF8391 /* RLICell.swift */; };
 		05ADF3A22DC4F0CC00DF8391 /* ReceiveLedgerInviteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ADF3A12DC4F0CC00DF8391 /* ReceiveLedgerInviteManager.swift */; };
 		05AF766B2D944A0800C27407 /* LDIncomeExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */; };
-		05B340A92D66123E000378A2 /* APIPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340A82D66123E000378A2 /* APIPath.swift */; };
-		05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */; };
 		05B340AD2D66201E000378A2 /* APIResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AC2D66201E000378A2 /* APIResponseData.swift */; };
-		05B340AF2D66218B000378A2 /* APIManager+Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340AE2D66218B000378A2 /* APIManager+Information.swift */; };
 		05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B12D66222F000378A2 /* BasicInformationData.swift */; };
-		05B340B42D68B705000378A2 /* APIManager+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B340B32D68B705000378A2 /* APIManager+Photo.swift */; };
 		05B421132D9D68E4000C8ECC /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B421122D9D68E4000C8ECC /* TransactionViewController.swift */; };
 		05B421152D9D6AE0000C8ECC /* TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B421142D9D6AE0000C8ECC /* TransactionManager.swift */; };
 		05B421172D9EC432000C8ECC /* TTagSelectionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B421162D9EC432000C8ECC /* TTagSelectionButtonView.swift */; };
@@ -148,7 +139,6 @@
 /* Begin PBXFileReference section */
 		0503F2992D52420000B2640C /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		0503F29C2D52448700B2640C /* KeychainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainKey.swift; sourceTree = "<group>"; };
-		0503F2A12D52499200B2640C /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		0503F2A42D524D2200B2640C /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		0503F2A72D524D9300B2640C /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		0503F2AA2D524E0800B2640C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -178,13 +168,10 @@
 		0508313F2D41E029008C8831 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		050831462D41E32C008C8831 /* LoginVCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVCManager.swift; sourceTree = "<group>"; };
 		050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
-		051257D62D7F129E0066F3F2 /* APIManager+Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Ledger.swift"; sourceTree = "<group>"; };
 		051257D92D7F16630066F3F2 /* LedgerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerData.swift; sourceTree = "<group>"; };
 		051257DD2D7F1AC80066F3F2 /* SingletonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonData.swift; sourceTree = "<group>"; };
-		051257DF2D7F1D070066F3F2 /* APIManager+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Tag.swift"; sourceTree = "<group>"; };
 		051257E22D7F1DC10066F3F2 /* TagData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagData.swift; sourceTree = "<group>"; };
 		051257E52D81BE980066F3F2 /* TransactionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionData.swift; sourceTree = "<group>"; };
-		051257E72D81CF770066F3F2 /* APIManager+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Transaction.swift"; sourceTree = "<group>"; };
 		051257E92D8326260066F3F2 /* MRecntManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRecntManager.swift; sourceTree = "<group>"; };
 		051257EC2D8477C60066F3F2 /* MRCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCCell.swift; sourceTree = "<group>"; };
 		051441572DAD3C0F00197191 /* LDAddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDAddTransactionView.swift; sourceTree = "<group>"; };
@@ -218,7 +205,6 @@
 		0572C3C72D9C1911008F99FB /* LTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTCell.swift; sourceTree = "<group>"; };
 		05764D932DB676C6007292D7 /* LDSLedgerMemberManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLedgerMemberManager.swift; sourceTree = "<group>"; };
 		05764D972DB7E32F007292D7 /* LDSLMEnterNewMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMEnterNewMemberViewController.swift; sourceTree = "<group>"; };
-		05764D992DB93037007292D7 /* APIManager+LedgerInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+LedgerInvite.swift"; sourceTree = "<group>"; };
 		05764D9C2DB93082007292D7 /* LedgerInviteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerInviteData.swift; sourceTree = "<group>"; };
 		059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMInviteCell.swift; sourceTree = "<group>"; };
 		059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLedgerViewController.swift; sourceTree = "<group>"; };
@@ -226,12 +212,8 @@
 		05ADF39F2DC3BB6A00DF8391 /* RLICell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLICell.swift; sourceTree = "<group>"; };
 		05ADF3A12DC4F0CC00DF8391 /* ReceiveLedgerInviteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveLedgerInviteManager.swift; sourceTree = "<group>"; };
 		05AF766A2D944A0800C27407 /* LDIncomeExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDIncomeExpenseView.swift; sourceTree = "<group>"; };
-		05B340A82D66123E000378A2 /* APIPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPath.swift; sourceTree = "<group>"; };
-		05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+UserInfo.swift"; sourceTree = "<group>"; };
 		05B340AC2D66201E000378A2 /* APIResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseData.swift; sourceTree = "<group>"; };
-		05B340AE2D66218B000378A2 /* APIManager+Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Information.swift"; sourceTree = "<group>"; };
 		05B340B12D66222F000378A2 /* BasicInformationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInformationData.swift; sourceTree = "<group>"; };
-		05B340B32D68B705000378A2 /* APIManager+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIManager+Photo.swift"; sourceTree = "<group>"; };
 		05B421122D9D68E4000C8ECC /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		05B421142D9D6AE0000C8ECC /* TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManager.swift; sourceTree = "<group>"; };
 		05B421162D9EC432000C8ECC /* TTagSelectionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTagSelectionButtonView.swift; sourceTree = "<group>"; };
@@ -314,22 +296,6 @@
 			path = Const;
 			sourceTree = "<group>";
 		};
-		0503F2A02D52496200B2640C /* API */ = {
-			isa = PBXGroup;
-			children = (
-				05B340AE2D66218B000378A2 /* APIManager+Information.swift */,
-				051257D62D7F129E0066F3F2 /* APIManager+Ledger.swift */,
-				05764D992DB93037007292D7 /* APIManager+LedgerInvite.swift */,
-				05B340B32D68B705000378A2 /* APIManager+Photo.swift */,
-				051257DF2D7F1D070066F3F2 /* APIManager+Tag.swift */,
-				051257E72D81CF770066F3F2 /* APIManager+Transaction.swift */,
-				05B340AA2D661FB6000378A2 /* APIManager+UserInfo.swift */,
-				0503F2A12D52499200B2640C /* APIManager.swift */,
-				05B340A82D66123E000378A2 /* APIPath.swift */,
-			);
-			path = API;
-			sourceTree = "<group>";
-		};
 		0503F2A32D524D1600B2640C /* RootViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,7 +366,6 @@
 		050830F42D41DA0F008C8831 /* NestLedger */ = {
 			isa = PBXGroup;
 			children = (
-				0503F2A02D52496200B2640C /* API */,
 				0503F2A62D524D8300B2640C /* Account */,
 				052944722D79E91900943CAC /* Components */,
 				0503F29B2D52446C00B2640C /* Const */,
@@ -904,15 +869,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05B340AF2D66218B000378A2 /* APIManager+Information.swift in Sources */,
-				051257D72D7F129E0066F3F2 /* APIManager+Ledger.swift in Sources */,
-				05764D9A2DB93037007292D7 /* APIManager+LedgerInvite.swift in Sources */,
-				05B340B42D68B705000378A2 /* APIManager+Photo.swift in Sources */,
-				051257E02D7F1D070066F3F2 /* APIManager+Tag.swift in Sources */,
-				051257E82D81CF770066F3F2 /* APIManager+Transaction.swift in Sources */,
-				05B340AB2D661FB6000378A2 /* APIManager+UserInfo.swift in Sources */,
-				0503F2A22D52499200B2640C /* APIManager.swift in Sources */,
-				05B340A92D66123E000378A2 /* APIPath.swift in Sources */,
 				05B340AD2D66201E000378A2 /* APIResponseData.swift in Sources */,
 				0557045B2D578ECA0032C47C /* AccountVC+SettingTableView.swift in Sources */,
 				055704532D5781D30032C47C /* AccountVCManager.swift in Sources */,

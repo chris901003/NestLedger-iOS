@@ -26,7 +26,6 @@ class FirebaseAuthManager {
         if let tokenResult = try? await user.getIDTokenResult() {
             // getIDTokenResult() possibly refreshing it if it has expired (by Firebase)
             try KeychainManager.shared.saveToken(tokenResult.token, forKey: AUTH_TOKEN)
-            APIManager.authToken = tokenResult.token
             NewAPIManager.authToken = tokenResult.token
             print("✅ Token: \(tokenResult.token)")
             return
@@ -38,7 +37,6 @@ class FirebaseAuthManager {
         guard let user = Auth.auth().currentUser else { return }
         let token = try await user.getIDToken(forcingRefresh: true)
         try KeychainManager.shared.saveToken(token, forKey: AUTH_TOKEN)
-        APIManager.authToken = token
         NewAPIManager.authToken = token
     }
 }
