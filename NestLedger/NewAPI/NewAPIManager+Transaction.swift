@@ -84,3 +84,16 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Delete Transaction
+extension NewAPIManager {
+    func deleteTransaction(transactionId: String) async throws {
+        let responseData = await session.request(
+            NewAPIPath.Transaction.delete.getPath(),
+            method: .delete,
+            parameters: ["transactionId": transactionId])
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+    }
+}

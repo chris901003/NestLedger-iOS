@@ -12,7 +12,6 @@ import xxooooxxCommonUI
 class LDSettingManager {
     weak var vc: LDSettingViewController?
 
-    let apiManager = APIManager()
     let newApiManager = NewAPIManager()
 
     var ledgerData: LedgerData

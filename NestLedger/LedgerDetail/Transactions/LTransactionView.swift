@@ -90,10 +90,10 @@ extension LTransactionView: UITableViewDelegate, UITableViewDataSource {
                 completionHandler(true)
             }
             let removeAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
-                let apiManager = APIManager()
+                let newApiManager = NewAPIManager()
                 Task {
                     do {
-                        try await apiManager.deleteTransaction(data: data)
+                        try await newApiManager.deleteTransaction(transactionId: data._id)
                         await MainActor.run { [weak self] in
                             guard let self else { return }
                             manager.transactions.remove(at: indexPath.row)

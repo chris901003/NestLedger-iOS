@@ -10,7 +10,6 @@ import Foundation
 import xxooooxxCommonUI
 
 class MRecntManager {
-    let apiManager = APIManager()
     let newApiManager = NewAPIManager()
 
     var ledgerId: String

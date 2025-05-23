@@ -71,6 +71,9 @@ class NewAPIPath {
 
         // [PATCH]
         case update = "/v1/transaction/update"
+
+        // [DELETE]
+        case delete = "/v1/transaction/delete"
     }
 
     enum Ledger: String, NewAPIPathProtocol {

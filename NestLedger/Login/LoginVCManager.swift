@@ -15,7 +15,6 @@ import FirebaseAuth
 import AuthenticationServices
 
 class LoginVCManager {
-    let apiManager = APIManager()
     let newApiManager = NewAPIManager()
     weak var viewController: LoginViewController?
 
@@ -47,7 +46,6 @@ class LoginVCManager {
             try KeychainManager.shared.saveToken(authToken, forKey: AUTH_TOKEN)
             APIManager.authToken = authToken
             NewAPIManager.authToken = authToken
-            try await apiManager.login()
             try await newApiManager.login()
             await MainActor.run {
                 if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
