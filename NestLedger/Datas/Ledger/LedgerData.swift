@@ -27,3 +27,4 @@ struct LedgerDataWrapper: Codable {
 
 typealias LedgerDataResponse = APIResponseData<LedgerDataWrapper>
 typealias CleanLedgerDataResponse = APIResponseData<LedgerData>
+typealias OptionalLedgerDataResponse = APIResponseData<LedgerData?>

@@ -31,22 +31,16 @@ class LDSettingManager {
             return
         }
 
-        if let idx = ledgerData.userIds.firstIndex(of: newSharedUserInfo.id) {
-            ledgerData.userIds.remove(at: idx)
-            Task {
-                do {
-                    try await apiManager.updateLedger(ledgerData: ledgerData)
-                    if let idx = sharedUserInfo.ledgerIds.firstIndex(of: ledgerData._id) {
-                        sharedUserInfo.ledgerIds.remove(at: idx)
-                        try await apiManager.updateUserInfo(sharedUserInfo)
-                    }
-                    await MainActor.run {
-                        vc?.dismiss(animated: true)
-                        NLNotification.sendQuitLedger(ledgerId: ledgerData._id)
-                    }
-                } catch {
-                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "離開帳本失敗")
+        Task {
+            do {
+                ledgerData = try await newApiManager.leaveLedger(uid: newSharedUserInfo.id, ledgerId: ledgerData._id) ?? ledgerData
+                newSharedUserInfo = try await newApiManager.getUserInfo()
+                await MainActor.run {
+                    vc?.dismiss(animated: true)
+                    NLNotification.sendQuitLedger(ledgerId: ledgerData._id)
                 }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "離開帳本失敗")
             }
         }
     }

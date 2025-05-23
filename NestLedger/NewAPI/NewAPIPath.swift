@@ -71,6 +71,7 @@ class NewAPIPath {
     enum Ledger: String, NewAPIPathProtocol {
         // [GET]
         case get = "/v1/ledger/get"
+        case leave = "/v1/ledger/leave"
 
         // [POST]
         case create = "/v1/ledger/create"

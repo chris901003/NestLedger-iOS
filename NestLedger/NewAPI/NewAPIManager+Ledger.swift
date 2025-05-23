@@ -83,3 +83,23 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Leave Ledger
+extension NewAPIManager {
+    func leaveLedger(uid: String, ledgerId: String) async throws -> LedgerData? {
+        let responseData = await session.request(
+            NewAPIPath.Ledger.leave.getPath(),
+            method: .get,
+            parameters: ["uid": uid, "ledgerId": ledgerId])
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(OptionalLedgerDataResponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw LedgerError.decodeLedgerDataFailed
+        }
+    }
+}
