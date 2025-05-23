@@ -39,6 +39,7 @@ class NewAPIPath {
 
         // [PATCH]
         case update = "/v1/user/update"
+        case changeQuickLogLedger = "/v1/user/change-quick-log-ledger"
 
         // [DELETE]
         case delete = "/v1/user/delete"

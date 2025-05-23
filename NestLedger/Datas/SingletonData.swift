@@ -21,7 +21,7 @@ var sharedUserInfo = UserInfoData.initMock() {
 var newSharedUserInfo = UserInfoData.initMock() {
     didSet {
         if let oldFirstLedgerId = oldValue.ledgerIds.first,
-           let newFirstLedgerId = sharedUserInfo.ledgerIds.first,
+           let newFirstLedgerId = newSharedUserInfo.ledgerIds.first,
            oldFirstLedgerId != newFirstLedgerId {
             DispatchQueue.main.async { NLNotification.sendSetMainLedger(ledgerId: newFirstLedgerId) }
         }

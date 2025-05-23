@@ -162,6 +162,27 @@ extension NewAPIManager {
     }
 }
 
+// MARK: - Change Quick Log Ledger
+extension NewAPIManager {
+    func changeQuickLogLedger(ledgerId: String) async throws -> UserInfoData {
+        let responseData = await session.request(
+            NewAPIPath.UserInfo.changeQuickLogLedger.getPath(),
+            method: .patch,
+            parameters: ["ledgerId": ledgerId])
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanUserInforesponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw UserInfoError.decodeUserInfoError
+        }
+            
+    }
+}
+
 // MARK: - Delete User Info
 extension NewAPIManager {
     func deleteUserInfo() async throws {
