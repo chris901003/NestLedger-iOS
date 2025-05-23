@@ -62,3 +62,24 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Update Ledger
+extension NewAPIManager {
+    func updateLedger(data: LedgerUpdateRequestData) async throws -> LedgerData {
+        let responseData = await session.request(
+            NewAPIPath.Ledger.update.getPath(),
+            method: .patch,
+            parameters: data,
+            encoder: JSONParameterEncoder.default)
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanLedgerDataResponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw LedgerError.decodeLedgerDataFailed
+        }
+    }
+}

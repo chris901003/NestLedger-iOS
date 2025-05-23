@@ -74,6 +74,9 @@ class NewAPIPath {
 
         // [POST]
         case create = "/v1/ledger/create"
+
+        // [PATCH]
+        case update = "/v1/ledger/update"
     }
 
     enum LedgerInvite: String, NewAPIPathProtocol {

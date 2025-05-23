@@ -13,10 +13,11 @@ class LDSettingManager {
     weak var vc: LDSettingViewController?
 
     let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
 
     var ledgerData: LedgerData
     var ledgerTitle: String {
-        get { ledgerData.title == "[Main]:\(sharedUserInfo.id)" ? "我的帳本" : ledgerData.title }
+        get { ledgerData.title == "[Main]:\(newSharedUserInfo.id)" ? "我的帳本" : ledgerData.title }
     }
     var isMainLedger: Bool { get { ledgerData.title.hasPrefix("[Main]") } }
 
@@ -30,7 +31,7 @@ class LDSettingManager {
             return
         }
 
-        if let idx = ledgerData.userIds.firstIndex(of: sharedUserInfo.id) {
+        if let idx = ledgerData.userIds.firstIndex(of: newSharedUserInfo.id) {
             ledgerData.userIds.remove(at: idx)
             Task {
                 do {
@@ -71,7 +72,7 @@ extension LDSettingManager: LDSLedgerNameViewControllerDelegate {
         ledgerData.title = title
         Task {
             do {
-                try await apiManager.updateLedger(ledgerData: ledgerData)
+                ledgerData = try await newApiManager.updateLedger(data: LedgerUpdateRequestData(ledgerData))
                 await MainActor.run {
                     vc?.tableView.reloadData()
                     NLNotification.sendUpdateLedger(ledgerData: ledgerData)
