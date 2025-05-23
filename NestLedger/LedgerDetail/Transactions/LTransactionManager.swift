@@ -12,7 +12,7 @@ import UIKit
 class LTransactionManager {
     weak var vc: LTransactionView?
 
-    let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
 
     var transactions: [TransactionData] = []
     var userAvatars: [String: UIImage] = [:]
@@ -43,7 +43,7 @@ class LTransactionManager {
             for userId in uniqueUserIds {
                 group.addTask { [weak self] in
                     guard let self else { return nil }
-                    let avatar = try await apiManager.getUserAvatar(userId: userId)
+                    let avatar = try await newApiManager.getUserAvatar(uid: userId)
                     return (userId, avatar)
                 }
             }

@@ -18,7 +18,7 @@ class LTCell: UITableViewCell {
     let amountLabel = UILabel()
     let titleLabel = UILabel()
 
-    let apiManager = APIManager()
+    let newApiManager = NewAPIManager()
     var tagId = ""
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -144,7 +144,7 @@ class LTCell: UITableViewCell {
 
 extension LTCell {
     private func fetchTagInfo(tagId: String) async throws {
-        let tagData = try await apiManager.getTag(tagId: tagId)
+        let tagData = try await newApiManager.getTag(tagId: tagId)
         await MainActor.run {
             tagLabel.text = tagData.label
             tagLabel.textColor = tagData.getColor
