@@ -36,7 +36,7 @@ class LedgerCollectionViewCell: UICollectionViewCell {
     }
 
     func config(ledgerData: LedgerData) {
-        if ledgerData.title == "[Main]:" + sharedUserInfo.id {
+        if ledgerData.title == "[Main]:" + newSharedUserInfo.id {
             ledgerLabel.text = "我的帳本"
         } else {
             ledgerLabel.text = ledgerData.title

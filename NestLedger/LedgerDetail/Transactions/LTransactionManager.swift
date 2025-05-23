@@ -62,7 +62,7 @@ extension LTransactionManager {
             transactions.remove(at: idx)
         }
         var calendar = Calendar.current
-        calendar.timeZone = TimeZone(secondsFromGMT: 60 * 60 * sharedUserInfo.timeZone)!
+        calendar.timeZone = TimeZone(secondsFromGMT: 60 * 60 * newSharedUserInfo.timeZone)!
         if calendar.isDate(oldTransaction.date, inSameDayAs: newTransaction.date) {
             transactions.append(newTransaction)
         }

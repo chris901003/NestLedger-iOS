@@ -35,7 +35,7 @@ class MCalendarManager {
 
     let ledgerId: String
     let newApiManager = NewAPIManager()
-    let userTimeZone = TimeZone(secondsFromGMT: 60 * 60 * sharedUserInfo.timeZone)!
+    let userTimeZone = TimeZone(secondsFromGMT: 60 * 60 * newSharedUserInfo.timeZone)!
     let formatter = DateFormatter()
 
     init(ledgerId: String) {

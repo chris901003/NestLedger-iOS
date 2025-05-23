@@ -52,7 +52,7 @@ class ReceiveLedgerInviteManager {
 extension ReceiveLedgerInviteManager: RLICellDelegate {
     func acceptInvite(ledgerInviteData: LedgerInviteData, indexPath: IndexPath?) {
         Task {
-            await MainActor.run { sharedUserInfo.ledgerIds.append(ledgerInviteData.ledgerId) }
+            await MainActor.run { newSharedUserInfo.ledgerIds.append(ledgerInviteData.ledgerId) }
             do {
                 try await newApiManager.deleteLedgerInvite(inviteId: ledgerInviteData._id, accept: true)
                 await MainActor.run {

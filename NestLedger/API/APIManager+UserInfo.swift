@@ -49,7 +49,7 @@ extension APIManager {
                 userInfo.ledgerIds.append(ledger._id)
                 try await updateUserInfo(userInfo)
             }
-            sharedUserInfo = userInfo
+//            sharedUserInfo = userInfo
         } catch {
             throw UserInfoError.failedLogin
         }
