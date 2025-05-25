@@ -89,6 +89,7 @@ class TransactionViewController: UIViewController {
         scrollView.keyboardDismissMode = .interactive
 
         titleView.delegate = manager
+        titleView.setTitleText(manager.oldTransactionData?.title ?? "")
 
         tagSelectView.isUserInteractionEnabled = true
         tagSelectView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapTagSelectAction)))
@@ -114,6 +115,7 @@ class TransactionViewController: UIViewController {
         noteTextView.font = .systemFont(ofSize: 16, weight: .semibold)
         noteTextView.textColor = .black
         noteTextView.delegate = self
+        noteTextView.text = manager.oldTransactionData?.note ?? ""
     }
 
     private func layout() {
