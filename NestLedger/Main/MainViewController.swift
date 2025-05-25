@@ -25,11 +25,18 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setup()
         layout()
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     private func setup() {
         manager.vc = self
         view.backgroundColor = .white
+
+        scrollView.keyboardDismissMode = .onDrag
 
         scrollView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshMainView), for: .valueChanged)
@@ -113,6 +120,29 @@ extension MainViewController {
         manager.refreshData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             self?.refreshControl.endRefreshing()
+        }
+    }
+}
+
+// MARK: - Keyboard
+extension MainViewController {
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
+
+        let keyboardHeight = keyboardFrame.height
+        UIView.animate(withDuration: duration) {
+            self.scrollView.contentInset.bottom = keyboardHeight
+            self.scrollView.verticalScrollIndicatorInsets.bottom = keyboardHeight
+            self.scrollView.scrollRectToVisible(self.quickLogView.totalLabel.frame, animated: true)
+        }
+    }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        UIView.animate(withDuration: 0.25) {
+            self.scrollView.contentInset.bottom = 0
+            self.scrollView.verticalScrollIndicatorInsets.bottom = 0
         }
     }
 }
