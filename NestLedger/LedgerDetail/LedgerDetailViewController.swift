@@ -83,6 +83,7 @@ class LedgerDetailViewController: UIViewController {
         titleLabel.numberOfLines = 1
 
         avatarListView.dataSource = self
+        avatarListView.delegate = self
         avatarListView.alwaysBounceVertical = false
 
         incomeExpenseView.config(income: manager.ledgerData.totalIncome, expense: manager.ledgerData.totalExpense)
@@ -188,7 +189,7 @@ class LedgerDetailViewController: UIViewController {
 }
 
 // MARK: - UICollectionViewDataSource
-extension LedgerDetailViewController: UICollectionViewDataSource {
+extension LedgerDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         manager.userInfos.count
     }
@@ -203,6 +204,21 @@ extension LedgerDetailViewController: UICollectionViewDataSource {
             await MainActor.run { cell.config(image: avatar) }
         }
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let userData = manager.userInfos[indexPath.row]
+        let basicUserInfoVC = BasicUserInfoViewController(userInfoData: userData)
+        basicUserInfoVC.modalPresentationStyle = .pageSheet
+        if let sheet = basicUserInfoVC.sheetPresentationController {
+            sheet.detents = [.custom(resolver: { context in
+                // Top padding + Bottom padding + Content Height - Default Space (by system)
+                return 12 + 24 + 100 - 34
+            })]
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 20
+        }
+        present(basicUserInfoVC, animated: true)
     }
 }
 
