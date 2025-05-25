@@ -66,6 +66,8 @@ class MPCTagCell: UITableViewCell {
             percentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             percentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+        percentLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        percentLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
         contentView.addSubview(tagLabel)
         tagLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -75,5 +77,7 @@ class MPCTagCell: UITableViewCell {
             tagLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
             tagLabel.trailingAnchor.constraint(equalTo: percentLabel.leadingAnchor, constant: -8)
         ])
+        tagLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        tagLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
     }
 }

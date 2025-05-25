@@ -80,10 +80,11 @@ class MPieChartView: UIView {
         addSubview(pieChartView)
         pieChartView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pieChartView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            pieChartView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 24),
             pieChartView.leadingAnchor.constraint(equalTo: leadingAnchor),
             pieChartView.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -12),
-            pieChartView.heightAnchor.constraint(equalTo: pieChartView.widthAnchor)
+            pieChartView.heightAnchor.constraint(equalTo: pieChartView.widthAnchor),
+            pieChartView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 
         addSubview(tableView)

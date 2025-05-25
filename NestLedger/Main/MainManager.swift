@@ -15,26 +15,31 @@ class MainManager {
 
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveSetMainLedgerNotification), name: .setMainLedger, object: nil)
+        fetchLedgerTitle()
+    }
+
+    private func fetchLedgerTitle() {
+        guard let legerId = newSharedUserInfo.ledgerIds.first else { return }
         Task {
             do {
-                try await fetchLedgerData()
+                let ledgerData = try await newApiManager.getLedger(ledgerId: legerId)
+                await MainActor.run {
+                    vc?.ledgerLabel.text = ledgerData.titleShow
+                }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .info, information: error.localizedDescription)
             }
         }
     }
 
-    private func fetchLedgerData() async throws {
-        guard let legerId = newSharedUserInfo.ledgerIds.first else { return }
-        let ledgerData = try await newApiManager.getLedger(ledgerId: legerId)
-        await MainActor.run {
-            vc?.ledgerLabel.text = ledgerData.titleShow
-        }
+    func refreshData() {
+        fetchLedgerTitle()
     }
 }
 
+// MARK: - Receive set main ledger notification
 extension MainManager {
     @objc private func receiveSetMainLedgerNotification(_ notification: Notification) {
-        Task { try? await fetchLedgerData() }
+        fetchLedgerTitle()
     }
 }
