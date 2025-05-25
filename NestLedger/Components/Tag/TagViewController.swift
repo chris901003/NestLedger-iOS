@@ -36,6 +36,7 @@ class TagViewController: UIViewController {
         self.type = type
         self.manager = TagManager(ledgerId: ledgerId)
         super.init(nibName: nil, bundle: nil)
+        self.manager.vc = self
     }
 
     required init?(coder: NSCoder) {
@@ -50,8 +51,6 @@ class TagViewController: UIViewController {
     }
 
     private func setup() {
-        manager.vc = self
-
         view.backgroundColor = .white
 
         topBar.backgroundColor = .systemGray5
@@ -155,6 +154,8 @@ extension TagViewController: UITableViewDelegate, UITableViewDataSource {
             Task {
                 do {
                     try await manager.fetchMoreLedgerTags()
+                } catch NewAPIManager.NewAPIManagerError.unauthorizedError(_) {
+                    NLNotification.sendUnauthorizedLedger(ledgerId: manager.ledgerId)
                 } catch {
                     XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
                 }

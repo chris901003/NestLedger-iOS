@@ -15,6 +15,7 @@ class MainManager {
 
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveSetMainLedgerNotification), name: .setMainLedger, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUnauthorizedLedgerNotification), name: .unauthorizedLedger, object: nil)
         fetchLedgerTitle()
     }
 
@@ -58,5 +59,11 @@ class MainManager {
 extension MainManager {
     @objc private func receiveSetMainLedgerNotification(_ notification: Notification) {
         fetchLedgerTitle()
+    }
+
+    @objc private func receiveUnauthorizedLedgerNotification(_ notification: Notification) {
+        guard let unauthorizedLedgerId = NLNotification.decodeUnauthorizedLedger(notification),
+              unauthorizedLedgerId == newSharedUserInfo.ledgerIds.first else { return }
+        refreshData()
     }
 }

@@ -20,6 +20,7 @@ extension Notification.Name {
     static let updateTag = Notification.Name("UpdateTag")
     static let refreshMainView = Notification.Name("RefreshMainView")
     static let refreshLedgerDetailView = Notification.Name("RefreshLedgerDetailView")
+    static let unauthorizedLedger = Notification.Name("UnauthorizedLedger")
 }
 
 class NLNotification {
@@ -121,5 +122,16 @@ class NLNotification {
         guard let userInfo = notification.userInfo,
               let tagData = userInfo["tagData"] as? TagData else { return nil }
         return tagData
+    }
+
+    // MARK: - Unauthorized Ledger
+    static func sendUnauthorizedLedger(ledgerId: String) {
+        NotificationCenter.default.post(name: .unauthorizedLedger, object: nil, userInfo: ["ledgerId": ledgerId])
+    }
+
+    static func decodeUnauthorizedLedger(_ notification: Notification) -> String? {
+        guard let userInfo = notification.userInfo,
+              let ledgerId = userInfo["ledgerId"] as? String else { return nil }
+        return ledgerId
     }
 }

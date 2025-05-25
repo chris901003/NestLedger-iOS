@@ -14,6 +14,14 @@ class MQLQuickLogManager {
 
     var transaction = TransactionData.initEmpty()
     weak var vc: MQuickLogView?
+
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveSetMainLedger), name: .setMainLedger, object: nil)
+    }
+
+    @objc private func receiveSetMainLedger(_ notification: Notification) {
+        vc?.tagView.reset()
+    }
 }
 
 extension MQLQuickLogManager: MQLSendViewDelegate {
@@ -47,6 +55,11 @@ extension MQLQuickLogManager: MQLSendViewDelegate {
                     vc?.tagView.reset()
                     XOBottomBarInformationManager.showBottomInformation(type: .success, information: "添加成功")
                 }
+            } catch NewAPIManager.NewAPIManagerError.unauthorizedError(_) {
+                NLNotification.sendUnauthorizedLedger(ledgerId: ledgerId)
+                transaction.tagId = ""
+                await MainActor.run { vc?.tagView.reset() }
+                completion()
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
                 completion()
