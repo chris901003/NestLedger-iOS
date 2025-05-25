@@ -26,6 +26,13 @@ class MPCTagCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        tagColor.backgroundColor = .clear
+        tagLabel.text = nil
+        percentLabel.text = nil
+    }
+
     func config(label: String, color: UIColor, percent: Int) {
         tagColor.backgroundColor = color
         tagLabel.text = label

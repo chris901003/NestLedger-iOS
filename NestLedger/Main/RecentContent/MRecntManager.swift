@@ -87,6 +87,7 @@ class MRecntManager {
     }
 
     @objc private func receiveRefreshMainView(_ notification: Notification) {
+        ledgerId = newSharedUserInfo.ledgerIds.first ?? ""
         loadRecentTransaction()
     }
 }

@@ -50,6 +50,7 @@ class MPieChartManager {
     }
 
     @objc private func reloadLedgerInfo() {
+        ledgerId = newSharedUserInfo.ledgerIds.first ?? ""
         Task { try? await loadLedgerInfo() }
     }
 

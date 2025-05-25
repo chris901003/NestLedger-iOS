@@ -33,8 +33,24 @@ class MainManager {
     }
 
     func refreshData() {
-        fetchLedgerTitle()
-        NotificationCenter.default.post(name: .refreshMainView, object: nil, userInfo: nil)
+        Task {
+            do {
+                let beforeLedgerId = newSharedUserInfo.ledgerIds.first
+                newSharedUserInfo = try await newApiManager.getUserInfo()
+                fetchLedgerTitle()
+                await MainActor.run {
+                    if beforeLedgerId != newSharedUserInfo.ledgerIds.first {
+                        // 若更改 quick ledger 則在 shared user info 中會有 notification，其他部分會自動更新
+                        XOBottomBarInformationManager.showBottomInformation(type: .info, information: "已被踢除原先的帳本")
+                    } else {
+                        // 只有在 quick ledger 沒有被更改時發出 refresh 訊息
+                        NotificationCenter.default.post(name: .refreshMainView, object: nil, userInfo: nil)
+                    }
+                }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .info, information: error.localizedDescription)
+            }
+        }
     }
 }
 

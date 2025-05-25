@@ -40,6 +40,7 @@ extension NewAPIManager {
         case othersStatusCodeFailed
         case responseDataNotFound
         case apiResponseError(String)
+        case unauthorizedError(String)
 
         var errorDescription: String? {
             switch self {
@@ -55,6 +56,8 @@ extension NewAPIManager {
                     return "無法取得回傳資訊"
                 case .apiResponseError(let message):
                     return message
+                case .unauthorizedError(let message):
+                    return "[授權失敗]: \(message)"
             }
         }
     }
@@ -94,7 +97,13 @@ class NewAPIManager {
            let resp = try? NewAPIManager.decoder.decode(APIBaseResponseData.self, from: data),
            resp.code != 200 {
             print("❌ API error code: \(resp.code), message: \(resp.message)")
-            throw NewAPIManagerError.apiResponseError(resp.message)
+            if resp.message.lowercased().contains("unauthorized") {
+                print("✅ Unauthroized")
+                throw NewAPIManagerError.unauthorizedError(resp.message)
+            } else {
+                print("✅ Others")
+                throw NewAPIManagerError.apiResponseError(resp.message)
+            }
         }
     }
 }
