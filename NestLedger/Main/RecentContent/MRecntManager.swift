@@ -23,6 +23,7 @@ class MRecntManager {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveDeleteTransaction), name: .deleteTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveSetMainLedger), name: .setMainLedger, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveRefreshMainView), name: .refreshMainView, object: nil)
         loadRecentTransaction()
     }
 
@@ -82,6 +83,10 @@ class MRecntManager {
         guard let mainLedgerId = NLNotification.decodeSetMainLedger(notification),
               mainLedgerId != ledgerId else { return }
         ledgerId = mainLedgerId
+        loadRecentTransaction()
+    }
+
+    @objc private func receiveRefreshMainView(_ notification: Notification) {
         loadRecentTransaction()
     }
 }

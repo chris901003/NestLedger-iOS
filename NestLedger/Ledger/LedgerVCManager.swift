@@ -20,6 +20,7 @@ class LedgerVCManager {
             }
         }
     }
+    var ledgerInviteCount: Int = 0
 
     @MainActor var isLoading = false
     weak var vc: LedgerViewController?
@@ -58,6 +59,7 @@ class LedgerVCManager {
 
     func loadLedgerInviteCount() async throws {
         let ledgerInvites = try await newApiManager.getLedgerInvite(ledgerId: nil, receiveUserId: newSharedUserInfo.id)
+        ledgerInviteCount = ledgerInvites.count
         await MainActor.run {
             vc?.plusButton.config(infoCount: ledgerInvites.count)
         }

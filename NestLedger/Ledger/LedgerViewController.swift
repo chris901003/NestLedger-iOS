@@ -47,6 +47,7 @@ class LedgerViewController: UIViewController {
 
         plusButton.showsMenuAsPrimaryAction = true
         plusButton.menu = createMenu()
+        plusButton.config(infoCount: manager.ledgerInviteCount)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
 
         collectionView.showsVerticalScrollIndicator = false

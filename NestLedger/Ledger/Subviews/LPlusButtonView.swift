@@ -33,8 +33,6 @@ class LPlusButtonView: UIButton {
         iconView.image = UIImage(systemName: "plus")
         iconView.contentMode = .scaleAspectFit
 
-        countLabel.alpha = 0
-        countLabel.text = "0"
         countLabel.numberOfLines = 1
         countLabel.textAlignment = .center
         countLabel.textColor = .white

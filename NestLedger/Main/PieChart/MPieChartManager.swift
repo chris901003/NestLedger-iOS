@@ -38,6 +38,7 @@ class MPieChartManager {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadLedgerInfo), name: .updateTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadLedgerInfo), name: .deleteTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveSetMainLedger), name: .setMainLedger, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadLedgerInfo), name: .refreshMainView, object: nil)
 
         Task {
             do {

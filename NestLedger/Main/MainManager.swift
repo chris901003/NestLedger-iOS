@@ -34,6 +34,7 @@ class MainManager {
 
     func refreshData() {
         fetchLedgerTitle()
+        NotificationCenter.default.post(name: .refreshMainView, object: nil, userInfo: nil)
     }
 }
 
