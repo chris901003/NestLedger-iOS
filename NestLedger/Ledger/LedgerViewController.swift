@@ -30,6 +30,7 @@ class LedgerViewController: UIViewController {
         collectionView.register(LedgerCollectionViewCell.self, forCellWithReuseIdentifier: LedgerCollectionViewCell.cellId)
         return collectionView
     }()
+    let refreshControl = UIRefreshControl()
 
     let manager = LedgerVCManager()
 
@@ -53,6 +54,8 @@ class LedgerViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshView), for: .valueChanged)
     }
 
     private func layout() {
@@ -120,6 +123,16 @@ extension LedgerViewController: UICollectionViewDataSource, UICollectionViewDele
                     XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取更多帳本失敗")
                 }
             }
+        }
+    }
+}
+
+// MARK: - Refresh
+extension LedgerViewController {
+    @objc private func refreshView() {
+        manager.reloadView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.refreshControl.endRefreshing()
         }
     }
 }

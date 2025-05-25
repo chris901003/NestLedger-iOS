@@ -65,6 +65,20 @@ class LedgerVCManager {
         }
     }
 
+    func reloadView() {
+        Task {
+            do {
+                newSharedUserInfo = try await newApiManager.getUserInfo()
+                ledgerIds = newSharedUserInfo.ledgerIds
+                ledgerDatas = []
+                try await loadMoreLedgers()
+                try await loadLedgerInviteCount()
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .info, information: "更新資料失敗")
+            }
+        }
+    }
+
     @objc private func receiveQuitLedgerNotification(_ notification: Notification) {
         guard let ledgerId = NLNotification.decodeQuitLedger(notification),
               let ledgerIdx = (ledgerIds.firstIndex { $0 == ledgerId }),

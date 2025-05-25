@@ -35,6 +35,11 @@ class LedgerCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        setup()
+    }
+
     func config(ledgerData: LedgerData) {
         if ledgerData.title == "[Main]:" + newSharedUserInfo.id {
             ledgerLabel.text = "我的帳本"
@@ -49,6 +54,7 @@ class LedgerCollectionViewCell: UICollectionViewCell {
         view.backgroundColor = .clear
         view.layer.cornerRadius = 35 / 2
         view.clipsToBounds = true
+        view.image = nil
     }
 
     private func setup() {
