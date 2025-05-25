@@ -19,6 +19,10 @@ struct LedgerData: Codable {
     static func initMock() -> LedgerData {
         .init(_id: "", title: "", userIds: [], totalIncome: 0, totalExpense: 0)
     }
+
+    var titleShow: String {
+        get { title.starts(with: "[Main]") ? "我的帳本" : title }
+    }
 }
 
 struct LedgerDataWrapper: Codable {

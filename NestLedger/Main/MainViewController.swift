@@ -10,10 +10,12 @@ import Foundation
 import UIKit
 
 class MainViewController: UIViewController {
-    let todayLabel = UILabel()
+    let ledgerLabel = UILabel()
     let recentView = MRecentContentView()
     let quickLogView = MQuickLogView()
     let pieChartView = MPieChartView()
+
+    let manager = MainManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,29 +24,29 @@ class MainViewController: UIViewController {
     }
 
     private func setup() {
+        manager.vc = self
         view.backgroundColor = .white
 
-        todayLabel.text = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_dd_ch, date: Date.now)
-        todayLabel.font = .systemFont(ofSize: 18, weight: .bold)
-        todayLabel.textColor = .black
-        todayLabel.numberOfLines = 1
+        ledgerLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        ledgerLabel.textColor = .black
+        ledgerLabel.numberOfLines = 1
 
         quickLogView.delegate = self
     }
 
     private func layout() {
-        view.addSubview(todayLabel)
-        todayLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(ledgerLabel)
+        ledgerLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            todayLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            todayLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12)
+            ledgerLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            ledgerLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12)
         ])
 
         view.addSubview(recentView)
         recentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            recentView.topAnchor.constraint(equalTo: todayLabel.bottomAnchor, constant: 12),
-            recentView.leadingAnchor.constraint(equalTo: todayLabel.leadingAnchor),
+            recentView.topAnchor.constraint(equalTo: ledgerLabel.bottomAnchor, constant: 12),
+            recentView.leadingAnchor.constraint(equalTo: ledgerLabel.leadingAnchor),
             recentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
             recentView.heightAnchor.constraint(equalToConstant: 150)
         ])
