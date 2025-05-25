@@ -28,18 +28,7 @@ class LedgerDetailManager {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveDeleteTransaction), name: .deleteTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateLedger), name: .updateLedger, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveLedgerDetailSelectDay), name: .ledgerDetailSelectDay, object: nil)
-        Task {
-            do {
-                try await getLedgerData()
-                try await getUsers()
-            } catch {
-                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳本使用者敗")
-            }
-            await MainActor.run {
-                vc?.avatarListView.reloadData()
-                vc?.incomeExpenseView.config(income: self.ledgerData.totalIncome, expense: self.ledgerData.totalExpense)
-            }
-        }
+        refreshData()
     }
 
     private func getLedgerData() async throws {
@@ -56,6 +45,21 @@ class LedgerDetailManager {
             return UIImage.getDeleteUserAvatar()
         } else {
             return try? await newApiManager.getUserAvatar(uid: userData.id)
+        }
+    }
+
+    func refreshData() {
+        Task {
+            do {
+                try await getLedgerData()
+                try await getUsers()
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳本使用者敗")
+            }
+            await MainActor.run {
+                vc?.avatarListView.reloadData()
+                vc?.incomeExpenseView.config(income: self.ledgerData.totalIncome, expense: self.ledgerData.totalExpense)
+            }
         }
     }
 }

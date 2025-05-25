@@ -47,6 +47,8 @@ class MCalendarManager {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNewTransaction), name: .newRecentTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateTransaction), name: .updateTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveDeleteTransaction), name: .deleteTransaction, object: nil)
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(receiveRefreshDetailLedgerNotification), name: .refreshLedgerDetailView, object: nil)
     }
 
     @objc private func receiveNewTransaction(_ notification: Notification) {
@@ -130,6 +132,13 @@ class MCalendarManager {
             dayTransactions[dateString, default: []].append(transaction)
             dayAmount[dateString, default: 0] += transaction.type == .income ? transaction.money : -transaction.money
         }
+    }
+}
+
+// MARK: - Notification
+extension MCalendarManager {
+    @objc private func receiveRefreshDetailLedgerNotification(_ notification: Notification) {
+        updateTransaction()
     }
 }
 

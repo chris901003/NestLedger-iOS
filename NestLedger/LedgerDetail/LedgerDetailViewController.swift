@@ -38,7 +38,9 @@ class LedgerDetailViewController: UIViewController {
     let incomeExpenseView = LDIncomeExpenseView()
 
     let scrollView = UIScrollView()
+    let refreshControl = UIRefreshControl()
     let contentView = UIView()
+
     let calendarView: MCalendarView
     let transactionsView = LTransactionView()
     let addButtonView = LDAddTransactionView()
@@ -87,6 +89,9 @@ class LedgerDetailViewController: UIViewController {
         avatarListView.alwaysBounceVertical = false
 
         incomeExpenseView.config(income: manager.ledgerData.totalIncome, expense: manager.ledgerData.totalExpense)
+
+        scrollView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshView), for: .valueChanged)
 
         transactionsView.delegate = self
 
@@ -219,6 +224,17 @@ extension LedgerDetailViewController: UICollectionViewDataSource, UICollectionVi
             sheet.preferredCornerRadius = 20
         }
         present(basicUserInfoVC, animated: true)
+    }
+}
+
+// MARK: - Refresh
+extension LedgerDetailViewController {
+    @objc private func refreshView() {
+        NotificationCenter.default.post(name: .refreshLedgerDetailView, object: nil, userInfo: nil)
+        manager.refreshData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.refreshControl.endRefreshing()
+        }
     }
 }
 

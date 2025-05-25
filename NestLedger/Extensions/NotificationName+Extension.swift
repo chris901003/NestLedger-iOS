@@ -19,6 +19,7 @@ extension Notification.Name {
     static let setMainLedger = Notification.Name("SetMainLedger")
     static let updateTag = Notification.Name("UpdateTag")
     static let refreshMainView = Notification.Name("RefreshMainView")
+    static let refreshLedgerDetailView = Notification.Name("RefreshLedgerDetailView")
 }
 
 class NLNotification {
