@@ -11,6 +11,7 @@ import UIKit
 import xxooooxxCommonUI
 
 class LedgerViewController: UIViewController {
+    let plusButton = LPlusButtonView()
     let collectionView: UICollectionView = {
         var layout: UICollectionViewCompositionalLayout = {
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
@@ -44,8 +45,9 @@ class LedgerViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "帳本列表"
 
-        let addButton = UIBarButtonItem(systemItem: .add, primaryAction: nil, menu: createMenu())
-        navigationItem.rightBarButtonItem = addButton
+        plusButton.showsMenuAsPrimaryAction = true
+        plusButton.menu = createMenu()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
 
         collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = self

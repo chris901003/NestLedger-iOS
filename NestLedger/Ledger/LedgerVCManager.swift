@@ -31,6 +31,7 @@ class LedgerVCManager {
         Task {
             do {
                 try await loadMoreLedgers()
+                try await loadLedgerInviteCount()
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "讀取帳本失敗")
             }
@@ -53,6 +54,13 @@ class LedgerVCManager {
         }
         ledgerDatas.append(contentsOf: datas)
         await MainActor.run { isLoading = false }
+    }
+
+    func loadLedgerInviteCount() async throws {
+        let ledgerInvites = try await newApiManager.getLedgerInvite(ledgerId: nil, receiveUserId: newSharedUserInfo.id)
+        await MainActor.run {
+            vc?.plusButton.config(infoCount: ledgerInvites.count)
+        }
     }
 
     @objc private func receiveQuitLedgerNotification(_ notification: Notification) {
