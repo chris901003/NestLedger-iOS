@@ -151,4 +151,32 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
                 return cell
         }
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let type = SectionType.allCases[indexPath.section]
+        Task {
+            var data: UserInfoData
+            switch type {
+                case .member:
+                    data = manager.userInfos[indexPath.row]
+                case .invite:
+                    let inviteData = manager.ledgerInvites[indexPath.row]
+                    guard let userData = try? await manager.getUserInfo(userId: inviteData.receiveUserId) else { return }
+                    data = userData
+            }
+            await MainActor.run {
+                let basicUserInfoVC = BasicUserInfoViewController(userInfoData: data)
+                basicUserInfoVC.modalPresentationStyle = .pageSheet
+                if let sheet = basicUserInfoVC.sheetPresentationController {
+                    sheet.detents = [.custom(resolver: { context in
+                        // Top padding + Bottom padding + Content Height - Default Space (by system)
+                        return 12 + 24 + 100 - 34
+                    })]
+                    sheet.prefersGrabberVisible = true
+                    sheet.preferredCornerRadius = 20
+                }
+                present(basicUserInfoVC, animated: true)
+            }
+        }
+    }
 }
