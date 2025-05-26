@@ -39,7 +39,7 @@ extension NewAPIManager {
         case authFailed
         case othersStatusCodeFailed
         case responseDataNotFound
-        case apiResponseError(String)
+        case apiResponseError(Int, String)
         case unauthorizedError(String)
 
         var errorDescription: String? {
@@ -54,8 +54,8 @@ extension NewAPIManager {
                     return "Invalid status code (Server Error)"
                 case .responseDataNotFound:
                     return "無法取得回傳資訊"
-                case .apiResponseError(let message):
-                    return message
+                case .apiResponseError(let code, let message):
+                    return "[Code]: \(code), [Message]: \(message)"
                 case .unauthorizedError(let message):
                     return "[授權失敗]: \(message)"
             }
@@ -100,7 +100,7 @@ class NewAPIManager {
             if resp.message.lowercased().contains("unauthorized") {
                 throw NewAPIManagerError.unauthorizedError(resp.message)
             } else {
-                throw NewAPIManagerError.apiResponseError(resp.message)
+                throw NewAPIManagerError.apiResponseError(resp.code, resp.message)
             }
         }
     }

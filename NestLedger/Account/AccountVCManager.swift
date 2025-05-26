@@ -120,6 +120,16 @@ class AccountVCManager {
             do {
                 try await newApiManager.sendEmailVerification(emailAddress: emailAddress)
                 XOBottomBarInformationManager.showBottomInformation(type: .success, information: "已發送驗證信，請前往信箱確認")
+            } catch let NewAPIManager.NewAPIManagerError.apiResponseError(code, message) {
+                var message = "寄發驗證信失敗"
+                if code == 2005 {
+                    message = "該郵件已被使用"
+                } else if code == 2006 {
+                    message = "以達到本日更改上限，請明天再更改"
+                } else if code == 2007 {
+                    message = "寄發驗證信失敗"
+                }
+                XOBottomBarInformationManager.showBottomInformation(type: .info, information: message)
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .info, information: "以達到本日更改上限，請明天再更改")
             }
