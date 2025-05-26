@@ -103,6 +103,10 @@ class MCalendarManager {
                     let dateString = formatter.string(from: selectedDay)
                     NLNotification.sendLedgerDetailSelectDayTransactions(dayTransactions: dayTransactions[dateString, default: []])
                 }
+            } catch NewAPIManager.NewAPIManagerError.unauthorizedError(_) {
+                await MainActor.run {
+                    NLNotification.sendUnauthorizedLedger(ledgerId: ledgerId)
+                }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳目失敗")
             }

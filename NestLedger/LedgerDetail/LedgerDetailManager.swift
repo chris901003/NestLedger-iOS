@@ -28,6 +28,7 @@ class LedgerDetailManager {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveDeleteTransaction), name: .deleteTransaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateLedger), name: .updateLedger, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveLedgerDetailSelectDay), name: .ledgerDetailSelectDay, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUnauthorizedLedgerNotification), name: .unauthorizedLedger, object: nil)
         refreshData()
     }
 
@@ -53,6 +54,11 @@ class LedgerDetailManager {
             do {
                 try await getLedgerData()
                 try await getUsers()
+                NotificationCenter.default.post(name: .refreshLedgerDetailView, object: nil, userInfo: nil)
+            } catch NewAPIManager.NewAPIManagerError.unauthorizedError(_) {
+                await MainActor.run {
+                    NLNotification.sendUnauthorizedLedger(ledgerId: ledgerData._id)
+                }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳本使用者敗")
             }
@@ -126,5 +132,11 @@ extension LedgerDetailManager {
     @objc private func receiveLedgerDetailSelectDay(_ notification: Notification) {
         guard let selectedDay = NLNotification.decodeLedgerDetailSelectDay(notification) else { return }
         self.selectedDate = selectedDay
+    }
+
+    @objc private func receiveUnauthorizedLedgerNotification(_ notification: Notification) {
+        guard let unauthorizedLedgerId = NLNotification.decodeUnauthorizedLedger(notification),
+              unauthorizedLedgerId == ledgerData._id else { return }
+        vc?.navigationController?.popViewController(animated: true)
     }
 }

@@ -230,7 +230,6 @@ extension LedgerDetailViewController: UICollectionViewDataSource, UICollectionVi
 // MARK: - Refresh
 extension LedgerDetailViewController {
     @objc private func refreshView() {
-        NotificationCenter.default.post(name: .refreshLedgerDetailView, object: nil, userInfo: nil)
         manager.refreshData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.refreshControl.endRefreshing()

@@ -98,10 +98,8 @@ class NewAPIManager {
            resp.code != 200 {
             print("❌ API error code: \(resp.code), message: \(resp.message)")
             if resp.message.lowercased().contains("unauthorized") {
-                print("✅ Unauthroized")
                 throw NewAPIManagerError.unauthorizedError(resp.message)
             } else {
-                print("✅ Others")
                 throw NewAPIManagerError.apiResponseError(resp.message)
             }
         }

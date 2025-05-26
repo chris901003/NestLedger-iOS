@@ -42,7 +42,10 @@ class TagManager {
             do {
                 try await fetchMoreLedgerTags()
             } catch NewAPIManager.NewAPIManagerError.unauthorizedError(_) {
-                NLNotification.sendUnauthorizedLedger(ledgerId: ledgerId)
+                await MainActor.run {
+                    vc?.dismiss(animated: true)
+                    NLNotification.sendUnauthorizedLedger(ledgerId: ledgerId)
+                }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
             }

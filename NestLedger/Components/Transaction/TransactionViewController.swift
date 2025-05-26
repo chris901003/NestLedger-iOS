@@ -63,6 +63,7 @@ class TransactionViewController: UIViewController {
 
     private func setup() {
         manager.delegate = self
+        manager.vc = self
         view.backgroundColor = .white
         addTapBackgroundDismissKeyboard()
 

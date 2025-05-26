@@ -19,6 +19,7 @@ class TransactionManager {
     var transactionData: TransactionData
     var tagData: TagData = TagData.initEmpty()
 
+    weak var vc: TransactionViewController?
     weak var delegate: TransactionManagerDelegate?
 
     init(transactionData: TransactionData?, initialDate: Date? = nil) {
@@ -33,10 +34,16 @@ class TransactionManager {
                         delegate?.updateTagInformation(tag: tagData)
                     }
                 }
+            } catch NewAPIManager.NewAPIManagerError.unauthorizedError(_) {
+                await MainActor.run {
+                    vc?.dismiss(animated: true)
+                    NLNotification.sendUnauthorizedLedger(ledgerId: transactionData?.ledgerId ?? "")
+                }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取標籤資訊失敗")
             }
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUnauthorizedLedgerNotification), name: nil, object: nil)
     }
 
     private func getTagInformation() async throws -> TagData {
@@ -48,6 +55,12 @@ class TransactionManager {
             do {
                 transactionData = try await newApiManager.updateTransaction(data: .init(transactionData))
                 NLNotification.sendUpdateTransaction(oldTransaction: oldTransactionData, newTransaction: transactionData)
+                return nil
+            } catch NewAPIManager.NewAPIManagerError.unauthorizedError(_) {
+                await MainActor.run {
+                    vc?.dismiss(animated: true)
+                    NLNotification.sendUnauthorizedLedger(ledgerId: transactionData.ledgerId)
+                }
                 return nil
             } catch {
                 return "更新帳目失敗"
@@ -62,10 +75,24 @@ class TransactionManager {
                 await MainActor.run {
                     NLNotification.sendNewRecentTransaction(newTransaction: newTransaction)
                 }
+            } catch NewAPIManager.NewAPIManagerError.unauthorizedError(_) {
+                await MainActor.run {
+                    vc?.dismiss(animated: true)
+                    NLNotification.sendUnauthorizedLedger(ledgerId: transactionData.ledgerId)
+                }
+                return nil
             } catch {
                 return "創建帳目失敗"
             }
             return nil
+        }
+    }
+
+    @objc private func receiveUnauthorizedLedgerNotification(_ notification: Notification) {
+        guard let unauthorizedLedgerId = NLNotification.decodeUnauthorizedLedger(notification),
+              transactionData.ledgerId == unauthorizedLedgerId else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.vc?.dismiss(animated: true)
         }
     }
 }

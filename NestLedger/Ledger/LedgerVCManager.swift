@@ -29,6 +29,7 @@ class LedgerVCManager {
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveQuitLedgerNotification), name: .quitLedger, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateLedger), name: .updateLedger, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveUnauthorizedLedgerNotification), name: .unauthorizedLedger, object: nil)
         Task {
             do {
                 try await loadMoreLedgers()
@@ -100,6 +101,13 @@ class LedgerVCManager {
             guard let self else { return }
             vc?.collectionView.reloadData()
         }
+    }
+
+    @objc private func receiveUnauthorizedLedgerNotification(_ notification: Notification) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XOBottomBarInformationManager.showBottomInformation(type: .info, information: "您已被踢出帳本")
+        }
+        reloadView()
     }
 }
 
