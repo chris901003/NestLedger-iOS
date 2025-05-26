@@ -155,4 +155,9 @@ extension LedgerVCManager: ReceiveLedgerViewControllerDelegate {
             }
         }
     }
+
+    func rejectLedgerInvite(ledgerId: String) {
+        ledgerInviteCount -= 1
+        vc?.plusButton.config(infoCount: ledgerInviteCount)
+    }
 }

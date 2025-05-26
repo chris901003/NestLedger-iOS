@@ -69,7 +69,10 @@ extension ReceiveLedgerInviteManager: RLICellDelegate {
         Task {
             do {
                 try await newApiManager.deleteLedgerInvite(inviteId: ledgerInviteData._id, accept: false)
-                await removeCellAnimation(indexPath, ledgerInviteData._id)
+                await MainActor.run {
+                    removeCellAnimation(indexPath, ledgerInviteData._id)
+                    vc?.delegate?.rejectLedgerInvite(ledgerId: ledgerInviteData.ledgerId)
+                }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "拒絕加入帳本失敗")
             }

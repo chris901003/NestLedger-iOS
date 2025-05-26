@@ -11,6 +11,7 @@ import UIKit
 
 protocol ReceiveLedgerViewControllerDelegate: AnyObject {
     func joinLedger(ledgerId: String)
+    func rejectLedgerInvite(ledgerId: String)
 }
 
 class ReceiveLedgerInviteViewController: UIViewController {
