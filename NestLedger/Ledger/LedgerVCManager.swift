@@ -149,6 +149,10 @@ extension LedgerVCManager: ReceiveLedgerViewControllerDelegate {
                 ledgerIds.append(ledgerData._id)
                 ledgerDatas.append(ledgerData)
             }
+            await MainActor.run {
+                ledgerInviteCount -= 1
+                vc?.plusButton.config(infoCount: ledgerInviteCount)
+            }
         }
     }
 }
