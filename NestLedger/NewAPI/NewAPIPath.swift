@@ -98,4 +98,9 @@ class NewAPIPath {
         // [DELETE]
         case delete = "/v1/ledger-invite/delete"
     }
+
+    enum EmailVerification: String, NewAPIPathProtocol {
+        // [GET]
+        case send = "/v1/email-verification/send"
+    }
 }

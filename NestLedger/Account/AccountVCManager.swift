@@ -115,6 +115,17 @@ class AccountVCManager {
         }
     }
 
+    func updateUserEmailAddress(emailAddress: String) {
+        Task {
+            do {
+                try await newApiManager.sendEmailVerification(emailAddress: emailAddress)
+                XOBottomBarInformationManager.showBottomInformation(type: .success, information: "已發送驗證信，請前往信箱確認")
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .info, information: "以達到本日更改上限，請明天再更改")
+            }
+        }
+    }
+
     func deleteAccount() {
         Task {
             do {

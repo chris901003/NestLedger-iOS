@@ -165,7 +165,7 @@ extension AccountViewController: UITextFieldDelegate {
         return true
     }
 
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         UIView.animate(withDuration: 0.25) {
             textField.layer.borderColor = UIColor.black.withAlphaComponent(0).cgColor
         }
@@ -174,19 +174,27 @@ extension AccountViewController: UITextFieldDelegate {
                 guard let newUserName = textField.text,
                       !newUserName.isEmpty else {
                     userNameView.text = manager.userInfo.userName
-                    return true
+                    return
                 }
                 manager.userInfo.userName = newUserName
             case 1:
                 guard let newEmail = textField.text,
                       newEmail.isValidEmail() else {
                     emailView.text = manager.userInfo.emailAddress
-                    return true
+                    return
                 }
-                manager.userInfo.emailAddress = newEmail
+                textField.resignFirstResponder()
+                let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+                let updateAction = UIAlertAction(title: "更新", style: .default) { [weak self] _ in
+                    guard let self else { return }
+                    manager.updateUserEmailAddress(emailAddress: newEmail)
+                }
+                let alertController = UIAlertController(title: "更新電子郵件", message: "每人一天提供三次更換電子郵件，請確認電子郵件正確", preferredStyle: .alert)
+                alertController.addAction(cancelAction)
+                alertController.addAction(updateAction)
+                present(alertController, animated: true)
             default:
                 break
         }
-        return true
     }
 }

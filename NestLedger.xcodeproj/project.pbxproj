@@ -33,6 +33,7 @@
 		050533862DE2B1BB003245E0 /* LPlusButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533852DE2B1BB003245E0 /* LPlusButtonView.swift */; };
 		050533882DE2B868003245E0 /* MainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533872DE2B868003245E0 /* MainManager.swift */; };
 		0505338B2DE300D6003245E0 /* BasicUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505338A2DE300D6003245E0 /* BasicUserInfoViewController.swift */; };
+		0505338D2DE4A8BD003245E0 /* NewAPIManager+EmailVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0505338C2DE4A8BD003245E0 /* NewAPIManager+EmailVerification.swift */; };
 		050830F62D41DA0F008C8831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F52D41DA0F008C8831 /* AppDelegate.swift */; };
 		050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F72D41DA0F008C8831 /* SceneDelegate.swift */; };
 		050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050830F92D41DA0F008C8831 /* ViewController.swift */; };
@@ -165,6 +166,7 @@
 		050533852DE2B1BB003245E0 /* LPlusButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LPlusButtonView.swift; sourceTree = "<group>"; };
 		050533872DE2B868003245E0 /* MainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainManager.swift; sourceTree = "<group>"; };
 		0505338A2DE300D6003245E0 /* BasicUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicUserInfoViewController.swift; sourceTree = "<group>"; };
+		0505338C2DE4A8BD003245E0 /* NewAPIManager+EmailVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+EmailVerification.swift"; sourceTree = "<group>"; };
 		050830F22D41DA0F008C8831 /* NestLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		050830F52D41DA0F008C8831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		050830F72D41DA0F008C8831 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -733,6 +735,7 @@
 		05EE3D0B2DDCBD4E00CC22AA /* NewAPI */ = {
 			isa = PBXGroup;
 			children = (
+				0505338C2DE4A8BD003245E0 /* NewAPIManager+EmailVerification.swift */,
 				050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */,
 				050533792DDF1A6C003245E0 /* NewAPIManager+Ledger.swift */,
 				0505337D2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift */,
@@ -946,6 +949,7 @@
 				051257EA2D8326260066F3F2 /* MRecntManager.swift in Sources */,
 				050533882DE2B868003245E0 /* MainManager.swift in Sources */,
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
+				0505338D2DE4A8BD003245E0 /* NewAPIManager+EmailVerification.swift in Sources */,
 				050533682DDDA12A003245E0 /* NewAPIManager+Information.swift in Sources */,
 				0505337A2DDF1A6C003245E0 /* NewAPIManager+Ledger.swift in Sources */,
 				0505337E2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift in Sources */,
