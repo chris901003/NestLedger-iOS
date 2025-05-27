@@ -25,6 +25,7 @@ extension NewAPIManager {
 extension NewAPIManager {
     func getBasicInformation() async throws -> BasicInformationData {
         let responseData = await session.request(NewAPIPath.Information.basic.getPath(), method: .get)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)

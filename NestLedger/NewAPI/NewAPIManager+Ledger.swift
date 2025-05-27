@@ -29,6 +29,7 @@ extension NewAPIManager {
             NewAPIPath.Ledger.get.getPath(),
             method: .get,
             parameters: ["ledgerId": ledgerId])
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -50,6 +51,7 @@ extension NewAPIManager {
             method: .post,
             parameters: data,
             encoder: JSONParameterEncoder.default)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -71,6 +73,7 @@ extension NewAPIManager {
             method: .patch,
             parameters: data,
             encoder: JSONParameterEncoder.default)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -91,6 +94,7 @@ extension NewAPIManager {
             NewAPIPath.Ledger.leave.getPath(),
             method: .get,
             parameters: ["uid": uid, "ledgerId": ledgerId])
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)

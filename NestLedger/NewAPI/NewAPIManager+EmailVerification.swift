@@ -16,6 +16,7 @@ extension NewAPIManager {
             NewAPIPath.EmailVerification.send.getPath(),
             method: .get,
             parameters: ["emailAddress": emailAddress])
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)

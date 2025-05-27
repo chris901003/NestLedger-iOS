@@ -33,6 +33,7 @@ extension NewAPIManager {
             method: .post,
             parameters: data,
             encoder: JSONParameterEncoder.default)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -50,6 +51,7 @@ extension NewAPIManager {
 extension NewAPIManager {
     func getTag(tagId: String) async throws -> TagData {
         let responseData = await session.request(NewAPIPath.Tag.get.getPath(), method: .get, parameters: ["tagId": tagId])
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -71,6 +73,7 @@ extension NewAPIManager {
             method: .post,
             parameters: data,
             encoder: JSONParameterEncoder.default)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -92,6 +95,7 @@ extension NewAPIManager {
             method: .patch,
             parameters: data,
             encoder: JSONParameterEncoder.default)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -109,6 +113,7 @@ extension NewAPIManager {
 extension NewAPIManager {
     func deleteTag(tagId: String) async throws {
         let responseData = await session.request(NewAPIPath.Tag.delete.getPath(), method: .delete, parameters: ["tagId": tagId])
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)

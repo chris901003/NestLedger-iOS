@@ -32,6 +32,7 @@ extension NewAPIManager {
             NewAPIPath.LedgerInvite.get.getPath(),
             method: .get,
             parameters: params)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -53,6 +54,7 @@ extension NewAPIManager {
             method: .post,
             parameters: data,
             encoder: JSONParameterEncoder.default)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -73,6 +75,7 @@ extension NewAPIManager {
             NewAPIPath.LedgerInvite.delete.getPath(),
             method: .delete,
             parameters: ["inviteId": inviteId, "accept": accept ? "true" : "false"])
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)

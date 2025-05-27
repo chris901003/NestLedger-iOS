@@ -30,6 +30,7 @@ extension NewAPIManager {
             method: .post,
             parameters: data,
             encoder: JSONParameterEncoder(encoder: NewAPIManager.encoder))
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -51,6 +52,7 @@ extension NewAPIManager {
             method: .post,
             parameters: data,
             encoder: JSONParameterEncoder(encoder: NewAPIManager.encoder))
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -72,6 +74,7 @@ extension NewAPIManager {
             method: .patch,
             parameters: data,
             encoder: JSONParameterEncoder(encoder: NewAPIManager.encoder))
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -92,6 +95,7 @@ extension NewAPIManager {
             NewAPIPath.Transaction.delete.getPath(),
             method: .delete,
             parameters: ["transactionId": transactionId])
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)

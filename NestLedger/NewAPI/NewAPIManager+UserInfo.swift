@@ -33,6 +33,7 @@ extension NewAPIManager {
 extension NewAPIManager {
     func login() async throws {
         let responseData = await session.request(NewAPIPath.UserInfo.login.getPath(), method: .get)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -51,6 +52,7 @@ extension NewAPIManager {
 extension NewAPIManager {
     func getUserInfo() async throws -> UserInfoData {
         let responseData = await session.request(NewAPIPath.UserInfo.get.getPath(), method: .get)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -68,6 +70,7 @@ extension NewAPIManager {
 extension NewAPIManager {
     func getUserInfoByUid(uid: String) async throws -> UserInfoData {
         let responseData = await session.request(NewAPIPath.UserInfo.getUserById.getPath(), method: .get, parameters: ["uid": uid])
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -89,6 +92,7 @@ extension NewAPIManager {
             method: .post,
             parameters: ["uids": uids],
             encoder: JSONParameterEncoder.default)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -109,6 +113,7 @@ extension NewAPIManager {
             NewAPIPath.UserInfo.getUserByEmail.getPath(),
             method: .get,
             parameters: ["email": emailAddress])
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -126,6 +131,7 @@ extension NewAPIManager {
 extension NewAPIManager {
     func getUserAvatar(uid: String) async throws -> UIImage {
         let response = await session.request(NewAPIPath.UserInfo.avatar.getPath(), method: .get, parameters: ["uid": uid])
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: response)
@@ -148,6 +154,7 @@ extension NewAPIManager {
             },
             to: NewAPIPath.UserInfo.uploadAvatar.getPath(),
             method: .post)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: response)
@@ -169,6 +176,7 @@ extension NewAPIManager {
             method: .patch,
             parameters: requestData,
             encoder: JSONParameterEncoder.default)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: response)
@@ -189,6 +197,7 @@ extension NewAPIManager {
             NewAPIPath.UserInfo.changeQuickLogLedger.getPath(),
             method: .patch,
             parameters: ["ledgerId": ledgerId])
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
@@ -207,6 +216,7 @@ extension NewAPIManager {
 extension NewAPIManager {
     func deleteUserInfo() async throws {
         let response = await session.request(NewAPIPath.UserInfo.delete.getPath(), method: .delete)
+            .validate()
             .serializingData()
             .response
         try checkResponse(responseData: response)
