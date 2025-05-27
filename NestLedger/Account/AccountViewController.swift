@@ -25,6 +25,7 @@ class AccountViewController: UIViewController {
     let emailNotCheckLabel = UILabel()
     let tableViewBackground = UIView()
     let settingTableView = UITableView(frame: .zero, style: .insetGrouped)
+    let refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,6 +115,8 @@ class AccountViewController: UIViewController {
         settingTableView.delegate = self
         settingTableView.dataSource = self
         settingTableView.clipsToBounds = true
+        settingTableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
     }
 
     private func layout() {
@@ -245,6 +248,16 @@ extension AccountViewController: UITextFieldDelegate {
                 present(alertController, animated: true)
             default:
                 break
+        }
+    }
+}
+
+// MARK: - Refresh
+extension AccountViewController {
+    @objc private func refreshAction() {
+        manager.refreshView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.refreshControl.endRefreshing()
         }
     }
 }

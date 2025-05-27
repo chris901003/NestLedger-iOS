@@ -164,4 +164,19 @@ class AccountVCManager {
             }
         }
     }
+
+    func refreshView() {
+        startUpdate = false;
+        Task {
+            await getBasicInformation()
+            await getUserInfo()
+            await getAvatar()
+            await getEmailVerification()
+            await MainActor.run {
+                controller?.settingTableView.reloadData()
+                controller?.config()
+                startUpdate = true
+            }
+        }
+    }
 }
