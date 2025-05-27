@@ -44,11 +44,17 @@ class TransactionViewController: UIViewController {
     let noteTextView = UITextView()
 
     var noteContentViewBottomConstraint: NSLayoutConstraint?
+    var scrollToNoteTextView = false
 
     init(_ data: CreateData) {
         manager = TransactionManager(transactionData: data.transaction, initialDate: data.initialDate)
         if let ledgerId = data.ledgerId { manager.transactionData.ledgerId = ledgerId }
         super.init(nibName: nil, bundle: nil)
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -287,19 +293,39 @@ extension TransactionViewController: TransactionManagerDelegate {
 
 // MARK: - UITextViewDelegate
 extension TransactionViewController: UITextViewDelegate {
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            noteContentViewBottomConstraint?.constant = -320
-        }
-        return true
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        scrollToNoteTextView = true
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            noteContentViewBottomConstraint?.constant = -12
-        }
         manager.transactionData.note = noteTextView.text
+    }
+}
+
+// MARK: - Keyboard
+extension TransactionViewController {
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
+        let keyboardHeight = keyboardFrame.height
+        UIView.animate(withDuration: duration) { [weak self] in
+            guard let self else{ return }
+            scrollView.contentInset.bottom = keyboardHeight
+            scrollView.verticalScrollIndicatorInsets.bottom = keyboardHeight
+            if scrollToNoteTextView {
+                if let targetRect = noteTextView.superview?.convert(noteTextView.frame, to: scrollView) {
+                    scrollView.scrollRectToVisible(targetRect, animated: true)
+                }
+                scrollToNoteTextView = false
+            }
+        }
+    }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        UIView.animate(withDuration: 0.25) {
+            self.scrollView.contentInset.bottom = 0
+            self.scrollView.verticalScrollIndicatorInsets.bottom = 0
+        }
     }
 }

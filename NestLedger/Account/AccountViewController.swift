@@ -115,6 +115,7 @@ class AccountViewController: UIViewController {
         settingTableView.delegate = self
         settingTableView.dataSource = self
         settingTableView.clipsToBounds = true
+        settingTableView.keyboardDismissMode = .onDrag
         settingTableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
     }
