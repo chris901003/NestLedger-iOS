@@ -41,6 +41,14 @@ class AccountViewController: UIViewController {
     func config() {
         userNameView.text = manager.userInfo.userName.isEmpty ? "未知" : manager.userInfo.userName
         emailView.text = manager.userInfo.emailAddress.isEmpty ? "未知" : manager.userInfo.emailAddress
+        if let emailVerificationData = manager.emailVerificationData {
+            emailNotCheckIcon.alpha = emailVerificationData.emailAddress != emailView.text ? 1 : 0
+            emailNotCheckLabel.alpha = emailVerificationData.emailAddress != emailView.text ? 1 : 0
+            emailView.text = emailVerificationData.emailAddress
+        } else {
+            emailNotCheckIcon.alpha = 0
+            emailNotCheckLabel.alpha = 0
+        }
         if let avatar = manager.avatar { avatarView.config(avatar) }
     }
 
@@ -74,7 +82,7 @@ class AccountViewController: UIViewController {
         emailView.autocorrectionType = .no
         emailView.keyboardType = .emailAddress
         emailView.placeholder = "電子郵件"
-        emailView.text = manager.userInfo.emailAddress
+        emailView.text = manager.emailVerificationData?.emailAddress ?? manager.userInfo.emailAddress
         emailView.font = .systemFont(ofSize: 12, weight: .semibold)
         emailView.textColor = .systemGray
         emailView.delegate = self
@@ -84,13 +92,21 @@ class AccountViewController: UIViewController {
 
         emailNotCheckIcon.image = UIImage(
             systemName: "exclamationmark.triangle.fill")?.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
-        emailNotCheckIcon.alpha = 0
+        if let emailVerificationData = manager.emailVerificationData {
+            emailNotCheckIcon.alpha = emailVerificationData.emailAddress == manager.userInfo.emailAddress ? 0 : 1
+        } else {
+            emailNotCheckIcon.alpha = 0
+        }
 
         emailNotCheckLabel.text = "此電子郵件尚未驗證"
         emailNotCheckLabel.font = .systemFont(ofSize: 10, weight: .bold)
         emailNotCheckLabel.textColor = .secondaryLabel
         emailNotCheckLabel.numberOfLines = 1
-        emailNotCheckLabel.alpha = 0
+        if let emailVerificationData = manager.emailVerificationData {
+            emailNotCheckLabel.alpha = emailVerificationData.emailAddress == manager.userInfo.emailAddress ? 0 : 1
+        } else {
+            emailNotCheckLabel.alpha = 0
+        }
 
         tableViewBackground.backgroundColor = .systemGray6
 

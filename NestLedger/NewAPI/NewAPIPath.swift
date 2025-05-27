@@ -101,6 +101,7 @@ class NewAPIPath {
 
     enum EmailVerification: String, NewAPIPathProtocol {
         // [GET]
+        case get = "/v1/email-verification/get"
         case send = "/v1/email-verification/send"
     }
 }

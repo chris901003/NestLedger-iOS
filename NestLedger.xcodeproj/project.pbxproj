@@ -104,6 +104,7 @@
 		05764D942DB676C6007292D7 /* LDSLedgerMemberManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D932DB676C6007292D7 /* LDSLedgerMemberManager.swift */; };
 		05764D982DB7E32F007292D7 /* LDSLMEnterNewMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D972DB7E32F007292D7 /* LDSLMEnterNewMemberViewController.swift */; };
 		05764D9D2DB93082007292D7 /* LedgerInviteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05764D9C2DB93082007292D7 /* LedgerInviteData.swift */; };
+		059344722DE5EF030042FB36 /* EmailVerificationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059344712DE5EF030042FB36 /* EmailVerificationData.swift */; };
 		059CBE412DBBCEB2000B7F22 /* LDSLMInviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */; };
 		059CBE442DC119D7000B7F22 /* CreateLedgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */; };
 		05ADF39D2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ADF39C2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift */; };
@@ -214,6 +215,7 @@
 		05764D932DB676C6007292D7 /* LDSLedgerMemberManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLedgerMemberManager.swift; sourceTree = "<group>"; };
 		05764D972DB7E32F007292D7 /* LDSLMEnterNewMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMEnterNewMemberViewController.swift; sourceTree = "<group>"; };
 		05764D9C2DB93082007292D7 /* LedgerInviteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerInviteData.swift; sourceTree = "<group>"; };
+		059344712DE5EF030042FB36 /* EmailVerificationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationData.swift; sourceTree = "<group>"; };
 		059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMInviteCell.swift; sourceTree = "<group>"; };
 		059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLedgerViewController.swift; sourceTree = "<group>"; };
 		05ADF39C2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveLedgerInviteViewController.swift; sourceTree = "<group>"; };
@@ -528,6 +530,7 @@
 		055704542D5782960032C47C /* Datas */ = {
 			isa = PBXGroup;
 			children = (
+				059344702DE5EEE90042FB36 /* EmailVerification */,
 				05B340B02D66221F000378A2 /* Information */,
 				051257D82D7F165A0066F3F2 /* Ledger */,
 				05764D9B2DB9306A007292D7 /* LedgerInvite */,
@@ -567,6 +570,14 @@
 				05764D9C2DB93082007292D7 /* LedgerInviteData.swift */,
 			);
 			path = LedgerInvite;
+			sourceTree = "<group>";
+		};
+		059344702DE5EEE90042FB36 /* EmailVerification */ = {
+			isa = PBXGroup;
+			children = (
+				059344712DE5EF030042FB36 /* EmailVerificationData.swift */,
+			);
+			path = EmailVerification;
 			sourceTree = "<group>";
 		};
 		059CBE422DC119BB000B7F22 /* CreateLedger */ = {
@@ -900,6 +911,7 @@
 				059CBE442DC119D7000B7F22 /* CreateLedgerViewController.swift in Sources */,
 				055704592D57839C0032C47C /* DataConstain.swift in Sources */,
 				05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */,
+				059344722DE5EF030042FB36 /* EmailVerificationData.swift in Sources */,
 				0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */,
 				05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */,
 				0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */,

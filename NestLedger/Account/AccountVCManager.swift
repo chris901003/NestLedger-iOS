@@ -48,12 +48,14 @@ class AccountVCManager {
     }
     var basicInformation = BasicInformationData()
     var startUpdate = false
+    var emailVerificationData: EmailVerificationData?
 
     init() {
         Task {
             await getBasicInformation()
             await getUserInfo()
             await getAvatar()
+            await getEmailVerification()
             await MainActor.run {
                 controller?.settingTableView.reloadData()
                 controller?.config()
@@ -90,6 +92,13 @@ class AccountVCManager {
             await MainActor.run {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "無法取的頭像")
             }
+        }
+    }
+
+    private func getEmailVerification() async {
+        guard let emailVerificationData = try? await newApiManager.getEmailVerification() else { return }
+        if emailVerificationData.expireAt.timeIntervalSince1970 - Date.now.timeIntervalSince1970 > 0 {
+            self.emailVerificationData = emailVerificationData
         }
     }
 
