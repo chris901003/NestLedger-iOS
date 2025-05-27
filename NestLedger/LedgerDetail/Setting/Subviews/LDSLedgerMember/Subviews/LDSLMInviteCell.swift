@@ -71,6 +71,7 @@ class LDSLMInviteCell: UITableViewCell {
         senderAvatarView.backgroundColor = .black
         senderAvatarView.layer.cornerRadius = 20.0
         senderAvatarView.clipsToBounds = true
+        senderAvatarView.contentMode = .scaleAspectFill
 
         iconView.image = UIImage(systemName: "arrow.forward")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         iconView.contentMode = .scaleAspectFit
@@ -78,6 +79,7 @@ class LDSLMInviteCell: UITableViewCell {
         receiveAvatarView.backgroundColor = .black
         receiveAvatarView.layer.cornerRadius = 20.0
         receiveAvatarView.clipsToBounds = true
+        receiveAvatarView.contentMode = .scaleAspectFill
 
         nameLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         nameLabel.numberOfLines = 1

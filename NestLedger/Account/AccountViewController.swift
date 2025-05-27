@@ -21,6 +21,8 @@ class AccountViewController: UIViewController {
     let avatarView = XOAvatarView(UIImage(named: "avatar")!)
     let userNameView = XOTextField()
     let emailView = XOTextField()
+    let emailNotCheckIcon = UIImageView()
+    let emailNotCheckLabel = UILabel()
     let tableViewBackground = UIView()
     let settingTableView = UITableView(frame: .zero, style: .insetGrouped)
 
@@ -80,6 +82,16 @@ class AccountViewController: UIViewController {
         emailView.layer.borderColor = UIColor.black.withAlphaComponent(0).cgColor
         emailView.layer.cornerRadius = 5
 
+        emailNotCheckIcon.image = UIImage(
+            systemName: "exclamationmark.triangle.fill")?.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
+        emailNotCheckIcon.alpha = 0
+
+        emailNotCheckLabel.text = "此電子郵件尚未驗證"
+        emailNotCheckLabel.font = .systemFont(ofSize: 10, weight: .bold)
+        emailNotCheckLabel.textColor = .secondaryLabel
+        emailNotCheckLabel.numberOfLines = 1
+        emailNotCheckLabel.alpha = 0
+
         tableViewBackground.backgroundColor = .systemGray6
 
         settingTableView.backgroundColor = .black.withAlphaComponent(0)
@@ -112,6 +124,22 @@ class AccountViewController: UIViewController {
             emailView.leadingAnchor.constraint(equalTo: userNameView.leadingAnchor),
             emailView.trailingAnchor.constraint(equalTo: userNameView.trailingAnchor),
             emailView.topAnchor.constraint(equalTo: avatarView.centerYAnchor, constant: 4)
+        ])
+
+        view.addSubview(emailNotCheckIcon)
+        emailNotCheckIcon.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            emailNotCheckIcon.topAnchor.constraint(equalTo: emailView.bottomAnchor, constant: 4),
+            emailNotCheckIcon.leadingAnchor.constraint(equalTo: emailView.leadingAnchor),
+            emailNotCheckIcon.heightAnchor.constraint(equalToConstant: 12),
+            emailNotCheckIcon.widthAnchor.constraint(equalToConstant: 12)
+        ])
+
+        view.addSubview(emailNotCheckLabel)
+        emailNotCheckLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            emailNotCheckLabel.leadingAnchor.constraint(equalTo: emailNotCheckIcon.trailingAnchor, constant: 4),
+            emailNotCheckLabel.centerYAnchor.constraint(equalTo: emailNotCheckIcon.centerYAnchor)
         ])
 
         view.addSubview(tableViewBackground)
@@ -187,7 +215,13 @@ extension AccountViewController: UITextFieldDelegate {
                 let cancelAction = UIAlertAction(title: "取消", style: .cancel)
                 let updateAction = UIAlertAction(title: "更新", style: .default) { [weak self] _ in
                     guard let self else { return }
-                    manager.updateUserEmailAddress(emailAddress: newEmail)
+                    let loadingVC = XOLoadingViewController(title: "發送確認信中", info: "正在發送更換電子郵件的確認信...")
+                    loadingVC.modalPresentationStyle = .overFullScreen
+                    loadingVC.modalTransitionStyle = .crossDissolve
+                    present(loadingVC, animated: true)
+                    manager.updateUserEmailAddress(emailAddress: newEmail, loadingVC: loadingVC)
+                    emailNotCheckIcon.alpha = 1
+                    emailNotCheckLabel.alpha = 1
                 }
                 let alertController = UIAlertController(title: "更新電子郵件", message: "每人一天提供三次更換電子郵件，請確認電子郵件正確", preferredStyle: .alert)
                 alertController.addAction(cancelAction)
