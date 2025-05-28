@@ -14,6 +14,7 @@ class BasicUserInfoViewController: UIViewController {
     let avatarView = UIImageView()
     let nameLabel = UILabel()
     let emailAddressLabel = UILabel()
+    let copyIconView = UIImageView()
 
     var userInfoData: UserInfoData
 
@@ -47,6 +48,11 @@ class BasicUserInfoViewController: UIViewController {
         emailAddressLabel.textAlignment = .left
         emailAddressLabel.numberOfLines = 1
         emailAddressLabel.textColor = .systemGray2
+
+        copyIconView.image = UIImage(systemName: "doc.on.doc")?.withTintColor(.systemGray2, renderingMode: .alwaysOriginal)
+        copyIconView.contentMode = .scaleAspectFit
+        copyIconView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(copyEmailAddress)))
+        copyIconView.isUserInteractionEnabled = true
     }
 
     private func layout() {
@@ -76,13 +82,29 @@ class BasicUserInfoViewController: UIViewController {
             nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
 
+        contentView.addSubview(copyIconView)
+        copyIconView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            copyIconView.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 24),
+            copyIconView.topAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 6),
+            copyIconView.widthAnchor.constraint(equalToConstant: 16),
+            copyIconView.heightAnchor.constraint(equalToConstant: 16)
+        ])
+
         contentView.addSubview(emailAddressLabel)
         emailAddressLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            emailAddressLabel.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 24),
+            emailAddressLabel.leadingAnchor.constraint(equalTo: copyIconView.trailingAnchor, constant: 8),
             emailAddressLabel.topAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 6),
             emailAddressLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
+    }
+
+    @objc private func copyEmailAddress() {
+        UIPasteboard.general.string = emailAddressLabel.text
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.copyIconView.image = UIImage(systemName: "checkmark")?.withTintColor(.systemGray2, renderingMode: .alwaysOriginal)
+        }
     }
 }
 
