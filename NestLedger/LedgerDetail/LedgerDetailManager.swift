@@ -29,7 +29,7 @@ class LedgerDetailManager {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateLedger), name: .updateLedger, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveLedgerDetailSelectDay), name: .ledgerDetailSelectDay, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUnauthorizedLedgerNotification), name: .unauthorizedLedger, object: nil)
-        refreshData()
+        loadData()
     }
 
     private func getLedgerData() async throws {
@@ -41,6 +41,23 @@ class LedgerDetailManager {
         self.userInfos = userInfos
     }
 
+    private func loadData() {
+        Task {
+            do {
+                try await getLedgerData()
+                try await getUsers()
+            } catch NewAPIManager.NewAPIManagerError.unauthorizedError(_) {
+                await MainActor.run { NLNotification.sendUnauthorizedLedger(ledgerId: ledgerData._id) }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳本使用者敗")
+            }
+            await MainActor.run {
+                vc?.avatarListView.reloadData()
+                vc?.incomeExpenseView.config(income: self.ledgerData.totalIncome, expense: self.ledgerData.totalExpense)
+            }
+        }
+    }
+
     func getUserAvatar(userData: UserInfoData) async -> UIImage? {
         if userData.isDelete {
             return UIImage.getDeleteUserAvatar()
@@ -50,23 +67,8 @@ class LedgerDetailManager {
     }
 
     func refreshData() {
-        Task {
-            do {
-                try await getLedgerData()
-                try await getUsers()
-                NotificationCenter.default.post(name: .refreshLedgerDetailView, object: nil, userInfo: nil)
-            } catch NewAPIManager.NewAPIManagerError.unauthorizedError(_) {
-                await MainActor.run {
-                    NLNotification.sendUnauthorizedLedger(ledgerId: ledgerData._id)
-                }
-            } catch {
-                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取帳本使用者敗")
-            }
-            await MainActor.run {
-                vc?.avatarListView.reloadData()
-                vc?.incomeExpenseView.config(income: self.ledgerData.totalIncome, expense: self.ledgerData.totalExpense)
-            }
-        }
+        loadData()
+        NotificationCenter.default.post(name: .refreshLedgerDetailView, object: nil, userInfo: nil)
     }
 }
 

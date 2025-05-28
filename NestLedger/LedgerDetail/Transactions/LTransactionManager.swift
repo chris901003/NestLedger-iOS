@@ -27,12 +27,9 @@ class LTransactionManager {
         self.transactions = transactions
         Task {
             try? await fetchUserAvatar()
-            DispatchQueue.main.async { [weak self] in
-                self?.vc?.tableView.reloadData()
-                DispatchQueue.main.async { [weak self] in
-                    guard let self else { return }
-                    vc?.tableViewHeightConstraint?.constant = min(400, vc?.tableView.contentSize.height ?? 8)
-                }
+            await MainActor.run {
+                vc?.tableView.reloadData()
+                vc?.tableViewHeightConstraint?.constant = min(400, vc?.tableView.contentSize.height ?? 8)
             }
         }
     }
