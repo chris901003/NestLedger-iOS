@@ -68,7 +68,7 @@ class LedgerDetailManager {
 
     func refreshData() {
         loadData()
-        NotificationCenter.default.post(name: .refreshLedgerDetailView, object: nil, userInfo: nil)
+        NLNotification.sendRefreshLedgerDetail()
     }
 }
 

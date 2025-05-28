@@ -45,7 +45,7 @@ class MainManager {
                         XOBottomBarInformationManager.showBottomInformation(type: .info, information: "已被踢除原先的帳本")
                     } else {
                         // 只有在 quick ledger 沒有被更改時發出 refresh 訊息
-                        NotificationCenter.default.post(name: .refreshMainView, object: nil, userInfo: nil)
+                        NLNotification.sendRefreshMainView()
                     }
                 }
             } catch {

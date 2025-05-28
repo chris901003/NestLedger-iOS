@@ -50,7 +50,7 @@ extension MQLQuickLogManager: MQLSendViewDelegate {
                 let newTransaction = try await newApiManager.createTransaction(data: TransactionCreateRequestData(transaction))
                 completion()
                 await MainActor.run {
-                    NotificationCenter.default.post(name: .newRecentTransaction, object: nil, userInfo: ["transaction": newTransaction])
+                    NLNotification.sendNewRecentTransaction(newTransaction: newTransaction)
                     vc?.totalValue = 0
                     vc?.tagView.reset()
                     XOBottomBarInformationManager.showBottomInformation(type: .success, information: "添加成功")

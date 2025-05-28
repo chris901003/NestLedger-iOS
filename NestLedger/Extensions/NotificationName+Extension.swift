@@ -124,6 +124,16 @@ class NLNotification {
         return tagData
     }
 
+    // MARK: - Refresh Main View
+    static func sendRefreshMainView() {
+        NotificationCenter.default.post(name: .refreshMainView, object: nil, userInfo: nil)
+    }
+
+    // MARK: - Refresh Ledger Detail
+    static func sendRefreshLedgerDetail() {
+        NotificationCenter.default.post(name: .refreshLedgerDetailView, object: nil, userInfo: nil)
+    }
+
     // MARK: - Unauthorized Ledger
     static func sendUnauthorizedLedger(ledgerId: String) {
         NotificationCenter.default.post(name: .unauthorizedLedger, object: nil, userInfo: ["ledgerId": ledgerId])
