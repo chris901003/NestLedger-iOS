@@ -130,7 +130,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 alertController.addAction(deleteAction)
                 present(alertController, animated: true)
             case .privacy:
-                guard let url = URL(string: "https://www.zephyrhuang.org/nestledger-ios/") else { return }
+                guard let url = URL(string: "https://www.xxooooxx.org/NestLedger") else { return }
                 let safariVC = SFSafariViewController(url: url)
                 present(safariVC, animated: true)
             default:
