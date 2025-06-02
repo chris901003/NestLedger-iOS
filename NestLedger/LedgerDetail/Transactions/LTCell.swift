@@ -50,7 +50,13 @@ class LTCell: UITableViewCell {
         titleLabel.text = transaction.title
 
         tagId = transaction.tagId
-        Task { try? await fetchTagInfo(tagId: transaction.tagId) }
+        if let tagData = CacheTagData.shared.getTagData(tagId: tagId) {
+            tagLabel.text = tagData.label
+            tagLabel.textColor = tagData.getColor
+            tagLabel.backgroundColor = tagData.getColor.withAlphaComponent(0.3)
+        } else {
+            Task { try? await fetchTagInfo(tagId: transaction.tagId) }
+        }
     }
 
     private func defaultSetup() {
@@ -145,6 +151,7 @@ class LTCell: UITableViewCell {
 extension LTCell {
     private func fetchTagInfo(tagId: String) async throws {
         let tagData = try await newApiManager.getTag(tagId: tagId)
+        CacheTagData.shared.updateTagData(tagData: tagData)
         await MainActor.run {
             tagLabel.text = tagData.label
             tagLabel.textColor = tagData.getColor

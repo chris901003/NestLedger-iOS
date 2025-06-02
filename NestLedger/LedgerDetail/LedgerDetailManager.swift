@@ -68,7 +68,7 @@ class LedgerDetailManager {
 
     func refreshData() {
         loadData()
-        NLNotification.sendRefreshLedgerDetail()
+        NLNotification.sendRefreshLedgerDetail(ledgerId: ledgerData._id)
     }
 }
 

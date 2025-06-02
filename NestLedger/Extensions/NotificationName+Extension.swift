@@ -130,8 +130,14 @@ class NLNotification {
     }
 
     // MARK: - Refresh Ledger Detail
-    static func sendRefreshLedgerDetail() {
-        NotificationCenter.default.post(name: .refreshLedgerDetailView, object: nil, userInfo: nil)
+    static func sendRefreshLedgerDetail(ledgerId: String) {
+        NotificationCenter.default.post(name: .refreshLedgerDetailView, object: nil, userInfo: ["ledgerId": ledgerId])
+    }
+
+    static func decodeRefreshLedgerDetail(_ notificatino: Notification) -> String? {
+        guard let userInfo = notificatino.userInfo,
+              let ledgerId = userInfo["ledgerId"] as? String else { return nil }
+        return ledgerId
     }
 
     // MARK: - Unauthorized Ledger
