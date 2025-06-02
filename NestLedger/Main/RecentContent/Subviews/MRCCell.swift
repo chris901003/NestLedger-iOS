@@ -41,18 +41,24 @@ class MRCCell: UITableViewCell {
 
         tagId = data.tagId
 
-        Task {
-            do {
-                let tag = try await getTagInformation(tagId: data.tagId)
-                await MainActor.run {
-                    tagLabel.text = tag.label
-                    tagLabel.textColor = tag.getColor
-                    tagLabel.backgroundColor = tag.getColor.withAlphaComponent(0.3)
+        if let tagData = CacheTagData.shared.getTagData(tagId: tagId) {
+            configTagData(data: tagData)
+        } else {
+            Task {
+                do {
+                    let tag = try await getTagInformation(tagId: data.tagId)
+                    await MainActor.run { configTagData(data: tag) }
+                } catch {
+                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取標籤失敗")
                 }
-            } catch {
-                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取標籤失敗")
             }
         }
+    }
+
+    private func configTagData(data: TagData) {
+        tagLabel.text = data.label
+        tagLabel.textColor = data.getColor
+        tagLabel.backgroundColor = data.getColor.withAlphaComponent(0.3)
     }
 
     private func setup() {
@@ -142,7 +148,9 @@ fileprivate extension TransactionType {
 extension MRCCell {
     private func getTagInformation(tagId: String) async throws -> TagData {
         let newApiManager = NewAPIManager()
-        return try await newApiManager.getTag(tagId: tagId)
+        let tagData = try await newApiManager.getTag(tagId: tagId)
+        CacheTagData.shared.updateTagData(tagData: tagData)
+        return tagData
     }
 
     @objc private func receiveUpdateTagNotification(_ notification: Notification) {

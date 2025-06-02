@@ -18,6 +18,7 @@ class CacheTagData {
 
     private init() {
         NotificationCenter.default.addObserver(self, selector: #selector(removeCacheTagData), name: .refreshLedgerDetailView, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(removeCacheTagData), name: .refreshMainView, object: nil)
     }
 
     func getTagData(tagId: String) -> TagData? {

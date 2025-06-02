@@ -125,8 +125,14 @@ class NLNotification {
     }
 
     // MARK: - Refresh Main View
-    static func sendRefreshMainView() {
-        NotificationCenter.default.post(name: .refreshMainView, object: nil, userInfo: nil)
+    static func sendRefreshMainView(ledgerId: String) {
+        NotificationCenter.default.post(name: .refreshMainView, object: nil, userInfo: ["ledgerId": ledgerId])
+    }
+
+    static func decodeRefreshMainView(_ notification: Notification) -> String? {
+        guard let userInfo = notification.userInfo,
+              let ledgerId = userInfo["ledgerId"] as? String else { return nil }
+        return ledgerId
     }
 
     // MARK: - Refresh Ledger Detail
