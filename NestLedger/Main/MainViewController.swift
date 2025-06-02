@@ -17,7 +17,11 @@ class MainViewController: UIViewController {
     let ledgerLabel = UILabel()
     let recentView = MRecentContentView()
     let quickLogView = MQuickLogView()
+
+    let pieChartScrollView = UIScrollView()
+    let pieChartContentView = UIView()
     let pieChartView = MPieChartView()
+    let pieChartView2 = MPieChartView()
 
     let manager = MainManager()
 
@@ -46,6 +50,11 @@ class MainViewController: UIViewController {
         ledgerLabel.numberOfLines = 1
 
         quickLogView.delegate = self
+
+        pieChartScrollView.isPagingEnabled = true
+        pieChartScrollView.showsHorizontalScrollIndicator = false
+        pieChartScrollView.showsVerticalScrollIndicator = false
+        pieChartScrollView.bounces = false
     }
 
     private func layout() {
@@ -94,13 +103,45 @@ class MainViewController: UIViewController {
             quickLogView.trailingAnchor.constraint(equalTo: recentView.trailingAnchor)
         ])
 
-        contentView.addSubview(pieChartView)
+        contentView.addSubview(pieChartScrollView)
+        pieChartScrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pieChartScrollView.topAnchor.constraint(equalTo: quickLogView.bottomAnchor, constant: 24),
+            pieChartScrollView.leadingAnchor.constraint(equalTo: recentView.leadingAnchor),
+            pieChartScrollView.trailingAnchor.constraint(equalTo: recentView.trailingAnchor),
+            pieChartScrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+
+        pieChartScrollView.addSubview(pieChartContentView)
+        pieChartContentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pieChartContentView.topAnchor.constraint(equalTo: pieChartScrollView.contentLayoutGuide.topAnchor),
+            pieChartContentView.leadingAnchor.constraint(equalTo: pieChartScrollView.contentLayoutGuide.leadingAnchor),
+            pieChartContentView.trailingAnchor.constraint(equalTo: pieChartScrollView.contentLayoutGuide.trailingAnchor),
+            pieChartContentView.bottomAnchor.constraint(equalTo: pieChartScrollView.contentLayoutGuide.bottomAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            pieChartScrollView.heightAnchor.constraint(equalTo: pieChartContentView.heightAnchor)
+        ])
+
+        pieChartContentView.addSubview(pieChartView)
         pieChartView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pieChartView.topAnchor.constraint(equalTo: quickLogView.bottomAnchor, constant: 24),
-            pieChartView.leadingAnchor.constraint(equalTo: recentView.leadingAnchor),
-            pieChartView.trailingAnchor.constraint(equalTo: recentView.trailingAnchor),
-            pieChartView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            pieChartView.topAnchor.constraint(equalTo: pieChartContentView.topAnchor),
+            pieChartView.leadingAnchor.constraint(equalTo: pieChartContentView.leadingAnchor),
+            pieChartView.widthAnchor.constraint(equalTo: recentView.widthAnchor),
+            pieChartView.bottomAnchor.constraint(equalTo: pieChartContentView.bottomAnchor)
+        ])
+
+        pieChartContentView.addSubview(pieChartView2)
+        pieChartView2.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pieChartView2.topAnchor.constraint(equalTo: pieChartView.topAnchor),
+            pieChartView2.leadingAnchor.constraint(equalTo: pieChartView.trailingAnchor),
+            pieChartView2.trailingAnchor.constraint(equalTo: pieChartContentView.trailingAnchor),
+            pieChartView2.widthAnchor.constraint(equalTo: recentView.widthAnchor),
+            pieChartView2.bottomAnchor.constraint(equalTo: pieChartView.bottomAnchor)
         ])
     }
 }
