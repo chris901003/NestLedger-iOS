@@ -12,6 +12,8 @@ import xxooooxxCommonUI
 
 class LDStatisticsViewController: UIViewController {
     let titleLabel = UILabel()
+    let titleUnderLineView = UIView()
+
     let closeButton = XOPaddedImageView(
         padding: .init(top: 4, left: 4, bottom: 4, right: 4),
         image: UIImage(systemName: "xmark")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
@@ -28,7 +30,10 @@ class LDStatisticsViewController: UIViewController {
 
         titleLabel.text = "統計"
         titleLabel.font = .systemFont(ofSize: 18, weight: .semibold)
-        titleLabel.textAlignment = .center
+        titleLabel.textAlignment = .left
+
+        titleUnderLineView.backgroundColor = .systemGray
+        titleUnderLineView.layer.cornerRadius = 2.5
 
         closeButton.contentMode = .scaleAspectFit
         closeButton.layer.cornerRadius = 15
@@ -52,8 +57,16 @@ class LDStatisticsViewController: UIViewController {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24)
+        ])
+
+        view.addSubview(titleUnderLineView)
+        titleUnderLineView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleUnderLineView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+            titleUnderLineView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            titleUnderLineView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            titleUnderLineView.heightAnchor.constraint(equalToConstant: 2)
         ])
     }
 
