@@ -14,7 +14,16 @@ class LedgerDetailManager {
     let newApiManager = NewAPIManager()
     weak var vc: LedgerDetailViewController?
 
-    var ledgerData: LedgerData
+    var ledgerData: LedgerData {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                let totalAmount = ledgerData.totalIncome - ledgerData.totalExpense
+                vc?.totalLabel.text = "結餘: \(totalAmount)"
+                vc?.totalLabel.textColor = totalAmount > 0 ? UIColor(hexCode: "#B1DD8B") : UIColor(hexCode: "#FF8484")
+            }
+        }
+    }
     var ledgerTitle: String {
         get { ledgerData.title == "[Main]:\(newSharedUserInfo.id)" ? "我的帳本" : ledgerData.title }
     }

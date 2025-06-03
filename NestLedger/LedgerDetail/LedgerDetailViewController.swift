@@ -43,6 +43,7 @@ class LedgerDetailViewController: UIViewController {
 
     let calendarView: MCalendarView
     let transactionsView = LTransactionView()
+    let totalLabel = UILabel()
     let addButtonView = LDAddTransactionView()
 
     weak var avatarListViewHeightConstraint: NSLayoutConstraint?
@@ -94,6 +95,10 @@ class LedgerDetailViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refreshView), for: .valueChanged)
 
         transactionsView.delegate = self
+
+        totalLabel.text = "結餘: xxx"
+        totalLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        totalLabel.numberOfLines = 1
 
         addButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAddTransaction)))
         addButtonView.isUserInteractionEnabled = true
@@ -158,6 +163,13 @@ class LedgerDetailViewController: UIViewController {
             transactionsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         transactionsView.setContentHuggingPriority(.defaultLow, for: .vertical)
+
+        contentView.addSubview(totalLabel)
+        totalLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            totalLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24),
+            totalLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+        ])
 
         view.addSubview(addButtonView)
         addButtonView.translatesAutoresizingMaskIntoConstraints = false
