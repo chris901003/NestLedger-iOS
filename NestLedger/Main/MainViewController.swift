@@ -20,8 +20,8 @@ class MainViewController: UIViewController {
 
     let pieChartScrollView = UIScrollView()
     let pieChartContentView = UIView()
-    let pieChartView = MPieChartView()
-    let pieChartView2 = MPieChartView()
+    let pieChartView = MPieChartView(type: .income)
+    let pieChartView2 = MPieChartView(type: .expenditure)
 
     let manager = MainManager()
 

@@ -10,16 +10,30 @@ import Foundation
 import UIKit
 import xxooooxxCommonUI
 
+extension MPieChartView {
+    enum PieChartType {
+        case income, expenditure
+    }
+}
+
 class MPieChartView: UIView {
     let manager = MPieChartManager()
+    let type: PieChartType
 
     let dateLabel = UILabel()
     let prevIcon = UIImageView()
     let nextIcon = UIImageView()
     let pieChartView = XOAnimatedPieChartView()
+    let typeLabel: XOBorderLabel
     let tableView = UITableView()
 
-    init() {
+    init(type: PieChartType) {
+        self.type = type
+        typeLabel = XOBorderLabel(
+            type == .income ? "收入" : "支出",
+            color: type == .income ? UIColor(hexCode: "#B1DD8B") : UIColor(hexCode: "#FF8484"),
+            padding: .init(top: 8, left: 12, bottom: 8, right: 12)
+        )
         super.init(frame: .zero)
         setup()
         layout()
@@ -46,6 +60,9 @@ class MPieChartView: UIView {
         nextIcon.contentMode = .scaleAspectFit
         nextIcon.isUserInteractionEnabled = true
         nextIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(nextAction)))
+
+        typeLabel.backgroundColor = .white
+        typeLabel.layer.cornerRadius = 12.0
 
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
@@ -85,6 +102,13 @@ class MPieChartView: UIView {
             pieChartView.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -12),
             pieChartView.heightAnchor.constraint(equalTo: pieChartView.widthAnchor),
             pieChartView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+
+        addSubview(typeLabel)
+        typeLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            typeLabel.centerXAnchor.constraint(equalTo: pieChartView.centerXAnchor),
+            typeLabel.centerYAnchor.constraint(equalTo: pieChartView.centerYAnchor)
         ])
 
         addSubview(tableView)
