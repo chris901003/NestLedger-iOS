@@ -54,7 +54,12 @@ class LedgerVCManager {
             let results = (try await group.reduce(into: [LedgerData]()) { $0.append($1) }).compactMap { $0 }
             return results
         }
-        ledgerDatas.append(contentsOf: datas)
+        let startIdx = ledgerDatas.count
+        let endIdx = min(startIdx + 10, ledgerIds.count)
+        for idx in startIdx..<endIdx {
+            guard let index = (datas.firstIndex { $0._id == ledgerIds[idx] }) else { continue }
+            ledgerDatas.append(datas[index])
+        }
         await MainActor.run { isLoading = false }
     }
 
