@@ -17,7 +17,7 @@ extension MPieChartView {
 }
 
 class MPieChartView: UIView {
-    let manager = MPieChartManager()
+    let manager: MPieChartManager
     let type: PieChartType
 
     let dateLabel = UILabel()
@@ -29,6 +29,7 @@ class MPieChartView: UIView {
 
     init(type: PieChartType) {
         self.type = type
+        self.manager = MPieChartManager(type: type)
         typeLabel = XOBorderLabel(
             type == .income ? "收入" : "支出",
             color: type == .income ? UIColor(hexCode: "#B1DD8B") : UIColor(hexCode: "#FF8484"),
@@ -62,7 +63,8 @@ class MPieChartView: UIView {
         nextIcon.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(nextAction)))
 
         typeLabel.backgroundColor = .white
-        typeLabel.layer.cornerRadius = 12.0
+        typeLabel.configLabel(font: .systemFont(ofSize: 16, weight: .bold))
+        typeLabel.configBorder(radius: 16, width: 0)
 
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false

@@ -24,12 +24,14 @@ class MPieChartManager {
     var year: Int
     var month: Int
 
+    let type: MPieChartView.PieChartType
     let newApiManager = NewAPIManager()
     var pieChartData: [MPieChartData] = []
 
     weak var vc: MPieChartView?
 
-    init() {
+    init(type: MPieChartView.PieChartType) {
+        self.type = type
         ledgerId = newSharedUserInfo.ledgerIds.first ?? ""
         year = Calendar.current.component(.year, from: Date.now)
         month = Calendar.current.component(.month, from: Date.now)
@@ -74,7 +76,12 @@ class MPieChartManager {
         guard let startDate = Calendar.current.date(from: startComponent),
               let endDate = Calendar.current.date(byAdding: DateComponents(month: 1, second: -1), to: startDate) else { return }
         
-        let queryConfig = TransactionQueryRequestData(ledgerId: ledgerId, startDate: startDate, endDate: endDate)
+        let queryConfig = TransactionQueryRequestData(
+            ledgerId: ledgerId,
+            startDate: startDate,
+            endDate: endDate,
+            type: type == .income ? .income : .expenditure
+        )
         let transactions = try await newApiManager.queryTransaction(data: queryConfig)
         var totalAmount = 0
         var tagAmount: [String: Int] = [:]
