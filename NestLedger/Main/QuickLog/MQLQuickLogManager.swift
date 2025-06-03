@@ -42,6 +42,7 @@ extension MQLQuickLogManager: MQLSendViewDelegate {
             return
         }
 
+        transaction.date = Date.now
         transaction.userId = newSharedUserInfo.id
         transaction.ledgerId = ledgerId
 
