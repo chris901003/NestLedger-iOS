@@ -19,6 +19,7 @@ fileprivate enum LDSRow: String, CaseIterable {
     // [base]
     case name = "帳本名稱"
     case tag = "標籤管理"
+    case statistics = "統計"
     case setMainLedger = "設為快速記帳帳本"
 
     // [member]
@@ -28,7 +29,7 @@ fileprivate enum LDSRow: String, CaseIterable {
     static func getRows(_ section: LDSSection) -> [LDSRow] {
         switch section {
             case .base:
-                return [.name, .tag, .setMainLedger]
+                return [.name, .tag, .statistics, .setMainLedger]
             case .member:
                 return [.member, .exit]
         }
@@ -132,6 +133,11 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.config(title: row.rawValue, info: "")
                     return cell
                 }
+            case .statistics:
+                if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelWithIconCell.cellId, for: indexPath) as? XOLeadingTrailingLabelWithIconCell {
+                    cell.config(title: row.rawValue, info: "")
+                    return cell
+                }
             case .setMainLedger:
                 if let cell = tableView.dequeueReusableCell(withIdentifier: XOCenterLabelCell.cellId, for: indexPath) as? XOCenterLabelCell {
                     cell.config(label: row.rawValue, font: .systemFont(ofSize: 16, weight: .semibold), color: .systemBlue)
@@ -163,6 +169,9 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
             case .tag:
                 let tagVC = TagViewController(type: .editTag, ledgerId: manager.ledgerData._id)
                 navigationController?.pushViewController(tagVC, animated: true)
+            case .statistics:
+                let statisticsVC = LDStatisticsViewController()
+                present(statisticsVC, animated: true)
             case .setMainLedger:
                 manager.setMainLedger()
             case .member:
