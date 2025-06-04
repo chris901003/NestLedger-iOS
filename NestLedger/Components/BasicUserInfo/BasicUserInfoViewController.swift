@@ -110,10 +110,15 @@ class BasicUserInfoViewController: UIViewController {
 
 extension BasicUserInfoViewController {
     private func getAvatar() {
-        Task {
-            let newApiManager = NewAPIManager()
-            let image = try? await newApiManager.getUserAvatar(uid: userInfoData.id)
-            await MainActor.run { avatarView.image = image }
+        if let avatar = CacheUserAvatar.shared.getTagData(userId: userInfoData.id) {
+            avatarView.image = avatar
+        } else {
+            Task {
+                let newApiManager = NewAPIManager()
+                guard let image = try? await newApiManager.getUserAvatar(uid: userInfoData.id) else { return }
+                CacheUserAvatar.shared.updateTagData(userId: userInfoData.id, avatar: image)
+                await MainActor.run { avatarView.image = image }
+            }
         }
     }
 }
