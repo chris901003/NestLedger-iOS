@@ -19,11 +19,14 @@ class LDStatisticsViewController: UIViewController {
     let toImageView = UIImageView()
     let endLabel = XOBorderLabel("2025-01-31", color: .systemGray, padding: .init(top: 8, left: 8, bottom: 8, right: 8))
     let endDatePicker = UIDatePicker()
+    let searchView = LDSSearchView()
 
     let closeButton = XOPaddedImageView(
         padding: .init(top: 4, left: 4, bottom: 4, right: 4),
         image: UIImage(systemName: "xmark")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
     )
+
+    let manager = LDStatisticsManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +71,9 @@ class LDStatisticsViewController: UIViewController {
         endDatePicker.datePickerMode = .date
         endDatePicker.alpha = 0.02
         endDatePicker.addTarget(self, action: #selector(endDateChange), for: .valueChanged)
+
+        searchView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(searchAction)))
+        searchView.isUserInteractionEnabled = true
     }
 
     private func layout() {
@@ -137,6 +143,13 @@ class LDStatisticsViewController: UIViewController {
             endDatePicker.centerXAnchor.constraint(equalTo: endLabel.centerXAnchor),
             endDatePicker.centerYAnchor.constraint(equalTo: endLabel.centerYAnchor)
         ])
+
+        view.addSubview(searchView)
+        searchView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            searchView.topAnchor.constraint(equalTo: intervalLabel.bottomAnchor, constant: 24),
+            searchView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
 
     @objc private func closeAction() {
@@ -183,5 +196,20 @@ class LDStatisticsViewController: UIViewController {
         endLabel.configLabel(text: DateFormatterManager.shared.dateFormat(type: .yyyy_MM_dd, date: endDatePicker.date))
         startDatePicker.maximumDate = endDatePicker.date
         startDatePicker.minimumDate = endDatePicker.date.addingTimeInterval(-60 * 60 * 24 * 30 * 3)
+    }
+}
+
+// MARK: - Tap Search
+extension LDStatisticsViewController {
+    @objc private func searchAction() {
+        UIView.animate(withDuration: 0.1) {
+            self.searchView.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.1) {
+                self.searchView.transform = .identity
+            }
+        }
+
+        manager.searchAction()
     }
 }
