@@ -110,6 +110,7 @@
 		059CBE412DBBCEB2000B7F22 /* LDSLMInviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */; };
 		059CBE442DC119D7000B7F22 /* CreateLedgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */; };
 		05A59B182DEF2F470016E905 /* LDStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A59B172DEF2F470016E905 /* LDStatisticsViewController.swift */; };
+		05A59B1A2DEF3D5B0016E905 /* CacheUserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A59B192DEF3D5B0016E905 /* CacheUserAvatar.swift */; };
 		05ADF39D2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ADF39C2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift */; };
 		05ADF3A02DC3BB6A00DF8391 /* RLICell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ADF39F2DC3BB6A00DF8391 /* RLICell.swift */; };
 		05ADF3A22DC4F0CC00DF8391 /* ReceiveLedgerInviteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ADF3A12DC4F0CC00DF8391 /* ReceiveLedgerInviteManager.swift */; };
@@ -223,6 +224,7 @@
 		059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMInviteCell.swift; sourceTree = "<group>"; };
 		059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLedgerViewController.swift; sourceTree = "<group>"; };
 		05A59B172DEF2F470016E905 /* LDStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDStatisticsViewController.swift; sourceTree = "<group>"; };
+		05A59B192DEF3D5B0016E905 /* CacheUserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheUserAvatar.swift; sourceTree = "<group>"; };
 		05ADF39C2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveLedgerInviteViewController.swift; sourceTree = "<group>"; };
 		05ADF39F2DC3BB6A00DF8391 /* RLICell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLICell.swift; sourceTree = "<group>"; };
 		05ADF3A12DC4F0CC00DF8391 /* ReceiveLedgerInviteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveLedgerInviteManager.swift; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 			isa = PBXGroup;
 			children = (
 				0532E0E12DEDCD7A00B06DD0 /* CacheTagData.swift */,
+				05A59B192DEF3D5B0016E905 /* CacheUserAvatar.swift */,
 			);
 			path = CacheData;
 			sourceTree = "<group>";
@@ -935,6 +938,7 @@
 				05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */,
 				0505338B2DE300D6003245E0 /* BasicUserInfoViewController.swift in Sources */,
 				0532E0E22DEDCD7A00B06DD0 /* CacheTagData.swift in Sources */,
+				05A59B1A2DEF3D5B0016E905 /* CacheUserAvatar.swift in Sources */,
 				059CBE442DC119D7000B7F22 /* CreateLedgerViewController.swift in Sources */,
 				055704592D57839C0032C47C /* DataConstain.swift in Sources */,
 				05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */,

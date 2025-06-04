@@ -77,6 +77,7 @@ class LedgerVCManager {
                 newSharedUserInfo = try await newApiManager.getUserInfo()
                 ledgerIds = newSharedUserInfo.ledgerIds
                 ledgerDatas = []
+                await MainActor.run { NLNotification.sendRefreshLedgerList() }
                 try await loadMoreLedgers()
                 try await loadLedgerInviteCount()
             } catch {

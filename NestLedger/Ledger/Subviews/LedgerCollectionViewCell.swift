@@ -125,13 +125,25 @@ class LedgerCollectionViewCell: UICollectionViewCell {
 extension LedgerCollectionViewCell {
     private func loadUserAvatar(data: LedgerData) async {
         let userIds = data.userIds.prefix(3)
-        let userAvatars = try? await withThrowingTaskGroup(of: UIImage?.self, returning: [UIImage].self) { group in
-            for userId in userIds {
+        let userAvatars = try? await withThrowingTaskGroup(of: (UIImage?, Int).self, returning: [UIImage].self) { group in
+            for idx in 0..<userIds.count {
                 group.addTask { [weak self] in
-                    try? await self?.newApiManager.getUserAvatar(uid: userId)
+                    if let avatar = CacheUserAvatar.shared.getTagData(userId: userIds[idx]) {
+                        return (avatar, idx)
+                    } else {
+                        return (try? await self?.newApiManager.getUserAvatar(uid: userIds[idx]), idx)
+                    }
                 }
             }
-            let results = (try await group.reduce(into: [UIImage]()) { $0.append($1 ?? generateBlackImage(size: .init(width: 100, height: 100))) }).compactMap { $0 }
+            var results = Array(repeating: UIImage(), count: userIds.count)
+            for try await result in group {
+                if let image = result.0 {
+                    results[result.1] = image
+                    CacheUserAvatar.shared.updateTagData(userId: userIds[result.1], avatar: image)
+                } else {
+                    results[result.1] = generateBlackImage(size: .init(width: 100, height: 100))
+                }
+            }
             return results
         }
         guard let userAvatars else { return }

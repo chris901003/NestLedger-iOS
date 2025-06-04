@@ -20,6 +20,8 @@ extension Notification.Name {
     static let updateTag = Notification.Name("UpdateTag")
     static let refreshMainView = Notification.Name("RefreshMainView")
     static let refreshLedgerDetailView = Notification.Name("RefreshLedgerDetailView")
+    static let refreshLedgerListView = Notification.Name("RefreshLedgerListView")
+    static let refreshUserAvatarCache = Notification.Name("RefreshUserAvatarCache")
     static let unauthorizedLedger = Notification.Name("UnauthorizedLedger")
 }
 
@@ -144,6 +146,22 @@ class NLNotification {
         guard let userInfo = notificatino.userInfo,
               let ledgerId = userInfo["ledgerId"] as? String else { return nil }
         return ledgerId
+    }
+
+    // MARK: - Refresh Ledger List
+    static func sendRefreshLedgerList() {
+        NotificationCenter.default.post(name: .refreshLedgerListView, object: nil, userInfo: nil)
+    }
+
+    // MARK: - Refresh User Avatar Cache
+    static func sendRefreshUserAvatarCache(uids: [String]) {
+        NotificationCenter.default.post(name: .refreshUserAvatarCache, object: nil, userInfo: ["uids": uids])
+    }
+
+    static func decodeRefreshUserAvatarCache(_ notification: Notification) -> [String]? {
+        guard let userInfo = notification.userInfo,
+              let uids = userInfo["uids"] as? [String] else { return nil }
+        return uids
     }
 
     // MARK: - Unauthorized Ledger
