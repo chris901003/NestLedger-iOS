@@ -21,17 +21,58 @@ class LDStatisticsViewController: UIViewController {
     let endDatePicker = UIDatePicker()
     let searchView = LDSSearchView()
 
+    let selectView = UIView()
+    let selectedBackgroundView = UIView()
+    let incomeSelectLabel = UILabel()
+    let expenseSelectLabel = UILabel()
+    let totalSelectLabel = UILabel()
+
     let closeButton = XOPaddedImageView(
         padding: .init(top: 4, left: 4, bottom: 4, right: 4),
         image: UIImage(systemName: "xmark")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
     )
 
+    var selectedBackgroundViewLeadingConstraint: NSLayoutConstraint?
+
     let manager = LDStatisticsManager()
+    var isLayout = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         layout()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        guard !isLayout else { return }
+        isLayout = true
+        NSLayoutConstraint.activate([
+            selectedBackgroundView.widthAnchor.constraint(equalToConstant: selectView.frame.width / 3),
+            selectedBackgroundView.topAnchor.constraint(equalTo: selectView.topAnchor),
+            selectedBackgroundView.bottomAnchor.constraint(equalTo: selectView.bottomAnchor)
+        ])
+        selectedBackgroundViewLeadingConstraint = selectedBackgroundView.leadingAnchor.constraint(equalTo: selectView.leadingAnchor, constant: 0)
+        selectedBackgroundViewLeadingConstraint?.isActive = true
+
+        NSLayoutConstraint.activate([
+            expenseSelectLabel.centerXAnchor.constraint(equalTo: selectView.centerXAnchor),
+            expenseSelectLabel.widthAnchor.constraint(equalToConstant: selectView.frame.width / 3),
+            expenseSelectLabel.topAnchor.constraint(equalTo: selectView.topAnchor, constant: 16),
+            expenseSelectLabel.bottomAnchor.constraint(equalTo: selectView.bottomAnchor, constant: -16)
+        ])
+
+        NSLayoutConstraint.activate([
+            incomeSelectLabel.leadingAnchor.constraint(equalTo: selectView.leadingAnchor),
+            incomeSelectLabel.trailingAnchor.constraint(equalTo: expenseSelectLabel.leadingAnchor),
+            incomeSelectLabel.centerYAnchor.constraint(equalTo: selectView.centerYAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            totalSelectLabel.leadingAnchor.constraint(equalTo: expenseSelectLabel.trailingAnchor),
+            totalSelectLabel.trailingAnchor.constraint(equalTo: selectView.trailingAnchor),
+            totalSelectLabel.centerYAnchor.constraint(equalTo: selectView.centerYAnchor)
+        ])
     }
 
     private func setup() {
@@ -74,6 +115,31 @@ class LDStatisticsViewController: UIViewController {
 
         searchView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(searchAction)))
         searchView.isUserInteractionEnabled = true
+
+        selectView.layer.cornerRadius = 20.0
+        selectView.layer.borderWidth = 4.5
+        selectView.layer.borderColor = UIColor(hexCode: "#BBFBFF").cgColor
+        selectView.clipsToBounds = true
+
+        selectedBackgroundView.backgroundColor = UIColor(hexCode: "#8DD8FF")
+
+        incomeSelectLabel.text = "區間收入"
+        incomeSelectLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        incomeSelectLabel.textAlignment = .center
+        incomeSelectLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapIncomeAction)))
+        incomeSelectLabel.isUserInteractionEnabled = true
+
+        expenseSelectLabel.text = "區間支出"
+        expenseSelectLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        expenseSelectLabel.textAlignment = .center
+        expenseSelectLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapExpenseAction)))
+        expenseSelectLabel.isUserInteractionEnabled = true
+
+        totalSelectLabel.text = "區間總計"
+        totalSelectLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        totalSelectLabel.textAlignment = .center
+        totalSelectLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapTotalAction)))
+        totalSelectLabel.isUserInteractionEnabled = true
     }
 
     private func layout() {
@@ -150,6 +216,23 @@ class LDStatisticsViewController: UIViewController {
             searchView.topAnchor.constraint(equalTo: intervalLabel.bottomAnchor, constant: 24),
             searchView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+
+        view.addSubview(selectView)
+        selectView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            selectView.topAnchor.constraint(equalTo: searchView.bottomAnchor, constant: 24),
+            selectView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            selectView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12)
+        ])
+
+        selectView.addSubview(selectedBackgroundView)
+        selectedBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        selectView.addSubview(incomeSelectLabel)
+        incomeSelectLabel.translatesAutoresizingMaskIntoConstraints = false
+        selectView.addSubview(expenseSelectLabel)
+        expenseSelectLabel.translatesAutoresizingMaskIntoConstraints = false
+        selectView.addSubview(totalSelectLabel)
+        totalSelectLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 
     @objc private func closeAction() {
@@ -211,5 +294,28 @@ extension LDStatisticsViewController {
         }
 
         manager.searchAction()
+    }
+}
+
+extension LDStatisticsViewController {
+    @objc private func tapIncomeAction() {
+        UIView.animate(withDuration: 0.25) {
+            self.selectedBackgroundViewLeadingConstraint?.constant = 0
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    @objc private func tapExpenseAction() {
+        UIView.animate(withDuration: 0.25) {
+            self.selectedBackgroundViewLeadingConstraint?.constant = self.selectView.frame.width / 3
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    @objc private func tapTotalAction() {
+        UIView.animate(withDuration: 0.25) {
+            self.selectedBackgroundViewLeadingConstraint?.constant = 2 * self.selectView.frame.width / 3
+            self.view.layoutIfNeeded()
+        }
     }
 }
