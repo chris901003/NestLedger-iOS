@@ -109,6 +109,7 @@
 		059344722DE5EF030042FB36 /* EmailVerificationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059344712DE5EF030042FB36 /* EmailVerificationData.swift */; };
 		059CBE412DBBCEB2000B7F22 /* LDSLMInviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */; };
 		059CBE442DC119D7000B7F22 /* CreateLedgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */; };
+		05A3B92D2DF5C17D0062D341 /* LDSDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A3B92C2DF5C17D0062D341 /* LDSDetailView.swift */; };
 		05A59B182DEF2F470016E905 /* LDStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A59B172DEF2F470016E905 /* LDStatisticsViewController.swift */; };
 		05A59B1A2DEF3D5B0016E905 /* CacheUserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A59B192DEF3D5B0016E905 /* CacheUserAvatar.swift */; };
 		05A59B332DF08E0F0016E905 /* LDSSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A59B322DF08E0F0016E905 /* LDSSearchView.swift */; };
@@ -225,6 +226,7 @@
 		059344712DE5EF030042FB36 /* EmailVerificationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationData.swift; sourceTree = "<group>"; };
 		059CBE402DBBCEB2000B7F22 /* LDSLMInviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMInviteCell.swift; sourceTree = "<group>"; };
 		059CBE432DC119D7000B7F22 /* CreateLedgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLedgerViewController.swift; sourceTree = "<group>"; };
+		05A3B92C2DF5C17D0062D341 /* LDSDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSDetailView.swift; sourceTree = "<group>"; };
 		05A59B172DEF2F470016E905 /* LDStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDStatisticsViewController.swift; sourceTree = "<group>"; };
 		05A59B192DEF3D5B0016E905 /* CacheUserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheUserAvatar.swift; sourceTree = "<group>"; };
 		05A59B322DF08E0F0016E905 /* LDSSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSSearchView.swift; sourceTree = "<group>"; };
@@ -624,6 +626,7 @@
 		05A59B312DF08DF40016E905 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				05A3B92C2DF5C17D0062D341 /* LDSDetailView.swift */,
 				05A59B322DF08E0F0016E905 /* LDSSearchView.swift */,
 			);
 			path = Subviews;
@@ -963,6 +966,7 @@
 				0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */,
 				051441582DAD3C0F00197191 /* LDAddTransactionView.swift in Sources */,
 				05AF766B2D944A0800C27407 /* LDIncomeExpenseView.swift in Sources */,
+				05A3B92D2DF5C17D0062D341 /* LDSDetailView.swift in Sources */,
 				05FFF71D2DB1451400CC425B /* LDSLMAddNewMemberView.swift in Sources */,
 				05FFF71F2DB14D9F00CC425B /* LDSLMCell.swift in Sources */,
 				05764D982DB7E32F007292D7 /* LDSLMEnterNewMemberViewController.swift in Sources */,

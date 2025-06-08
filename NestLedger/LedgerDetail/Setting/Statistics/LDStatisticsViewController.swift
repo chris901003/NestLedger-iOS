@@ -27,6 +27,13 @@ class LDStatisticsViewController: UIViewController {
     let expenseSelectLabel = UILabel()
     let totalSelectLabel = UILabel()
 
+    let detailScrollView = UIScrollView()
+    let detailContentView = UIView()
+
+    let incomeDetailView = LDSDetailView()
+    let expenseDetailView = LDSDetailView()
+    let totalDetailView = LDSDetailView()
+
     let closeButton = XOPaddedImageView(
         padding: .init(top: 4, left: 4, bottom: 4, right: 4),
         image: UIImage(systemName: "xmark")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
@@ -140,6 +147,11 @@ class LDStatisticsViewController: UIViewController {
         totalSelectLabel.textAlignment = .center
         totalSelectLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapTotalAction)))
         totalSelectLabel.isUserInteractionEnabled = true
+
+        detailScrollView.isPagingEnabled = true
+        detailScrollView.showsHorizontalScrollIndicator = false
+        detailScrollView.showsVerticalScrollIndicator = false
+        detailScrollView.bounces = false
     }
 
     private func layout() {
@@ -233,6 +245,53 @@ class LDStatisticsViewController: UIViewController {
         expenseSelectLabel.translatesAutoresizingMaskIntoConstraints = false
         selectView.addSubview(totalSelectLabel)
         totalSelectLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(detailScrollView)
+        detailScrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            detailScrollView.topAnchor.constraint(equalTo: selectView.bottomAnchor, constant: 24),
+            detailScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            detailScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            detailScrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+
+        detailScrollView.addSubview(detailContentView)
+        detailContentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            detailContentView.topAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.topAnchor),
+            detailContentView.leadingAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.leadingAnchor),
+            detailContentView.trailingAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.trailingAnchor),
+            detailContentView.bottomAnchor.constraint(equalTo: detailScrollView.contentLayoutGuide.bottomAnchor),
+            detailContentView.heightAnchor.constraint(equalTo: detailScrollView.heightAnchor)
+        ])
+
+        detailContentView.addSubview(incomeDetailView)
+        incomeDetailView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            incomeDetailView.topAnchor.constraint(equalTo: detailContentView.topAnchor),
+            incomeDetailView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor),
+            incomeDetailView.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor),
+            incomeDetailView.widthAnchor.constraint(equalTo: detailScrollView.widthAnchor)
+        ])
+
+        detailContentView.addSubview(expenseDetailView)
+        expenseDetailView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            expenseDetailView.topAnchor.constraint(equalTo: detailContentView.topAnchor),
+            expenseDetailView.leadingAnchor.constraint(equalTo: incomeDetailView.trailingAnchor),
+            expenseDetailView.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor),
+            expenseDetailView.widthAnchor.constraint(equalTo: detailScrollView.widthAnchor)
+        ])
+
+        detailContentView.addSubview(totalDetailView)
+        totalDetailView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            totalDetailView.topAnchor.constraint(equalTo: detailContentView.topAnchor),
+            totalDetailView.leadingAnchor.constraint(equalTo: expenseDetailView.trailingAnchor),
+            totalDetailView.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor),
+            totalDetailView.widthAnchor.constraint(equalTo: detailScrollView.widthAnchor),
+            detailContentView.trailingAnchor.constraint(equalTo: totalDetailView.trailingAnchor)
+        ])
     }
 
     @objc private func closeAction() {
