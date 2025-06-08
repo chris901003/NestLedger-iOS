@@ -152,6 +152,7 @@ class LDStatisticsViewController: UIViewController {
         detailScrollView.showsHorizontalScrollIndicator = false
         detailScrollView.showsVerticalScrollIndicator = false
         detailScrollView.bounces = false
+        detailScrollView.delegate = self
     }
 
     private func layout() {
@@ -375,6 +376,25 @@ extension LDStatisticsViewController {
         UIView.animate(withDuration: 0.25) {
             self.selectedBackgroundViewLeadingConstraint?.constant = 2 * self.selectView.frame.width / 3
             self.view.layoutIfNeeded()
+        }
+    }
+}
+
+// MARK: - UIScrollView Delegate
+extension LDStatisticsViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.size.width
+        let currentPage = Int(scrollView.contentOffset.x / pageWidth)
+
+        switch currentPage {
+            case 0:
+                tapIncomeAction()
+            case 1:
+                tapExpenseAction()
+            case 2:
+                tapTotalAction()
+            default:
+                break
         }
     }
 }
