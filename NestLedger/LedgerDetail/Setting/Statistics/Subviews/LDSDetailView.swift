@@ -17,6 +17,7 @@ class LDSDetailView: UIView {
         super.init(frame: .zero)
         setup()
         layout()
+        registerCell()
     }
 
     required init?(coder: NSCoder) {
@@ -31,6 +32,7 @@ class LDSDetailView: UIView {
         tableView.backgroundColor = .blue.withAlphaComponent(0.1)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
     }
 
     private func layout() {
@@ -51,6 +53,10 @@ class LDSDetailView: UIView {
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+
+    private func registerCell() {
+        tableView.register(LDSDetailCell.self, forCellReuseIdentifier: LDSDetailCell.cellId)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -60,8 +66,9 @@ extension LDSDetailView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.detailTextLabel?.text = "Just for test"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSDetailCell.cellId, for: indexPath) as? LDSDetailCell else {
+            return UITableViewCell()
+        }
         return cell
     }
 }
