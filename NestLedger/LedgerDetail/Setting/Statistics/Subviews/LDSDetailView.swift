@@ -11,6 +11,7 @@ import UIKit
 
 class LDSDetailView: UIView {
     let label = UILabel()
+    let tableView = UITableView()
 
     init() {
         super.init(frame: .zero)
@@ -24,17 +25,43 @@ class LDSDetailView: UIView {
 
     private func setup() {
         label.text = "分析"
-        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textAlignment = .left
+
+        tableView.backgroundColor = .blue.withAlphaComponent(0.1)
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
     private func layout() {
         addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             label.topAnchor.constraint(equalTo: topAnchor),
             label.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+
+        addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 12),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension LDSDetailView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        10
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.detailTextLabel?.text = "Just for test"
+        return cell
     }
 }
