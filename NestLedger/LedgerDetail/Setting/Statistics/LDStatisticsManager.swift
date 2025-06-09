@@ -46,9 +46,9 @@ class LDStatisticsManager {
     }
 
     func searchAction(startDate: Date, endDate: Date) {
-        queryWrapper.setupQuery(.init(ledgerId: ledgerId, startDate: startDate, endDate: endDate, type: .income, sortOrder: .ascending, page: 0, limit: 20), type: .income)
-        queryWrapper.setupQuery(.init(ledgerId: ledgerId, startDate: startDate, endDate: endDate, type: .expenditure, sortOrder: .ascending, page: 0, limit: 20), type: .expense)
-        queryWrapper.setupQuery(.init(ledgerId: ledgerId, startDate: startDate, endDate: endDate, sortOrder: .ascending, page: 0, limit: 20), type: .total)
+        queryWrapper.setupQuery(.init(ledgerId: ledgerId, startDate: startDate, endDate: endDate, type: .income, sortOrder: .ascending), type: .income)
+        queryWrapper.setupQuery(.init(ledgerId: ledgerId, startDate: startDate, endDate: endDate, type: .expenditure, sortOrder: .ascending), type: .expense)
+        queryWrapper.setupQuery(.init(ledgerId: ledgerId, startDate: startDate, endDate: endDate, sortOrder: .ascending), type: .total)
     }
 }
 
@@ -58,11 +58,11 @@ extension LDStatisticsManager {
         case income, expense, total
     }
 
-    func loadMore(type: LoadType) async throws {
-        guard var query = queryWrapper.getQuery(type) else { return }
+    func loadData(type: LoadType) async throws {
+        guard let query = queryWrapper.getQuery(type) else { return }
         let transactions = try await apiManager.queryTransaction(data: query)
-        query.page = (query.page ?? 0) + 1
-        queryWrapper.setupQuery(query, type: type)
-        NLNotification.sendStatisticsNewData(for: type, transactionDatas: transactions)
+        await MainActor.run {
+            NLNotification.sendStatisticsNewData(for: type, transactionDatas: transactions)
+        }
     }
 }

@@ -30,9 +30,9 @@ class LDStatisticsViewController: UIViewController {
     let detailScrollView = UIScrollView()
     let detailContentView = UIView()
 
-    let incomeDetailView = LDSDetailView()
-    let expenseDetailView = LDSDetailView()
-    let totalDetailView = LDSDetailView()
+    let incomeDetailView = LDSDetailView(type: .income)
+    let expenseDetailView = LDSDetailView(type: .expense)
+    let totalDetailView = LDSDetailView(type: .total)
 
     let closeButton = XOPaddedImageView(
         padding: .init(top: 4, left: 4, bottom: 4, right: 4),

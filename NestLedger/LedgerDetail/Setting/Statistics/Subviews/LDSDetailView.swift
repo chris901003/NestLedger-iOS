@@ -13,11 +13,19 @@ class LDSDetailView: UIView {
     let label = UILabel()
     let tableView = UITableView()
 
-    init() {
+    let apiManager = NewAPIManager()
+    let dataType: LDStatisticsManager.LoadType
+    var transactions: [String: [TransactionData]] = [:]
+    var tagPercentage: [(tagId: String, percentage: Double)] = []
+
+    init(type: LDStatisticsManager.LoadType) {
+        self.dataType = type
         super.init(frame: .zero)
         setup()
         layout()
         registerCell()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveStatisticsNotification), name: .statisticsNewData, object: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -61,14 +69,44 @@ class LDSDetailView: UIView {
 // MARK: - UITableViewDelegate
 extension LDSDetailView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        tagPercentage.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSDetailCell.cellId, for: indexPath) as? LDSDetailCell else {
             return UITableViewCell()
         }
-        cell.config(data: .init(color: .red, title: "Just for test", percentage: 0.73))
+        let data = tagPercentage[indexPath.row]
+        if let tagData = CacheTagData.shared.getTagData(tagId: data.tagId) {
+            cell.config(data: .init(color: tagData.getColor, title: tagData.label, percentage: data.percentage))
+        } else {
+            Task {
+                guard let tagData = try? await apiManager.getTag(tagId: data.tagId) else { return }
+                await MainActor.run {
+                    CacheTagData.shared.updateTagData(tagData: tagData)
+                    cell.config(data: .init(color: tagData.getColor, title: tagData.label, percentage: data.percentage))
+                }
+            }
+        }
         return cell
+    }
+}
+
+// MARK: - Notfication Center
+extension LDSDetailView {
+    @objc private func receiveStatisticsNotification(_ notification: Notification) {
+        guard let transactionDatas = NLNotification.decodeStatisticsNewData(notification, target: dataType) else { return }
+        var totalAmount = 0
+        var tagPercentage: [String: Int] = [:]
+        for transaction in transactionDatas {
+            transactions[transaction.tagId, default: []].append(transaction)
+            tagPercentage[transaction.tagId, default: 0] += transaction.money
+            totalAmount += transaction.money
+        }
+        let sortedTagPercentage = tagPercentage.sorted { $1.value < $0.value }
+        for (key, value) in sortedTagPercentage {
+            self.tagPercentage.append((key, Double(value) / Double(totalAmount)))
+        }
+        tableView.reloadData()
     }
 }
