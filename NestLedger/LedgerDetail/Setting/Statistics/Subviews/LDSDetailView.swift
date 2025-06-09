@@ -13,6 +13,8 @@ class LDSDetailView: UIView {
     let label = UILabel()
     let tableView = UITableView()
 
+    let hintView = LDSDetailHintView()
+
     let apiManager = NewAPIManager()
     let dataType: LDStatisticsManager.LoadType
     var transactions: [String: [TransactionData]] = [:]
@@ -36,13 +38,22 @@ class LDSDetailView: UIView {
         label.text = "分析"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textAlignment = .left
+        label.alpha = 0
 
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.alpha = 0
     }
 
     private func layout() {
+        addSubview(hintView)
+        hintView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hintView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            hintView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+
         addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -96,6 +107,14 @@ extension LDSDetailView: UITableViewDelegate, UITableViewDataSource {
 extension LDSDetailView {
     @objc private func receiveStatisticsNotification(_ notification: Notification) {
         guard let transactionDatas = NLNotification.decodeStatisticsNewData(notification, target: dataType) else { return }
+        if hintView.alpha == 1 {
+            UIView.animate(withDuration: 0.5) { [weak self] in
+                guard let self else { return }
+                hintView.alpha = 0
+                label.alpha = 1
+                tableView.alpha = 1
+            }
+        }
         self.transactions = [:]
         self.tagPercentage = []
         var totalAmount = 0
