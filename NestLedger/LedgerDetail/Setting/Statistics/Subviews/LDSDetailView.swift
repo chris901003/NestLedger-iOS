@@ -96,6 +96,8 @@ extension LDSDetailView: UITableViewDelegate, UITableViewDataSource {
 extension LDSDetailView {
     @objc private func receiveStatisticsNotification(_ notification: Notification) {
         guard let transactionDatas = NLNotification.decodeStatisticsNewData(notification, target: dataType) else { return }
+        self.transactions = [:]
+        self.tagPercentage = []
         var totalAmount = 0
         var tagPercentage: [String: Int] = [:]
         for transaction in transactionDatas {

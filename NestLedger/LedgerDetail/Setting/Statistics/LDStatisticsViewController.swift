@@ -372,6 +372,9 @@ extension LDStatisticsViewController {
             self.selectedBackgroundViewLeadingConstraint?.constant = 0
             self.view.layoutIfNeeded()
         }
+        let targetOffset = CGPoint(x: 0, y: 0)
+        detailScrollView.setContentOffset(targetOffset, animated: true)
+        manager.currentPage = 0
     }
 
     @objc private func tapExpenseAction() {
@@ -379,6 +382,10 @@ extension LDStatisticsViewController {
             self.selectedBackgroundViewLeadingConstraint?.constant = self.selectView.frame.width / 3
             self.view.layoutIfNeeded()
         }
+        let pageWidth = detailScrollView.frame.size.width
+        let targetOffset = CGPoint(x: pageWidth, y: 0)
+        detailScrollView.setContentOffset(targetOffset, animated: true)
+        manager.currentPage = 1
     }
 
     @objc private func tapTotalAction() {
@@ -386,6 +393,10 @@ extension LDStatisticsViewController {
             self.selectedBackgroundViewLeadingConstraint?.constant = 2 * self.selectView.frame.width / 3
             self.view.layoutIfNeeded()
         }
+        let pageWidth = detailScrollView.frame.size.width
+        let targetOffset = CGPoint(x: pageWidth * 2, y: 0)
+        detailScrollView.setContentOffset(targetOffset, animated: true)
+        manager.currentPage = 2
     }
 }
 
@@ -393,9 +404,9 @@ extension LDStatisticsViewController {
 extension LDStatisticsViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.frame.size.width
-        let currentPage = Int(scrollView.contentOffset.x / pageWidth)
+        manager.currentPage = Int(scrollView.contentOffset.x / pageWidth)
 
-        switch currentPage {
+        switch manager.currentPage {
             case 0:
                 tapIncomeAction()
             case 1:

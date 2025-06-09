@@ -40,6 +40,13 @@ class LDStatisticsManager {
     let ledgerId: String
     let apiManager = NewAPIManager()
     fileprivate let queryWrapper = QueryWrapper()
+    var currentPage = 0 {
+        willSet {
+            guard newValue != currentPage,
+                  let type = LoadType(rawValue: newValue) else { return }
+            loadData(type: type)
+        }
+    }
 
     init(ledgerId: String) {
         self.ledgerId = ledgerId
@@ -49,20 +56,29 @@ class LDStatisticsManager {
         queryWrapper.setupQuery(.init(ledgerId: ledgerId, startDate: startDate, endDate: endDate, type: .income, sortOrder: .ascending), type: .income)
         queryWrapper.setupQuery(.init(ledgerId: ledgerId, startDate: startDate, endDate: endDate, type: .expenditure, sortOrder: .ascending), type: .expense)
         queryWrapper.setupQuery(.init(ledgerId: ledgerId, startDate: startDate, endDate: endDate, sortOrder: .ascending), type: .total)
+
+        if let type = LoadType(rawValue: currentPage) { loadData(type: type) }
     }
 }
 
 // MARK: - Load Transaction Data
 extension LDStatisticsManager {
-    enum LoadType {
-        case income, expense, total
+    enum LoadType: Int {
+        case income = 0, expense = 1, total = 2
     }
 
-    func loadData(type: LoadType) async throws {
-        guard let query = queryWrapper.getQuery(type) else { return }
-        let transactions = try await apiManager.queryTransaction(data: query)
-        await MainActor.run {
-            NLNotification.sendStatisticsNewData(for: type, transactionDatas: transactions)
+    func loadData(type: LoadType) {
+        Task {
+            guard let query = queryWrapper.getQuery(type) else { return }
+            do {
+                let transactions = try await apiManager.queryTransaction(data: query)
+                await MainActor.run {
+                    NLNotification.sendStatisticsNewData(for: type, transactionDatas: transactions)
+                }
+            } catch {
+                // TODO: Send Notification And Show Load Failed Information
+                print("✅ Error: \(error.localizedDescription)")
+            }
         }
     }
 }
