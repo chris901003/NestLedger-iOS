@@ -29,7 +29,6 @@ class LDSDetailView: UIView {
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textAlignment = .left
 
-        tableView.backgroundColor = .blue.withAlphaComponent(0.1)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -69,6 +68,7 @@ extension LDSDetailView: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSDetailCell.cellId, for: indexPath) as? LDSDetailCell else {
             return UITableViewCell()
         }
+        cell.config(data: .init(color: .red, title: "Just for test", percentage: 0.73))
         return cell
     }
 }
