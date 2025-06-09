@@ -170,7 +170,7 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                 let tagVC = TagViewController(type: .editTag, ledgerId: manager.ledgerData._id)
                 navigationController?.pushViewController(tagVC, animated: true)
             case .statistics:
-                let statisticsVC = LDStatisticsViewController()
+                let statisticsVC = LDStatisticsViewController(ledgerId: manager.ledgerData._id)
                 present(statisticsVC, animated: true)
             case .setMainLedger:
                 manager.setMainLedger()

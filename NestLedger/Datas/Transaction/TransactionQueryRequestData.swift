@@ -22,7 +22,7 @@ struct TransactionQueryRequestData: Encodable {
     let type: TransactionType?
     let userId: String?
     let sortOrder: TransactionQuerySortOrder?
-    let page: Int?
+    var page: Int?
     let limit: Int?
 
     init(ledgerId: String,

@@ -23,6 +23,7 @@ extension Notification.Name {
     static let refreshLedgerListView = Notification.Name("RefreshLedgerListView")
     static let refreshUserAvatarCache = Notification.Name("RefreshUserAvatarCache")
     static let unauthorizedLedger = Notification.Name("UnauthorizedLedger")
+    static let statisticsNewData = Notification.Name("StatisticsNewData")
 }
 
 class NLNotification {
@@ -173,5 +174,18 @@ class NLNotification {
         guard let userInfo = notification.userInfo,
               let ledgerId = userInfo["ledgerId"] as? String else { return nil }
         return ledgerId
+    }
+
+    // MARK: - Statistics New Data
+    static func sendStatisticsNewData(for type: LDStatisticsManager.LoadType, transactionDatas: [TransactionData]) {
+        NotificationCenter.default.post(name: .statisticsNewData, object: nil, userInfo: ["transactions": transactionDatas, "type": type])
+    }
+
+    static func decodeStatisticsNewData(_ notification: Notification, target: LDStatisticsManager.LoadType) -> [TransactionData]? {
+        guard let userInfo = notification.userInfo,
+              let transactionDatas = userInfo["transactions"] as? [TransactionData],
+              let type = userInfo["type"] as? LDStatisticsManager.LoadType else { return nil }
+        guard type == target else { return nil }
+        return transactionDatas
     }
 }

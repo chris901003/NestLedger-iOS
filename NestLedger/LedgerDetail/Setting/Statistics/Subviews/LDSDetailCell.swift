@@ -69,7 +69,7 @@ class LDSDetailCell: UITableViewCell {
         guard let configData else { return }
         tagCircleView.backgroundColor = configData.color
         tagLabel.text = configData.title
-        tagPercentage.text = String(format: "%.1f%%", configData.percentage * 100)
+        tagPercentage.text = String(format: "%.2f%%", configData.percentage * 100)
         tagPercentageBackgroundView.backgroundColor = configData.color
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
@@ -90,7 +90,7 @@ class LDSDetailCell: UITableViewCell {
 
         tagCircleView.layer.cornerRadius = 10
 
-        tagPercentage.font = .systemFont(ofSize: 18, weight: .semibold)
+        tagPercentage.font = .systemFont(ofSize: 14, weight: .bold)
         tagPercentage.textAlignment = .right
 
         tagLabel.font = .systemFont(ofSize: 16, weight: .semibold)

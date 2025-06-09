@@ -41,8 +41,17 @@ class LDStatisticsViewController: UIViewController {
 
     var selectedBackgroundViewLeadingConstraint: NSLayoutConstraint?
 
-    let manager = LDStatisticsManager()
+    let manager: LDStatisticsManager
     var isLayout = false
+
+    init(ledgerId: String) {
+        self.manager = LDStatisticsManager(ledgerId: ledgerId)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -353,7 +362,7 @@ extension LDStatisticsViewController {
             }
         }
 
-        manager.searchAction()
+        manager.searchAction(startDate: startDatePicker.date, endDate: endDatePicker.date)
     }
 }
 
