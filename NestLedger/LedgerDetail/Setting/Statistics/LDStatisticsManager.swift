@@ -76,8 +76,7 @@ extension LDStatisticsManager {
                     NLNotification.sendStatisticsNewData(for: type, transactionDatas: transactions)
                 }
             } catch {
-                // TODO: Send Notification And Show Load Failed Information
-                print("✅ Error: \(error.localizedDescription)")
+                await MainActor.run { NLNotification.sendStatisticsLoadError(for: type) }
             }
         }
     }

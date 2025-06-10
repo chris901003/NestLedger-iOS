@@ -14,6 +14,7 @@ class LDSDetailView: UIView {
     let tableView = UITableView()
 
     let hintView = LDSDetailHintView()
+    let errorView = LDSDetailErrorView()
 
     let apiManager = NewAPIManager()
     let dataType: LDStatisticsManager.LoadType
@@ -28,6 +29,7 @@ class LDSDetailView: UIView {
         registerCell()
 
         NotificationCenter.default.addObserver(self, selector: #selector(receiveStatisticsNotification), name: .statisticsNewData, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveStatisticsErrorNotification), name: .statisticsLoadError, object: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -35,6 +37,8 @@ class LDSDetailView: UIView {
     }
 
     private func setup() {
+        errorView.alpha = 0
+
         label.text = "分析"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textAlignment = .left
@@ -52,6 +56,13 @@ class LDSDetailView: UIView {
         NSLayoutConstraint.activate([
             hintView.centerXAnchor.constraint(equalTo: centerXAnchor),
             hintView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+
+        addSubview(errorView)
+        errorView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            errorView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            errorView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
 
         addSubview(label)
@@ -129,5 +140,15 @@ extension LDSDetailView {
             self.tagPercentage.append((key, Double(value) / Double(totalAmount)))
         }
         tableView.reloadData()
+    }
+
+    @objc private func receiveStatisticsErrorNotification(_ notification: Notification) {
+        guard let type = NLNotification.decodeStatisticsLoadError(notification),
+              type == dataType else { return }
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self else { return }
+            errorView.alpha = 1
+            hintView.alpha = 0
+        }
     }
 }

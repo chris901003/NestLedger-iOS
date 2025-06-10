@@ -24,6 +24,7 @@ extension Notification.Name {
     static let refreshUserAvatarCache = Notification.Name("RefreshUserAvatarCache")
     static let unauthorizedLedger = Notification.Name("UnauthorizedLedger")
     static let statisticsNewData = Notification.Name("StatisticsNewData")
+    static let statisticsLoadError = Notification.Name("StatisticsLoadError")
 }
 
 class NLNotification {
@@ -187,5 +188,16 @@ class NLNotification {
               let type = userInfo["type"] as? LDStatisticsManager.LoadType else { return nil }
         guard type == target else { return nil }
         return transactionDatas
+    }
+
+    // MARK: - Statistics Load Error
+    static func sendStatisticsLoadError(for type: LDStatisticsManager.LoadType) {
+        NotificationCenter.default.post(name: .statisticsLoadError, object: nil, userInfo: ["type": type])
+    }
+
+    static func decodeStatisticsLoadError(_ notification: Notification) -> LDStatisticsManager.LoadType? {
+        guard let userInfo = notification.userInfo,
+              let type = userInfo["type"] as? LDStatisticsManager.LoadType else { return nil }
+        return type
     }
 }
