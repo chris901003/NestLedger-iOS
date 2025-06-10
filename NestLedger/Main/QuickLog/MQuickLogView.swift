@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class MQuickLogView: UIView {
+    let titleInputView = MQLTitleInputView()
+
     let plus1 = MQLPlusButtonView(title: "+1", value: 1)
     let plus10 = MQLPlusButtonView(title: "+10", value: 10)
     let plus100 = MQLPlusButtonView(title: "+100", value: 100)
@@ -63,7 +65,7 @@ class MQuickLogView: UIView {
         let height: CGFloat = width / 1.5
 
         NSLayoutConstraint.activate([
-            plus1.topAnchor.constraint(equalTo: topAnchor),
+            plus1.topAnchor.constraint(equalTo: titleInputView.bottomAnchor, constant: 12),
             plus1.leadingAnchor.constraint(equalTo: leadingAnchor),
             plus1.widthAnchor.constraint(equalToConstant: width),
             plus1.heightAnchor.constraint(equalToConstant: height)
@@ -71,7 +73,7 @@ class MQuickLogView: UIView {
         plus1.layer.shadowPath = UIBezierPath(rect: plus1.bounds).cgPath
 
         NSLayoutConstraint.activate([
-            plus10.topAnchor.constraint(equalTo: topAnchor),
+            plus10.topAnchor.constraint(equalTo: plus1.topAnchor),
             plus10.leadingAnchor.constraint(equalTo: plus1.trailingAnchor, constant: space),
             plus10.widthAnchor.constraint(equalToConstant: width),
             plus10.heightAnchor.constraint(equalToConstant: height)
@@ -79,7 +81,7 @@ class MQuickLogView: UIView {
         plus10.layer.shadowPath = UIBezierPath(rect: plus10.bounds).cgPath
 
         NSLayoutConstraint.activate([
-            plus100.topAnchor.constraint(equalTo: topAnchor),
+            plus100.topAnchor.constraint(equalTo: plus1.topAnchor),
             plus100.leadingAnchor.constraint(equalTo: plus10.trailingAnchor, constant: space),
             plus100.widthAnchor.constraint(equalToConstant: width),
             plus100.heightAnchor.constraint(equalToConstant: height)
@@ -87,7 +89,7 @@ class MQuickLogView: UIView {
         plus100.layer.shadowPath = UIBezierPath(rect: plus100.bounds).cgPath
 
         NSLayoutConstraint.activate([
-            plus1000.topAnchor.constraint(equalTo: topAnchor),
+            plus1000.topAnchor.constraint(equalTo: plus1.topAnchor),
             plus1000.leadingAnchor.constraint(equalTo: plus100.trailingAnchor, constant: space),
             plus1000.widthAnchor.constraint(equalToConstant: width),
             plus1000.heightAnchor.constraint(equalToConstant: height)
@@ -97,6 +99,8 @@ class MQuickLogView: UIView {
 
     private func setup() {
         manager.vc = self
+
+        titleInputView.delegate = manager
 
         setupButton(plusView: plus1)
         setupButton(plusView: plus10)
@@ -144,6 +148,14 @@ class MQuickLogView: UIView {
     }
 
     private func layout() {
+        addSubview(titleInputView)
+        titleInputView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleInputView.topAnchor.constraint(equalTo: topAnchor),
+            titleInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleInputView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+
         addSubview(plus1)
         plus1.translatesAutoresizingMaskIntoConstraints = false
         addSubview(plus10)

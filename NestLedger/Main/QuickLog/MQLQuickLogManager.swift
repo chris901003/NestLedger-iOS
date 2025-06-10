@@ -24,6 +24,13 @@ class MQLQuickLogManager {
     }
 }
 
+// MARK: - MQLTitleInputViewDelegate
+extension MQLQuickLogManager: MQLTitleInputViewDelegate {
+    func titleInputViewDidChange(title: String) {
+        transaction.title = title
+    }
+}
+
 extension MQLQuickLogManager: MQLSendViewDelegate {
     func sendAction(completion: @escaping () -> Void) {
         guard let ledgerId = newSharedUserInfo.ledgerIds.first else {
@@ -52,6 +59,7 @@ extension MQLQuickLogManager: MQLSendViewDelegate {
                 completion()
                 await MainActor.run {
                     NLNotification.sendNewRecentTransaction(newTransaction: newTransaction)
+                    vc?.titleInputView.titleInputView.text = ""
                     vc?.totalValue = 0
                     vc?.tagView.reset()
                     XOBottomBarInformationManager.showBottomInformation(type: .success, information: "添加成功")

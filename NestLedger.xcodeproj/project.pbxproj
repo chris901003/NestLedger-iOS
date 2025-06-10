@@ -113,6 +113,7 @@
 		05A3B92F2DF5D5BE0062D341 /* LDSDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A3B92E2DF5D5BE0062D341 /* LDSDetailCell.swift */; };
 		05A3B9312DF728210062D341 /* LDSDetailHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A3B9302DF728210062D341 /* LDSDetailHintView.swift */; };
 		05A3B9332DF8581D0062D341 /* LDSDetailErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A3B9322DF8581D0062D341 /* LDSDetailErrorView.swift */; };
+		05A3B9352DF8677D0062D341 /* MQLTitleInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A3B9342DF8677D0062D341 /* MQLTitleInputView.swift */; };
 		05A59B182DEF2F470016E905 /* LDStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A59B172DEF2F470016E905 /* LDStatisticsViewController.swift */; };
 		05A59B1A2DEF3D5B0016E905 /* CacheUserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A59B192DEF3D5B0016E905 /* CacheUserAvatar.swift */; };
 		05A59B332DF08E0F0016E905 /* LDSSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A59B322DF08E0F0016E905 /* LDSSearchView.swift */; };
@@ -233,6 +234,7 @@
 		05A3B92E2DF5D5BE0062D341 /* LDSDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSDetailCell.swift; sourceTree = "<group>"; };
 		05A3B9302DF728210062D341 /* LDSDetailHintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSDetailHintView.swift; sourceTree = "<group>"; };
 		05A3B9322DF8581D0062D341 /* LDSDetailErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSDetailErrorView.swift; sourceTree = "<group>"; };
+		05A3B9342DF8677D0062D341 /* MQLTitleInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLTitleInputView.swift; sourceTree = "<group>"; };
 		05A59B172DEF2F470016E905 /* LDStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDStatisticsViewController.swift; sourceTree = "<group>"; };
 		05A59B192DEF3D5B0016E905 /* CacheUserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheUserAvatar.swift; sourceTree = "<group>"; };
 		05A59B322DF08E0F0016E905 /* LDSSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSSearchView.swift; sourceTree = "<group>"; };
@@ -792,6 +794,7 @@
 				05EC2B1B2D6CB316006F1F3A /* MQLPlusButtonView.swift */,
 				0529446E2D6E10B200943CAC /* MQLSendView.swift */,
 				0529446C2D6E0AA500943CAC /* MQLTagView.swift */,
+				05A3B9342DF8677D0062D341 /* MQLTitleInputView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1019,6 +1022,7 @@
 				052944712D79E44300943CAC /* MQLQuickLogManager.swift in Sources */,
 				0529446F2D6E10B200943CAC /* MQLSendView.swift in Sources */,
 				0529446D2D6E0AA500943CAC /* MQLTagView.swift in Sources */,
+				05A3B9352DF8677D0062D341 /* MQLTitleInputView.swift in Sources */,
 				05EC2B192D6B5916006F1F3A /* MQuickLogView.swift in Sources */,
 				051257ED2D8477C60066F3F2 /* MRCCell.swift in Sources */,
 				05EC2B162D6B54E2006F1F3A /* MRecentContentView.swift in Sources */,
