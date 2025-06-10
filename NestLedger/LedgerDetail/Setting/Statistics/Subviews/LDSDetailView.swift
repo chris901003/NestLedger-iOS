@@ -13,6 +13,9 @@ class LDSDetailView: UIView {
     let label = UILabel()
     let tableView = UITableView()
 
+    let loadingView = UIActivityIndicatorView(style: .medium)
+    let loadingLabel = UILabel()
+
     let hintView = LDSDetailHintView()
     let errorView = LDSDetailErrorView()
 
@@ -39,7 +42,7 @@ class LDSDetailView: UIView {
     private func setup() {
         errorView.alpha = 0
 
-        label.text = "分析"
+        label.text = "統計"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textAlignment = .left
         label.alpha = 0
@@ -48,6 +51,13 @@ class LDSDetailView: UIView {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.alpha = 0
+
+        loadingView.alpha = 0
+
+        loadingLabel.text = "統計中..."
+        loadingLabel.textColor = .systemGray
+        loadingLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        loadingLabel.alpha = 0
     }
 
     private func layout() {
@@ -63,6 +73,20 @@ class LDSDetailView: UIView {
         NSLayoutConstraint.activate([
             errorView.centerXAnchor.constraint(equalTo: centerXAnchor),
             errorView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+
+        addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadingView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -4),
+            loadingView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
+
+        addSubview(loadingLabel)
+        loadingLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadingLabel.topAnchor.constraint(equalTo: centerYAnchor, constant: 4),
+            loadingLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
 
         addSubview(label)
@@ -119,11 +143,12 @@ extension LDSDetailView {
     @objc private func receiveStatisticsNotification(_ notification: Notification) {
         guard let transactionDatas = NLNotification.decodeStatisticsNewData(notification, target: dataType) else { return }
         if hintView.alpha == 1 {
+            loadingView.startAnimating()
             UIView.animate(withDuration: 0.5) { [weak self] in
                 guard let self else { return }
                 hintView.alpha = 0
-                label.alpha = 1
-                tableView.alpha = 1
+                loadingView.alpha = 1
+                loadingLabel.alpha = 1
             }
         }
         self.transactions = [:]
@@ -140,6 +165,17 @@ extension LDSDetailView {
             self.tagPercentage.append((key, Double(value) / Double(totalAmount)))
         }
         tableView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            UIView.animate(withDuration: 0.5) { [weak self] in
+                guard let self else { return }
+                loadingView.alpha = 0
+                loadingLabel.alpha = 0
+                label.alpha = 1
+                tableView.alpha = 1
+            } completion: { [weak self] _ in
+                self?.loadingView.stopAnimating()
+            }
+        }
     }
 
     @objc private func receiveStatisticsErrorNotification(_ notification: Notification) {
