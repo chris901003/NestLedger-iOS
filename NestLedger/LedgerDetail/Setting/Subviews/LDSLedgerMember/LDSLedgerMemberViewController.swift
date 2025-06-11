@@ -127,7 +127,8 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
                 let data = manager.userInfos[indexPath.row]
                 Task {
                     let avatar = await manager.getUserAvatar(userId: data.id)
-                    await MainActor.run { cell.config(avatar: avatar, userName: data.userName, userId: data.id, indexPath: indexPath) }
+                    let nickName = manager.ledgerData.userNames[data.id] ?? data.userName
+                    await MainActor.run { cell.config(avatar: avatar, userName: nickName, userId: data.id, indexPath: indexPath) }
                 }
                 return cell
             case .invite:
@@ -165,7 +166,8 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
                     data = userData
             }
             await MainActor.run {
-                let basicUserInfoVC = BasicUserInfoViewController(userInfoData: data)
+                let nickName = manager.ledgerData.userNames[data.id] ?? data.userName
+                let basicUserInfoVC = BasicUserInfoViewController(userInfoData: data, nickName: nickName)
                 basicUserInfoVC.modalPresentationStyle = .pageSheet
                 if let sheet = basicUserInfoVC.sheetPresentationController {
                     sheet.detents = [.custom(resolver: { context in

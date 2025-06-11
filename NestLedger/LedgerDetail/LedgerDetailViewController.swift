@@ -231,7 +231,7 @@ extension LedgerDetailViewController: UICollectionViewDataSource, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let userData = manager.userInfos[indexPath.row]
-        let basicUserInfoVC = BasicUserInfoViewController(userInfoData: userData)
+        let basicUserInfoVC = BasicUserInfoViewController(userInfoData: userData, nickName: manager.ledgerData.userNames[userData.id])
         basicUserInfoVC.modalPresentationStyle = .pageSheet
         if let sheet = basicUserInfoVC.sheetPresentationController {
             sheet.detents = [.custom(resolver: { context in

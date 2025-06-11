@@ -17,9 +17,11 @@ class BasicUserInfoViewController: UIViewController {
     let copyIconView = UIImageView()
 
     var userInfoData: UserInfoData
+    let nickName: String?
 
-    init(userInfoData: UserInfoData) {
+    init(userInfoData: UserInfoData, nickName: String? = nil) {
         self.userInfoData = userInfoData
+        self.nickName = nickName
         super.init(nibName: nil, bundle: nil)
         setup()
         layout()
@@ -38,7 +40,7 @@ class BasicUserInfoViewController: UIViewController {
         avatarView.clipsToBounds = true
         avatarView.contentMode = .scaleAspectFill
 
-        nameLabel.text = userInfoData.userName
+        nameLabel.text = nickName ?? userInfoData.userName
         nameLabel.font = .systemFont(ofSize: 16, weight: .bold)
         nameLabel.textAlignment = .left
         nameLabel.numberOfLines = 1
