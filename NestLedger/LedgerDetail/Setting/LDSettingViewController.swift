@@ -23,6 +23,7 @@ fileprivate enum LDSRow: String, CaseIterable {
     case setMainLedger = "設為快速記帳帳本"
 
     // [member]
+    case nickName = "暱稱"
     case member = "帳本成員"
     case exit = "退出帳本"
 
@@ -31,7 +32,7 @@ fileprivate enum LDSRow: String, CaseIterable {
             case .base:
                 return [.name, .tag, .statistics, .setMainLedger]
             case .member:
-                return [.member, .exit]
+                return [.nickName, .member, .exit]
         }
     }
 }
@@ -143,6 +144,11 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.config(label: row.rawValue, font: .systemFont(ofSize: 16, weight: .semibold), color: .systemBlue)
                     return cell
                 }
+            case .nickName:
+                if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelCell.cellId, for: indexPath) as? XOLeadingTrailingLabelCell {
+                    cell.config(title: row.rawValue, info: "Nick name")
+                    return cell
+                }
             case .member:
                 if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelWithIconCell.cellId, for: indexPath) as? XOLeadingTrailingLabelWithIconCell {
                     cell.config(title: row.rawValue, info: "\(manager.ledgerData.userIds.count)")
@@ -174,6 +180,9 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                 present(statisticsVC, animated: true)
             case .setMainLedger:
                 manager.setMainLedger()
+            case .nickName:
+                let userNickNameVC = LDSUserNickNameViewController(userName: "Just for test")
+                navigationController?.pushViewController(userNickNameVC, animated: true)
             case .member:
                 let memberVC = LDSLedgerMemberViewController(ledgerId: manager.ledgerData._id)
                 navigationController?.pushViewController(memberVC, animated: true)
