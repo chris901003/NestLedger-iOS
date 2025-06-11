@@ -146,7 +146,8 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             case .nickName:
                 if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelCell.cellId, for: indexPath) as? XOLeadingTrailingLabelCell {
-                    cell.config(title: row.rawValue, info: "Nick name")
+                    let nickName = manager.ledgerData.userNames[newSharedUserInfo.id] ?? newSharedUserInfo.userName
+                    cell.config(title: row.rawValue, info: nickName)
                     return cell
                 }
             case .member:
@@ -181,7 +182,9 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
             case .setMainLedger:
                 manager.setMainLedger()
             case .nickName:
-                let userNickNameVC = LDSUserNickNameViewController(userName: "Just for test")
+                let nickName = manager.ledgerData.userNames[newSharedUserInfo.id] ?? newSharedUserInfo.userName
+                let userNickNameVC = LDSUserNickNameViewController(userName: nickName)
+                userNickNameVC.delegate = manager
                 navigationController?.pushViewController(userNickNameVC, animated: true)
             case .member:
                 let memberVC = LDSLedgerMemberViewController(ledgerId: manager.ledgerData._id)

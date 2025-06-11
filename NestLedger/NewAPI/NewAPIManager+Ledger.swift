@@ -107,3 +107,24 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Set User Nick Name
+extension NewAPIManager {
+    func setUserNickName(nickName: String, ledgerId: String) async throws -> LedgerData {
+        let responseData = await session.request(
+            NewAPIPath.Ledger.setUserNickName.getPath(),
+            method: .get,
+            parameters: ["userName": nickName, "ledgerId": ledgerId])
+            .validate()
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanLedgerDataResponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw LedgerError.decodeLedgerDataFailed
+        }
+    }
+}

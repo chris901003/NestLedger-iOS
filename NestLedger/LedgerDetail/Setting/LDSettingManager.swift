@@ -74,3 +74,22 @@ extension LDSettingManager: LDSLedgerNameViewControllerDelegate {
         }
     }
 }
+
+// MARK: - LDSUserNickNameViewControllerDelegate
+extension LDSettingManager: LDSUserNickNameViewControllerDelegate {
+    func updateNickName(name: String) {
+        guard !name.isEmpty else {
+            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "暱稱不可為空")
+            return
+        }
+        Task {
+            do {
+                ledgerData = try await newApiManager.setUserNickName(nickName: name, ledgerId: ledgerData._id)
+                XOBottomBarInformationManager.showBottomInformation(type: .success, information: "已將暱稱更改為 \(name)")
+                await MainActor.run { vc?.tableView.reloadData() }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "更新暱稱失敗")
+            }
+        }
+    }
+}
