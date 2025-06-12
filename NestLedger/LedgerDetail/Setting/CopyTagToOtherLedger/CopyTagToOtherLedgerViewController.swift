@@ -12,6 +12,8 @@ import UIKit
 class CopyTagToOtherLedgerViewController: UIViewController {
     let backButtonView = LDSCTBackButtonView()
     let titleLabel = UILabel()
+    let copyButton = UILabel()
+    let ledgerSelectView = LDSCTTargetLedgerSelectView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,10 @@ class CopyTagToOtherLedgerViewController: UIViewController {
         titleLabel.text = "複製標籤到其他帳本"
         titleLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         titleLabel.textAlignment = .center
+
+        copyButton.text = "複製"
+        copyButton.font = .systemFont(ofSize: 16, weight: .semibold)
+        copyButton.textColor = .tintColor
     }
 
     private func layout() {
@@ -44,6 +50,21 @@ class CopyTagToOtherLedgerViewController: UIViewController {
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 12),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
+        view.addSubview(copyButton)
+        copyButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            copyButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 12),
+            copyButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12)
+        ])
+
+        view.addSubview(ledgerSelectView)
+        ledgerSelectView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            ledgerSelectView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+            ledgerSelectView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            ledgerSelectView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
     }
 
