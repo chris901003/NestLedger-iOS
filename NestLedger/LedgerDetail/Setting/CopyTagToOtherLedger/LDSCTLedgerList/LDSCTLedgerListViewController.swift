@@ -14,15 +14,19 @@ class LDSCTLedgerListViewController: UIViewController {
     let titleLabel = UILabel()
     let tableView = UITableView()
 
+    let manager = LDSCTLedgerManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         layout()
         registerCell()
+        manager.loadMoreLedgerData()
     }
 
     private func setup() {
         view.backgroundColor = .white
+        manager.vc = self
 
         topBarView.backgroundColor = .systemGray4
         topBarView.layer.cornerRadius = 3.0
@@ -73,14 +77,22 @@ class LDSCTLedgerListViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension LDSCTLedgerListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        manager.ledgerData.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSCTLedgerCell.cellId, for: indexPath) as? LDSCTLedgerCell else {
             return UITableViewCell()
         }
-        cell.config(ledgerTitle: "Just for test")
+        let data = manager.ledgerData[indexPath.row]
+        let title = data.title.starts(with: "[Main]") ? "我的帳本" : data.title
+        cell.config(ledgerTitle: title)
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard indexPath.row == manager.ledgerData.count - 1,
+              manager.ledgerData.count < newSharedUserInfo.ledgerIds.count else { return }
+        manager.loadMoreLedgerData()
     }
 }

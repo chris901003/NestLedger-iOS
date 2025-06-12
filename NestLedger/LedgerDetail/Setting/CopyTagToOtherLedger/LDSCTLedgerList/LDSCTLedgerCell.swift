@@ -46,7 +46,7 @@ class LDSCTLedgerCell: UITableViewCell {
         iconImageView.contentMode = .scaleAspectFit
 
         labelView.font = .systemFont(ofSize: 16, weight: .semibold)
-        labelView.textAlignment = .right
+        labelView.textAlignment = .left
     }
 
     private func layout() {
@@ -72,6 +72,7 @@ class LDSCTLedgerCell: UITableViewCell {
         mainContentView.addSubview(labelView)
         labelView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            labelView.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 12),
             labelView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -16),
             labelView.centerYAnchor.constraint(equalTo: mainContentView.centerYAnchor)
         ])

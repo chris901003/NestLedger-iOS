@@ -67,6 +67,7 @@
 		050831452D41E048008C8831 /* xxooooxxCommonUI in Frameworks */ = {isa = PBXBuildFile; productRef = 050831442D41E048008C8831 /* xxooooxxCommonUI */; };
 		050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050831462D41E32C008C8831 /* LoginVCManager.swift */; };
 		050E2A312DFB159400FC61B4 /* LDSCTLedgerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2A302DFB159400FC61B4 /* LDSCTLedgerCell.swift */; };
+		050E2A332DFB163B00FC61B4 /* LDSCTLedgerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2A322DFB163B00FC61B4 /* LDSCTLedgerManager.swift */; };
 		050EB9B22DCA3BB900F8C04F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */; };
 		051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257D92D7F16630066F3F2 /* LedgerData.swift */; };
 		051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257DD2D7F1AC80066F3F2 /* SingletonData.swift */; };
@@ -194,6 +195,7 @@
 		0508313F2D41E029008C8831 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		050831462D41E32C008C8831 /* LoginVCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVCManager.swift; sourceTree = "<group>"; };
 		050E2A302DFB159400FC61B4 /* LDSCTLedgerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSCTLedgerCell.swift; sourceTree = "<group>"; };
+		050E2A322DFB163B00FC61B4 /* LDSCTLedgerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSCTLedgerManager.swift; sourceTree = "<group>"; };
 		050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		051257D92D7F16630066F3F2 /* LedgerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerData.swift; sourceTree = "<group>"; };
 		051257DD2D7F1AC80066F3F2 /* SingletonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonData.swift; sourceTree = "<group>"; };
@@ -642,6 +644,7 @@
 			children = (
 				050E2A302DFB159400FC61B4 /* LDSCTLedgerCell.swift */,
 				058EB7982DFB0844009E65EF /* LDSCTLedgerListViewController.swift */,
+				050E2A322DFB163B00FC61B4 /* LDSCTLedgerManager.swift */,
 			);
 			path = LDSCTLedgerList;
 			sourceTree = "<group>";
@@ -1024,6 +1027,7 @@
 				058EB7942DFAFD0B009E65EF /* LDSCTBackButtonView.swift in Sources */,
 				050E2A312DFB159400FC61B4 /* LDSCTLedgerCell.swift in Sources */,
 				058EB7992DFB0844009E65EF /* LDSCTLedgerListViewController.swift in Sources */,
+				050E2A332DFB163B00FC61B4 /* LDSCTLedgerManager.swift in Sources */,
 				058EB7962DFB0458009E65EF /* LDSCTTargetLedgerSelectView.swift in Sources */,
 				05A3B92F2DF5D5BE0062D341 /* LDSDetailCell.swift in Sources */,
 				05A3B9332DF8581D0062D341 /* LDSDetailErrorView.swift in Sources */,
