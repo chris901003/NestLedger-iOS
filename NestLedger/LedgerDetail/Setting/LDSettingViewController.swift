@@ -12,15 +12,19 @@ import xxooooxxCommonUI
 
 fileprivate enum LDSSection: String, CaseIterable {
     case base = "基礎"
+    case tag = "標籤"
     case member = "成員"
 }
 
 fileprivate enum LDSRow: String, CaseIterable {
     // [base]
     case name = "帳本名稱"
-    case tag = "標籤管理"
     case statistics = "統計"
     case setMainLedger = "設為快速記帳帳本"
+
+    // [tag]
+    case tag = "標籤管理"
+    case copyTagToOtherLedger = "複製標籤到其他帳本"
 
     // [member]
     case nickName = "暱稱"
@@ -30,7 +34,9 @@ fileprivate enum LDSRow: String, CaseIterable {
     static func getRows(_ section: LDSSection) -> [LDSRow] {
         switch section {
             case .base:
-                return [.name, .tag, .statistics, .setMainLedger]
+                return [.name, .statistics, .setMainLedger]
+            case .tag:
+                return [.tag, .copyTagToOtherLedger]
             case .member:
                 return [.nickName, .member, .exit]
         }
@@ -144,6 +150,11 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.config(label: row.rawValue, font: .systemFont(ofSize: 16, weight: .semibold), color: .systemBlue)
                     return cell
                 }
+            case .copyTagToOtherLedger:
+                if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelWithIconCell.cellId, for: indexPath) as? XOLeadingTrailingLabelWithIconCell {
+                    cell.config(title: row.rawValue, info: "")
+                    return cell
+                }
             case .nickName:
                 if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelCell.cellId, for: indexPath) as? XOLeadingTrailingLabelCell {
                     let nickName = manager.ledgerData.userNames[newSharedUserInfo.id] ?? newSharedUserInfo.userName
@@ -181,6 +192,9 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                 present(statisticsVC, animated: true)
             case .setMainLedger:
                 manager.setMainLedger()
+            case .copyTagToOtherLedger:
+                let copyTagToOtherLedgerVC = CopyTagToOtherLedgerViewController()
+                present(copyTagToOtherLedgerVC, animated: true)
             case .nickName:
                 let nickName = manager.ledgerData.userNames[newSharedUserInfo.id] ?? newSharedUserInfo.userName
                 let userNickNameVC = LDSUserNickNameViewController(userName: nickName)
