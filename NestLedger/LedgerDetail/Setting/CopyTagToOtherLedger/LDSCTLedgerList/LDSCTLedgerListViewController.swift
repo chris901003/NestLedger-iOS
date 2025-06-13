@@ -9,12 +9,17 @@
 import Foundation
 import UIKit
 
+protocol LDSCTLedgerListViewControllerDelegate: AnyObject {
+    func didSelect(ledgerData: LedgerData)
+}
+
 class LDSCTLedgerListViewController: UIViewController {
     let topBarView = UIView()
     let titleLabel = UILabel()
     let tableView = UITableView()
 
     let manager = LDSCTLedgerManager()
+    weak var delegate: LDSCTLedgerListViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,5 +99,11 @@ extension LDSCTLedgerListViewController: UITableViewDelegate, UITableViewDataSou
         guard indexPath.row == manager.ledgerData.count - 1,
               manager.ledgerData.count < newSharedUserInfo.ledgerIds.count else { return }
         manager.loadMoreLedgerData()
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = manager.ledgerData[indexPath.row]
+        delegate?.didSelect(ledgerData: data)
+        dismiss(animated: true)
     }
 }

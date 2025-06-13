@@ -73,13 +73,14 @@ class CopyTagToOtherLedgerViewController: UIViewController {
 }
 
 // MARK: - Tap Action
-extension CopyTagToOtherLedgerViewController {
+extension CopyTagToOtherLedgerViewController: LDSCTLedgerListViewControllerDelegate {
     @objc private func tapBackAction() {
         dismiss(animated: true)
     }
 
     @objc private func tapSelectLedgerAction() {
         let ledgerListVC = LDSCTLedgerListViewController()
+        ledgerListVC.delegate = self
         let _50DetentId = UISheetPresentationController.Detent.Identifier("50")
         let _50Detent = UISheetPresentationController.Detent.custom(identifier: _50DetentId) { context in
             UIScreen.main.bounds.height * 0.5
@@ -88,5 +89,11 @@ extension CopyTagToOtherLedgerViewController {
             sheet.detents = [_50Detent]
         }
         present(ledgerListVC, animated: true)
+    }
+
+    func didSelect(ledgerData: LedgerData) {
+        DispatchQueue.main.async { [weak self] in
+            self?.ledgerSelectView.targetLedgerLabel.text = ledgerData.titleShow
+        }
     }
 }
