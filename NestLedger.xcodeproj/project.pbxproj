@@ -68,6 +68,8 @@
 		050831472D41E32C008C8831 /* LoginVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050831462D41E32C008C8831 /* LoginVCManager.swift */; };
 		050E2A312DFB159400FC61B4 /* LDSCTLedgerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2A302DFB159400FC61B4 /* LDSCTLedgerCell.swift */; };
 		050E2A332DFB163B00FC61B4 /* LDSCTLedgerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2A322DFB163B00FC61B4 /* LDSCTLedgerManager.swift */; };
+		050E2A362DFC645A00FC61B4 /* LDSCTTargetTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2A352DFC645A00FC61B4 /* LDSCTTargetTagView.swift */; };
+		050E2A382DFC6DAF00FC61B4 /* LDSCTTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2A372DFC6DAF00FC61B4 /* LDSCTTagCell.swift */; };
 		050EB9B22DCA3BB900F8C04F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */; };
 		051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257D92D7F16630066F3F2 /* LedgerData.swift */; };
 		051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257DD2D7F1AC80066F3F2 /* SingletonData.swift */; };
@@ -196,6 +198,8 @@
 		050831462D41E32C008C8831 /* LoginVCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVCManager.swift; sourceTree = "<group>"; };
 		050E2A302DFB159400FC61B4 /* LDSCTLedgerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSCTLedgerCell.swift; sourceTree = "<group>"; };
 		050E2A322DFB163B00FC61B4 /* LDSCTLedgerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSCTLedgerManager.swift; sourceTree = "<group>"; };
+		050E2A352DFC645A00FC61B4 /* LDSCTTargetTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSCTTargetTagView.swift; sourceTree = "<group>"; };
+		050E2A372DFC6DAF00FC61B4 /* LDSCTTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSCTTagCell.swift; sourceTree = "<group>"; };
 		050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		051257D92D7F16630066F3F2 /* LedgerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerData.swift; sourceTree = "<group>"; };
 		051257DD2D7F1AC80066F3F2 /* SingletonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonData.swift; sourceTree = "<group>"; };
@@ -455,6 +459,15 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		050E2A342DFC643500FC61B4 /* LDSCTTargetTag */ = {
+			isa = PBXGroup;
+			children = (
+				050E2A372DFC6DAF00FC61B4 /* LDSCTTagCell.swift */,
+				050E2A352DFC645A00FC61B4 /* LDSCTTargetTagView.swift */,
+			);
+			path = LDSCTTargetTag;
+			sourceTree = "<group>";
+		};
 		051257D82D7F165A0066F3F2 /* Ledger */ = {
 			isa = PBXGroup;
 			children = (
@@ -624,6 +637,7 @@
 			isa = PBXGroup;
 			children = (
 				058EB7972DFB0837009E65EF /* LDSCTLedgerList */,
+				050E2A342DFC643500FC61B4 /* LDSCTTargetTag */,
 				058EB7922DFAFCFF009E65EF /* Subviews */,
 				058EB7902DF9C98D009E65EF /* CopyTagToOtherLedgerViewController.swift */,
 			);
@@ -1028,7 +1042,9 @@
 				050E2A312DFB159400FC61B4 /* LDSCTLedgerCell.swift in Sources */,
 				058EB7992DFB0844009E65EF /* LDSCTLedgerListViewController.swift in Sources */,
 				050E2A332DFB163B00FC61B4 /* LDSCTLedgerManager.swift in Sources */,
+				050E2A382DFC6DAF00FC61B4 /* LDSCTTagCell.swift in Sources */,
 				058EB7962DFB0458009E65EF /* LDSCTTargetLedgerSelectView.swift in Sources */,
+				050E2A362DFC645A00FC61B4 /* LDSCTTargetTagView.swift in Sources */,
 				05A3B92F2DF5D5BE0062D341 /* LDSDetailCell.swift in Sources */,
 				05A3B9332DF8581D0062D341 /* LDSDetailErrorView.swift in Sources */,
 				05A3B9312DF728210062D341 /* LDSDetailHintView.swift in Sources */,

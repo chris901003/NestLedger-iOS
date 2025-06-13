@@ -14,11 +14,21 @@ class CopyTagToOtherLedgerViewController: UIViewController {
     let titleLabel = UILabel()
     let copyButton = UILabel()
     let ledgerSelectView = LDSCTTargetLedgerSelectView()
+    let targetTagView = LDSCTTargetTagView()
+    let currentTagView = LDSCTTargetTagView()
+
+    var targetTagViewHeightConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         layout()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let remainHeight = view.bounds.height - (ledgerSelectView.frame.origin.y + ledgerSelectView.bounds.height) - 24 - 24 - 36
+        targetTagViewHeightConstraint.constant = remainHeight / 2
     }
 
     private func setup() {
@@ -68,6 +78,25 @@ class CopyTagToOtherLedgerViewController: UIViewController {
             ledgerSelectView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
             ledgerSelectView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             ledgerSelectView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+        ])
+
+        view.addSubview(targetTagView)
+        targetTagView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            targetTagView.topAnchor.constraint(equalTo: ledgerSelectView.bottomAnchor, constant: 24),
+            targetTagView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            targetTagView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+        ])
+        targetTagViewHeightConstraint = targetTagView.heightAnchor.constraint(equalToConstant: 200)
+        targetTagViewHeightConstraint.isActive = true
+
+        view.addSubview(currentTagView)
+        currentTagView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            currentTagView.topAnchor.constraint(equalTo: targetTagView.bottomAnchor, constant: 24),
+            currentTagView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            currentTagView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            currentTagView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -36)
         ])
     }
 }
