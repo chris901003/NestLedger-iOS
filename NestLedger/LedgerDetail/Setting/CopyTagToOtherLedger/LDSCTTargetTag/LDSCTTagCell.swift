@@ -9,12 +9,24 @@
 import Foundation
 import UIKit
 
+protocol LDSCTTagCellDelegate: AnyObject {
+    func tapDeleteButton(in cell: LDSCTTagCell)
+}
+
 class LDSCTTagCell: UITableViewCell {
     static let cellId = "LDSCTTagCellId"
 
     let circleView = UIView()
     let tagLabel = UILabel()
     let deleteButton = UIImageView()
+
+    var isDeletable: Bool = false {
+        didSet {
+            deleteButton.alpha = isDeletable ? 1 : 0
+        }
+    }
+    var indexPath: IndexPath?
+    weak var delegate: LDSCTTagCellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,9 +38,21 @@ class LDSCTTagCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        defaultConfig()
+    }
+
     private func defaultConfig() {
         circleView.backgroundColor = .systemGray5
         tagLabel.text = "標籤名稱"
+        isDeletable = false
+    }
+
+    func config(tagData: TagData, isDeletable: Bool) {
+        circleView.backgroundColor = tagData.getColor
+        tagLabel.text = tagData.label
+        self.isDeletable = isDeletable
     }
 
     private func setup() {
@@ -42,6 +66,8 @@ class LDSCTTagCell: UITableViewCell {
 
         deleteButton.image = UIImage(systemName: "xmark.app")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
         deleteButton.contentMode = .scaleAspectFit
+        deleteButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapDeleteAction)))
+        deleteButton.isUserInteractionEnabled = true
     }
 
     private func layout() {
@@ -69,5 +95,9 @@ class LDSCTTagCell: UITableViewCell {
             deleteButton.widthAnchor.constraint(equalToConstant: 20),
             deleteButton.heightAnchor.constraint(equalToConstant: 20)
         ])
+    }
+
+    @objc private func tapDeleteAction() {
+        delegate?.tapDeleteButton(in: self)
     }
 }
