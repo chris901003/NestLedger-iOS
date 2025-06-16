@@ -15,7 +15,7 @@ class CopyTagToOtherLedgerViewController: UIViewController {
     let copyButton = UILabel()
     let ledgerSelectView = LDSCTTargetLedgerSelectView()
     let targetTagView = LDSCTTargetTagView()
-    let currentTagView = LDSCTTargetTagView()
+    let currentTagView = LDSCTCurrentTagView()
 
     var targetTagViewHeightConstraint: NSLayoutConstraint!
 
