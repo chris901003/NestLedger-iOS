@@ -19,6 +19,17 @@ class CopyTagToOtherLedgerViewController: UIViewController {
 
     var targetTagViewHeightConstraint: NSLayoutConstraint!
 
+    let manager: CopyTagToOtherLedgerManager
+
+    init(ledgerId: String) {
+        manager = CopyTagToOtherLedgerManager(ledgerId: ledgerId)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -32,6 +43,7 @@ class CopyTagToOtherLedgerViewController: UIViewController {
     }
 
     private func setup() {
+        manager.vc = self
         view.backgroundColor = .white
 
         backButtonView.isUserInteractionEnabled = true
@@ -47,6 +59,8 @@ class CopyTagToOtherLedgerViewController: UIViewController {
 
         ledgerSelectView.isUserInteractionEnabled = true
         ledgerSelectView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapSelectLedgerAction)))
+
+        targetTagView.delegate = manager
     }
 
     private func layout() {
@@ -121,6 +135,7 @@ extension CopyTagToOtherLedgerViewController: LDSCTLedgerListViewControllerDeleg
     }
 
     func didSelect(ledgerData: LedgerData) {
+        manager.targetLedgerId = ledgerData._id
         DispatchQueue.main.async { [weak self] in
             self?.ledgerSelectView.targetLedgerLabel.text = ledgerData.titleShow
         }

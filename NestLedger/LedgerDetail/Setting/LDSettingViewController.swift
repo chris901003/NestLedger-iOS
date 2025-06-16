@@ -193,7 +193,7 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
             case .setMainLedger:
                 manager.setMainLedger()
             case .copyTagToOtherLedger:
-                let copyTagToOtherLedgerVC = CopyTagToOtherLedgerViewController()
+                let copyTagToOtherLedgerVC = CopyTagToOtherLedgerViewController(ledgerId: manager.ledgerData._id)
                 present(copyTagToOtherLedgerVC, animated: true)
             case .nickName:
                 let nickName = manager.ledgerData.userNames[newSharedUserInfo.id] ?? newSharedUserInfo.userName

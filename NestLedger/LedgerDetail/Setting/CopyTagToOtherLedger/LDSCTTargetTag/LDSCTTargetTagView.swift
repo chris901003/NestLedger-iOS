@@ -9,10 +9,21 @@
 import Foundation
 import UIKit
 
+protocol LDSCTTargetTagViewDelegate: AnyObject {
+    func loadMoreTargetTag()
+}
+
 class LDSCTTargetTagView: UIView {
     let titleLabel = UILabel()
     let contentView = UIView()
     let tableView = UITableView()
+
+    var tagDatas: [TagData] = []
+    var newTagDatas: [TagData] = []
+
+    var isLoading = true
+    var isEnd = false
+    weak var delegate: LDSCTTargetTagViewDelegate?
 
     init() {
         super.init(frame: .zero)
@@ -75,13 +86,40 @@ class LDSCTTargetTagView: UIView {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension LDSCTTargetTagView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        newTagDatas.count + tagDatas.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSCTTagCell.cellId, for: indexPath) as? LDSCTTagCell else {
             return UITableViewCell()
         }
+        if indexPath.row < newTagDatas.count {
+            let data = newTagDatas[indexPath.row]
+            cell.config(tagData: data, isDeletable: true)
+        } else {
+            let data = tagDatas[indexPath.row - newTagDatas.count]
+            cell.config(tagData: data, isDeletable: false)
+        }
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard !isEnd, !isLoading,
+              indexPath.row == newTagDatas.count + tagDatas.count - 1 else { return }
+        delegate?.loadMoreTargetTag()
+    }
+}
+
+extension LDSCTTargetTagView {
+    func removeAll() {
+        tagDatas.removeAll()
+        newTagDatas.removeAll()
+    }
+
+    func receiveTagData(tagDatas: [TagData]) {
+        isLoading = false
+        self.tagDatas.append(contentsOf: tagDatas)
+        isEnd = tagDatas.count < 20
+        tableView.reloadData()
     }
 }
