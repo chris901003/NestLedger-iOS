@@ -18,6 +18,8 @@ class LDSCTTargetTagView: UIView {
     let contentView = UIView()
     let tableView = UITableView()
 
+    let hintLabel = UILabel()
+
     var tagDatas: [TagData] = []
     var newTagDatas: [TagData] = []
 
@@ -48,6 +50,10 @@ class LDSCTTargetTagView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
+
+        hintLabel.text = "請先選擇目標帳本"
+        hintLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        hintLabel.textColor = .secondaryLabel
     }
 
     private func layout() {
@@ -75,6 +81,13 @@ class LDSCTTargetTagView: UIView {
             tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+        ])
+
+        contentView.addSubview(hintLabel)
+        hintLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hintLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            hintLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
 
@@ -112,6 +125,10 @@ extension LDSCTTargetTagView: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension LDSCTTargetTagView {
+    func hideHint() {
+        hintLabel.alpha = 0
+    }
+
     func removeAll() {
         tagDatas.removeAll()
         newTagDatas.removeAll()

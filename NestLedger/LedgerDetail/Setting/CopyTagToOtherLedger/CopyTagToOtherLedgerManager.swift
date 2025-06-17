@@ -16,6 +16,7 @@ class CopyTagToOtherLedgerManager {
             newTagDatas.removeAll()
             DispatchQueue.main.async { [weak self] in
                 self?.vc?.targetTagView.removeAll()
+                self?.vc?.targetTagView.hideHint()
                 self?.loadMoreTargetLedgerTagDatas()
             }
         }
