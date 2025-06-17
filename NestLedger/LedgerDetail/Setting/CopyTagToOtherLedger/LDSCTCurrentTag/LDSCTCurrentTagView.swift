@@ -18,6 +18,7 @@ class LDSCTCurrentTagView: UIView {
         super.init(frame: .zero)
         setup()
         layout()
+        registerCell()
     }
 
     required init?(coder: NSCoder) {
@@ -65,6 +66,10 @@ class LDSCTCurrentTagView: UIView {
             tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
+
+    private func registerCell() {
+        tableView.register(LDSCTCurrentTagCell.self, forCellReuseIdentifier: LDSCTCurrentTagCell.cellId)
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -74,8 +79,9 @@ extension LDSCTCurrentTagView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "Just for test"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSCTCurrentTagCell.cellId, for: indexPath) as? LDSCTCurrentTagCell else {
+            return UITableViewCell()
+        }
         return cell
     }
 }
