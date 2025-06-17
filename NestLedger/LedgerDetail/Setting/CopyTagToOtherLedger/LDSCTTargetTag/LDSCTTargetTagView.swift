@@ -106,6 +106,7 @@ extension LDSCTTargetTagView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard !isEnd, !isLoading,
               indexPath.row == newTagDatas.count + tagDatas.count - 1 else { return }
+        isLoading = true
         delegate?.loadMoreTargetTag()
     }
 }

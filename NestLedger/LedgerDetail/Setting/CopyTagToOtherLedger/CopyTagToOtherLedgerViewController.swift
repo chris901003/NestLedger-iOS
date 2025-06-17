@@ -34,6 +34,7 @@ class CopyTagToOtherLedgerViewController: UIViewController {
         super.viewDidLoad()
         setup()
         layout()
+        manager.loadMoreCurrentTag()
     }
 
     override func viewDidLayoutSubviews() {
@@ -61,6 +62,8 @@ class CopyTagToOtherLedgerViewController: UIViewController {
         ledgerSelectView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapSelectLedgerAction)))
 
         targetTagView.delegate = manager
+
+        currentTagView.delegate = manager
     }
 
     private func layout() {

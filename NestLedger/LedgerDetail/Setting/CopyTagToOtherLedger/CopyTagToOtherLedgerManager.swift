@@ -24,6 +24,8 @@ class CopyTagToOtherLedgerManager {
     var targetLedgerTagDatas: [TagData] = []
     var newTagDatas: [TagData] = []
 
+    var currentLedgerTagDatas: [TagData] = []
+
     let newApiManager = NewAPIManager()
     weak var vc: CopyTagToOtherLedgerViewController?
 
@@ -43,11 +45,30 @@ class CopyTagToOtherLedgerManager {
             }
         }
     }
+
+    private func loadMoreCurrentLedgerTagDatas() {
+        Task {
+            let page = currentLedgerTagDatas.count / 20
+            let queryRequestData = TagQueryRequestData(ledgerId: currentLedgerId, search: nil, tagId: nil, page: page, limit: 20)
+            let result = try await newApiManager.queryTag(data: queryRequestData)
+            currentLedgerTagDatas.append(contentsOf: result)
+            await MainActor.run {
+                vc?.currentTagView.receiveTagData(tagDatas: result)
+            }
+        }
+    }
 }
 
 // MARK: - LDSCTTargetTagViewDelegate
 extension CopyTagToOtherLedgerManager: LDSCTTargetTagViewDelegate {
     func loadMoreTargetTag() {
         loadMoreTargetLedgerTagDatas()
+    }
+}
+
+// MARK: - LDSCTCurrentTagViewDelegate
+extension CopyTagToOtherLedgerManager: LDSCTCurrentTagViewDelegate {
+    func loadMoreCurrentTag() {
+        loadMoreCurrentLedgerTagDatas()
     }
 }
