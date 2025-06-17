@@ -27,6 +27,17 @@ class LDSCTCurrentTagCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        defaultConfig()
+    }
+
+    func config(tagData: TagData, isSelected: Bool) {
+        checkboxView.config(isSelected: isSelected)
+        circleView.backgroundColor = tagData.getColor
+        tagLabel.text = tagData.label
+    }
+
     private func defaultConfig() {
         circleView.backgroundColor = .systemGray5
         tagLabel.text = "標籤名稱"
