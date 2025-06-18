@@ -15,9 +15,10 @@ class CopyTagToOtherLedgerManager {
             targetLedgerTagDatas.removeAll()
             newTagDatas.removeAll()
             DispatchQueue.main.async { [weak self] in
-                self?.vc?.targetTagView.removeAll()
                 self?.vc?.targetTagView.hideHint()
                 self?.loadMoreTargetLedgerTagDatas()
+                self?.vc?.targetTagView.tableView.reloadData()
+                self?.vc?.currentTagView.tableView.reloadData()
             }
         }
     }
@@ -42,7 +43,8 @@ class CopyTagToOtherLedgerManager {
             let result = try await newApiManager.queryTag(data: queryRequestData)
             targetLedgerTagDatas.append(contentsOf: result)
             await MainActor.run {
-                vc?.targetTagView.receiveTagData(tagDatas: result)
+                vc?.targetTagView.isEnd = result.count < 20
+                vc?.targetTagView.tableView.reloadData()
             }
         }
     }
@@ -54,7 +56,8 @@ class CopyTagToOtherLedgerManager {
             let result = try await newApiManager.queryTag(data: queryRequestData)
             currentLedgerTagDatas.append(contentsOf: result)
             await MainActor.run {
-                vc?.currentTagView.receiveTagData(tagDatas: result)
+                vc?.currentTagView.isEnd = result.count < 20
+                vc?.currentTagView.tableView.reloadData()
             }
         }
     }
@@ -62,14 +65,56 @@ class CopyTagToOtherLedgerManager {
 
 // MARK: - LDSCTTargetTagViewDelegate
 extension CopyTagToOtherLedgerManager: LDSCTTargetTagViewDelegate {
+    func getNumberOfTargetTags() -> Int {
+        newTagDatas.count + targetLedgerTagDatas.count
+    }
+
+    func getTagData(at index: Int) -> (tagData: TagData, isDeletable: Bool) {
+        if index < newTagDatas.count {
+            return (newTagDatas[index], true)
+        } else {
+            return (targetLedgerTagDatas[index - newTagDatas.count], false)
+        }
+    }
+
     func loadMoreTargetTag() {
         loadMoreTargetLedgerTagDatas()
+    }
+
+    func removeTag(tagData: TagData) {
+        guard let index = newTagDatas.firstIndex(where: { $0._id == tagData._id }) else { return }
+        newTagDatas.remove(at: index)
+        DispatchQueue.main.async { [weak self] in
+            self?.vc?.currentTagView.tableView.reloadData()
+        }
     }
 }
 
 // MARK: - LDSCTCurrentTagViewDelegate
 extension CopyTagToOtherLedgerManager: LDSCTCurrentTagViewDelegate {
+    func getNumberOfCurrentTags() -> Int {
+        currentLedgerTagDatas.count
+    }
+
+    func getTagData(at index: Int) -> (tagData: TagData, isSelected: Bool) {
+        let isSelected = newTagDatas.contains { $0._id == currentLedgerTagDatas[index]._id }
+        return (currentLedgerTagDatas[index], isSelected)
+    }
+
     func loadMoreCurrentTag() {
         loadMoreCurrentLedgerTagDatas()
+    }
+
+    func tag(isSelected: Bool, tagId: String) {
+        if isSelected {
+            guard let tagData = (currentLedgerTagDatas.first { $0._id == tagId }) else { return }
+            newTagDatas.append(tagData)
+        } else {
+            guard let index = newTagDatas.firstIndex(where: { $0._id == tagId }) else { return }
+            newTagDatas.remove(at: index)
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.vc?.targetTagView.tableView.reloadData()
+        }
     }
 }

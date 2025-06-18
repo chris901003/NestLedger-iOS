@@ -10,7 +10,10 @@ import Foundation
 import UIKit
 
 protocol LDSCTCurrentTagViewDelegate: AnyObject {
+    func getNumberOfCurrentTags() -> Int
+    func getTagData(at index: Int) -> (tagData: TagData, isSelected: Bool)
     func loadMoreCurrentTag()
+    func tag(isSelected: Bool, tagId: String)
 }
 
 class LDSCTCurrentTagView: UIView {
@@ -18,8 +21,6 @@ class LDSCTCurrentTagView: UIView {
     let contentView = UIView()
     let tableView = UITableView()
 
-    var tagDatas: [TagData] = []
-    var isSelected: [Bool] = []
     var isLoading = true
     var isEnd = false
 
@@ -86,32 +87,30 @@ class LDSCTCurrentTagView: UIView {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension LDSCTCurrentTagView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tagDatas.count
+        delegate?.getNumberOfCurrentTags() ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSCTCurrentTagCell.cellId, for: indexPath) as? LDSCTCurrentTagCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSCTCurrentTagCell.cellId, for: indexPath) as? LDSCTCurrentTagCell,
+              let data = delegate?.getTagData(at: indexPath.row) else {
             return UITableViewCell()
         }
-        let data = tagDatas[indexPath.row]
-        cell.config(tagData: data, isSelected: isSelected[indexPath.row])
+        cell.config(tagData: data.tagData, isSelected: data.isSelected)
+        cell.delegate = self
         return cell
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard !isLoading, !isEnd,
-              indexPath.row == tagDatas.count - 1 else { return }
+              indexPath.row == (delegate?.getNumberOfCurrentTags() ?? 0) - 1 else { return }
         isLoading = true
         delegate?.loadMoreCurrentTag()
     }
 }
 
-extension LDSCTCurrentTagView {
-    func receiveTagData(tagDatas: [TagData]) {
-        isLoading = false
-        self.tagDatas.append(contentsOf: tagDatas)
-        self.isSelected.append(contentsOf: Array(repeating: false, count: tagDatas.count))
-        isEnd = tagDatas.count < 20
-        tableView.reloadData()
+// MARK: - LDSCTCurrentTagCellDelegate
+extension LDSCTCurrentTagView: LDSCTCurrentTagCellDelegate {
+    func tag(isSelected: Bool, tagId: String) {
+        delegate?.tag(isSelected: isSelected, tagId: tagId)
     }
 }

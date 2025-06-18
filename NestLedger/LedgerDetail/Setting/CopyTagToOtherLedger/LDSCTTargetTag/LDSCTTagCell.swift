@@ -25,7 +25,7 @@ class LDSCTTagCell: UITableViewCell {
             deleteButton.alpha = isDeletable ? 1 : 0
         }
     }
-    var indexPath: IndexPath?
+    var tagData: TagData?
     weak var delegate: LDSCTTagCellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -50,6 +50,7 @@ class LDSCTTagCell: UITableViewCell {
     }
 
     func config(tagData: TagData, isDeletable: Bool) {
+        self.tagData = tagData
         circleView.backgroundColor = tagData.getColor
         tagLabel.text = tagData.label
         self.isDeletable = isDeletable

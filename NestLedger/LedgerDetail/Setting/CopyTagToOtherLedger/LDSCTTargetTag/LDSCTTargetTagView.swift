@@ -10,7 +10,10 @@ import Foundation
 import UIKit
 
 protocol LDSCTTargetTagViewDelegate: AnyObject {
+    func getNumberOfTargetTags() -> Int
+    func getTagData(at index: Int) -> (tagData: TagData, isDeletable: Bool)
     func loadMoreTargetTag()
+    func removeTag(tagData: TagData)
 }
 
 class LDSCTTargetTagView: UIView {
@@ -19,9 +22,6 @@ class LDSCTTargetTagView: UIView {
     let tableView = UITableView()
 
     let hintLabel = UILabel()
-
-    var tagDatas: [TagData] = []
-    var newTagDatas: [TagData] = []
 
     var isLoading = true
     var isEnd = false
@@ -99,26 +99,22 @@ class LDSCTTargetTagView: UIView {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension LDSCTTargetTagView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        newTagDatas.count + tagDatas.count
+        delegate?.getNumberOfTargetTags() ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSCTTagCell.cellId, for: indexPath) as? LDSCTTagCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: LDSCTTagCell.cellId, for: indexPath) as? LDSCTTagCell,
+              let data = delegate?.getTagData(at: indexPath.row) else {
             return UITableViewCell()
         }
-        if indexPath.row < newTagDatas.count {
-            let data = newTagDatas[indexPath.row]
-            cell.config(tagData: data, isDeletable: true)
-        } else {
-            let data = tagDatas[indexPath.row - newTagDatas.count]
-            cell.config(tagData: data, isDeletable: false)
-        }
+        cell.config(tagData: data.tagData, isDeletable: data.isDeletable)
+        cell.delegate = self
         return cell
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard !isEnd, !isLoading,
-              indexPath.row == newTagDatas.count + tagDatas.count - 1 else { return }
+              indexPath.row == (delegate?.getNumberOfTargetTags() ?? 0) - 1 else { return }
         isLoading = true
         delegate?.loadMoreTargetTag()
     }
@@ -128,16 +124,16 @@ extension LDSCTTargetTagView {
     func hideHint() {
         hintLabel.alpha = 0
     }
+}
 
-    func removeAll() {
-        tagDatas.removeAll()
-        newTagDatas.removeAll()
-    }
-
-    func receiveTagData(tagDatas: [TagData]) {
-        isLoading = false
-        self.tagDatas.append(contentsOf: tagDatas)
-        isEnd = tagDatas.count < 20
-        tableView.reloadData()
+// MARK: - LDSCTTagCellDelegate
+extension LDSCTTargetTagView: LDSCTTagCellDelegate {
+    func tapDeleteButton(in cell: LDSCTTagCell) {
+        guard let tagData = cell.tagData,
+              let indexPath = tableView.indexPath(for: cell) else { return }
+        delegate?.removeTag(tagData: tagData)
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [indexPath], with: .left)
+        tableView.endUpdates()
     }
 }
