@@ -7,6 +7,7 @@
 
 
 import Foundation
+import UIKit
 
 class CopyTagToOtherLedgerManager {
     var currentLedgerId: String
@@ -105,16 +106,24 @@ extension CopyTagToOtherLedgerManager: LDSCTCurrentTagViewDelegate {
         loadMoreCurrentLedgerTagDatas()
     }
 
-    func tag(isSelected: Bool, tagId: String) {
+    func tag(isSelected: Bool, tagId: String) -> Bool {
+        guard targetLedgerId != nil else { return false }
         if isSelected {
-            guard let tagData = (currentLedgerTagDatas.first { $0._id == tagId }) else { return }
+            guard let tagData = (currentLedgerTagDatas.first { $0._id == tagId }) else { return false }
             newTagDatas.append(tagData)
         } else {
-            guard let index = newTagDatas.firstIndex(where: { $0._id == tagId }) else { return }
+            guard let index = newTagDatas.firstIndex(where: { $0._id == tagId }) else { return false }
             newTagDatas.remove(at: index)
         }
         DispatchQueue.main.async { [weak self] in
             self?.vc?.targetTagView.tableView.reloadData()
+        }
+        return true
+    }
+
+    func presentVC(viewController: UIViewController) {
+        DispatchQueue.main.async { [weak self] in
+            self?.vc?.present(viewController, animated: true)
         }
     }
 }

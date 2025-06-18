@@ -13,7 +13,8 @@ protocol LDSCTCurrentTagViewDelegate: AnyObject {
     func getNumberOfCurrentTags() -> Int
     func getTagData(at index: Int) -> (tagData: TagData, isSelected: Bool)
     func loadMoreCurrentTag()
-    func tag(isSelected: Bool, tagId: String)
+    func tag(isSelected: Bool, tagId: String) -> Bool
+    func presentVC(viewController: UIViewController)
 }
 
 class LDSCTCurrentTagView: UIView {
@@ -110,7 +111,17 @@ extension LDSCTCurrentTagView: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - LDSCTCurrentTagCellDelegate
 extension LDSCTCurrentTagView: LDSCTCurrentTagCellDelegate {
-    func tag(isSelected: Bool, tagId: String) {
-        delegate?.tag(isSelected: isSelected, tagId: tagId)
+    func tag(cell: LDSCTCurrentTagCell, isSelected: Bool, tagId: String) {
+        let isSuccess = delegate?.tag(isSelected: isSelected, tagId: tagId) ?? false
+        if !isSuccess {
+            let okAction = UIAlertAction(title: "確認", style: .default) { _ in
+                if let tagData = cell.tagData {
+                    cell.config(tagData: tagData, isSelected: false)
+                }
+            }
+            let alertController = UIAlertController(title: "選取失敗", message: "請先選取目標帳本", preferredStyle: .alert)
+            alertController.addAction(okAction)
+            delegate?.presentVC(viewController: alertController)
+        }
     }
 }

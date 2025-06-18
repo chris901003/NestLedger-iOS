@@ -11,7 +11,7 @@ import UIKit
 import xxooooxxCommonUI
 
 protocol LDSCTCurrentTagCellDelegate: AnyObject {
-    func tag(isSelected: Bool, tagId: String)
+    func tag(cell: LDSCTCurrentTagCell, isSelected: Bool, tagId: String)
 }
 
 class LDSCTCurrentTagCell: UITableViewCell {
@@ -92,6 +92,6 @@ class LDSCTCurrentTagCell: UITableViewCell {
 // MARK: - XOCheckBoxDelegate
 extension LDSCTCurrentTagCell: XOCheckBoxDelegate {
     func xoCheckBox(_ checkBox: XOCheckBox, didChangeIsSelected isSelected: Bool) {
-        delegate?.tag(isSelected: isSelected, tagId: tagData?._id ?? "")
+        delegate?.tag(cell: self, isSelected: isSelected, tagId: tagData?._id ?? "")
     }
 }
