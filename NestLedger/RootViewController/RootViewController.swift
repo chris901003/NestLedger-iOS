@@ -20,11 +20,15 @@ class RootViewController: UITabBarController {
         ledgerViewController.tabBarItem = UITabBarItem(title: "帳本", image: UIImage(systemName: "books.vertical.fill"), selectedImage: nil)
         let ledgerNavigationController = UINavigationController(rootViewController: ledgerViewController)
 
+        let ledgerSplitViewController = LedgerSplitViewController()
+        ledgerSplitViewController.tabBarItem = UITabBarItem(title: "分帳本", image: UIImage(systemName: "person.3.fill"), selectedImage: nil)
+        let ledgerSplitNavigationController = UINavigationController(rootViewController: ledgerSplitViewController)
+
         let accountViewController = AccountViewController()
         accountViewController.tabBarItem = UITabBarItem(title: "帳號", image: UIImage(systemName: "person.crop.circle"), selectedImage: nil)
         let accountNavigationController = UINavigationController(rootViewController: accountViewController)
 
-        viewControllers = [mainViewController, ledgerNavigationController, accountNavigationController]
+        viewControllers = [mainViewController, ledgerNavigationController, ledgerSplitNavigationController, accountNavigationController]
 
         selectedIndex = 0
     }
