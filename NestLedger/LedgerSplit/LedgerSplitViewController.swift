@@ -10,18 +10,50 @@ import Foundation
 import UIKit
 
 class LedgerSplitViewController: UIViewController {
+    let tableView = UITableView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         layout()
+        registerCell()
     }
 
     private func setup() {
         view.backgroundColor = .white
         navigationItem.title = "分帳本列表"
+
+        tableView.separatorStyle = .none
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
     private func layout() {
-        
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+
+    private func registerCell() {
+        tableView.register(LSLedgerCell.self, forCellReuseIdentifier: LSLedgerCell.cellId)
+    }
+}
+
+// MARK: - UITableViewDelegate, UITableViewDataSource
+extension LedgerSplitViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        3
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: LSLedgerCell.cellId, for: indexPath) as? LSLedgerCell else {
+            return UITableViewCell()
+        }
+        return cell
     }
 }
