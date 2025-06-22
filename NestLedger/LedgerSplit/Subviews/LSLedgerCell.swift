@@ -23,10 +23,13 @@ class LSLedgerCell: UITableViewCell {
     let ledgerAvatar = UIImageView()
     let ledgerLabel = UILabel()
     let totalLabel = UILabel()
-    let userAvatars = [UIImageView](repeating: UIImageView(), count: 3)
+    var userAvatars = [UIImageView]()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        for idx in 0..<3 {
+            userAvatars.append(UIImageView())
+        }
         setup()
         layout()
     }
@@ -44,6 +47,9 @@ class LSLedgerCell: UITableViewCell {
         ledgerLabel.text = "分帳本名稱"
         ledgerAvatar.image = UIImage(named: "LedgerSplitIcon")
         totalLabel.text = "0"
+        for idx in 0..<3 {
+            userAvatars[idx].image = nil
+        }
     }
 
     private func setup() {
@@ -63,9 +69,10 @@ class LSLedgerCell: UITableViewCell {
         totalLabel.font = .systemFont(ofSize: 20, weight: .semibold)
         totalLabel.textColor = .systemRed
 
-        userAvatars[0].image = UIImage(named: "avatar")
-        userAvatars[0].contentMode = .scaleAspectFill
-        userAvatars[0].layer.cornerRadius = 15
+        for idx in 0..<3 {
+            userAvatars[idx].contentMode = .scaleAspectFill
+            userAvatars[idx].layer.cornerRadius = 15
+        }
     }
 
     private func layout() {
@@ -103,13 +110,19 @@ class LSLedgerCell: UITableViewCell {
             totalLabel.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -16)
         ])
 
-        mainContentView.addSubview(userAvatars[0])
-        userAvatars[0].translatesAutoresizingMaskIntoConstraints = false
+        layoutUserAvatars(leadingAnchor: ledgerAvatar.trailingAnchor, avatarView: userAvatars[0])
+        layoutUserAvatars(leadingAnchor: userAvatars[0].trailingAnchor, avatarView: userAvatars[1])
+        layoutUserAvatars(leadingAnchor: userAvatars[1].trailingAnchor, avatarView: userAvatars[2])
+    }
+
+    private func layoutUserAvatars(leadingAnchor: NSLayoutXAxisAnchor, avatarView: UIView) {
+        mainContentView.addSubview(avatarView)
+        avatarView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            userAvatars[0].topAnchor.constraint(equalTo: mainContentView.centerYAnchor, constant: 2),
-            userAvatars[0].leadingAnchor.constraint(equalTo: ledgerAvatar.trailingAnchor, constant: 8),
-            userAvatars[0].heightAnchor.constraint(equalToConstant: 30),
-            userAvatars[0].widthAnchor.constraint(equalToConstant: 30)
+            avatarView.topAnchor.constraint(equalTo: mainContentView.centerYAnchor, constant: 2),
+            avatarView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            avatarView.heightAnchor.constraint(equalToConstant: 30),
+            avatarView.widthAnchor.constraint(equalToConstant: 30)
         ])
     }
 }
