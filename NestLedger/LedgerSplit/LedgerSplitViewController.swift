@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class LedgerSplitViewController: UIViewController {
+    let plusButton = LPlusButtonView()
     let tableView = UITableView()
 
     override func viewDidLoad() {
@@ -22,6 +23,11 @@ class LedgerSplitViewController: UIViewController {
     private func setup() {
         view.backgroundColor = .white
         navigationItem.title = "分帳本列表"
+
+        plusButton.showsMenuAsPrimaryAction = true
+        plusButton.menu = createMenu()
+        plusButton.config(infoCount: 0)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
 
         tableView.separatorStyle = .none
         tableView.delegate = self
@@ -41,6 +47,17 @@ class LedgerSplitViewController: UIViewController {
 
     private func registerCell() {
         tableView.register(LSLedgerCell.self, forCellReuseIdentifier: LSLedgerCell.cellId)
+    }
+
+    private func createMenu() -> UIMenu {
+        let addNewLedgerSplitAction = UIAction(title: "新增分帳本") { [weak self] _ in
+            guard let self else { return }
+            let createLSVC = LSCreateViewController()
+            createLSVC.modalPresentationStyle = .overCurrentContext
+            createLSVC.modalTransitionStyle = .crossDissolve
+            present(createLSVC, animated: true)
+        }
+        return UIMenu(title: "分帳本選單", children: [addNewLedgerSplitAction])
     }
 }
 

@@ -1,0 +1,88 @@
+// Created for NestLedger in 2025
+// Using Swift 6.0
+//
+//
+// Created by HongYan on 2025/6/22.
+// Copyright © 2025 HongYan. All rights reserved.
+
+
+import Foundation
+import UIKit
+import xxooooxxCommonUI
+
+class LSCreateViewController: UIViewController {
+    let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    let contentView = UIView()
+    let titleLabel = UILabel()
+    let ledgerAvatarView = LSCLedgerAvatarView()
+    let titleTextField = XOTextField(.init(top: 8, left: 16, bottom: 8, right: 16))
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
+        layout()
+    }
+
+    private func setup() {
+        blurView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapBackgroundAction)))
+        blurView.isUserInteractionEnabled = true
+
+        contentView.backgroundColor = .systemGray6
+        contentView.layer.cornerRadius = 10.0
+
+        titleLabel.text = "創建分帳本"
+        titleLabel.font = .systemFont(ofSize: 18, weight: .semibold)
+        titleLabel.textAlignment = .center
+
+        titleTextField.placeholder = "分帳本名稱"
+        titleTextField.backgroundColor = .systemBackground
+        titleTextField.layer.cornerRadius = 10.0
+    }
+
+    private func layout() {
+        view.addSubview(blurView)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            blurView.topAnchor.constraint(equalTo: view.topAnchor),
+            blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        view.addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 3 / 4),
+            contentView.heightAnchor.constraint(equalToConstant: 200)
+        ])
+
+        contentView.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
+
+        contentView.addSubview(ledgerAvatarView)
+        ledgerAvatarView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            ledgerAvatarView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+            ledgerAvatarView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+        ])
+
+        contentView.addSubview(titleTextField)
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleTextField.topAnchor.constraint(equalTo: ledgerAvatarView.bottomAnchor, constant: 24),
+            titleTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            titleTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
+        ])
+    }
+
+    @objc private func tapBackgroundAction() {
+        dismiss(animated: true)
+    }
+}

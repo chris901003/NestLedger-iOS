@@ -76,6 +76,9 @@
 		050E2AC42E079E0E00FC61B4 /* TagCopyRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2AC32E079E0E00FC61B4 /* TagCopyRequestData.swift */; };
 		050E2AC72E07AFA900FC61B4 /* LedgerSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2AC62E07AFA900FC61B4 /* LedgerSplitViewController.swift */; };
 		050E2ACA2E07D2A100FC61B4 /* LSLedgerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2AC92E07D2A100FC61B4 /* LSLedgerCell.swift */; };
+		050E2ACC2E0839C800FC61B4 /* LSCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2ACB2E0839C800FC61B4 /* LSCreateViewController.swift */; };
+		050E2ACF2E0844A800FC61B4 /* NLCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2ACE2E0844A800FC61B4 /* NLCircleView.swift */; };
+		050E2AD22E08459300FC61B4 /* LSCLedgerAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2AD12E08459300FC61B4 /* LSCLedgerAvatarView.swift */; };
 		050EB9B22DCA3BB900F8C04F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */; };
 		051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257D92D7F16630066F3F2 /* LedgerData.swift */; };
 		051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257DD2D7F1AC80066F3F2 /* SingletonData.swift */; };
@@ -212,6 +215,9 @@
 		050E2AC32E079E0E00FC61B4 /* TagCopyRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCopyRequestData.swift; sourceTree = "<group>"; };
 		050E2AC62E07AFA900FC61B4 /* LedgerSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitViewController.swift; sourceTree = "<group>"; };
 		050E2AC92E07D2A100FC61B4 /* LSLedgerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSLedgerCell.swift; sourceTree = "<group>"; };
+		050E2ACB2E0839C800FC61B4 /* LSCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSCreateViewController.swift; sourceTree = "<group>"; };
+		050E2ACE2E0844A800FC61B4 /* NLCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLCircleView.swift; sourceTree = "<group>"; };
+		050E2AD12E08459300FC61B4 /* LSCLedgerAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSCLedgerAvatarView.swift; sourceTree = "<group>"; };
 		050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		051257D92D7F16630066F3F2 /* LedgerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerData.swift; sourceTree = "<group>"; };
 		051257DD2D7F1AC80066F3F2 /* SingletonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonData.swift; sourceTree = "<group>"; };
@@ -502,9 +508,19 @@
 		050E2AC82E07D27E00FC61B4 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				050E2AD12E08459300FC61B4 /* LSCLedgerAvatarView.swift */,
+				050E2ACB2E0839C800FC61B4 /* LSCreateViewController.swift */,
 				050E2AC92E07D2A100FC61B4 /* LSLedgerCell.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		050E2ACD2E08447B00FC61B4 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				050E2ACE2E0844A800FC61B4 /* NLCircleView.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		051257D82D7F165A0066F3F2 /* Ledger */ = {
@@ -601,6 +617,7 @@
 			isa = PBXGroup;
 			children = (
 				050533892DE300A4003245E0 /* BasicUserInfo */,
+				050E2ACD2E08447B00FC61B4 /* Common */,
 				052944732D79E9B500943CAC /* Tag */,
 				05B421112D9D6869000C8ECC /* Transaction */,
 			);
@@ -1108,6 +1125,8 @@
 				05A59B352DF093830016E905 /* LDStatisticsManager.swift in Sources */,
 				05A59B182DEF2F470016E905 /* LDStatisticsViewController.swift in Sources */,
 				050533862DE2B1BB003245E0 /* LPlusButtonView.swift in Sources */,
+				050E2AD22E08459300FC61B4 /* LSCLedgerAvatarView.swift in Sources */,
+				050E2ACC2E0839C800FC61B4 /* LSCreateViewController.swift in Sources */,
 				050E2ACA2E07D2A100FC61B4 /* LSLedgerCell.swift in Sources */,
 				0572C3C82D9C1911008F99FB /* LTCell.swift in Sources */,
 				0572C3C52D9ADA6C008F99FB /* LTransactionManager.swift in Sources */,
@@ -1144,6 +1163,7 @@
 				051257EA2D8326260066F3F2 /* MRecntManager.swift in Sources */,
 				050533882DE2B868003245E0 /* MainManager.swift in Sources */,
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
+				050E2ACF2E0844A800FC61B4 /* NLCircleView.swift in Sources */,
 				0505338D2DE4A8BD003245E0 /* NewAPIManager+EmailVerification.swift in Sources */,
 				050533682DDDA12A003245E0 /* NewAPIManager+Information.swift in Sources */,
 				0505337A2DDF1A6C003245E0 /* NewAPIManager+Ledger.swift in Sources */,
