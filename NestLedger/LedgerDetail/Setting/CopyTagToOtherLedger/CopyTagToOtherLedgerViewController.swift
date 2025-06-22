@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import xxooooxxCommonUI
 
 class CopyTagToOtherLedgerViewController: UIViewController {
     let backButtonView = LDSCTBackButtonView()
@@ -127,7 +128,21 @@ extension CopyTagToOtherLedgerViewController: LDSCTLedgerListViewControllerDeleg
     }
 
     @objc private func tapCopyAction() {
-        print("✅ Copy action")
+        Task {
+            if let message = await manager.copyTags() {
+                let okAction = UIAlertAction(title: "確定", style: .default)
+                let alertController = UIAlertController(title: "複製失敗", message: message, preferredStyle: .alert)
+                alertController.addAction(okAction)
+                await MainActor.run {
+                    present(alertController, animated: true)
+                }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    XOBottomBarInformationManager.showBottomInformation(type: .success, information: "複製標籤成功")
+                }
+                dismiss(animated: true)
+            }
+        }
     }
 
     @objc private func tapSelectLedgerAction() {

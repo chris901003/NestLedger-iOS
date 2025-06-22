@@ -73,6 +73,7 @@
 		050E2A3C2E0044EB00FC61B4 /* CopyTagToOtherLedgerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2A3B2E0044EB00FC61B4 /* CopyTagToOtherLedgerManager.swift */; };
 		050E2A3F2E0052DC00FC61B4 /* LDSCTCurrentTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2A3E2E0052DC00FC61B4 /* LDSCTCurrentTagView.swift */; };
 		050E2A412E00564700FC61B4 /* LDSCTCurrentTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2A402E00564700FC61B4 /* LDSCTCurrentTagCell.swift */; };
+		050E2AC42E079E0E00FC61B4 /* TagCopyRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2AC32E079E0E00FC61B4 /* TagCopyRequestData.swift */; };
 		050EB9B22DCA3BB900F8C04F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */; };
 		051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257D92D7F16630066F3F2 /* LedgerData.swift */; };
 		051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257DD2D7F1AC80066F3F2 /* SingletonData.swift */; };
@@ -206,6 +207,7 @@
 		050E2A3B2E0044EB00FC61B4 /* CopyTagToOtherLedgerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyTagToOtherLedgerManager.swift; sourceTree = "<group>"; };
 		050E2A3E2E0052DC00FC61B4 /* LDSCTCurrentTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSCTCurrentTagView.swift; sourceTree = "<group>"; };
 		050E2A402E00564700FC61B4 /* LDSCTCurrentTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSCTCurrentTagCell.swift; sourceTree = "<group>"; };
+		050E2AC32E079E0E00FC61B4 /* TagCopyRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCopyRequestData.swift; sourceTree = "<group>"; };
 		050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		051257D92D7F16630066F3F2 /* LedgerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerData.swift; sourceTree = "<group>"; };
 		051257DD2D7F1AC80066F3F2 /* SingletonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonData.swift; sourceTree = "<group>"; };
@@ -496,6 +498,7 @@
 		051257E12D7F1DB90066F3F2 /* Tag */ = {
 			isa = PBXGroup;
 			children = (
+				050E2AC32E079E0E00FC61B4 /* TagCopyRequestData.swift */,
 				0505336D2DDE13C4003245E0 /* TagCreateRequestData.swift */,
 				051257E22D7F1DC10066F3F2 /* TagData.swift */,
 				0505336F2DDE1ADB003245E0 /* TagQueryRequestData.swift */,
@@ -1140,6 +1143,7 @@
 				05B421172D9EC432000C8ECC /* TTagSelectionButtonView.swift in Sources */,
 				054A09342D7C1DDB0092B7E8 /* TVC+TabelViewSetting.swift in Sources */,
 				05C37B912D7B35FF005FCF89 /* TagCell.swift in Sources */,
+				050E2AC42E079E0E00FC61B4 /* TagCopyRequestData.swift in Sources */,
 				0505336E2DDE13C4003245E0 /* TagCreateRequestData.swift in Sources */,
 				051257E32D7F1DC10066F3F2 /* TagData.swift in Sources */,
 				051B27C62DD23364000B7E0C /* TagEditViewController.swift in Sources */,

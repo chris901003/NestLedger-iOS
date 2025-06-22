@@ -62,6 +62,18 @@ class CopyTagToOtherLedgerManager {
             }
         }
     }
+
+    func copyTags() async -> String? {
+        guard let targetLedgerId else { return "目標帳本不存在" }
+        guard !newTagDatas.isEmpty else { return "尚無選擇任何標籤" }
+        let ledgerIds = newTagDatas.map { $0._id }
+        do {
+            try await newApiManager.copyTags(data: .init(tagIds: ledgerIds, targetLedgerId: targetLedgerId))
+            return nil
+        } catch {
+            return error.localizedDescription
+        }
+    }
 }
 
 // MARK: - LDSCTTargetTagViewDelegate

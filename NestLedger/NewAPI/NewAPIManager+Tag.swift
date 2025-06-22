@@ -119,3 +119,18 @@ extension NewAPIManager {
         try checkResponse(responseData: responseData)
     }
 }
+
+// MARK: - Copy Tag
+extension NewAPIManager {
+    func copyTags(data: TagCopyRequestData) async throws {
+        let responseData = await session.request(
+            NewAPIPath.Tag.copy.getPath(),
+            method: .post,
+            parameters: data,
+            encoder: JSONParameterEncoder.default)
+            .validate()
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+    }
+}
