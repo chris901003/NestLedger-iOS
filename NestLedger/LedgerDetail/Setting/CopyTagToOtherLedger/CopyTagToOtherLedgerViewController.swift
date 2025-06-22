@@ -57,6 +57,8 @@ class CopyTagToOtherLedgerViewController: UIViewController {
         copyButton.text = "複製"
         copyButton.font = .systemFont(ofSize: 16, weight: .semibold)
         copyButton.textColor = .tintColor
+        copyButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCopyAction)))
+        copyButton.isUserInteractionEnabled = true
 
         ledgerSelectView.isUserInteractionEnabled = true
         ledgerSelectView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapSelectLedgerAction)))
@@ -124,8 +126,12 @@ extension CopyTagToOtherLedgerViewController: LDSCTLedgerListViewControllerDeleg
         dismiss(animated: true)
     }
 
+    @objc private func tapCopyAction() {
+        print("✅ Copy action")
+    }
+
     @objc private func tapSelectLedgerAction() {
-        let ledgerListVC = LDSCTLedgerListViewController()
+        let ledgerListVC = LDSCTLedgerListViewController(ledgerId: manager.currentLedgerId)
         ledgerListVC.delegate = self
         let _50DetentId = UISheetPresentationController.Detent.Identifier("50")
         let _50Detent = UISheetPresentationController.Detent.custom(identifier: _50DetentId) { context in

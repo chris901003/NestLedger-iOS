@@ -20,6 +20,16 @@ class LDSCTLedgerListViewController: UIViewController {
 
     let manager = LDSCTLedgerManager()
     weak var delegate: LDSCTLedgerListViewControllerDelegate?
+    let currentLedgerId: String
+
+    init(ledgerId: String) {
+        currentLedgerId = ledgerId
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,6 +113,13 @@ extension LDSCTLedgerListViewController: UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = manager.ledgerData[indexPath.row]
+        if data._id == currentLedgerId {
+            let okAction = UIAlertAction(title: "確定", style: .default)
+            let alertController = UIAlertController(title: "選擇失敗", message: "無法選取當前帳本", preferredStyle: .alert)
+            alertController.addAction(okAction)
+            present(alertController, animated: true)
+            return
+        }
         delegate?.didSelect(ledgerData: data)
         dismiss(animated: true)
     }
