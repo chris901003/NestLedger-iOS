@@ -126,7 +126,16 @@ extension LSCreateViewController {
     }
 
     @objc private func tapCreateAction() {
-        print("✅ Create ledger split")
+        Task {
+            if let message = await manager.createLedgerSplit() {
+                let okAction = UIAlertAction(title: "確定", style: .cancel)
+                let alertController = UIAlertController(title: "創建分帳本失敗", message: message, preferredStyle: .alert)
+                alertController.addAction(okAction)
+                present(alertController, animated: true)
+            } else {
+                dismiss(animated: true)
+            }
+        }
     }
 
     @objc private func tapAvatarAction() {
@@ -151,7 +160,7 @@ extension LSCreateViewController: UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         contentHeightConstraint.constant = 0
-        print("✅ Title: \(textField.text ?? "")")
+        manager.ledgerSplitData.title = textField.text ?? ""
     }
 }
 
@@ -160,6 +169,7 @@ extension LSCreateViewController: UIImagePickerControllerDelegate, UINavigationC
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
             ledgerAvatarView.config(avatar: image)
+            manager.ledgerAvatar = image
         }
         picker.dismiss(animated: true)
     }
