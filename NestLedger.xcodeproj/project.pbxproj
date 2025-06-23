@@ -79,6 +79,7 @@
 		050E2ACC2E0839C800FC61B4 /* LSCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2ACB2E0839C800FC61B4 /* LSCreateViewController.swift */; };
 		050E2ACF2E0844A800FC61B4 /* NLCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2ACE2E0844A800FC61B4 /* NLCircleView.swift */; };
 		050E2AD22E08459300FC61B4 /* LSCLedgerAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2AD12E08459300FC61B4 /* LSCLedgerAvatarView.swift */; };
+		050E2AD42E097B6600FC61B4 /* LSCButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2AD32E097B6600FC61B4 /* LSCButtonView.swift */; };
 		050EB9B22DCA3BB900F8C04F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */; };
 		051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257D92D7F16630066F3F2 /* LedgerData.swift */; };
 		051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257DD2D7F1AC80066F3F2 /* SingletonData.swift */; };
@@ -218,6 +219,7 @@
 		050E2ACB2E0839C800FC61B4 /* LSCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSCreateViewController.swift; sourceTree = "<group>"; };
 		050E2ACE2E0844A800FC61B4 /* NLCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLCircleView.swift; sourceTree = "<group>"; };
 		050E2AD12E08459300FC61B4 /* LSCLedgerAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSCLedgerAvatarView.swift; sourceTree = "<group>"; };
+		050E2AD32E097B6600FC61B4 /* LSCButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSCButtonView.swift; sourceTree = "<group>"; };
 		050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		051257D92D7F16630066F3F2 /* LedgerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerData.swift; sourceTree = "<group>"; };
 		051257DD2D7F1AC80066F3F2 /* SingletonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonData.swift; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 		050E2AC82E07D27E00FC61B4 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				050E2AD32E097B6600FC61B4 /* LSCButtonView.swift */,
 				050E2AD12E08459300FC61B4 /* LSCLedgerAvatarView.swift */,
 				050E2ACB2E0839C800FC61B4 /* LSCreateViewController.swift */,
 				050E2AC92E07D2A100FC61B4 /* LSLedgerCell.swift */,
@@ -1125,6 +1128,7 @@
 				05A59B352DF093830016E905 /* LDStatisticsManager.swift in Sources */,
 				05A59B182DEF2F470016E905 /* LDStatisticsViewController.swift in Sources */,
 				050533862DE2B1BB003245E0 /* LPlusButtonView.swift in Sources */,
+				050E2AD42E097B6600FC61B4 /* LSCButtonView.swift in Sources */,
 				050E2AD22E08459300FC61B4 /* LSCLedgerAvatarView.swift in Sources */,
 				050E2ACC2E0839C800FC61B4 /* LSCreateViewController.swift in Sources */,
 				050E2ACA2E07D2A100FC61B4 /* LSLedgerCell.swift in Sources */,

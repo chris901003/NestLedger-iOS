@@ -16,6 +16,8 @@ class LSCreateViewController: UIViewController {
     let titleLabel = UILabel()
     let ledgerAvatarView = LSCLedgerAvatarView()
     let titleTextField = XOTextField(.init(top: 8, left: 16, bottom: 8, right: 16))
+    let cancelButton = LSCButtonView()
+    let createButton = LSCButtonView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,14 @@ class LSCreateViewController: UIViewController {
         titleTextField.placeholder = "分帳本名稱"
         titleTextField.backgroundColor = .systemBackground
         titleTextField.layer.cornerRadius = 10.0
+
+        cancelButton.config(title: "取消", color: .systemRed)
+        cancelButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCancelAction)))
+        cancelButton.isUserInteractionEnabled = true
+
+        createButton.config(title: "創建", color: .systemBlue)
+        createButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCreateAction)))
+        createButton.isUserInteractionEnabled = true
     }
 
     private func layout() {
@@ -54,8 +64,7 @@ class LSCreateViewController: UIViewController {
         NSLayoutConstraint.activate([
             contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 3 / 4),
-            contentView.heightAnchor.constraint(equalToConstant: 200)
+            contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 3 / 4)
         ])
 
         contentView.addSubview(titleLabel)
@@ -80,9 +89,32 @@ class LSCreateViewController: UIViewController {
             titleTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             titleTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
         ])
+
+        contentView.addSubview(cancelButton)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            cancelButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 16),
+            cancelButton.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -24)
+        ])
+
+        contentView.addSubview(createButton)
+        createButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            createButton.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 16),
+            createButton.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 24),
+            createButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+        ])
     }
 
     @objc private func tapBackgroundAction() {
         dismiss(animated: true)
+    }
+
+    @objc private func tapCancelAction() {
+        dismiss(animated: true)
+    }
+
+    @objc private func tapCreateAction() {
+        print("✅ Create ledger split")
     }
 }
