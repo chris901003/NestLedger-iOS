@@ -23,10 +23,15 @@ class LSCLedgerAvatarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func config(avatar: UIImage) {
+        imageView.image = avatar
+    }
+
     private func setup() {
         imageView.image = UIImage(systemName: "plus")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 20
+        imageView.clipsToBounds = true
     }
 
     private func layout() {

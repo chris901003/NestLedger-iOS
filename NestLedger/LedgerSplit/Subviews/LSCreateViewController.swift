@@ -19,6 +19,9 @@ class LSCreateViewController: UIViewController {
     let cancelButton = LSCButtonView()
     let createButton = LSCButtonView()
 
+    let manager = LSCreateManager()
+    var contentHeightConstraint: NSLayoutConstraint!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -39,6 +42,10 @@ class LSCreateViewController: UIViewController {
         titleTextField.placeholder = "分帳本名稱"
         titleTextField.backgroundColor = .systemBackground
         titleTextField.layer.cornerRadius = 10.0
+        titleTextField.delegate = self
+
+        ledgerAvatarView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAvatarAction)))
+        ledgerAvatarView.isUserInteractionEnabled = true
 
         cancelButton.config(title: "取消", color: .systemRed)
         cancelButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCancelAction)))
@@ -63,9 +70,10 @@ class LSCreateViewController: UIViewController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 3 / 4)
         ])
+        contentHeightConstraint = contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        contentHeightConstraint.isActive = true
 
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -105,7 +113,10 @@ class LSCreateViewController: UIViewController {
             createButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
+}
 
+// MARK: - Utility
+extension LSCreateViewController {
     @objc private func tapBackgroundAction() {
         dismiss(animated: true)
     }
@@ -116,5 +127,44 @@ class LSCreateViewController: UIViewController {
 
     @objc private func tapCreateAction() {
         print("✅ Create ledger split")
+    }
+
+    @objc private func tapAvatarAction() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension LSCreateViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        contentHeightConstraint.constant = -60
+        return true
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        contentHeightConstraint.constant = 0
+        print("✅ Title: \(textField.text ?? "")")
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension LSCreateViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            ledgerAvatarView.config(avatar: image)
+        }
+        picker.dismiss(animated: true)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
     }
 }
