@@ -8,15 +8,19 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 extension NewAPIManager {
     enum LedgerSplitError: LocalizedError {
         case decodeLedgerSplitDataFaield
+        case convertAvatarFaield
 
         var localizedDescription: String {
             switch self {
                 case .decodeLedgerSplitDataFaield:
                     return "解析分帳本失敗"
+                case .convertAvatarFaield:
+                    return "轉換照片失敗"
             }
         }
     }
@@ -41,5 +45,28 @@ extension NewAPIManager {
             if error is NewAPIManagerError { throw error }
             throw LedgerSplitError.decodeLedgerSplitDataFaield
         }
+    }
+}
+
+// MARK: - Upload Ledger Split Avatar
+extension NewAPIManager {
+    func uploadLedgerSplitAvatar(ledgerSplitId: String, avatar: UIImage) async throws {
+        guard let imageData = avatar.jpegData(compressionQuality: newSharedUserInfo.imageQuality) else {
+            throw LedgerSplitError.convertAvatarFaield
+        }
+
+        let response = await session.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(imageData, withName: "avatar", fileName: "avatar.jpg", mimeType: "image/jpeg")
+                if let ledgerSplitId = ledgerSplitId.data(using: .utf8) {
+                    multipartFormData.append(ledgerSplitId, withName: "ledgerSplitId")
+                }
+            },
+            to: NewAPIPath.LedgerSplit.uploadAvatar.getPath(),
+            method: .post)
+            .validate()
+            .serializingData()
+            .response
+        try checkResponse(responseData: response)
     }
 }

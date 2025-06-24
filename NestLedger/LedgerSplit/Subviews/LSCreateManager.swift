@@ -20,6 +20,9 @@ class LSCreateManager {
         }
         do {
             let data = try await newApiManager.createLedgerSplit(data: .init(title: ledgerSplitData.title, version: ledgerSplitData.version))
+            if let ledgerAvatar {
+                try await newApiManager.uploadLedgerSplitAvatar(ledgerSplitId: data._id, avatar: ledgerAvatar)
+            }
             print("✅ Data: \(data)")
         } catch {
             print("✅ Error: \(error.localizedDescription)")
