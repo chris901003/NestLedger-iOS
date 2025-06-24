@@ -13,14 +13,21 @@ class LedgerSplitViewController: UIViewController {
     let plusButton = LPlusButtonView()
     let tableView = UITableView()
 
+    let manager = LedgerSplitManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         layout()
         registerCell()
+        Task {
+            await manager.loadMoreLedgerSplitData()
+        }
     }
 
     private func setup() {
+        manager.vc = self
+
         view.backgroundColor = .white
         navigationItem.title = "分帳本列表"
 
@@ -64,13 +71,20 @@ class LedgerSplitViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension LedgerSplitViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        manager.ledgerSplitDatas.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LSLedgerCell.cellId, for: indexPath) as? LSLedgerCell else {
             return UITableViewCell()
         }
+        let data = manager.ledgerSplitDatas[indexPath.row]
+        cell.config(title: data.title)
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard !manager.isLoading, indexPath.row == manager.ledgerSplitDatas.count - 1, manager.lastLoadIdx != manager.maxLoadIdx else { return }
+        Task { await manager.loadMoreLedgerSplitData() }
     }
 }

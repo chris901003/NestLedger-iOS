@@ -84,6 +84,7 @@
 		050E2AD92E098CA800FC61B4 /* LedgerSplitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2AD82E098CA800FC61B4 /* LedgerSplitData.swift */; };
 		050E2ADB2E0AD48600FC61B4 /* NewAPIManager+LedgerSplit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2ADA2E0AD48600FC61B4 /* NewAPIManager+LedgerSplit.swift */; };
 		050E2ADD2E0AD4F500FC61B4 /* LedgerSplitCreateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2ADC2E0AD4F500FC61B4 /* LedgerSplitCreateRequestData.swift */; };
+		050E2ADF2E0AE2CC00FC61B4 /* LedgerSplitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050E2ADE2E0AE2CC00FC61B4 /* LedgerSplitManager.swift */; };
 		050EB9B22DCA3BB900F8C04F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */; };
 		051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257D92D7F16630066F3F2 /* LedgerData.swift */; };
 		051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051257DD2D7F1AC80066F3F2 /* SingletonData.swift */; };
@@ -228,6 +229,7 @@
 		050E2AD82E098CA800FC61B4 /* LedgerSplitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitData.swift; sourceTree = "<group>"; };
 		050E2ADA2E0AD48600FC61B4 /* NewAPIManager+LedgerSplit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+LedgerSplit.swift"; sourceTree = "<group>"; };
 		050E2ADC2E0AD4F500FC61B4 /* LedgerSplitCreateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitCreateRequestData.swift; sourceTree = "<group>"; };
+		050E2ADE2E0AE2CC00FC61B4 /* LedgerSplitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitManager.swift; sourceTree = "<group>"; };
 		050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		051257D92D7F16630066F3F2 /* LedgerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerData.swift; sourceTree = "<group>"; };
 		051257DD2D7F1AC80066F3F2 /* SingletonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonData.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 			isa = PBXGroup;
 			children = (
 				050E2AC82E07D27E00FC61B4 /* Subviews */,
+				050E2ADE2E0AE2CC00FC61B4 /* LedgerSplitManager.swift */,
 				050E2AC62E07AFA900FC61B4 /* LedgerSplitViewController.swift */,
 			);
 			path = LedgerSplit;
@@ -1165,6 +1168,7 @@
 				05764D9D2DB93082007292D7 /* LedgerInviteData.swift in Sources */,
 				050E2ADD2E0AD4F500FC61B4 /* LedgerSplitCreateRequestData.swift in Sources */,
 				050E2AD92E098CA800FC61B4 /* LedgerSplitData.swift in Sources */,
+				050E2ADF2E0AE2CC00FC61B4 /* LedgerSplitManager.swift in Sources */,
 				050E2AC72E07AFA900FC61B4 /* LedgerSplitViewController.swift in Sources */,
 				050533802DE061A0003245E0 /* LedgerUpdateRequestData.swift in Sources */,
 				05C95D202D8C5CD60058A8A8 /* LedgerVCManager.swift in Sources */,

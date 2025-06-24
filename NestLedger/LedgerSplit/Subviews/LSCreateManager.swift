@@ -23,9 +23,9 @@ class LSCreateManager {
             if let ledgerAvatar {
                 try await newApiManager.uploadLedgerSplitAvatar(ledgerSplitId: data._id, avatar: ledgerAvatar)
             }
-            print("✅ Data: \(data)")
+            newSharedUserInfo.ledgerSplitIds.append(data._id)
         } catch {
-            print("✅ Error: \(error.localizedDescription)")
+            return error.localizedDescription
         }
         return nil
     }

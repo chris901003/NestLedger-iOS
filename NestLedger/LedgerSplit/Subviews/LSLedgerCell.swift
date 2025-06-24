@@ -27,7 +27,7 @@ class LSLedgerCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        for idx in 0..<3 {
+        for _ in 0..<3 {
             userAvatars.append(UIImageView())
         }
         setup()
@@ -36,6 +36,10 @@ class LSLedgerCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func config(title: String) {
+        ledgerLabel.text = title
     }
 
     override func prepareForReuse() {

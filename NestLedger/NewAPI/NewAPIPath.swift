@@ -108,6 +108,9 @@ class NewAPIPath {
     }
 
     enum LedgerSplit: String, NewAPIPathProtocol {
+        // [GET]
+        case get = "/v1/ledger-split/get"
+
         // [POST]
         case create = "/v1/ledger-split/create"
         case uploadAvatar = "/v1/ledger-split/upload-avatar"
