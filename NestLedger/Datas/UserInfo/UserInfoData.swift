@@ -19,6 +19,8 @@ struct UserInfoData: Codable {
     var ledgerIds: [String]
     var isDelete: Bool
     var version: Int
+    // version 2
+    var ledgerSplitIds: [String]
 
     init(
         id: String,
@@ -29,7 +31,8 @@ struct UserInfoData: Codable {
         imageQuality: Double = 0.5,
         ledgerIds: [String] = [],
         isDelete: Bool = false,
-        version: Int = USER_INFO_DATA_VERSION
+        version: Int = USER_INFO_DATA_VERSION,
+        ledgerSplitIds: [String] = []
     ) {
         self.id = id
         self.userName = userName
@@ -40,6 +43,7 @@ struct UserInfoData: Codable {
         self.ledgerIds = ledgerIds
         self.isDelete = isDelete
         self.version = version
+        self.ledgerSplitIds = ledgerSplitIds
     }
 
     static func initMock() -> UserInfoData {
@@ -54,6 +58,25 @@ struct UserInfoData: Codable {
             isDelete: false,
             version: USER_INFO_DATA_VERSION
         )
+    }
+
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        userName = try container.decode(String.self, forKey: .userName)
+        emailAddress = try container.decode(String.self, forKey: .emailAddress)
+        avatar = try container.decode(String.self, forKey: .avatar)
+        timeZone = try container.decode(Int.self, forKey: .timeZone)
+        imageQuality = try container.decode(Double.self, forKey: .imageQuality)
+        ledgerIds = try container.decode([String].self, forKey: .ledgerIds)
+        isDelete = try container.decode(Bool.self, forKey: .isDelete)
+        version = try container.decode(Int.self, forKey: .version)
+
+        if version < 2 {
+            ledgerSplitIds = []
+        } else {
+            ledgerSplitIds = try container.decode([String].self, forKey: .ledgerSplitIds)
+        }
     }
 }
 
