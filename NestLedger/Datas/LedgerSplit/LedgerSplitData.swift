@@ -8,17 +8,19 @@
 
 import Foundation
 
-struct LedgerSplitData {
+struct LedgerSplitData: Codable {
     let _id: String
     var title: String
     var userIds: [String]
     var totalIncome: Int
     var totalExpense: Int
     var userNames: [String: String]
-    var records: [String: [String: String]]
+    var records: [String: [String: Int]]
     var version: Int = LEDGER_SPLIT_DATA_VERSION
 
     static func initMock() -> LedgerSplitData {
         .init(_id: "", title: "", userIds: [], totalIncome: 0, totalExpense: 0, userNames: [:], records: [:])
     }
 }
+
+typealias CleanLedgerSplitDataResponse = APIResponseData<LedgerSplitData>

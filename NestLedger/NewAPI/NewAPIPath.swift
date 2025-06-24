@@ -106,4 +106,9 @@ class NewAPIPath {
         case get = "/v1/email-verification/get"
         case send = "/v1/email-verification/send"
     }
+
+    enum LedgerSplit: String, NewAPIPathProtocol {
+        // [POST]
+        case create = "/v1/ledger-split/create"
+    }
 }

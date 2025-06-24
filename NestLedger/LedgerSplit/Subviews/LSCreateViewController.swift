@@ -126,6 +126,7 @@ extension LSCreateViewController {
     }
 
     @objc private func tapCreateAction() {
+        manager.ledgerSplitData.title = titleTextField.text ?? ""
         Task {
             if let message = await manager.createLedgerSplit() {
                 let okAction = UIAlertAction(title: "確定", style: .cancel)
