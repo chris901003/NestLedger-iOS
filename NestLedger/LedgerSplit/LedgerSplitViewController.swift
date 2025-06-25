@@ -79,7 +79,7 @@ extension LedgerSplitViewController: UITableViewDelegate, UITableViewDataSource 
             return UITableViewCell()
         }
         let data = manager.ledgerSplitDatas[indexPath.row]
-        cell.config(title: data.title, avatar: manager.ledgerSplitAvatars[indexPath.row])
+        cell.config(ledgerSplitData: data, avatar: manager.ledgerSplitAvatars[indexPath.row])
         return cell
     }
 

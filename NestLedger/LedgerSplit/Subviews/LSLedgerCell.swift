@@ -25,6 +25,8 @@ class LSLedgerCell: UITableViewCell {
     let totalLabel = UILabel()
     var userAvatars = [UIImageView]()
 
+    var ledgerSplitData: LedgerSplitData?
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         for _ in 0..<3 {
@@ -38,11 +40,13 @@ class LSLedgerCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func config(title: String, avatar: UIImage?) {
-        ledgerLabel.text = title
+    func config(ledgerSplitData: LedgerSplitData, avatar: UIImage?) {
+        self.ledgerSplitData = ledgerSplitData
+        ledgerLabel.text = ledgerSplitData.title
         if let avatar {
             ledgerAvatar.image = avatar
         }
+        getUserAvatar()
     }
 
     override func prepareForReuse() {
@@ -80,6 +84,7 @@ class LSLedgerCell: UITableViewCell {
         for idx in 0..<3 {
             userAvatars[idx].contentMode = .scaleAspectFill
             userAvatars[idx].layer.cornerRadius = 15
+            userAvatars[idx].clipsToBounds = true
         }
     }
 
@@ -132,5 +137,36 @@ class LSLedgerCell: UITableViewCell {
             avatarView.heightAnchor.constraint(equalToConstant: 30),
             avatarView.widthAnchor.constraint(equalToConstant: 30)
         ])
+    }
+
+    private func getUserAvatar() {
+        guard let ledgerSplitData else { return }
+        let newApiManager = NewAPIManager()
+        Task {
+            let newUserAvatars = try await withThrowingTaskGroup(of: (Int, UIImage).self, returning: [UIImage].self) { group in
+                let lastIdx = min(3, ledgerSplitData.userIds.count)
+                for idx in 0..<lastIdx {
+                    group.addTask {
+                        if let cacheAvatar = CacheUserAvatar.shared.getTagData(userId: ledgerSplitData.userIds[idx]) {
+                            return (idx, cacheAvatar)
+                        } else {
+                            let avatar = try await newApiManager.getUserAvatar(uid: ledgerSplitData.userIds[idx])
+                            CacheUserAvatar.shared.updateTagData(userId: ledgerSplitData.userIds[idx], avatar: avatar)
+                            return (idx, avatar)
+                        }
+                    }
+                }
+                var response = Array(repeating: UIImage(), count: lastIdx)
+                for try await (idx, avatar) in group {
+                    response[idx] = avatar
+                }
+                return response
+            }
+            await MainActor.run {
+                for idx in 0..<newUserAvatars.count {
+                    userAvatars[idx].image = newUserAvatars[idx]
+                }
+            }
+        }
     }
 }
