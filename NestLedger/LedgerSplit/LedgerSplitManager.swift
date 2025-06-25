@@ -24,6 +24,7 @@ class LedgerSplitManager {
     init() {
         lastLoadIdx = 0
         maxLoadIdx = newSharedUserInfo.ledgerSplitIds.count
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveLedgerSplitNotification), name: .newLedgerSplit, object: nil)
     }
 
     func loadMoreLedgerSplitData() async {
@@ -69,6 +70,15 @@ class LedgerSplitManager {
             await MainActor.run {
                 isLoading = false
             }
+        }
+    }
+
+    @objc private func receiveLedgerSplitNotification(_ notification: Notification) {
+        guard let (data, avatar) = NLNotification.decodeNewLedgerSplit(notification) else { return }
+        ledgerSplitDatas.append(data)
+        ledgerSplitAvatars.append(avatar ?? UIImage(named: "LedgerSplitIcon")!)
+        DispatchQueue.main.async { [weak self] in
+            self?.vc?.tableView.reloadData()
         }
     }
 }
