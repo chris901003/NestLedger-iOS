@@ -511,6 +511,7 @@
 		050E2AC52E07AF8900FC61B4 /* LedgerSplit */ = {
 			isa = PBXGroup;
 			children = (
+				057274432E0C2D9500F5D3D4 /* CreateLedgerSplit */,
 				050E2AC82E07D27E00FC61B4 /* Subviews */,
 				050E2ADE2E0AE2CC00FC61B4 /* LedgerSplitManager.swift */,
 				050E2AC62E07AFA900FC61B4 /* LedgerSplitViewController.swift */,
@@ -521,10 +522,6 @@
 		050E2AC82E07D27E00FC61B4 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				050E2AD32E097B6600FC61B4 /* LSCButtonView.swift */,
-				050E2AD12E08459300FC61B4 /* LSCLedgerAvatarView.swift */,
-				050E2AD52E09808A00FC61B4 /* LSCreateManager.swift */,
-				050E2ACB2E0839C800FC61B4 /* LSCreateViewController.swift */,
 				050E2AC92E07D2A100FC61B4 /* LSLedgerCell.swift */,
 			);
 			path = Subviews;
@@ -694,6 +691,25 @@
 				050533692DDE07B9003245E0 /* UserInfoUpdateRequestData.swift */,
 			);
 			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		057274432E0C2D9500F5D3D4 /* CreateLedgerSplit */ = {
+			isa = PBXGroup;
+			children = (
+				057274442E0C2DDC00F5D3D4 /* Subviews */,
+				050E2AD52E09808A00FC61B4 /* LSCreateManager.swift */,
+				050E2ACB2E0839C800FC61B4 /* LSCreateViewController.swift */,
+			);
+			path = CreateLedgerSplit;
+			sourceTree = "<group>";
+		};
+		057274442E0C2DDC00F5D3D4 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				050E2AD32E097B6600FC61B4 /* LSCButtonView.swift */,
+				050E2AD12E08459300FC61B4 /* LSCLedgerAvatarView.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		0572C3C12D9AD52F008F99FB /* Transactions */ = {
