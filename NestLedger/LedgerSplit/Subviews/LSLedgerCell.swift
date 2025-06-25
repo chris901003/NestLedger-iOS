@@ -38,8 +38,11 @@ class LSLedgerCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func config(title: String) {
+    func config(title: String, avatar: UIImage?) {
         ledgerLabel.text = title
+        if let avatar {
+            ledgerAvatar.image = avatar
+        }
     }
 
     override func prepareForReuse() {
@@ -66,6 +69,7 @@ class LSLedgerCell: UITableViewCell {
 
         ledgerAvatar.contentMode = .scaleAspectFill
         ledgerAvatar.layer.cornerRadius = 25
+        ledgerAvatar.clipsToBounds = true
 
         ledgerLabel.font = .systemFont(ofSize: 18, weight: .semibold)
         ledgerLabel.textAlignment = .left

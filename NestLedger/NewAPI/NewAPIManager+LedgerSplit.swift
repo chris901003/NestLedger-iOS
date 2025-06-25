@@ -14,6 +14,7 @@ extension NewAPIManager {
     enum LedgerSplitError: LocalizedError {
         case decodeLedgerSplitDataFaield
         case convertAvatarFaield
+        case decodeToUIImageError
 
         var localizedDescription: String {
             switch self {
@@ -21,6 +22,8 @@ extension NewAPIManager {
                     return "解析分帳本失敗"
                 case .convertAvatarFaield:
                     return "轉換照片失敗"
+                case .decodeToUIImageError:
+                    return "轉換圖像失敗"
             }
         }
     }
@@ -89,5 +92,22 @@ extension NewAPIManager {
             if error is NewAPIManagerError { throw error }
             throw LedgerSplitError.decodeLedgerSplitDataFaield
         }
+    }
+}
+
+// MARK: - Get Ledger Split Avatar
+extension NewAPIManager {
+    func getLedgerSplitAvatar(ledgerSplitId: String) async throws -> UIImage {
+        let responseData = await session.request(
+            NewAPIPath.LedgerSplit.avatar.getPath(),
+            method: .get,
+            parameters: ["ledgerSplitId": ledgerSplitId])
+            .validate()
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+        guard let image = UIImage(data: data) else { throw LedgerSplitError.decodeToUIImageError }
+        return image
     }
 }

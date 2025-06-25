@@ -13,6 +13,7 @@ import xxooooxxCommonUI
 class LedgerSplitManager {
     let newApiManager = NewAPIManager()
     var ledgerSplitDatas: [LedgerSplitData] = []
+    var ledgerSplitAvatars: [UIImage] = []
     var lastLoadIdx = 0
     var maxLoadIdx = 0
     @MainActor
@@ -43,10 +44,24 @@ class LedgerSplitManager {
                 }
                 return response
             }
+            let newLedgerSplitAvatars = try await withThrowingTaskGroup(of: (Int, UIImage?).self, returning: [UIImage].self) { group in
+                for idx in 0..<newLedgerSplitData.count {
+                    group.addTask {
+                        let avatar = try? await self.newApiManager.getLedgerSplitAvatar(ledgerSplitId: newLedgerSplitData[idx]._id)
+                        return (idx, avatar)
+                    }
+                }
+                var response = Array(repeating: UIImage(), count: newLedgerSplitData.count)
+                for try await (idx, avatar) in group {
+                    response[idx] = avatar ?? UIImage(named: "LedgerSplitIcon")!
+                }
+                return response
+            }
             lastLoadIdx += newLedgerSplitData.count
             await MainActor.run {
                 isLoading = false
                 ledgerSplitDatas.append(contentsOf: newLedgerSplitData)
+                ledgerSplitAvatars.append(contentsOf: newLedgerSplitAvatars)
                 vc?.tableView.reloadData()
             }
         } catch {
