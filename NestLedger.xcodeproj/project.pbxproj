@@ -123,6 +123,8 @@
 		057274492E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057274482E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift */; };
 		0572744C2E0D720B00F5D3D4 /* LSDSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572744B2E0D720B00F5D3D4 /* LSDSettingViewController.swift */; };
 		0572744E2E0D7B1F00F5D3D4 /* LSDSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572744D2E0D7B1F00F5D3D4 /* LSDSettingManager.swift */; };
+		057274512E0D7CC700F5D3D4 /* LSDTitleAndAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057274502E0D7CC700F5D3D4 /* LSDTitleAndAvatarViewController.swift */; };
+		057274532E0D7E8500F5D3D4 /* LSDTitleAndAvatarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057274522E0D7E8500F5D3D4 /* LSDTitleAndAvatarManager.swift */; };
 		0572C3C32D9AD54C008F99FB /* LTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C22D9AD54C008F99FB /* LTransactionView.swift */; };
 		0572C3C52D9ADA6C008F99FB /* LTransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C42D9ADA6C008F99FB /* LTransactionManager.swift */; };
 		0572C3C82D9C1911008F99FB /* LTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C72D9C1911008F99FB /* LTCell.swift */; };
@@ -272,6 +274,8 @@
 		057274482E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitDetailManager.swift; sourceTree = "<group>"; };
 		0572744B2E0D720B00F5D3D4 /* LSDSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDSettingViewController.swift; sourceTree = "<group>"; };
 		0572744D2E0D7B1F00F5D3D4 /* LSDSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDSettingManager.swift; sourceTree = "<group>"; };
+		057274502E0D7CC700F5D3D4 /* LSDTitleAndAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDTitleAndAvatarViewController.swift; sourceTree = "<group>"; };
+		057274522E0D7E8500F5D3D4 /* LSDTitleAndAvatarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDTitleAndAvatarManager.swift; sourceTree = "<group>"; };
 		0572C3C22D9AD54C008F99FB /* LTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTransactionView.swift; sourceTree = "<group>"; };
 		0572C3C42D9ADA6C008F99FB /* LTransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTransactionManager.swift; sourceTree = "<group>"; };
 		0572C3C72D9C1911008F99FB /* LTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTCell.swift; sourceTree = "<group>"; };
@@ -734,10 +738,20 @@
 		0572744A2E0D71EC00F5D3D4 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				0572744F2E0D7C9900F5D3D4 /* LSDTitleAndAvatar */,
 				0572744D2E0D7B1F00F5D3D4 /* LSDSettingManager.swift */,
 				0572744B2E0D720B00F5D3D4 /* LSDSettingViewController.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		0572744F2E0D7C9900F5D3D4 /* LSDTitleAndAvatar */ = {
+			isa = PBXGroup;
+			children = (
+				057274522E0D7E8500F5D3D4 /* LSDTitleAndAvatarManager.swift */,
+				057274502E0D7CC700F5D3D4 /* LSDTitleAndAvatarViewController.swift */,
+			);
+			path = LSDTitleAndAvatar;
 			sourceTree = "<group>";
 		};
 		0572C3C12D9AD52F008F99FB /* Transactions */ = {
@@ -1201,6 +1215,8 @@
 				050E2ACC2E0839C800FC61B4 /* LSCreateViewController.swift in Sources */,
 				0572744E2E0D7B1F00F5D3D4 /* LSDSettingManager.swift in Sources */,
 				0572744C2E0D720B00F5D3D4 /* LSDSettingViewController.swift in Sources */,
+				057274532E0D7E8500F5D3D4 /* LSDTitleAndAvatarManager.swift in Sources */,
+				057274512E0D7CC700F5D3D4 /* LSDTitleAndAvatarViewController.swift in Sources */,
 				050E2ACA2E07D2A100FC61B4 /* LSLedgerCell.swift in Sources */,
 				0572C3C82D9C1911008F99FB /* LTCell.swift in Sources */,
 				0572C3C52D9ADA6C008F99FB /* LTransactionManager.swift in Sources */,

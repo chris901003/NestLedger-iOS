@@ -127,7 +127,8 @@ extension LSDSettingViewController: UITableViewDelegate, UITableViewDataSource {
         let cellType = rows[indexPath.section][indexPath.row]
         switch cellType {
             case .nameAndAvatar:
-                print("✅ Name and avatar")
+                let titleAndAvatarVC = LSDTitleAndAvatarViewController(ledgerSplitData: manager.ledgerSplitData)
+                navigationController?.pushViewController(titleAndAvatarVC, animated: true)
         }
     }
 }
