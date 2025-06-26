@@ -43,7 +43,7 @@ class LedgerSplitDetailViewController: UIViewController {
     }
 
     @objc private func tapSettingAction() {
-        let settingViewController = LSDSettingViewController()
+        let settingViewController = LSDSettingViewController(ledgerSplitData: manager.ledgerSplitData)
         let navigationVC = UINavigationController(rootViewController: settingViewController)
         let _50DetentId = UISheetPresentationController.Detent.Identifier("50")
         let _50Detent = UISheetPresentationController.Detent.custom(identifier: _50DetentId) { context in
