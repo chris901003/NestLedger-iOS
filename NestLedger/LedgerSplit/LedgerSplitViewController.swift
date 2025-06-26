@@ -87,4 +87,10 @@ extension LedgerSplitViewController: UITableViewDelegate, UITableViewDataSource 
         guard !manager.isLoading, indexPath.row == manager.ledgerSplitDatas.count - 1, manager.lastLoadIdx != manager.maxLoadIdx else { return }
         Task { await manager.loadMoreLedgerSplitData() }
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = manager.ledgerSplitDatas[indexPath.row]
+        let ledgerSplitVC = LedgerSplitDetailViewController(ledgerSplitData: data)
+        navigationController?.pushViewController(ledgerSplitVC, animated: true)
+    }
 }

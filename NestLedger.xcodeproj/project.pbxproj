@@ -119,6 +119,8 @@
 		055704592D57839C0032C47C /* DataConstain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055704582D57839C0032C47C /* DataConstain.swift */; };
 		0557045B2D578ECA0032C47C /* AccountVC+SettingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0557045A2D578ECA0032C47C /* AccountVC+SettingTableView.swift */; };
 		0557045D2D5792830032C47C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0557045C2D5792830032C47C /* GoogleService-Info.plist */; };
+		057274472E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057274462E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift */; };
+		057274492E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057274482E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift */; };
 		0572C3C32D9AD54C008F99FB /* LTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C22D9AD54C008F99FB /* LTransactionView.swift */; };
 		0572C3C52D9ADA6C008F99FB /* LTransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C42D9ADA6C008F99FB /* LTransactionManager.swift */; };
 		0572C3C82D9C1911008F99FB /* LTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572C3C72D9C1911008F99FB /* LTCell.swift */; };
@@ -264,6 +266,8 @@
 		055704582D57839C0032C47C /* DataConstain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConstain.swift; sourceTree = "<group>"; };
 		0557045A2D578ECA0032C47C /* AccountVC+SettingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountVC+SettingTableView.swift"; sourceTree = "<group>"; };
 		0557045C2D5792830032C47C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		057274462E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitDetailViewController.swift; sourceTree = "<group>"; };
+		057274482E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitDetailManager.swift; sourceTree = "<group>"; };
 		0572C3C22D9AD54C008F99FB /* LTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTransactionView.swift; sourceTree = "<group>"; };
 		0572C3C42D9ADA6C008F99FB /* LTransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTransactionManager.swift; sourceTree = "<group>"; };
 		0572C3C72D9C1911008F99FB /* LTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTCell.swift; sourceTree = "<group>"; };
@@ -466,6 +470,7 @@
 				05C95D192D8AF7A60058A8A8 /* Ledger */,
 				05C5E3962D91893E00E36A3A /* LedgerDetail */,
 				050E2AC52E07AF8900FC61B4 /* LedgerSplit */,
+				057274452E0C2E1B00F5D3D4 /* LedgerSplitDetail */,
 				0508313E2D41E01C008C8831 /* Login */,
 				0503F2A92D524E0000B2640C /* Main */,
 				05EE3D0B2DDCBD4E00CC22AA /* NewAPI */,
@@ -710,6 +715,15 @@
 				050E2AD12E08459300FC61B4 /* LSCLedgerAvatarView.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		057274452E0C2E1B00F5D3D4 /* LedgerSplitDetail */ = {
+			isa = PBXGroup;
+			children = (
+				057274482E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift */,
+				057274462E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift */,
+			);
+			path = LedgerSplitDetail;
 			sourceTree = "<group>";
 		};
 		0572C3C12D9AD52F008F99FB /* Transactions */ = {
@@ -1184,6 +1198,8 @@
 				05764D9D2DB93082007292D7 /* LedgerInviteData.swift in Sources */,
 				050E2ADD2E0AD4F500FC61B4 /* LedgerSplitCreateRequestData.swift in Sources */,
 				050E2AD92E098CA800FC61B4 /* LedgerSplitData.swift in Sources */,
+				057274492E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift in Sources */,
+				057274472E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift in Sources */,
 				050E2ADF2E0AE2CC00FC61B4 /* LedgerSplitManager.swift in Sources */,
 				050E2AC72E07AFA900FC61B4 /* LedgerSplitViewController.swift in Sources */,
 				050533802DE061A0003245E0 /* LedgerUpdateRequestData.swift in Sources */,
