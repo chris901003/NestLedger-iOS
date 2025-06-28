@@ -111,3 +111,25 @@ extension NewAPIManager {
         return image
     }
 }
+
+// MARK: - Update Ledger Split
+extension NewAPIManager {
+    func updateLedgerSplit(ledgerSplitUpdateData: LedgerSplitUpdateRequestData) async throws -> LedgerSplitData {
+        let responseData = await session.request(
+            NewAPIPath.LedgerSplit.update.getPath(),
+            method: .patch,
+            parameters: ledgerSplitUpdateData,
+            encoder: JSONParameterEncoder.default)
+            .validate()
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanLedgerSplitDataResponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw LedgerSplitError.decodeLedgerSplitDataFaield
+        }
+    }
+}

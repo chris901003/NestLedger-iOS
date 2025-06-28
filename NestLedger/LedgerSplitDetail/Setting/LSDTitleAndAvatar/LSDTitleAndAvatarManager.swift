@@ -13,6 +13,7 @@ class LSDTitleAndAvatarManager {
     let newApiManager = NewAPIManager()
     let ledgerSplitData: LedgerSplitData
     var avatarImage: UIImage?
+    var newTitle: String = ""
 
     weak var vc: LSDTitleAndAvatarViewController?
 

@@ -52,6 +52,7 @@ class LSDTitleAndAvatarViewController: UIViewController {
         titleTextField.backgroundColor = .systemGray5
         titleTextField.layer.cornerRadius = 15.0
         titleTextField.textAlignment = .center
+        titleTextField.delegate = self
     }
    
     private func layout() {
@@ -87,6 +88,18 @@ class LSDTitleAndAvatarViewController: UIViewController {
                 }
             }
         }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension LSDTitleAndAvatarViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        manager.newTitle = textField.text ?? ""
     }
 }
 

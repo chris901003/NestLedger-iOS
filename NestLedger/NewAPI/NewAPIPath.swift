@@ -115,5 +115,8 @@ class NewAPIPath {
         // [POST]
         case create = "/v1/ledger-split/create"
         case uploadAvatar = "/v1/ledger-split/upload-avatar"
+
+        // [PATCH]
+        case update = "/v1/ledger-split/update"
     }
 }
