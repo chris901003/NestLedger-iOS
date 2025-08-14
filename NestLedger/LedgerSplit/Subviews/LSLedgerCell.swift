@@ -147,13 +147,8 @@ class LSLedgerCell: UITableViewCell {
                 let lastIdx = min(3, ledgerSplitData.userIds.count)
                 for idx in 0..<lastIdx {
                     group.addTask {
-                        if let cacheAvatar = CacheUserAvatar.shared.getTagData(userId: ledgerSplitData.userIds[idx]) {
-                            return (idx, cacheAvatar)
-                        } else {
-                            let avatar = try await newApiManager.getUserAvatar(uid: ledgerSplitData.userIds[idx])
-                            CacheUserAvatar.shared.updateTagData(userId: ledgerSplitData.userIds[idx], avatar: avatar)
-                            return (idx, avatar)
-                        }
+                        let cacheAvatar = await CacheUserAvatarManager.shared.getUserAvatar(userId: ledgerSplitData.userIds[idx])
+                        return (idx, cacheAvatar ?? UIImage())
                     }
                 }
                 var response = Array(repeating: UIImage(), count: lastIdx)
