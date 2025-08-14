@@ -98,13 +98,7 @@ extension NewAPIManager {
             .serializingData()
             .response
         try checkResponse(responseData: responseData)
-        do {
-            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
-            return try NewAPIManager.decoder.decode(OptionalLedgerDataResponse.self, from: data).data
-        } catch {
-            if error is NewAPIManagerError { throw error }
-            throw LedgerError.decodeLedgerDataFailed
-        }
+        return nil
     }
 }
 
