@@ -136,7 +136,6 @@ extension LedgerCollectionViewCell {
             for try await result in group {
                 if let image = result.0 {
                     results[result.1] = image
-                    CacheUserAvatar.shared.updateTagData(userId: userIds[result.1], avatar: image)
                 } else {
                     results[result.1] = generateBlackImage(size: .init(width: 100, height: 100))
                 }

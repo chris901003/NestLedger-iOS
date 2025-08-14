@@ -216,15 +216,9 @@ extension LedgerDetailViewController: UICollectionViewDataSource, UICollectionVi
             return UICollectionViewCell()
         }
         let userData = manager.userInfos[indexPath.row]
-        if let avatar = CacheUserAvatar.shared.getTagData(userId: userData.id) {
-            cell.config(image: avatar)
-        } else {
-            Task {
-                if let avatar = await manager.getUserAvatar(userData: userData) {
-                    CacheUserAvatar.shared.updateTagData(userId: userData.id, avatar: avatar)
-                    await MainActor.run { cell.config(image: avatar) }
-                }
-            }
+        Task {
+            guard let avatar = await CacheUserAvatarManager.shared.getUserAvatar(userId: userData.id) else { return }
+            await MainActor.run { cell.config(image: avatar) }
         }
         return cell
     }
