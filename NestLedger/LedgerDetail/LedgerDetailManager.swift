@@ -78,7 +78,6 @@ class LedgerDetailManager {
     func refreshData() {
         loadData()
         NLNotification.sendRefreshLedgerDetail(ledgerId: ledgerData._id)
-        NLNotification.sendRefreshUserAvatarCache(uids: ledgerData.userIds)
     }
 }
 
