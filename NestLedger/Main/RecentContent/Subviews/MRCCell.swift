@@ -41,17 +41,12 @@ class MRCCell: UITableViewCell {
 
         tagId = data.tagId
 
-        if let tagData = CacheTagData.shared.getTagData(tagId: tagId) {
-            configTagData(data: tagData)
-        } else {
-            Task {
-                do {
-                    let tag = try await getTagInformation(tagId: data.tagId)
-                    await MainActor.run { configTagData(data: tag) }
-                } catch {
-                    XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取標籤失敗")
-                }
+        Task {
+            guard let tagData = await CacheTagManager.shared.getTag(tagId: data.tagId) else {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "獲取標籤失敗")
+                return
             }
+            await MainActor.run { configTagData(data: tagData) }
         }
     }
 
@@ -149,7 +144,6 @@ extension MRCCell {
     private func getTagInformation(tagId: String) async throws -> TagData {
         let newApiManager = NewAPIManager()
         let tagData = try await newApiManager.getTag(tagId: tagId)
-        CacheTagData.shared.updateTagData(tagData: tagData)
         return tagData
     }
 
