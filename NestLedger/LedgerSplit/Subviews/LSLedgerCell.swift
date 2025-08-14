@@ -141,7 +141,6 @@ class LSLedgerCell: UITableViewCell {
 
     private func getUserAvatar() {
         guard let ledgerSplitData else { return }
-        let newApiManager = NewAPIManager()
         Task {
             let newUserAvatars = try await withThrowingTaskGroup(of: (Int, UIImage).self, returning: [UIImage].self) { group in
                 let lastIdx = min(3, ledgerSplitData.userIds.count)

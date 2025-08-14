@@ -120,6 +120,7 @@
 		055704592D57839C0032C47C /* DataConstain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055704582D57839C0032C47C /* DataConstain.swift */; };
 		0557045B2D578ECA0032C47C /* AccountVC+SettingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0557045A2D578ECA0032C47C /* AccountVC+SettingTableView.swift */; };
 		0557045D2D5792830032C47C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0557045C2D5792830032C47C /* GoogleService-Info.plist */; };
+		055B734D2E4E176E00BC0D2D /* CacheLedgerSplitAvatarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055B734C2E4E176E00BC0D2D /* CacheLedgerSplitAvatarManager.swift */; };
 		057274472E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057274462E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift */; };
 		057274492E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057274482E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift */; };
 		0572744C2E0D720B00F5D3D4 /* LSDSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0572744B2E0D720B00F5D3D4 /* LSDSettingViewController.swift */; };
@@ -272,6 +273,7 @@
 		055704582D57839C0032C47C /* DataConstain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConstain.swift; sourceTree = "<group>"; };
 		0557045A2D578ECA0032C47C /* AccountVC+SettingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountVC+SettingTableView.swift"; sourceTree = "<group>"; };
 		0557045C2D5792830032C47C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		055B734C2E4E176E00BC0D2D /* CacheLedgerSplitAvatarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheLedgerSplitAvatarManager.swift; sourceTree = "<group>"; };
 		057274462E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitDetailViewController.swift; sourceTree = "<group>"; };
 		057274482E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitDetailManager.swift; sourceTree = "<group>"; };
 		0572744B2E0D720B00F5D3D4 /* LSDSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDSettingViewController.swift; sourceTree = "<group>"; };
@@ -678,6 +680,7 @@
 			children = (
 				0504F7612E4D7AC100E8399F /* CacheUserAvatarManager.swift */,
 				0504F7632E4DB1E100E8399F /* CacheTagManager.swift */,
+				055B734C2E4E176E00BC0D2D /* CacheLedgerSplitAvatarManager.swift */,
 			);
 			path = CacheData;
 			sourceTree = "<group>";
@@ -1302,6 +1305,7 @@
 				050533842DE0B9B3003245E0 /* TransactionUpdateRequestData.swift in Sources */,
 				05B421132D9D68E4000C8ECC /* TransactionViewController.swift in Sources */,
 				050EB9B22DCA3BB900F8C04F /* UIImage+Extension.swift in Sources */,
+				055B734D2E4E176E00BC0D2D /* CacheLedgerSplitAvatarManager.swift in Sources */,
 				0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */,
 				051B27C22DCCF0F7000B7E0C /* UIViewController+Extension.swift in Sources */,
 				055704572D5782A90032C47C /* UserInfoData.swift in Sources */,
