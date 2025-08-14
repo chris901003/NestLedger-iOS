@@ -50,12 +50,14 @@ class LTCell: UITableViewCell {
         titleLabel.text = transaction.title
 
         tagId = transaction.tagId
-        if let tagData = CacheTagData.shared.getTagData(tagId: tagId) {
-            tagLabel.text = tagData.label
-            tagLabel.textColor = tagData.getColor
-            tagLabel.backgroundColor = tagData.getColor.withAlphaComponent(0.3)
-        } else {
-            Task { try? await fetchTagInfo(tagId: transaction.tagId) }
+        Task {
+            guard let tagData = await CacheTagManager.shared.getTag(tagId: tagId) else { return }
+            await MainActor.run {
+                tagLabel.text = tagData.label
+                tagLabel.textColor = tagData.getColor
+                tagLabel.backgroundColor = tagData.getColor.withAlphaComponent(0.3)
+                tagLabel.alpha = 1
+            }
         }
     }
 
@@ -68,6 +70,7 @@ class LTCell: UITableViewCell {
         tagLabel.text = "標籤"
         tagLabel.backgroundColor = .black
         tagLabel.textColor = .white
+        tagLabel.alpha = 0
 
         amountLabel.text = "$0"
         amountLabel.textColor = .black
@@ -149,16 +152,6 @@ class LTCell: UITableViewCell {
 }
 
 extension LTCell {
-    private func fetchTagInfo(tagId: String) async throws {
-        let tagData = try await newApiManager.getTag(tagId: tagId)
-        CacheTagData.shared.updateTagData(tagData: tagData)
-        await MainActor.run {
-            tagLabel.text = tagData.label
-            tagLabel.textColor = tagData.getColor
-            tagLabel.backgroundColor = tagData.getColor.withAlphaComponent(0.3)
-        }
-    }
-
     @objc private func receiveUpdateTagNotification(_ notification: Notification) {
         guard let newTagData = NLNotification.decodeUpdateTag(notification),
               newTagData._id == tagId else { return }

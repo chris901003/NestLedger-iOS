@@ -15,6 +15,7 @@
 		0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2AD2D5251D600B2640C /* FirebaseAuthManager.swift */; };
 		0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2B02D54E1D200B2640C /* UIView+Extension.swift */; };
 		0504F7622E4D7AC100E8399F /* CacheUserAvatarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0504F7612E4D7AC100E8399F /* CacheUserAvatarManager.swift */; };
+		0504F7642E4DB1E100E8399F /* CacheTagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0504F7632E4DB1E100E8399F /* CacheTagManager.swift */; };
 		050533662DDCD066003245E0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 050533652DDCD066003245E0 /* Alamofire */; };
 		050533682DDDA12A003245E0 /* NewAPIManager+Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */; };
 		0505336A2DDE07B9003245E0 /* UserInfoUpdateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533692DDE07B9003245E0 /* UserInfoUpdateRequestData.swift */; };
@@ -192,6 +193,7 @@
 		0503F2AD2D5251D600B2640C /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		0503F2B02D54E1D200B2640C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		0504F7612E4D7AC100E8399F /* CacheUserAvatarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheUserAvatarManager.swift; sourceTree = "<group>"; };
+		0504F7632E4DB1E100E8399F /* CacheTagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTagManager.swift; sourceTree = "<group>"; };
 		050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Information.swift"; sourceTree = "<group>"; };
 		050533692DDE07B9003245E0 /* UserInfoUpdateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateRequestData.swift; sourceTree = "<group>"; };
 		0505336B2DDE1333003245E0 /* NewAPIManager+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Tag.swift"; sourceTree = "<group>"; };
@@ -678,6 +680,7 @@
 			children = (
 				0532E0E12DEDCD7A00B06DD0 /* CacheTagData.swift */,
 				0504F7612E4D7AC100E8399F /* CacheUserAvatarManager.swift */,
+				0504F7632E4DB1E100E8399F /* CacheTagManager.swift */,
 			);
 			path = CacheData;
 			sourceTree = "<group>";
@@ -1267,6 +1270,7 @@
 				0505337A2DDF1A6C003245E0 /* NewAPIManager+Ledger.swift in Sources */,
 				0505337E2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift in Sources */,
 				050E2ADB2E0AD48600FC61B4 /* NewAPIManager+LedgerSplit.swift in Sources */,
+				0504F7642E4DB1E100E8399F /* CacheTagManager.swift in Sources */,
 				0505336C2DDE1333003245E0 /* NewAPIManager+Tag.swift in Sources */,
 				050533742DDEC97E003245E0 /* NewAPIManager+Transaction.swift in Sources */,
 				05EE3D112DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift in Sources */,
