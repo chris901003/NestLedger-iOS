@@ -18,7 +18,18 @@ extension CacheTagManager {
 
 actor CacheTagManager {
     static let shared = CacheTagManager()
-    private init() { }
+    private init() {
+        NotificationCenter.default.addObserver(forName: .refreshLedgerDetailView, object: nil, queue: nil) { _ in
+            Task { [weak self] in
+                await self?.removeCacheTag()
+            }
+        }
+        NotificationCenter.default.addObserver(forName: .refreshMainView, object: nil, queue: nil) { _ in
+            Task { [weak self] in
+                await self?.removeCacheTag()
+            }
+        }
+    }
 
     private let newApiManager = NewAPIManager()
     private var cache = NSCache<NSString, TagDataWrapper>()
@@ -44,5 +55,9 @@ actor CacheTagManager {
         let result = await task.value
         inflight.removeValue(forKey: tagId)
         return result
+    }
+
+    private func removeCacheTag() {
+        cache.removeAllObjects()
     }
 }
