@@ -123,15 +123,10 @@ extension LDSDetailView: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let data = tagPercentage[indexPath.row]
-        if let tagData = CacheTagData.shared.getTagData(tagId: data.tagId) {
-            cell.config(data: .init(color: tagData.getColor, title: tagData.label, percentage: data.percentage))
-        } else {
-            Task {
-                guard let tagData = try? await apiManager.getTag(tagId: data.tagId) else { return }
-                await MainActor.run {
-                    CacheTagData.shared.updateTagData(tagData: tagData)
-                    cell.config(data: .init(color: tagData.getColor, title: tagData.label, percentage: data.percentage))
-                }
+        Task {
+            guard let tagData = await CacheTagManager.shared.getTag(tagId: data.tagId) else { return }
+            await MainActor.run {
+                cell.config(data: .init(color: tagData.getColor, title: tagData.label, percentage: data.percentage))
             }
         }
         return cell
