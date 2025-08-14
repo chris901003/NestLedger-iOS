@@ -14,6 +14,7 @@
 		0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2AA2D524E0800B2640C /* MainViewController.swift */; };
 		0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2AD2D5251D600B2640C /* FirebaseAuthManager.swift */; };
 		0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0503F2B02D54E1D200B2640C /* UIView+Extension.swift */; };
+		0504F7622E4D7AC100E8399F /* CacheUserAvatarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0504F7612E4D7AC100E8399F /* CacheUserAvatarManager.swift */; };
 		050533662DDCD066003245E0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 050533652DDCD066003245E0 /* Alamofire */; };
 		050533682DDDA12A003245E0 /* NewAPIManager+Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */; };
 		0505336A2DDE07B9003245E0 /* UserInfoUpdateRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050533692DDE07B9003245E0 /* UserInfoUpdateRequestData.swift */; };
@@ -191,6 +192,7 @@
 		0503F2AA2D524E0800B2640C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0503F2AD2D5251D600B2640C /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		0503F2B02D54E1D200B2640C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		0504F7612E4D7AC100E8399F /* CacheUserAvatarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheUserAvatarManager.swift; sourceTree = "<group>"; };
 		050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Information.swift"; sourceTree = "<group>"; };
 		050533692DDE07B9003245E0 /* UserInfoUpdateRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateRequestData.swift; sourceTree = "<group>"; };
 		0505336B2DDE1333003245E0 /* NewAPIManager+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Tag.swift"; sourceTree = "<group>"; };
@@ -678,6 +680,7 @@
 			children = (
 				0532E0E12DEDCD7A00B06DD0 /* CacheTagData.swift */,
 				05A59B192DEF3D5B0016E905 /* CacheUserAvatar.swift */,
+				0504F7612E4D7AC100E8399F /* CacheUserAvatarManager.swift */,
 			);
 			path = CacheData;
 			sourceTree = "<group>";
@@ -1285,6 +1288,7 @@
 				05F4E3982D9ED42D006FC9C9 /* TDateSelectionView.swift in Sources */,
 				05F4E39A2DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift in Sources */,
 				05B421172D9EC432000C8ECC /* TTagSelectionButtonView.swift in Sources */,
+				0504F7622E4D7AC100E8399F /* CacheUserAvatarManager.swift in Sources */,
 				054A09342D7C1DDB0092B7E8 /* TVC+TabelViewSetting.swift in Sources */,
 				05C37B912D7B35FF005FCF89 /* TagCell.swift in Sources */,
 				050E2AC42E079E0E00FC61B4 /* TagCopyRequestData.swift in Sources */,

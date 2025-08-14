@@ -38,9 +38,8 @@ class LTransactionManager {
         let uniqueUserIds = Array(Set(transactions.map({ $0.userId })))
         try await withThrowingTaskGroup(of: (String, UIImage)?.self) { group in
             for userId in uniqueUserIds {
-                group.addTask { [weak self] in
-                    guard let self else { return nil }
-                    let avatar = try await newApiManager.getUserAvatar(uid: userId)
+                group.addTask {
+                    guard let avatar = await CacheUserAvatarManager.shared.getUserAvatar(userId: userId) else { return nil }
                     return (userId, avatar)
                 }
             }

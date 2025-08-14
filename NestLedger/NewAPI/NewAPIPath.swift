@@ -24,7 +24,7 @@ extension NewAPIPathProtocol {
 }
 
 class NewAPIPath {
-    static let base = "https://nlbackendmain-dev.xxooooxx.org:1172"
+    static let base = "https://nlbackendmain-nlk.xxooooxx.org:1172"
 
     enum UserInfo: String, NewAPIPathProtocol {
         // [GET]
