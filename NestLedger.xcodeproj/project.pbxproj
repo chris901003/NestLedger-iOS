@@ -111,7 +111,6 @@
 		0529446F2D6E10B200943CAC /* MQLSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446E2D6E10B200943CAC /* MQLSendView.swift */; };
 		052944712D79E44300943CAC /* MQLQuickLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052944702D79E44300943CAC /* MQLQuickLogManager.swift */; };
 		052944752D79E9D700943CAC /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052944742D79E9D700943CAC /* TagViewController.swift */; };
-		0532E0E22DEDCD7A00B06DD0 /* CacheTagData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532E0E12DEDCD7A00B06DD0 /* CacheTagData.swift */; };
 		0532E0E52DEDCF1200B06DD0 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 0532E0E42DEDCF1200B06DD0 /* Collections */; };
 		054A09322D7C11E30092B7E8 /* NewTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054A09312D7C11E30092B7E8 /* NewTagCell.swift */; };
 		054A09342D7C1DDB0092B7E8 /* TVC+TabelViewSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054A09332D7C1DDB0092B7E8 /* TVC+TabelViewSetting.swift */; };
@@ -265,7 +264,6 @@
 		0529446E2D6E10B200943CAC /* MQLSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLSendView.swift; sourceTree = "<group>"; };
 		052944702D79E44300943CAC /* MQLQuickLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLQuickLogManager.swift; sourceTree = "<group>"; };
 		052944742D79E9D700943CAC /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
-		0532E0E12DEDCD7A00B06DD0 /* CacheTagData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTagData.swift; sourceTree = "<group>"; };
 		054A09312D7C11E30092B7E8 /* NewTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTagCell.swift; sourceTree = "<group>"; };
 		054A09332D7C1DDB0092B7E8 /* TVC+TabelViewSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TVC+TabelViewSetting.swift"; sourceTree = "<group>"; };
 		054A09352D7C20160092B7E8 /* TagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManager.swift; sourceTree = "<group>"; };
@@ -678,7 +676,6 @@
 		0532E0E02DEDCD6800B06DD0 /* CacheData */ = {
 			isa = PBXGroup;
 			children = (
-				0532E0E12DEDCD7A00B06DD0 /* CacheTagData.swift */,
 				0504F7612E4D7AC100E8399F /* CacheUserAvatarManager.swift */,
 				0504F7632E4DB1E100E8399F /* CacheTagManager.swift */,
 			);
@@ -1174,7 +1171,6 @@
 				05C5E39D2D91A6E000E36A3A /* AvatarCollectionViewCell.swift in Sources */,
 				05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */,
 				0505338B2DE300D6003245E0 /* BasicUserInfoViewController.swift in Sources */,
-				0532E0E22DEDCD7A00B06DD0 /* CacheTagData.swift in Sources */,
 				050E2A3C2E0044EB00FC61B4 /* CopyTagToOtherLedgerManager.swift in Sources */,
 				058EB7912DF9C98D009E65EF /* CopyTagToOtherLedgerViewController.swift in Sources */,
 				059CBE442DC119D7000B7F22 /* CreateLedgerViewController.swift in Sources */,
