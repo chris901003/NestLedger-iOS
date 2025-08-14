@@ -147,7 +147,6 @@
 		05A3B9332DF8581D0062D341 /* LDSDetailErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A3B9322DF8581D0062D341 /* LDSDetailErrorView.swift */; };
 		05A3B9352DF8677D0062D341 /* MQLTitleInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A3B9342DF8677D0062D341 /* MQLTitleInputView.swift */; };
 		05A59B182DEF2F470016E905 /* LDStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A59B172DEF2F470016E905 /* LDStatisticsViewController.swift */; };
-		05A59B1A2DEF3D5B0016E905 /* CacheUserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A59B192DEF3D5B0016E905 /* CacheUserAvatar.swift */; };
 		05A59B332DF08E0F0016E905 /* LDSSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A59B322DF08E0F0016E905 /* LDSSearchView.swift */; };
 		05A59B352DF093830016E905 /* LDStatisticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A59B342DF093830016E905 /* LDStatisticsManager.swift */; };
 		05ADF39D2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ADF39C2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift */; };
@@ -300,7 +299,6 @@
 		05A3B9322DF8581D0062D341 /* LDSDetailErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSDetailErrorView.swift; sourceTree = "<group>"; };
 		05A3B9342DF8677D0062D341 /* MQLTitleInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLTitleInputView.swift; sourceTree = "<group>"; };
 		05A59B172DEF2F470016E905 /* LDStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDStatisticsViewController.swift; sourceTree = "<group>"; };
-		05A59B192DEF3D5B0016E905 /* CacheUserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheUserAvatar.swift; sourceTree = "<group>"; };
 		05A59B322DF08E0F0016E905 /* LDSSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSSearchView.swift; sourceTree = "<group>"; };
 		05A59B342DF093830016E905 /* LDStatisticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDStatisticsManager.swift; sourceTree = "<group>"; };
 		05ADF39C2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveLedgerInviteViewController.swift; sourceTree = "<group>"; };
@@ -679,7 +677,6 @@
 			isa = PBXGroup;
 			children = (
 				0532E0E12DEDCD7A00B06DD0 /* CacheTagData.swift */,
-				05A59B192DEF3D5B0016E905 /* CacheUserAvatar.swift */,
 				0504F7612E4D7AC100E8399F /* CacheUserAvatarManager.swift */,
 			);
 			path = CacheData;
@@ -1175,7 +1172,6 @@
 				05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */,
 				0505338B2DE300D6003245E0 /* BasicUserInfoViewController.swift in Sources */,
 				0532E0E22DEDCD7A00B06DD0 /* CacheTagData.swift in Sources */,
-				05A59B1A2DEF3D5B0016E905 /* CacheUserAvatar.swift in Sources */,
 				050E2A3C2E0044EB00FC61B4 /* CopyTagToOtherLedgerManager.swift in Sources */,
 				058EB7912DF9C98D009E65EF /* CopyTagToOtherLedgerViewController.swift in Sources */,
 				059CBE442DC119D7000B7F22 /* CreateLedgerViewController.swift in Sources */,
