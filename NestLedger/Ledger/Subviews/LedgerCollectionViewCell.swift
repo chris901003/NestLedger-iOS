@@ -127,12 +127,9 @@ extension LedgerCollectionViewCell {
         let userIds = data.userIds.prefix(3)
         let userAvatars = try? await withThrowingTaskGroup(of: (UIImage?, Int).self, returning: [UIImage].self) { group in
             for idx in 0..<userIds.count {
-                group.addTask { [weak self] in
-                    if let avatar = CacheUserAvatar.shared.getTagData(userId: userIds[idx]) {
-                        return (avatar, idx)
-                    } else {
-                        return (try? await self?.newApiManager.getUserAvatar(uid: userIds[idx]), idx)
-                    }
+                group.addTask {
+                    let avatar = await CacheUserAvatarManager.shared.getUserAvatar(userId: userIds[idx])
+                    return (avatar, idx)
                 }
             }
             var results = Array(repeating: UIImage(), count: userIds.count)
