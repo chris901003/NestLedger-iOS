@@ -250,8 +250,14 @@ extension TransactionViewController {
 
     @objc private func tapSaveAction() {
         view.endEditing(true)
+        saveLabel.isUserInteractionEnabled = false
+        saveLabel.textColor = .secondaryLabel
         Task {
             if let message = await manager.saveTransasction() {
+                await MainActor.run {
+                    saveLabel.isUserInteractionEnabled = true
+                    saveLabel.textColor = .systemBlue
+                }
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: message)
             } else {
                 await MainActor.run { dismiss(animated: true) }
