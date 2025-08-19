@@ -249,6 +249,7 @@ extension TransactionViewController {
     }
 
     @objc private func tapSaveAction() {
+        view.endEditing(true)
         Task {
             if let message = await manager.saveTransasction() {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: message)
