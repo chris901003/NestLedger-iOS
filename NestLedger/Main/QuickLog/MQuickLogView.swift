@@ -223,7 +223,7 @@ class MQuickLogView: UIView {
 extension MQuickLogView {
     @objc private func tapAction(_ sender: UITapGestureRecognizer) {
         guard let tappedView = sender.view as? MQLPlusButtonView else { return }
-        totalLabel.resignFirstResponder()
+        endEditing(true)
         UIView.animate(withDuration: 0.1, animations: {
             tappedView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         }) { _ in

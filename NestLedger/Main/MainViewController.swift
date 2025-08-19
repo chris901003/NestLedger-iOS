@@ -41,6 +41,7 @@ class MainViewController: UIViewController {
         view.backgroundColor = .white
 
         scrollView.keyboardDismissMode = .onDrag
+        scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard)))
 
         scrollView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshMainView), for: .valueChanged)
@@ -162,6 +163,12 @@ extension MainViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             self?.refreshControl.endRefreshing()
         }
+    }
+}
+
+extension MainViewController {
+    @objc private func dissmissKeyboard() {
+        view.endEditing(true)
     }
 }
 

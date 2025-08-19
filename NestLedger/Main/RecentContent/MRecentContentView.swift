@@ -40,6 +40,7 @@ class MRecentContentView: UIView {
         infoLabel.textColor = .secondaryLabel
         infoLabel.numberOfLines = 1
 
+        tableView.keyboardDismissMode = .onDrag
         tableView.backgroundColor = .systemGray6
         tableView.delegate = self
         tableView.dataSource = self
