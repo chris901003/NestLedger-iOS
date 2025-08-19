@@ -160,14 +160,14 @@ class LedgerDetailViewController: UIViewController {
             transactionsView.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: 8),
             transactionsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             transactionsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            transactionsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            transactionsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12)
         ])
         transactionsView.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         contentView.addSubview(totalLabel)
         totalLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            totalLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24),
+            totalLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
             totalLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
 
