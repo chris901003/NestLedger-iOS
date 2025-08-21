@@ -12,22 +12,16 @@ import UIKit
 class LSDTitleAndAvatarManager {
     let newApiManager = NewAPIManager()
     let ledgerSplitData: LedgerSplitData
-    var avatarImage: UIImage?
+    var avatarImage: UIImage
     var newTitle: String = ""
     var newAvatar: UIImage?
 
     weak var vc: LSDTitleAndAvatarViewController?
 
-    init(ledgerSplitData: LedgerSplitData) {
+    init(ledgerSplitData: LedgerSplitData, avatarImage: UIImage) {
         self.ledgerSplitData = ledgerSplitData
+        self.avatarImage = avatarImage
         self.newTitle = ledgerSplitData.title
-    }
-
-    func loadAvatar() async {
-        guard let avatar = try? await newApiManager.getLedgerSplitAvatar(ledgerSplitId: ledgerSplitData._id) else { return }
-        await MainActor.run {
-            vc?.avatarView.image = avatar
-        }
     }
 }
 

@@ -8,15 +8,17 @@
 
 import Foundation
 import UIKit
+import Combine
 
 class LedgerSplitDetailViewController: UIViewController {
     let settingButton = UIImageView()
 
     let ledgerSplitDetailStore: LedgerSplitDetailStore
     let manager: LedgerSplitDetailManager
+    var cancellables: Set<AnyCancellable> = []
 
     init(ledgerSplitData: LedgerSplitData) {
-        ledgerSplitDetailStore = LedgerSplitDetailStore(data: ledgerSplitData)
+        ledgerSplitDetailStore = LedgerSplitDetailStore(data: ledgerSplitData, avatar: UIImage(named: "LedgerSplitIcon")!)
         manager = LedgerSplitDetailManager(dataStore: ledgerSplitDetailStore)
         super.init(nibName: nil, bundle: nil)
     }
@@ -29,11 +31,17 @@ class LedgerSplitDetailViewController: UIViewController {
         super.viewDidLoad()
         setup()
         layout()
+        Task { await manager.loadAvatar() }
     }
 
     private func setup() {
         view.backgroundColor = .white
-        navigationItem.title = manager.ledgerSplitDetailStore.data.title
+
+        ledgerSplitDetailStore.dataPublisher
+            .sink { [weak self] ledgerSplitData in
+                self?.navigationItem.title = ledgerSplitData.title
+            }
+            .store(in: &cancellables)
 
         settingButton.image = UIImage(systemName: "gear")
         settingButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapSettingAction)))

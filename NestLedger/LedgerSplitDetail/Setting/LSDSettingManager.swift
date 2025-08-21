@@ -7,11 +7,27 @@
 
 
 import Foundation
+import Combine
 
 class LSDSettingManager {
     let ledgerSplitDetailStore: LedgerSplitDetailStore
+    var cancellables: Set<AnyCancellable> = []
+
+    weak var vc: LSDSettingViewController?
 
     init(ledgerSplitDetailStore: LedgerSplitDetailStore) {
         self.ledgerSplitDetailStore = ledgerSplitDetailStore
+        subscribeLedgerSplitData()
+    }
+
+    private func subscribeLedgerSplitData() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            ledgerSplitDetailStore.dataPublisher
+                .sink { [weak self] _ in
+                    self?.vc?.tableView.reloadData()
+                }
+                .store(in: &cancellables)
+        }
     }
 }

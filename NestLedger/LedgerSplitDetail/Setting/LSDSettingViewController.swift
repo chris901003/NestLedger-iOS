@@ -49,6 +49,7 @@ class LSDSettingViewController: UIViewController {
     }
 
     private func setup() {
+        manager.vc = self
         view.backgroundColor = .white
 
         barView.backgroundColor = .systemGray4
@@ -129,7 +130,7 @@ extension LSDSettingViewController: UITableViewDelegate, UITableViewDataSource {
         let cellType = rows[indexPath.section][indexPath.row]
         switch cellType {
             case .nameAndAvatar:
-                let titleAndAvatarVC = LSDTitleAndAvatarViewController(ledgerSplitData: ledgerSplitDetailStore.data)
+                let titleAndAvatarVC = LSDTitleAndAvatarViewController(ledgerSplitDetailStore: ledgerSplitDetailStore)
                 navigationController?.pushViewController(titleAndAvatarVC, animated: true)
         }
     }

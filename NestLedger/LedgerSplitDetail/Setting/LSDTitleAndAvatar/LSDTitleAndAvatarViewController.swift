@@ -12,11 +12,14 @@ import xxooooxxCommonUI
 
 class LSDTitleAndAvatarViewController: UIViewController {
     let manager: LSDTitleAndAvatarManager
+    let ledgerSplitDetailStore: LedgerSplitDetailStore
+
     let avatarView = UIImageView()
     let titleTextField = XOTextField(.init(top: 12, left: 8, bottom: 12, right: 8))
 
-    init(ledgerSplitData: LedgerSplitData) {
-        manager = LSDTitleAndAvatarManager(ledgerSplitData: ledgerSplitData)
+    init(ledgerSplitDetailStore: LedgerSplitDetailStore) {
+        self.ledgerSplitDetailStore = ledgerSplitDetailStore
+        manager = LSDTitleAndAvatarManager(ledgerSplitData: ledgerSplitDetailStore.data, avatarImage: ledgerSplitDetailStore.avatar)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -28,7 +31,6 @@ class LSDTitleAndAvatarViewController: UIViewController {
         super.viewDidLoad()
         setup()
         layout()
-        Task { await manager.loadAvatar() }
     }
 
     private func setup() {
@@ -39,7 +41,7 @@ class LSDTitleAndAvatarViewController: UIViewController {
         view.backgroundColor = .white
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapBackground)))
 
-        avatarView.image = UIImage(named: "LedgerSplitIcon")
+        avatarView.image = ledgerSplitDetailStore.avatar
         avatarView.contentMode = .scaleAspectFill
         avatarView.clipsToBounds = true
         avatarView.layer.cornerRadius = 50
@@ -82,7 +84,10 @@ class LSDTitleAndAvatarViewController: UIViewController {
         Task {
             do {
                 let response = try await manager.save()
-                await MainActor.run { _ = navigationController?.popViewController(animated: true) }
+                await MainActor.run {
+                    ledgerSplitDetailStore.update(ledgerSplitData: response.0, avatar: response.1)
+                    _ = navigationController?.popViewController(animated: true)
+                }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
             }
