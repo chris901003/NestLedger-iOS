@@ -123,7 +123,7 @@ class LSCreateViewController: UIViewController {
 // MARK: - Utility
 extension LSCreateViewController {
     @objc private func tapBackgroundAction() {
-        dismiss(animated: true)
+        view.endEditing(true)
     }
 
     @objc private func tapCancelAction() {
