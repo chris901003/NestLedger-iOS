@@ -126,7 +126,7 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
                 cell.delegate = manager
                 let data = manager.userInfos[indexPath.row]
                 Task {
-                    let avatar = await manager.getUserAvatar(userId: data.id)
+                    let avatar = await CacheUserAvatarManager.shared.getUserAvatar(userId: data.id)
                     let nickName = manager.ledgerData.userNames[data.id] ?? data.userName
                     await MainActor.run { cell.config(avatar: avatar, userName: nickName, userId: data.id, indexPath: indexPath) }
                 }
@@ -136,8 +136,8 @@ extension LDSLedgerMemberViewController: UITableViewDelegate, UITableViewDataSou
                 cell.delegate = manager
                 let ledgerInvite = manager.ledgerInvites[indexPath.row]
                 Task {
-                    let senderAvatar = await manager.getUserAvatar(userId: ledgerInvite.sendUserId)
-                    let receiveAvatar = await manager.getUserAvatar(userId: ledgerInvite.receiveUserId)
+                    let senderAvatar = await CacheUserAvatarManager.shared.getUserAvatar(userId: ledgerInvite.sendUserId)
+                    let receiveAvatar = await CacheUserAvatarManager.shared.getUserAvatar(userId: ledgerInvite.receiveUserId)
                     let receiveUserInfo = try? await manager.getUserInfo(userId: ledgerInvite.receiveUserId)
                     await MainActor.run {
                         cell.config(
