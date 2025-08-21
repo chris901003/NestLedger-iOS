@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import xxooooxxCommonUI
 
+protocol LSCreateViewControllerDelegate: AnyObject {
+    func createNewLedgerSplit(data: LedgerSplitData, avatar: UIImage?)
+}
+
 class LSCreateViewController: UIViewController {
     let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     let contentView = UIView()
@@ -20,6 +24,7 @@ class LSCreateViewController: UIViewController {
     let createButton = LSCButtonView()
 
     let manager = LSCreateManager()
+    weak var delegate: LSCreateViewControllerDelegate?
     var contentHeightConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
@@ -134,6 +139,7 @@ extension LSCreateViewController {
                 alertController.addAction(okAction)
                 present(alertController, animated: true)
             } else {
+                delegate?.createNewLedgerSplit(data: manager.ledgerSplitData, avatar: manager.ledgerAvatar)
                 dismiss(animated: true)
             }
         }

@@ -25,7 +25,6 @@ extension Notification.Name {
     static let unauthorizedLedger = Notification.Name("UnauthorizedLedger")
     static let statisticsNewData = Notification.Name("StatisticsNewData")
     static let statisticsLoadError = Notification.Name("StatisticsLoadError")
-    static let newLedgerSplit = Notification.Name("NewLedgerSplit")
 }
 
 class NLNotification {
@@ -189,21 +188,5 @@ class NLNotification {
         guard let userInfo = notification.userInfo,
               let type = userInfo["type"] as? LDStatisticsManager.LoadType else { return nil }
         return type
-    }
-
-    // MARK: - New Ledger Split
-    static func sendNewLedgerSplit(ledgerSplitData: LedgerSplitData, avatar: UIImage?) {
-        NotificationCenter.default.post(
-            name: .newLedgerSplit,
-            object: nil,
-            userInfo: ["ledgerSplitData": ledgerSplitData, "avatar": avatar as Any]
-        )
-    }
-
-    static func decodeNewLedgerSplit(_ notificaion: Notification) -> (data: LedgerSplitData, avatar: UIImage?)? {
-        guard let userInfo = notificaion.userInfo,
-              let data = userInfo["ledgerSplitData"] as? LedgerSplitData else { return nil }
-        let avatar = userInfo["avatar"] as? UIImage
-        return (data, avatar)
     }
 }

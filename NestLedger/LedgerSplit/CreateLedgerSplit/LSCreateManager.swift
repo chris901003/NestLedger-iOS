@@ -24,9 +24,6 @@ class LSCreateManager {
                 try await newApiManager.uploadLedgerSplitAvatar(ledgerSplitId: data._id, avatar: ledgerAvatar)
             }
             newSharedUserInfo.ledgerSplitIds.append(data._id)
-            await MainActor.run {
-                NLNotification.sendNewLedgerSplit(ledgerSplitData: ledgerSplitData, avatar: ledgerAvatar)
-            }
         } catch {
             return error.localizedDescription
         }

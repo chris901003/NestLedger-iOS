@@ -62,6 +62,7 @@ class LedgerSplitViewController: UIViewController {
             let createLSVC = LSCreateViewController()
             createLSVC.modalPresentationStyle = .overCurrentContext
             createLSVC.modalTransitionStyle = .crossDissolve
+            createLSVC.delegate = manager
             present(createLSVC, animated: true)
         }
         return UIMenu(title: "分帳本選單", children: [addNewLedgerSplitAction])
