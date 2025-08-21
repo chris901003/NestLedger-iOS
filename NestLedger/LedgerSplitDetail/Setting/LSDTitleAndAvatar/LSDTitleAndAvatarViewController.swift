@@ -80,12 +80,11 @@ class LSDTitleAndAvatarViewController: UIViewController {
 
     @objc private func tapSaveAction() {
         Task {
-            if let message = await manager.save() {
-                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: message)
-            } else {
-                await MainActor.run {
-                    _ = navigationController?.popViewController(animated: true)
-                }
+            do {
+                let response = try await manager.save()
+                await MainActor.run { _ = navigationController?.popViewController(animated: true) }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
             }
         }
     }
@@ -115,7 +114,7 @@ extension LSDTitleAndAvatarViewController: UIImagePickerControllerDelegate, UINa
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
             avatarView.image = image
-            manager.avatarImage = image
+            manager.newAvatar = image
         }
         picker.dismiss(animated: true)
     }

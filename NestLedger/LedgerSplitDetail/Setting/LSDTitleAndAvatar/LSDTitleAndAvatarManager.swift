@@ -14,11 +14,13 @@ class LSDTitleAndAvatarManager {
     let ledgerSplitData: LedgerSplitData
     var avatarImage: UIImage?
     var newTitle: String = ""
+    var newAvatar: UIImage?
 
     weak var vc: LSDTitleAndAvatarViewController?
 
     init(ledgerSplitData: LedgerSplitData) {
         self.ledgerSplitData = ledgerSplitData
+        self.newTitle = ledgerSplitData.title
     }
 
     func loadAvatar() async {
@@ -27,8 +29,36 @@ class LSDTitleAndAvatarManager {
             vc?.avatarView.image = avatar
         }
     }
+}
 
-    func save() async -> String? {
+// MARK: - Update Ledger Split
+extension LSDTitleAndAvatarManager {
+    func save() async throws -> (LedgerSplitData, UIImage?) {
+        if let response = filterIsUpdateValid() {
+            throw BasicError.common(msg: response)
+        }
+        do {
+            let updatedLedgerSplitData = try await updateLedgerSplitIfNeeded()
+            try await updateAvatarIfNeeded()
+            return (updatedLedgerSplitData, newAvatar ?? avatarImage)
+        } catch {
+            throw BasicError.common(msg: "更新分帳本失敗")
+        }
+    }
+
+    private func filterIsUpdateValid() -> String? {
+        if newTitle.isEmpty { return "分帳本名稱不可為空白" }
         return nil
+    }
+
+    private func updateLedgerSplitIfNeeded() async throws -> LedgerSplitData {
+        guard newTitle != ledgerSplitData.title else { return ledgerSplitData}
+        let updateLedgerSplitData = LedgerSplitUpdateRequestData(_id: ledgerSplitData._id, title: newTitle)
+        return try await newApiManager.updateLedgerSplit(ledgerSplitUpdateData: updateLedgerSplitData)
+    }
+
+    private func updateAvatarIfNeeded() async throws {
+        guard let image = newAvatar else { return }
+        try await newApiManager.uploadLedgerSplitAvatar(ledgerSplitId: ledgerSplitData._id, avatar: image)
     }
 }

@@ -178,6 +178,7 @@
 		05F4E3982D9ED42D006FC9C9 /* TDateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */; };
 		05F4E39A2DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */; };
 		05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E39B2DA41669006FC9C9 /* TAmountView.swift */; };
+		05F6AE9F2E570BA60025419A /* Error+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AE9E2E570BA60025419A /* Error+Extension.swift */; };
 		05FFF7172DAFED5200CC425B /* LDSLedgerNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FFF7162DAFED5200CC425B /* LDSLedgerNameViewController.swift */; };
 		05FFF7192DAFF89900CC425B /* LDSLedgerMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FFF7182DAFF89900CC425B /* LDSLedgerMemberViewController.swift */; };
 		05FFF71D2DB1451400CC425B /* LDSLMAddNewMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FFF71C2DB1451400CC425B /* LDSLMAddNewMemberView.swift */; };
@@ -331,6 +332,7 @@
 		05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDateSelectionView.swift; sourceTree = "<group>"; };
 		05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIncomeExpenseSelectorView.swift; sourceTree = "<group>"; };
 		05F4E39B2DA41669006FC9C9 /* TAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAmountView.swift; sourceTree = "<group>"; };
+		05F6AE9E2E570BA60025419A /* Error+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extension.swift"; sourceTree = "<group>"; };
 		05FFF7162DAFED5200CC425B /* LDSLedgerNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLedgerNameViewController.swift; sourceTree = "<group>"; };
 		05FFF7182DAFF89900CC425B /* LDSLedgerMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLedgerMemberViewController.swift; sourceTree = "<group>"; };
 		05FFF71C2DB1451400CC425B /* LDSLMAddNewMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMAddNewMemberView.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 				050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */,
 				0503F2B02D54E1D200B2640C /* UIView+Extension.swift */,
 				051B27C12DCCF0F7000B7E0C /* UIViewController+Extension.swift */,
+				05F6AE9E2E570BA60025419A /* Error+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1246,6 +1249,7 @@
 				050831402D41E029008C8831 /* LoginViewController.swift in Sources */,
 				051B49212D8859FD00834D72 /* MCDateCell.swift in Sources */,
 				051B491F2D8859D400834D72 /* MCTitleCell.swift in Sources */,
+				05F6AE9F2E570BA60025419A /* Error+Extension.swift in Sources */,
 				051B49232D885B3500834D72 /* MCalendarManager.swift in Sources */,
 				051B491C2D870ACC00834D72 /* MCalendarView.swift in Sources */,
 				05C95D182D8AEE240058A8A8 /* MPCTagCell.swift in Sources */,

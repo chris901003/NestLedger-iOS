@@ -10,6 +10,12 @@ import Foundation
 
 struct LedgerSplitUpdateRequestData: Codable {
     let _id: String
-    let title: String
-    let version: Int
+    let title: String?
+    let version: Int?
+    
+    init(_id: String, title: String? = nil, version: Int? = nil) {
+        self._id = _id
+        self.title = title
+        self.version = version
+    }
 }
