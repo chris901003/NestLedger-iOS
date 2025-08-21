@@ -28,10 +28,12 @@ class LSDSettingViewController: UIViewController {
 
     let sections: [Section] = [.basic]
     let rows: [[Row]] = [[.nameAndAvatar]]
+    let ledgerSplitDetailStore: LedgerSplitDetailStore
     let manager: LSDSettingManager
 
-    init(ledgerSplitData: LedgerSplitData) {
-        manager = LSDSettingManager(ledgerSplitData: ledgerSplitData)
+    init(ledgerSplitDetailStore: LedgerSplitDetailStore) {
+        self.ledgerSplitDetailStore = ledgerSplitDetailStore
+        manager = LSDSettingManager(ledgerSplitDetailStore: ledgerSplitDetailStore)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -114,7 +116,7 @@ extension LSDSettingViewController: UITableViewDelegate, UITableViewDataSource {
         switch cellType {
             case .nameAndAvatar:
                 if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelCell.cellId, for: indexPath) as? XOLeadingTrailingLabelCell {
-                    cell.config(title: cellType.rawValue, info: manager.ledgerSplitData.title)
+                    cell.config(title: cellType.rawValue, info: ledgerSplitDetailStore.data.title)
                     return cell
                 }
         }
@@ -127,7 +129,7 @@ extension LSDSettingViewController: UITableViewDelegate, UITableViewDataSource {
         let cellType = rows[indexPath.section][indexPath.row]
         switch cellType {
             case .nameAndAvatar:
-                let titleAndAvatarVC = LSDTitleAndAvatarViewController(ledgerSplitData: manager.ledgerSplitData)
+                let titleAndAvatarVC = LSDTitleAndAvatarViewController(ledgerSplitData: ledgerSplitDetailStore.data)
                 navigationController?.pushViewController(titleAndAvatarVC, animated: true)
         }
     }

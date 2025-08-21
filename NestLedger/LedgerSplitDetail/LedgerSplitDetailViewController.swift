@@ -12,10 +12,12 @@ import UIKit
 class LedgerSplitDetailViewController: UIViewController {
     let settingButton = UIImageView()
 
+    let ledgerSplitDetailStore: LedgerSplitDetailStore
     let manager: LedgerSplitDetailManager
 
     init(ledgerSplitData: LedgerSplitData) {
-        manager = LedgerSplitDetailManager(ledgerSplitData: ledgerSplitData)
+        ledgerSplitDetailStore = LedgerSplitDetailStore(data: ledgerSplitData)
+        manager = LedgerSplitDetailManager(dataStore: ledgerSplitDetailStore)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -31,7 +33,7 @@ class LedgerSplitDetailViewController: UIViewController {
 
     private func setup() {
         view.backgroundColor = .white
-        navigationItem.title = manager.ledgerSplitData.title
+        navigationItem.title = manager.ledgerSplitDetailStore.data.title
 
         settingButton.image = UIImage(systemName: "gear")
         settingButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapSettingAction)))
@@ -43,7 +45,7 @@ class LedgerSplitDetailViewController: UIViewController {
     }
 
     @objc private func tapSettingAction() {
-        let settingViewController = LSDSettingViewController(ledgerSplitData: manager.ledgerSplitData)
+        let settingViewController = LSDSettingViewController(ledgerSplitDetailStore: ledgerSplitDetailStore)
         let navigationVC = UINavigationController(rootViewController: settingViewController)
         let _50DetentId = UISheetPresentationController.Detent.Identifier("50")
         let _50Detent = UISheetPresentationController.Detent.custom(identifier: _50DetentId) { context in

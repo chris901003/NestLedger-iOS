@@ -9,9 +9,9 @@
 import Foundation
 
 class LedgerSplitDetailManager {
-    let ledgerSplitData: LedgerSplitData
+    let ledgerSplitDetailStore: LedgerSplitDetailStore
 
-    init(ledgerSplitData: LedgerSplitData) {
-        self.ledgerSplitData = ledgerSplitData
+    init(dataStore: LedgerSplitDetailStore) {
+        self.ledgerSplitDetailStore = dataStore
     }
 }

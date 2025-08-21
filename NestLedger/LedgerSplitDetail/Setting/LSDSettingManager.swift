@@ -9,9 +9,9 @@
 import Foundation
 
 class LSDSettingManager {
-    let ledgerSplitData: LedgerSplitData
+    let ledgerSplitDetailStore: LedgerSplitDetailStore
 
-    init(ledgerSplitData: LedgerSplitData) {
-        self.ledgerSplitData = ledgerSplitData
+    init(ledgerSplitDetailStore: LedgerSplitDetailStore) {
+        self.ledgerSplitDetailStore = ledgerSplitDetailStore
     }
 }

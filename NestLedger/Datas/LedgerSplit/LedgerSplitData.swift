@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LedgerSplitData: Codable {
+struct LedgerSplitData: Codable, Equatable {
     let _id: String
     var title: String
     var userIds: [String]
