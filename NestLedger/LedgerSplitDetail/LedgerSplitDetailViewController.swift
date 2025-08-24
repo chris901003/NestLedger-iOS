@@ -10,17 +10,23 @@ import Foundation
 import UIKit
 import Combine
 
+protocol LedgerSplitDetailViewControllerDelegate: AnyObject {
+    func updateLedgerSplit(data: LedgerSplitData, avatar: UIImage)
+}
+
 class LedgerSplitDetailViewController: UIViewController {
     let settingButton = UIImageView()
 
     let ledgerSplitDetailStore: LedgerSplitDetailStore
     let manager: LedgerSplitDetailManager
     var cancellables: Set<AnyCancellable> = []
+    weak var delegate: LedgerSplitDetailViewControllerDelegate?
 
     init(ledgerSplitData: LedgerSplitData) {
         ledgerSplitDetailStore = LedgerSplitDetailStore(data: ledgerSplitData, avatar: UIImage(named: "LedgerSplitIcon")!)
         manager = LedgerSplitDetailManager(dataStore: ledgerSplitDetailStore)
         super.init(nibName: nil, bundle: nil)
+        subscribeLedgerSplitStore()
     }
 
     required init?(coder: NSCoder) {
@@ -63,5 +69,19 @@ class LedgerSplitDetailViewController: UIViewController {
             sheet.detents = [_50Detent]
         }
         present(navigationVC, animated: true)
+    }
+}
+
+// MARK: - Subscribe Ledger Split Store
+extension LedgerSplitDetailViewController {
+    func subscribeLedgerSplitStore() {
+        ledgerSplitDetailStore.dataPublisher
+            .combineLatest(ledgerSplitDetailStore.avatarPublisher)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] (ledgerSplitData, avatar) in
+                guard let self else { return }
+                delegate?.updateLedgerSplit(data: ledgerSplitData, avatar: avatar)
+            }
+            .store(in: &cancellables)
     }
 }

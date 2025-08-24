@@ -83,3 +83,13 @@ extension LedgerSplitManager: LSCreateViewControllerDelegate {
         }
     }
 }
+
+// MARK: - LedgerSplitDetailViewControllerDelegate
+extension LedgerSplitManager: LedgerSplitDetailViewControllerDelegate {
+    func updateLedgerSplit(data: LedgerSplitData, avatar: UIImage) {
+        guard let idx = ledgerSplitDatas.firstIndex(where: { $0._id == data._id }) else { return }
+        ledgerSplitDatas[idx] = data
+        ledgerSplitAvatars[idx] = avatar
+        vc?.tableView.reloadData()
+    }
+}

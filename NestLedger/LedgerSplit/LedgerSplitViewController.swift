@@ -92,6 +92,7 @@ extension LedgerSplitViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = manager.ledgerSplitDatas[indexPath.row]
         let ledgerSplitVC = LedgerSplitDetailViewController(ledgerSplitData: data)
+        ledgerSplitVC.delegate = manager
         navigationController?.pushViewController(ledgerSplitVC, animated: true)
     }
 }
