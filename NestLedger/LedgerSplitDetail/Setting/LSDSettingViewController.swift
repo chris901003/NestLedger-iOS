@@ -13,11 +13,16 @@ import xxooooxxCommonUI
 extension LSDSettingViewController {
     enum Section: String, CaseIterable {
         case basic = "基本設定"
+        case user = "成員"
     }
 
     enum Row: String, CaseIterable {
         // [Basic]
         case nameAndAvatar = "分帳本名稱與照片"
+
+        // [user]
+        case inviteQRCode = "加入分帳本 QRCode"
+        case members = "分帳本成員"
     }
 }
 
@@ -26,8 +31,8 @@ class LSDSettingViewController: UIViewController {
     let titleLabel = UILabel()
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
 
-    let sections: [Section] = [.basic]
-    let rows: [[Row]] = [[.nameAndAvatar]]
+    let sections: [Section] = [.basic, .user]
+    let rows: [[Row]] = [[.nameAndAvatar], [.inviteQRCode, .members]]
     let ledgerSplitDetailStore: LedgerSplitDetailStore
     let manager: LSDSettingManager
 
@@ -95,6 +100,7 @@ class LSDSettingViewController: UIViewController {
 
     private func registerCell() {
         tableView.register(XOLeadingTrailingLabelCell.self, forCellReuseIdentifier: XOLeadingTrailingLabelCell.cellId)
+        tableView.register(XOLeadingTrailingLabelWithIconCell.self, forCellReuseIdentifier: XOLeadingTrailingLabelWithIconCell.cellId)
     }
 }
 
@@ -120,6 +126,16 @@ extension LSDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.config(title: cellType.rawValue, info: ledgerSplitDetailStore.data.title)
                     return cell
                 }
+            case .inviteQRCode:
+                if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelWithIconCell.cellId, for: indexPath) as? XOLeadingTrailingLabelWithIconCell {
+                    cell.config(title: cellType.rawValue, info: "", iconName: "qrcode")
+                    return cell
+                }
+            case .members:
+                if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelWithIconCell.cellId, for: indexPath) as? XOLeadingTrailingLabelWithIconCell {
+                    cell.config(title: cellType.rawValue, info: "1")
+                    return cell
+                }
         }
         let cell = UITableViewCell()
         return cell
@@ -132,6 +148,11 @@ extension LSDSettingViewController: UITableViewDelegate, UITableViewDataSource {
             case .nameAndAvatar:
                 let titleAndAvatarVC = LSDTitleAndAvatarViewController(ledgerSplitDetailStore: ledgerSplitDetailStore)
                 navigationController?.pushViewController(titleAndAvatarVC, animated: true)
+            case .inviteQRCode:
+                let inviteQRCodeVC = LSDInviteQRCodeViewController(ledgerSplitData: ledgerSplitDetailStore.data)
+                navigationController?.pushViewController(inviteQRCodeVC, animated: true)
+            case .members:
+                print("✅ tap members")
         }
     }
 }

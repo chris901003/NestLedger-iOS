@@ -180,6 +180,7 @@
 		05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E39B2DA41669006FC9C9 /* TAmountView.swift */; };
 		05F6AE9F2E570BA60025419A /* Error+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AE9E2E570BA60025419A /* Error+Extension.swift */; };
 		05F6AEA12E570F950025419A /* LedgerSplitDetailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AEA02E570F950025419A /* LedgerSplitDetailStore.swift */; };
+		05F6AEA72E5AAF8E0025419A /* LSDInviteQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AEA62E5AAF8E0025419A /* LSDInviteQRCodeViewController.swift */; };
 		05FFF7172DAFED5200CC425B /* LDSLedgerNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FFF7162DAFED5200CC425B /* LDSLedgerNameViewController.swift */; };
 		05FFF7192DAFF89900CC425B /* LDSLedgerMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FFF7182DAFF89900CC425B /* LDSLedgerMemberViewController.swift */; };
 		05FFF71D2DB1451400CC425B /* LDSLMAddNewMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FFF71C2DB1451400CC425B /* LDSLMAddNewMemberView.swift */; };
@@ -335,6 +336,7 @@
 		05F4E39B2DA41669006FC9C9 /* TAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAmountView.swift; sourceTree = "<group>"; };
 		05F6AE9E2E570BA60025419A /* Error+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extension.swift"; sourceTree = "<group>"; };
 		05F6AEA02E570F950025419A /* LedgerSplitDetailStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitDetailStore.swift; sourceTree = "<group>"; };
+		05F6AEA62E5AAF8E0025419A /* LSDInviteQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDInviteQRCodeViewController.swift; sourceTree = "<group>"; };
 		05FFF7162DAFED5200CC425B /* LDSLedgerNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLedgerNameViewController.swift; sourceTree = "<group>"; };
 		05FFF7182DAFF89900CC425B /* LDSLedgerMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLedgerMemberViewController.swift; sourceTree = "<group>"; };
 		05FFF71C2DB1451400CC425B /* LDSLMAddNewMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMAddNewMemberView.swift; sourceTree = "<group>"; };
@@ -750,6 +752,7 @@
 		0572744A2E0D71EC00F5D3D4 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				05F6AEA52E5AAF6E0025419A /* LSDInviteQRCode */,
 				0572744F2E0D7C9900F5D3D4 /* LSDTitleAndAvatar */,
 				0572744D2E0D7B1F00F5D3D4 /* LSDSettingManager.swift */,
 				0572744B2E0D720B00F5D3D4 /* LSDSettingViewController.swift */,
@@ -1035,6 +1038,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		05F6AEA52E5AAF6E0025419A /* LSDInviteQRCode */ = {
+			isa = PBXGroup;
+			children = (
+				05F6AEA62E5AAF8E0025419A /* LSDInviteQRCodeViewController.swift */,
+			);
+			path = LSDInviteQRCode;
+			sourceTree = "<group>";
+		};
 		05FFF7152DAFED2700CC425B /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -1281,6 +1292,7 @@
 				0505336C2DDE1333003245E0 /* NewAPIManager+Tag.swift in Sources */,
 				050533742DDEC97E003245E0 /* NewAPIManager+Transaction.swift in Sources */,
 				05EE3D112DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift in Sources */,
+				05F6AEA72E5AAF8E0025419A /* LSDInviteQRCodeViewController.swift in Sources */,
 				05EE3D0F2DDCBE7F00CC22AA /* NewAPIManager.swift in Sources */,
 				05EE3D0D2DDCBD5D00CC22AA /* NewAPIPath.swift in Sources */,
 				054A09322D7C11E30092B7E8 /* NewTagCell.swift in Sources */,
