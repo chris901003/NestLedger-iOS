@@ -70,7 +70,7 @@ class LSDInviteQRCodeViewController: UIViewController {
 
 private extension LSDInviteQRCodeViewController {
     func generateQRCode() -> UIImage? {
-        let uri = "nestledger://ledgersplit/invite?ledgerSplitId=\(ledgerSplitData._id)"
+        let uri = "https://nl.xxooooxx.org/ledger-split/invite?ledgerSplitId=\(ledgerSplitData._id)"
         let uriData = Data(uri.utf8)
 
         let filter = CIFilter.qrCodeGenerator()
