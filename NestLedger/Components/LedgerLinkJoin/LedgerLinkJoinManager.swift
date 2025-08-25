@@ -14,4 +14,8 @@ class LedgerLinkJoinManager {
     func getLedgerData(ledgerId: String, token: String) async throws -> LedgerData {
         return try await newAPIManager.getLedgerByInviteToken(ledgerId: ledgerId, inviteToken: token)
     }
+
+    func joinLedger(token: String) async throws -> UserInfoData {
+        try await newAPIManager.ledgerLinkInvite(token: token)
+    }
 }

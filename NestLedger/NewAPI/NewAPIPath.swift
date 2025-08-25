@@ -95,6 +95,7 @@ class NewAPIPath {
         // [GET]
         case get = "/v1/ledger-invite/get"
         case createLink = "/v1/ledger-invite/create-link"
+        case ledgerLinkInvite = "/v1/ledger-invite/link-invite"
 
         // [POST]
         case create = "/v1/ledger-invite/create"

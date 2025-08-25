@@ -103,3 +103,24 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Ledger Link Invite
+extension NewAPIManager {
+    func ledgerLinkInvite(token: String) async throws -> UserInfoData {
+        let responseData = await session.request(
+            NewAPIPath.LedgerInvite.ledgerLinkInvite.getPath(),
+            method: .get,
+            parameters: ["token": token])
+            .validate()
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanUserInforesponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw UserInfoError.decodeUserInfoError
+        }
+    }
+}

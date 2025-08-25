@@ -22,6 +22,7 @@ class LedgerLinkJoinViewController: UIViewController {
     let ledgerTitleLabel = UILabel()
     let cancelButton = XOBorderLabel("取消", color: .systemRed, padding: .init(top: 4, left: 6, bottom: 4, right: 6))
     let joinButton = XOBorderLabel("加入", color: .systemBlue, padding: .init(top: 4, left: 6, bottom: 4, right: 6))
+    let loadingView = UIActivityIndicatorView(style: .medium)
 
     let errorLabel = UILabel()
 
@@ -83,6 +84,8 @@ class LedgerLinkJoinViewController: UIViewController {
         joinButton.configLabel(font: .systemFont(ofSize: 18, weight: .semibold))
         joinButton.isUserInteractionEnabled = true
         joinButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(joinAction)))
+
+        loadingView.alpha = 0
 
         errorLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         errorLabel.textAlignment = .center
@@ -147,6 +150,13 @@ class LedgerLinkJoinViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: joinButton.bottomAnchor, constant: 24)
         ])
 
+        contentView.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: ledgerTitleLabel.bottomAnchor, constant: 24),
+            loadingView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+        ])
+
         contentView.addSubview(errorLabel)
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -161,6 +171,27 @@ class LedgerLinkJoinViewController: UIViewController {
     }
 
     @objc private func joinAction() {
-        print("✅ Join ledger")
+        loadingView.startAnimating()
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            guard let self else { return }
+            loadingView.alpha = 1
+            closeButton.alpha = 0
+            joinButton.alpha = 0
+            cancelButton.alpha = 0
+        }
+        Task {
+            do {
+                let newUserInfoData = try await manager.joinLedger(token: token)
+                await MainActor.run {
+                    newSharedUserInfo.ledgerIds = newUserInfoData.ledgerIds
+                }
+                dismiss(animated: true) {
+                    XOBottomBarInformationManager.showBottomInformation(type: .success, information: "成功加入帳本")
+                }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "無法加入帳本")
+                await MainActor.run { closeButton.alpha = 1 }
+            }
+        }
     }
 }
