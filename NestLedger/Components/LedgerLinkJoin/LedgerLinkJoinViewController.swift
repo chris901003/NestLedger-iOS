@@ -11,12 +11,15 @@ import UIKit
 
 class LedgerLinkJoinViewController: UIViewController {
     let token: String
+    let ledgerId: String
+    let manager = LedgerLinkJoinManager()
 
     let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     let contentView = UIView()
 
-    init(token: String) {
+    init(token: String, ledgerId: String) {
         self.token = token
+        self.ledgerId = ledgerId
         super.init(nibName: nil, bundle: nil)
     }
 
