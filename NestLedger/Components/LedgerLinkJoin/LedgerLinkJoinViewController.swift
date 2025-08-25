@@ -184,6 +184,7 @@ class LedgerLinkJoinViewController: UIViewController {
                 let newUserInfoData = try await manager.joinLedger(token: token)
                 await MainActor.run {
                     newSharedUserInfo.ledgerIds = newUserInfoData.ledgerIds
+                    NLNotification.sendRefreshLedgerList()
                 }
                 dismiss(animated: true) {
                     XOBottomBarInformationManager.showBottomInformation(type: .success, information: "成功加入帳本")

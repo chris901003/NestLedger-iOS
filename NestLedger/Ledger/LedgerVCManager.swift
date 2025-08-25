@@ -30,6 +30,7 @@ class LedgerVCManager {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveQuitLedgerNotification), name: .quitLedger, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUpdateLedger), name: .updateLedger, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveUnauthorizedLedgerNotification), name: .unauthorizedLedger, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadView), name: .refreshLedgerListView, object: nil)
         Task {
             do {
                 try await loadMoreLedgers()
@@ -71,13 +72,12 @@ class LedgerVCManager {
         }
     }
 
-    func reloadView() {
+    @objc func reloadView() {
         Task {
             do {
                 newSharedUserInfo = try await newApiManager.getUserInfo()
                 ledgerIds = newSharedUserInfo.ledgerIds
                 ledgerDatas = []
-                await MainActor.run { NLNotification.sendRefreshLedgerList() }
                 try await loadMoreLedgers()
                 try await loadLedgerInviteCount()
             } catch {
