@@ -93,6 +93,7 @@ class NewAPIPath {
     enum LedgerInvite: String, NewAPIPathProtocol {
         // [GET]
         case get = "/v1/ledger-invite/get"
+        case createLink = "/v1/ledger-invite/create-link"
 
         // [POST]
         case create = "/v1/ledger-invite/create"

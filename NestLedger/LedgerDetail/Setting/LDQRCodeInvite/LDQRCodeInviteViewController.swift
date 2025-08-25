@@ -11,10 +11,13 @@ import UIKit
 
 class LDQRCodeInviteViewController: UIViewController {
     let ledgerData: LedgerData
+    let newApiManager = NewAPIManager()
 
     let infoLabel = UILabel()
+
     let loadingView = UIActivityIndicatorView(style: .medium)
     let qrcodeView = UIImageView()
+    let errorLabel = UILabel()
 
     init(ledgerData: LedgerData) {
         self.ledgerData = ledgerData
@@ -75,18 +78,13 @@ extension LDQRCodeInviteViewController {
         qrcodeView.contentMode = .scaleAspectFit
         qrcodeView.alpha = 0
 
-        Task {
-            let qrcode = QRCodeGenerator.generateQRCode(str: "https://xxooooxx.org")
-            await MainActor.run {
-                if let qrcode {
-                    qrcodeView.image = qrcode
-                    qrcodeView.alpha = 1
-                    loadingView.alpha = 0
-                    loadingView.stopAnimating()
-                }
-            }
-            
-        }
+        errorLabel.textColor = .secondaryLabel
+        errorLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        errorLabel.textAlignment = .center
+        errorLabel.numberOfLines = 0
+        errorLabel.alpha = 0
+
+        createInviteLink()
     }
 
     private func layout() {
@@ -103,5 +101,40 @@ extension LDQRCodeInviteViewController {
             qrcodeView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             qrcodeView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+
+        view.addSubview(errorLabel)
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            errorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            errorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+
+    private func createInviteLink() {
+        Task {
+            do {
+                let data = try await newApiManager.createLedgerInviteLink(ledgerId: ledgerData._id)
+                guard let qrcode = QRCodeGenerator.generateQRCode(str: data.link) else {
+                    throw BasicError.common(msg: "無法生成 QR Code")
+                }
+                await MainActor.run {
+                    qrcodeView.image = qrcode
+                    UIView.animate(withDuration: 0.3) { [weak self] in
+                        guard let self else { return }
+                        qrcodeView.alpha = 1
+                        loadingView.alpha = 0
+                    }
+                    loadingView.stopAnimating()
+                }
+            } catch {
+                await MainActor.run {
+                    errorLabel.text = error.localizedDescription
+                    errorLabel.alpha = 1
+                    loadingView.alpha = 0
+                    loadingView.stopAnimating()
+                }
+            }
+        }
     }
 }
