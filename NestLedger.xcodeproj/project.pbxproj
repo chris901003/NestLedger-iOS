@@ -186,6 +186,9 @@
 		05F6AEAF2E5C0E260025419A /* QRCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AEAE2E5C0E260025419A /* QRCodeGenerator.swift */; };
 		05F6AEB12E5C33430025419A /* LedgerQRCodeInviteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AEB02E5C33430025419A /* LedgerQRCodeInviteData.swift */; };
 		05F6AEB32E5C3ABC0025419A /* NLCountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AEB22E5C3ABC0025419A /* NLCountdownLabel.swift */; };
+		05F6AEB62E5C3C900025419A /* LedgerLinkJoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AEB52E5C3C900025419A /* LedgerLinkJoinViewController.swift */; };
+		05F6AEB82E5C407C0025419A /* UIApplicationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AEB72E5C407C0025419A /* UIApplicationUtility.swift */; };
+		05F6AEBA2E5C42310025419A /* UniversalLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AEB92E5C42310025419A /* UniversalLinks.swift */; };
 		05FFF7172DAFED5200CC425B /* LDSLedgerNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FFF7162DAFED5200CC425B /* LDSLedgerNameViewController.swift */; };
 		05FFF7192DAFF89900CC425B /* LDSLedgerMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FFF7182DAFF89900CC425B /* LDSLedgerMemberViewController.swift */; };
 		05FFF71D2DB1451400CC425B /* LDSLMAddNewMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FFF71C2DB1451400CC425B /* LDSLMAddNewMemberView.swift */; };
@@ -347,6 +350,9 @@
 		05F6AEAE2E5C0E260025419A /* QRCodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator.swift; sourceTree = "<group>"; };
 		05F6AEB02E5C33430025419A /* LedgerQRCodeInviteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerQRCodeInviteData.swift; sourceTree = "<group>"; };
 		05F6AEB22E5C3ABC0025419A /* NLCountdownLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLCountdownLabel.swift; sourceTree = "<group>"; };
+		05F6AEB52E5C3C900025419A /* LedgerLinkJoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerLinkJoinViewController.swift; sourceTree = "<group>"; };
+		05F6AEB72E5C407C0025419A /* UIApplicationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationUtility.swift; sourceTree = "<group>"; };
+		05F6AEB92E5C42310025419A /* UniversalLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalLinks.swift; sourceTree = "<group>"; };
 		05FFF7162DAFED5200CC425B /* LDSLedgerNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLedgerNameViewController.swift; sourceTree = "<group>"; };
 		05FFF7182DAFF89900CC425B /* LDSLedgerMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLedgerMemberViewController.swift; sourceTree = "<group>"; };
 		05FFF71C2DB1451400CC425B /* LDSLMAddNewMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMAddNewMemberView.swift; sourceTree = "<group>"; };
@@ -404,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				0503F29C2D52448700B2640C /* KeychainKey.swift */,
+				05F6AEB92E5C42310025419A /* UniversalLinks.swift */,
 			);
 			path = Const;
 			sourceTree = "<group>";
@@ -674,6 +681,7 @@
 		052944722D79E91900943CAC /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				05F6AEB42E5C3C7E0025419A /* LedgerLinkJoin */,
 				05F6AEA82E5AE7A50025419A /* LedgerSplitJoin */,
 				050533892DE300A4003245E0 /* BasicUserInfo */,
 				050E2ACD2E08447B00FC61B4 /* Common */,
@@ -993,6 +1001,7 @@
 			children = (
 				05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */,
 				05F6AEAE2E5C0E260025419A /* QRCodeGenerator.swift */,
+				05F6AEB72E5C407C0025419A /* UIApplicationUtility.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1075,6 +1084,14 @@
 				05F6AEAC2E5C08C50025419A /* LDQRCodeInviteViewController.swift */,
 			);
 			path = LDQRCodeInvite;
+			sourceTree = "<group>";
+		};
+		05F6AEB42E5C3C7E0025419A /* LedgerLinkJoin */ = {
+			isa = PBXGroup;
+			children = (
+				05F6AEB52E5C3C900025419A /* LedgerLinkJoinViewController.swift */,
+			);
+			path = LedgerLinkJoin;
 			sourceTree = "<group>";
 		};
 		05FFF7152DAFED2700CC425B /* Subviews */ = {
@@ -1267,6 +1284,7 @@
 				050E2AD22E08459300FC61B4 /* LSCLedgerAvatarView.swift in Sources */,
 				050E2AD62E09808A00FC61B4 /* LSCreateManager.swift in Sources */,
 				050E2ACC2E0839C800FC61B4 /* LSCreateViewController.swift in Sources */,
+				05F6AEBA2E5C42310025419A /* UniversalLinks.swift in Sources */,
 				0572744E2E0D7B1F00F5D3D4 /* LSDSettingManager.swift in Sources */,
 				0572744C2E0D720B00F5D3D4 /* LSDSettingViewController.swift in Sources */,
 				057274532E0D7E8500F5D3D4 /* LSDTitleAndAvatarManager.swift in Sources */,
@@ -1275,6 +1293,7 @@
 				0572C3C82D9C1911008F99FB /* LTCell.swift in Sources */,
 				0572C3C52D9ADA6C008F99FB /* LTransactionManager.swift in Sources */,
 				0572C3C32D9AD54C008F99FB /* LTransactionView.swift in Sources */,
+				05F6AEB62E5C3C900025419A /* LedgerLinkJoinViewController.swift in Sources */,
 				05C95D1E2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift in Sources */,
 				0505337C2DDF1D31003245E0 /* LedgerCreateRequestData.swift in Sources */,
 				051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */,
@@ -1356,6 +1375,7 @@
 				050533762DDECA5F003245E0 /* TransactionCreateRequestData.swift in Sources */,
 				051257E62D81BE980066F3F2 /* TransactionData.swift in Sources */,
 				05F6AEB32E5C3ABC0025419A /* NLCountdownLabel.swift in Sources */,
+				05F6AEB82E5C407C0025419A /* UIApplicationUtility.swift in Sources */,
 				05B421152D9D6AE0000C8ECC /* TransactionManager.swift in Sources */,
 				050533782DDED4CF003245E0 /* TransactionQueryRequestData.swift in Sources */,
 				050533842DE0B9B3003245E0 /* TransactionUpdateRequestData.swift in Sources */,

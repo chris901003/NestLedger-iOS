@@ -54,6 +54,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let parts = url.pathComponents
         guard let resource = parts.dropFirst().first,
               let action = parts.dropFirst().dropFirst().first else { return }
+        let comps = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        switch url.path() {
+            case LEDGER_INVITE_LINK_URL:
+                guard let token = comps?.queryItems?.first(where: { $0.name == "token" })?.value else { return }
+                let ledgerLinkJoinVC = LedgerLinkJoinViewController(token: token)
+                ledgerLinkJoinVC.modalPresentationStyle = .overFullScreen
+                ledgerLinkJoinVC.modalTransitionStyle = .crossDissolve
+                guard let rootVC = UIApplicationUtility.getTopViewController() else { return }
+                rootVC.present(ledgerLinkJoinVC, animated: true)
+            default:
+                break
+        }
         switch (resource, action) {
             case ("ledger-split", "invite"):
                 let comps = URLComponents(url: url, resolvingAgainstBaseURL: false)
