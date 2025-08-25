@@ -27,6 +27,7 @@ fileprivate enum LDSRow: String, CaseIterable {
     case copyTagToOtherLedger = "複製標籤到其他帳本"
 
     // [member]
+    case inviteQRCode = "加入帳本 QRCode"
     case nickName = "暱稱"
     case member = "帳本成員"
     case exit = "退出帳本"
@@ -38,7 +39,7 @@ fileprivate enum LDSRow: String, CaseIterable {
             case .tag:
                 return [.tag, .copyTagToOtherLedger]
             case .member:
-                return [.nickName, .member, .exit]
+                return [.inviteQRCode, .nickName, .member, .exit]
         }
     }
 }
@@ -155,6 +156,11 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.config(title: row.rawValue, info: "")
                     return cell
                 }
+            case .inviteQRCode:
+                if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelWithIconCell.cellId, for: indexPath) as? XOLeadingTrailingLabelWithIconCell {
+                    cell.config(title: row.rawValue, info: "", iconName: "qrcode")
+                    return cell
+                }
             case .nickName:
                 if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelCell.cellId, for: indexPath) as? XOLeadingTrailingLabelCell {
                     let nickName = manager.ledgerData.userNames[newSharedUserInfo.id] ?? newSharedUserInfo.userName
@@ -195,6 +201,9 @@ extension LDSettingViewController: UITableViewDelegate, UITableViewDataSource {
             case .copyTagToOtherLedger:
                 let copyTagToOtherLedgerVC = CopyTagToOtherLedgerViewController(ledgerId: manager.ledgerData._id)
                 present(copyTagToOtherLedgerVC, animated: true)
+            case .inviteQRCode:
+                let qrcodeInviteVC = LDQRCodeInviteViewController(ledgerData: manager.ledgerData)
+                navigationController?.pushViewController(qrcodeInviteVC, animated: true)
             case .nickName:
                 let nickName = manager.ledgerData.userNames[newSharedUserInfo.id] ?? newSharedUserInfo.userName
                 let userNickNameVC = LDSUserNickNameViewController(userName: nickName)
