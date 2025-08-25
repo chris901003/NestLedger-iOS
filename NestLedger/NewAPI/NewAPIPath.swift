@@ -82,6 +82,7 @@ class NewAPIPath {
         case get = "/v1/ledger/get"
         case leave = "/v1/ledger/leave"
         case setUserNickName = "/v1/ledger/setUserName"
+        case getLedgerByInviteToken = "/v1/ledger/get-ledger-by-invite-token"
 
         // [POST]
         case create = "/v1/ledger/create"

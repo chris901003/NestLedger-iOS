@@ -9,5 +9,9 @@
 import Foundation
 
 class LedgerLinkJoinManager {
-    
+    let newAPIManager = NewAPIManager()
+
+    func getLedgerData(ledgerId: String, token: String) async throws -> LedgerData {
+        return try await newAPIManager.getLedgerByInviteToken(ledgerId: ledgerId, inviteToken: token)
+    }
 }
