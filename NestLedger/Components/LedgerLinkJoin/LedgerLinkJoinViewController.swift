@@ -23,6 +23,8 @@ class LedgerLinkJoinViewController: UIViewController {
     let cancelButton = XOBorderLabel("取消", color: .systemRed, padding: .init(top: 4, left: 6, bottom: 4, right: 6))
     let joinButton = XOBorderLabel("加入", color: .systemBlue, padding: .init(top: 4, left: 6, bottom: 4, right: 6))
 
+    let errorLabel = UILabel()
+
     init(token: String, ledgerId: String) {
         self.token = token
         self.ledgerId = ledgerId
@@ -45,8 +47,14 @@ class LedgerLinkJoinViewController: UIViewController {
                     ledgerTitleLabel.text = ledgerData.title
                 }
             } catch {
-                // TODO: 這裡需要完整的說明，因為是非常有可能到這裡，原因是過期的 token
-                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: error.localizedDescription)
+                await MainActor.run {
+                    errorLabel.text = "此邀請連結已失效，請請求帳本成員重新產生邀請 QR Code。"
+                    errorLabel.alpha = 1
+                    titleLabel.alpha = 0
+                    ledgerTitleLabel.alpha = 0
+                    cancelButton.alpha = 0
+                    joinButton.alpha = 0
+                }
             }
         }
     }
@@ -75,6 +83,11 @@ class LedgerLinkJoinViewController: UIViewController {
         joinButton.configLabel(font: .systemFont(ofSize: 18, weight: .semibold))
         joinButton.isUserInteractionEnabled = true
         joinButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(joinAction)))
+
+        errorLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        errorLabel.textAlignment = .center
+        errorLabel.numberOfLines = 0
+        errorLabel.alpha = 0
     }
 
     private func layout() {
@@ -132,6 +145,14 @@ class LedgerLinkJoinViewController: UIViewController {
             joinButton.topAnchor.constraint(equalTo: ledgerTitleLabel.bottomAnchor, constant: 24),
             joinButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 48),
             contentView.bottomAnchor.constraint(equalTo: joinButton.bottomAnchor, constant: 24)
+        ])
+
+        contentView.addSubview(errorLabel)
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            errorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            errorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            errorLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
 
