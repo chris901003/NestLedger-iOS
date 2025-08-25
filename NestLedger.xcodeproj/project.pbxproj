@@ -185,6 +185,7 @@
 		05F6AEAD2E5C08C50025419A /* LDQRCodeInviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AEAC2E5C08C50025419A /* LDQRCodeInviteViewController.swift */; };
 		05F6AEAF2E5C0E260025419A /* QRCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AEAE2E5C0E260025419A /* QRCodeGenerator.swift */; };
 		05F6AEB12E5C33430025419A /* LedgerQRCodeInviteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AEB02E5C33430025419A /* LedgerQRCodeInviteData.swift */; };
+		05F6AEB32E5C3ABC0025419A /* NLCountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F6AEB22E5C3ABC0025419A /* NLCountdownLabel.swift */; };
 		05FFF7172DAFED5200CC425B /* LDSLedgerNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FFF7162DAFED5200CC425B /* LDSLedgerNameViewController.swift */; };
 		05FFF7192DAFF89900CC425B /* LDSLedgerMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FFF7182DAFF89900CC425B /* LDSLedgerMemberViewController.swift */; };
 		05FFF71D2DB1451400CC425B /* LDSLMAddNewMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FFF71C2DB1451400CC425B /* LDSLMAddNewMemberView.swift */; };
@@ -345,6 +346,7 @@
 		05F6AEAC2E5C08C50025419A /* LDQRCodeInviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDQRCodeInviteViewController.swift; sourceTree = "<group>"; };
 		05F6AEAE2E5C0E260025419A /* QRCodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator.swift; sourceTree = "<group>"; };
 		05F6AEB02E5C33430025419A /* LedgerQRCodeInviteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerQRCodeInviteData.swift; sourceTree = "<group>"; };
+		05F6AEB22E5C3ABC0025419A /* NLCountdownLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLCountdownLabel.swift; sourceTree = "<group>"; };
 		05FFF7162DAFED5200CC425B /* LDSLedgerNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLedgerNameViewController.swift; sourceTree = "<group>"; };
 		05FFF7182DAFF89900CC425B /* LDSLedgerMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLedgerMemberViewController.swift; sourceTree = "<group>"; };
 		05FFF71C2DB1451400CC425B /* LDSLMAddNewMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDSLMAddNewMemberView.swift; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 			isa = PBXGroup;
 			children = (
 				050E2ACE2E0844A800FC61B4 /* NLCircleView.swift */,
+				05F6AEB22E5C3ABC0025419A /* NLCountdownLabel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1352,6 +1355,7 @@
 				052944752D79E9D700943CAC /* TagViewController.swift in Sources */,
 				050533762DDECA5F003245E0 /* TransactionCreateRequestData.swift in Sources */,
 				051257E62D81BE980066F3F2 /* TransactionData.swift in Sources */,
+				05F6AEB32E5C3ABC0025419A /* NLCountdownLabel.swift in Sources */,
 				05B421152D9D6AE0000C8ECC /* TransactionManager.swift in Sources */,
 				050533782DDED4CF003245E0 /* TransactionQueryRequestData.swift in Sources */,
 				050533842DE0B9B3003245E0 /* TransactionUpdateRequestData.swift in Sources */,

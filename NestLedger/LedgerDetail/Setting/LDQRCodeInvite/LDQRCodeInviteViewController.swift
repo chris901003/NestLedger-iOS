@@ -18,6 +18,7 @@ class LDQRCodeInviteViewController: UIViewController {
     let loadingView = UIActivityIndicatorView(style: .medium)
     let qrcodeView = UIImageView()
     let errorLabel = UILabel()
+    let countdownLabel = NLCountdownLabel()
 
     init(ledgerData: LedgerData) {
         self.ledgerData = ledgerData
@@ -84,6 +85,12 @@ extension LDQRCodeInviteViewController {
         errorLabel.numberOfLines = 0
         errorLabel.alpha = 0
 
+        countdownLabel.textColor = .secondaryLabel
+        countdownLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        countdownLabel.textAlignment = .center
+        countdownLabel.numberOfLines = 1
+        countdownLabel.alpha = 0
+
         createInviteLink()
     }
 
@@ -109,6 +116,14 @@ extension LDQRCodeInviteViewController {
             errorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+
+        view.addSubview(countdownLabel)
+        countdownLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            countdownLabel.topAnchor.constraint(equalTo: qrcodeView.bottomAnchor, constant: 12),
+            countdownLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            countdownLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+        ])
     }
 
     private func createInviteLink() {
@@ -119,10 +134,12 @@ extension LDQRCodeInviteViewController {
                     throw BasicError.common(msg: "無法生成 QR Code")
                 }
                 await MainActor.run {
+                    countdownLabel.startCountdown(to: data.expiresAt)
                     qrcodeView.image = qrcode
                     UIView.animate(withDuration: 0.3) { [weak self] in
                         guard let self else { return }
                         qrcodeView.alpha = 1
+                        countdownLabel.alpha = 1
                         loadingView.alpha = 0
                     }
                     loadingView.stopAnimating()
