@@ -40,6 +40,9 @@ extension NewAPIManager {
         do {
             guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
             let userInfo = try NewAPIManager.decoder.decode(CleanUserInforesponse.self, from: data)
+            if userInfo.data.isDelete {
+                throw BasicError.common(msg: "該帳號已經被刪除")
+            }
             newSharedUserInfo = userInfo.data
         } catch {
             if error is NewAPIManagerError { throw error }
