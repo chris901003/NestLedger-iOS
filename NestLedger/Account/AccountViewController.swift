@@ -185,6 +185,7 @@ class AccountViewController: UIViewController {
         settingTableView.register(XOLeadingTrailingLabelWithIconCell.self, forCellReuseIdentifier: titleInfoIconCellId)
         settingTableView.register(XOLeadingTrailingLabelCell.self, forCellReuseIdentifier: titleInfoCellId)
         settingTableView.register(XOCenterLabelCell.self, forCellReuseIdentifier: centerLabelCellId)
+        settingTableView.register(AAppVersionCell.self, forCellReuseIdentifier: AAppVersionCell.cellId)
     }
 }
 

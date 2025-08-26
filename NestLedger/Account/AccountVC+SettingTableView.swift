@@ -27,6 +27,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
         case logout = "登出"
         case deleteAccount = "刪除帳號"
         // Information Section
+        case appVersion = "版本"
         case author = "作者"
         case privacy = "隱私權"
         case contactUs = "聯絡我們"
@@ -40,7 +41,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
     static let rows: [[AccountViewController.SettingRowType]] = [
         [.timeZone, .imageQuality],
         [.logout, .deleteAccount],
-        [.author, .privacy, .contactUs, .copyright]
+        [.appVersion, .author, .privacy, .contactUs, .copyright]
     ]
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -66,6 +67,9 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             case .author, .contactUs, .copyright:
                 cell = settingTableView.dequeueReusableCell(withIdentifier: titleInfoCellId, for: indexPath)
                 cell.selectionStyle = .none
+            case .appVersion:
+                cell = settingTableView.dequeueReusableCell(withIdentifier: AAppVersionCell.cellId, for: indexPath)
+                cell.selectionStyle = .none
         }
         switch rowType {
             case .timeZone:
@@ -80,6 +84,8 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             case .deleteAccount:
                 guard let cell = cell as? XOCenterLabelCell else { return cell }
                 cell.config(label: rowType.rawValue, font: .systemFont(ofSize: 16, weight: .semibold), color: .systemRed)
+            case .appVersion:
+                return cell
             case .author:
                 guard let cell = cell as? XOLeadingTrailingLabelCell else { return cell }
                 cell.config(title: rowType.rawValue, info: manager.basicInformation.author)
