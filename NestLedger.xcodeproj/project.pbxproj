@@ -175,6 +175,8 @@
 		05EE3D0D2DDCBD5D00CC22AA /* NewAPIPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EE3D0C2DDCBD5D00CC22AA /* NewAPIPath.swift */; };
 		05EE3D0F2DDCBE7F00CC22AA /* NewAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EE3D0E2DDCBE7600CC22AA /* NewAPIManager.swift */; };
 		05EE3D112DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EE3D102DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift */; };
+		05F3DF4C2E604C5800E1930D /* SceneDelegate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF4B2E604C5800E1930D /* SceneDelegate+Extension.swift */; };
+		05F3DF4E2E604CED00E1930D /* NewAPIManager+Analysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF4D2E604CED00E1930D /* NewAPIManager+Analysis.swift */; };
 		05F4E3982D9ED42D006FC9C9 /* TDateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */; };
 		05F4E39A2DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */; };
 		05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E39B2DA41669006FC9C9 /* TAmountView.swift */; };
@@ -341,6 +343,8 @@
 		05EE3D0C2DDCBD5D00CC22AA /* NewAPIPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAPIPath.swift; sourceTree = "<group>"; };
 		05EE3D0E2DDCBE7600CC22AA /* NewAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAPIManager.swift; sourceTree = "<group>"; };
 		05EE3D102DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+UserInfo.swift"; sourceTree = "<group>"; };
+		05F3DF4B2E604C5800E1930D /* SceneDelegate+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+Extension.swift"; sourceTree = "<group>"; };
+		05F3DF4D2E604CED00E1930D /* NewAPIManager+Analysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Analysis.swift"; sourceTree = "<group>"; };
 		05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDateSelectionView.swift; sourceTree = "<group>"; };
 		05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIncomeExpenseSelectorView.swift; sourceTree = "<group>"; };
 		05F4E39B2DA41669006FC9C9 /* TAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAmountView.swift; sourceTree = "<group>"; };
@@ -461,11 +465,11 @@
 		0503F2AF2D54E1BF00B2640C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				05F6AE9E2E570BA60025419A /* Error+Extension.swift */,
 				051B49182D87077800834D72 /* NotificationName+Extension.swift */,
 				050EB9B12DCA3BB900F8C04F /* UIImage+Extension.swift */,
 				0503F2B02D54E1D200B2640C /* UIView+Extension.swift */,
 				051B27C12DCCF0F7000B7E0C /* UIViewController+Extension.swift */,
-				05F6AE9E2E570BA60025419A /* Error+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -520,6 +524,7 @@
 				050830FE2D41DA11008C8831 /* Assets.xcassets */,
 				050831032D41DA11008C8831 /* Info.plist */,
 				051AC9312D41EFAD00ECE40B /* NestLedger.entitlements */,
+				05F3DF4B2E604C5800E1930D /* SceneDelegate+Extension.swift */,
 				050830F72D41DA0F008C8831 /* SceneDelegate.swift */,
 				050830F92D41DA0F008C8831 /* ViewController.swift */,
 			);
@@ -635,8 +640,8 @@
 		051441592DAE94AB00197191 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				05F6AEAB2E5C08A00025419A /* LDQRCodeInvite */,
 				058EB78F2DF9C963009E65EF /* CopyTagToOtherLedger */,
+				05F6AEAB2E5C08A00025419A /* LDQRCodeInvite */,
 				05A59B162DEF2F260016E905 /* Statistics */,
 				05FFF7152DAFED2700CC425B /* Subviews */,
 				0514415C2DAEA5EC00197191 /* LDSettingManager.swift */,
@@ -685,10 +690,10 @@
 		052944722D79E91900943CAC /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				05F6AEB42E5C3C7E0025419A /* LedgerLinkJoin */,
-				05F6AEA82E5AE7A50025419A /* LedgerSplitJoin */,
 				050533892DE300A4003245E0 /* BasicUserInfo */,
 				050E2ACD2E08447B00FC61B4 /* Common */,
+				05F6AEB42E5C3C7E0025419A /* LedgerLinkJoin */,
+				05F6AEA82E5AE7A50025419A /* LedgerSplitJoin */,
 				052944732D79E9B500943CAC /* Tag */,
 				05B421112D9D6869000C8ECC /* Transaction */,
 			);
@@ -710,9 +715,9 @@
 		0532E0E02DEDCD6800B06DD0 /* CacheData */ = {
 			isa = PBXGroup;
 			children = (
-				0504F7612E4D7AC100E8399F /* CacheUserAvatarManager.swift */,
-				0504F7632E4DB1E100E8399F /* CacheTagManager.swift */,
 				055B734C2E4E176E00BC0D2D /* CacheLedgerSplitAvatarManager.swift */,
+				0504F7632E4DB1E100E8399F /* CacheTagManager.swift */,
+				0504F7612E4D7AC100E8399F /* CacheUserAvatarManager.swift */,
 			);
 			path = CacheData;
 			sourceTree = "<group>";
@@ -768,8 +773,8 @@
 			children = (
 				0572744A2E0D71EC00F5D3D4 /* Setting */,
 				057274482E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift */,
-				057274462E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift */,
 				05F6AEA02E570F950025419A /* LedgerSplitDetailStore.swift */,
+				057274462E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift */,
 			);
 			path = LedgerSplitDetail;
 			sourceTree = "<group>";
@@ -995,8 +1000,8 @@
 		05EC2B0E2D6A14BA006F1F3A /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */,
 				05F6AEBD2E5C987A0025419A /* AAppVersionCell.swift */,
+				05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1046,6 +1051,7 @@
 		05EE3D0B2DDCBD4E00CC22AA /* NewAPI */ = {
 			isa = PBXGroup;
 			children = (
+				05F3DF4D2E604CED00E1930D /* NewAPIManager+Analysis.swift */,
 				0505338C2DE4A8BD003245E0 /* NewAPIManager+EmailVerification.swift */,
 				050533672DDDA12A003245E0 /* NewAPIManager+Information.swift */,
 				050533792DDF1A6C003245E0 /* NewAPIManager+Ledger.swift */,
@@ -1094,8 +1100,8 @@
 		05F6AEB42E5C3C7E0025419A /* LedgerLinkJoin */ = {
 			isa = PBXGroup;
 			children = (
-				05F6AEB52E5C3C900025419A /* LedgerLinkJoinViewController.swift */,
 				05F6AEBB2E5C49540025419A /* LedgerLinkJoinManager.swift */,
+				05F6AEB52E5C3C900025419A /* LedgerLinkJoinViewController.swift */,
 			);
 			path = LedgerLinkJoin;
 			sourceTree = "<group>";
@@ -1237,6 +1243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05F6AEBE2E5C987A0025419A /* AAppVersionCell.swift in Sources */,
 				05B340AD2D66201E000378A2 /* APIResponseData.swift in Sources */,
 				0557045B2D578ECA0032C47C /* AccountVC+SettingTableView.swift in Sources */,
 				055704532D5781D30032C47C /* AccountVCManager.swift in Sources */,
@@ -1245,25 +1252,28 @@
 				05C5E39D2D91A6E000E36A3A /* AvatarCollectionViewCell.swift in Sources */,
 				05B340B22D66222F000378A2 /* BasicInformationData.swift in Sources */,
 				0505338B2DE300D6003245E0 /* BasicUserInfoViewController.swift in Sources */,
+				055B734D2E4E176E00BC0D2D /* CacheLedgerSplitAvatarManager.swift in Sources */,
+				0504F7642E4DB1E100E8399F /* CacheTagManager.swift in Sources */,
+				0504F7622E4D7AC100E8399F /* CacheUserAvatarManager.swift in Sources */,
 				050E2A3C2E0044EB00FC61B4 /* CopyTagToOtherLedgerManager.swift in Sources */,
 				058EB7912DF9C98D009E65EF /* CopyTagToOtherLedgerViewController.swift in Sources */,
 				059CBE442DC119D7000B7F22 /* CreateLedgerViewController.swift in Sources */,
 				055704592D57839C0032C47C /* DataConstain.swift in Sources */,
 				05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */,
 				059344722DE5EF030042FB36 /* EmailVerificationData.swift in Sources */,
+				05F6AE9F2E570BA60025419A /* Error+Extension.swift in Sources */,
 				0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */,
 				05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */,
 				0503F29D2D52448700B2640C /* KeychainKey.swift in Sources */,
-				05F6AEB12E5C33430025419A /* LedgerQRCodeInviteData.swift in Sources */,
 				0503F29A2D52420000B2640C /* KeychainManager.swift in Sources */,
 				051441582DAD3C0F00197191 /* LDAddTransactionView.swift in Sources */,
 				05AF766B2D944A0800C27407 /* LDIncomeExpenseView.swift in Sources */,
+				05F6AEAD2E5C08C50025419A /* LDQRCodeInviteViewController.swift in Sources */,
 				058EB7942DFAFD0B009E65EF /* LDSCTBackButtonView.swift in Sources */,
 				050E2A412E00564700FC61B4 /* LDSCTCurrentTagCell.swift in Sources */,
 				050E2A3F2E0052DC00FC61B4 /* LDSCTCurrentTagView.swift in Sources */,
 				050E2A312DFB159400FC61B4 /* LDSCTLedgerCell.swift in Sources */,
 				058EB7992DFB0844009E65EF /* LDSCTLedgerListViewController.swift in Sources */,
-				05F6AEBE2E5C987A0025419A /* AAppVersionCell.swift in Sources */,
 				050E2A332DFB163B00FC61B4 /* LDSCTLedgerManager.swift in Sources */,
 				050E2A382DFC6DAF00FC61B4 /* LDSCTTagCell.swift in Sources */,
 				058EB7962DFB0458009E65EF /* LDSCTTargetLedgerSelectView.swift in Sources */,
@@ -1282,7 +1292,6 @@
 				05A59B332DF08E0F0016E905 /* LDSSearchView.swift in Sources */,
 				058EB78E2DF9A96C009E65EF /* LDSUserNickNameViewController.swift in Sources */,
 				0514415D2DAEA5EC00197191 /* LDSettingManager.swift in Sources */,
-				05F6AEAF2E5C0E260025419A /* QRCodeGenerator.swift in Sources */,
 				0514415B2DAE94BB00197191 /* LDSettingViewController.swift in Sources */,
 				05A59B352DF093830016E905 /* LDStatisticsManager.swift in Sources */,
 				05A59B182DEF2F470016E905 /* LDStatisticsViewController.swift in Sources */,
@@ -1291,7 +1300,7 @@
 				050E2AD22E08459300FC61B4 /* LSCLedgerAvatarView.swift in Sources */,
 				050E2AD62E09808A00FC61B4 /* LSCreateManager.swift in Sources */,
 				050E2ACC2E0839C800FC61B4 /* LSCreateViewController.swift in Sources */,
-				05F6AEBA2E5C42310025419A /* UniversalLinks.swift in Sources */,
+				05F6AEA72E5AAF8E0025419A /* LSDInviteQRCodeViewController.swift in Sources */,
 				0572744E2E0D7B1F00F5D3D4 /* LSDSettingManager.swift in Sources */,
 				0572744C2E0D720B00F5D3D4 /* LSDSettingViewController.swift in Sources */,
 				057274532E0D7E8500F5D3D4 /* LSDTitleAndAvatarManager.swift in Sources */,
@@ -1300,7 +1309,6 @@
 				0572C3C82D9C1911008F99FB /* LTCell.swift in Sources */,
 				0572C3C52D9ADA6C008F99FB /* LTransactionManager.swift in Sources */,
 				0572C3C32D9AD54C008F99FB /* LTransactionView.swift in Sources */,
-				05F6AEB62E5C3C900025419A /* LedgerLinkJoinViewController.swift in Sources */,
 				05C95D1E2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift in Sources */,
 				0505337C2DDF1D31003245E0 /* LedgerCreateRequestData.swift in Sources */,
 				051257DA2D7F16630066F3F2 /* LedgerData.swift in Sources */,
@@ -1308,16 +1316,18 @@
 				05C5E3982D91894A00E36A3A /* LedgerDetailViewController.swift in Sources */,
 				050533822DE0B42C003245E0 /* LedgerInviteCreateRequestData.swift in Sources */,
 				05764D9D2DB93082007292D7 /* LedgerInviteData.swift in Sources */,
-				05F6AEA12E570F950025419A /* LedgerSplitDetailStore.swift in Sources */,
+				05F6AEBC2E5C49540025419A /* LedgerLinkJoinManager.swift in Sources */,
+				05F6AEB62E5C3C900025419A /* LedgerLinkJoinViewController.swift in Sources */,
+				05F6AEB12E5C33430025419A /* LedgerQRCodeInviteData.swift in Sources */,
 				050E2ADD2E0AD4F500FC61B4 /* LedgerSplitCreateRequestData.swift in Sources */,
 				050E2AD92E098CA800FC61B4 /* LedgerSplitData.swift in Sources */,
-				05F6AEAD2E5C08C50025419A /* LDQRCodeInviteViewController.swift in Sources */,
 				057274492E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift in Sources */,
+				05F6AEA12E570F950025419A /* LedgerSplitDetailStore.swift in Sources */,
 				057274472E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift in Sources */,
+				05F6AEAA2E5AE7C20025419A /* LedgerSplitJoinViewController.swift in Sources */,
 				050E2ADF2E0AE2CC00FC61B4 /* LedgerSplitManager.swift in Sources */,
 				057274552E102CCC00F5D3D4 /* LedgerSplitUpdateRequestData.swift in Sources */,
 				050E2AC72E07AFA900FC61B4 /* LedgerSplitViewController.swift in Sources */,
-				05F6AEAA2E5AE7C20025419A /* LedgerSplitJoinViewController.swift in Sources */,
 				050533802DE061A0003245E0 /* LedgerUpdateRequestData.swift in Sources */,
 				05C95D202D8C5CD60058A8A8 /* LedgerVCManager.swift in Sources */,
 				05C95D1B2D8AF7BF0058A8A8 /* LedgerViewController.swift in Sources */,
@@ -1325,7 +1335,6 @@
 				050831402D41E029008C8831 /* LoginViewController.swift in Sources */,
 				051B49212D8859FD00834D72 /* MCDateCell.swift in Sources */,
 				051B491F2D8859D400834D72 /* MCTitleCell.swift in Sources */,
-				05F6AE9F2E570BA60025419A /* Error+Extension.swift in Sources */,
 				051B49232D885B3500834D72 /* MCalendarManager.swift in Sources */,
 				051B491C2D870ACC00834D72 /* MCalendarView.swift in Sources */,
 				05C95D182D8AEE240058A8A8 /* MPCTagCell.swift in Sources */,
@@ -1343,33 +1352,33 @@
 				051257EA2D8326260066F3F2 /* MRecntManager.swift in Sources */,
 				050533882DE2B868003245E0 /* MainManager.swift in Sources */,
 				0503F2AB2D524E0800B2640C /* MainViewController.swift in Sources */,
-				05F6AEBC2E5C49540025419A /* LedgerLinkJoinManager.swift in Sources */,
 				050E2ACF2E0844A800FC61B4 /* NLCircleView.swift in Sources */,
+				05F6AEB32E5C3ABC0025419A /* NLCountdownLabel.swift in Sources */,
+				05F3DF4E2E604CED00E1930D /* NewAPIManager+Analysis.swift in Sources */,
 				0505338D2DE4A8BD003245E0 /* NewAPIManager+EmailVerification.swift in Sources */,
 				050533682DDDA12A003245E0 /* NewAPIManager+Information.swift in Sources */,
 				0505337A2DDF1A6C003245E0 /* NewAPIManager+Ledger.swift in Sources */,
 				0505337E2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift in Sources */,
 				050E2ADB2E0AD48600FC61B4 /* NewAPIManager+LedgerSplit.swift in Sources */,
-				0504F7642E4DB1E100E8399F /* CacheTagManager.swift in Sources */,
 				0505336C2DDE1333003245E0 /* NewAPIManager+Tag.swift in Sources */,
 				050533742DDEC97E003245E0 /* NewAPIManager+Transaction.swift in Sources */,
 				05EE3D112DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift in Sources */,
-				05F6AEA72E5AAF8E0025419A /* LSDInviteQRCodeViewController.swift in Sources */,
 				05EE3D0F2DDCBE7F00CC22AA /* NewAPIManager.swift in Sources */,
 				05EE3D0D2DDCBD5D00CC22AA /* NewAPIPath.swift in Sources */,
 				054A09322D7C11E30092B7E8 /* NewTagCell.swift in Sources */,
 				051B49192D87077800834D72 /* NotificationName+Extension.swift in Sources */,
+				05F6AEAF2E5C0E260025419A /* QRCodeGenerator.swift in Sources */,
 				05ADF3A02DC3BB6A00DF8391 /* RLICell.swift in Sources */,
 				05ADF3A22DC4F0CC00DF8391 /* ReceiveLedgerInviteManager.swift in Sources */,
 				05ADF39D2DC268ED00DF8391 /* ReceiveLedgerInviteViewController.swift in Sources */,
 				0503F2A52D524D2200B2640C /* RootViewController.swift in Sources */,
+				05F3DF4C2E604C5800E1930D /* SceneDelegate+Extension.swift in Sources */,
 				050830F82D41DA0F008C8831 /* SceneDelegate.swift in Sources */,
 				051257DE2D7F1AC80066F3F2 /* SingletonData.swift in Sources */,
 				05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */,
 				05F4E3982D9ED42D006FC9C9 /* TDateSelectionView.swift in Sources */,
 				05F4E39A2DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift in Sources */,
 				05B421172D9EC432000C8ECC /* TTagSelectionButtonView.swift in Sources */,
-				0504F7622E4D7AC100E8399F /* CacheUserAvatarManager.swift in Sources */,
 				054A09342D7C1DDB0092B7E8 /* TVC+TabelViewSetting.swift in Sources */,
 				05C37B912D7B35FF005FCF89 /* TagCell.swift in Sources */,
 				050E2AC42E079E0E00FC61B4 /* TagCopyRequestData.swift in Sources */,
@@ -1382,16 +1391,15 @@
 				052944752D79E9D700943CAC /* TagViewController.swift in Sources */,
 				050533762DDECA5F003245E0 /* TransactionCreateRequestData.swift in Sources */,
 				051257E62D81BE980066F3F2 /* TransactionData.swift in Sources */,
-				05F6AEB32E5C3ABC0025419A /* NLCountdownLabel.swift in Sources */,
-				05F6AEB82E5C407C0025419A /* UIApplicationUtility.swift in Sources */,
 				05B421152D9D6AE0000C8ECC /* TransactionManager.swift in Sources */,
 				050533782DDED4CF003245E0 /* TransactionQueryRequestData.swift in Sources */,
 				050533842DE0B9B3003245E0 /* TransactionUpdateRequestData.swift in Sources */,
 				05B421132D9D68E4000C8ECC /* TransactionViewController.swift in Sources */,
+				05F6AEB82E5C407C0025419A /* UIApplicationUtility.swift in Sources */,
 				050EB9B22DCA3BB900F8C04F /* UIImage+Extension.swift in Sources */,
-				055B734D2E4E176E00BC0D2D /* CacheLedgerSplitAvatarManager.swift in Sources */,
 				0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */,
 				051B27C22DCCF0F7000B7E0C /* UIViewController+Extension.swift in Sources */,
+				05F6AEBA2E5C42310025419A /* UniversalLinks.swift in Sources */,
 				055704572D5782A90032C47C /* UserInfoData.swift in Sources */,
 				0505336A2DDE07B9003245E0 /* UserInfoUpdateRequestData.swift in Sources */,
 				050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */,

@@ -122,4 +122,9 @@ class NewAPIPath {
         // [PATCH]
         case update = "/v1/ledger-split/update"
     }
+
+    enum Analysis: String, NewAPIPathProtocol {
+        // [GET]
+        case appVersion = "/v1/analysis/app-version"
+    }
 }
