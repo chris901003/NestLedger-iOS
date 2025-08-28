@@ -28,6 +28,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
         case deleteAccount = "刪除帳號"
         // Information Section
         case appVersion = "版本"
+        case feedback = "給我們建議"
         case author = "作者"
         case privacy = "隱私權"
         case contactUs = "聯絡我們"
@@ -41,7 +42,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
     static let rows: [[AccountViewController.SettingRowType]] = [
         [.timeZone, .imageQuality],
         [.logout, .deleteAccount],
-        [.appVersion, .author, .privacy, .contactUs, .copyright]
+        [.appVersion, .feedback, .author, .privacy, .contactUs, .copyright]
     ]
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -60,7 +61,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
         let rowType = AccountViewController.rows[indexPath.section][indexPath.row]
         var cell = UITableViewCell()
         switch rowType {
-            case .timeZone, .imageQuality, .privacy:
+            case .timeZone, .imageQuality, .feedback, .privacy:
                 cell = settingTableView.dequeueReusableCell(withIdentifier: titleInfoIconCellId, for: indexPath)
             case .logout, .deleteAccount:
                 cell = settingTableView.dequeueReusableCell(withIdentifier: centerLabelCellId, for: indexPath)
@@ -86,6 +87,9 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.config(label: rowType.rawValue, font: .systemFont(ofSize: 16, weight: .semibold), color: .systemRed)
             case .appVersion:
                 return cell
+            case .feedback:
+                guard let cell = cell as? XOLeadingTrailingLabelWithIconCell else { return cell }
+                cell.config(title: rowType.rawValue, info: "")
             case .author:
                 guard let cell = cell as? XOLeadingTrailingLabelCell else { return cell }
                 cell.config(title: rowType.rawValue, info: manager.basicInformation.author)
@@ -135,6 +139,16 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 alertController.addAction(cancelAction)
                 alertController.addAction(deleteAction)
                 present(alertController, animated: true)
+            case .feedback:
+                let feedbackVC = FeedbackViewController()
+                let _50DetentId = UISheetPresentationController.Detent.Identifier("50")
+                let _50Detent = UISheetPresentationController.Detent.custom(identifier: _50DetentId) { context in
+                    UIScreen.main.bounds.height * 0.5
+                }
+                if let sheet = feedbackVC.sheetPresentationController {
+                    sheet.detents = [_50Detent]
+                }
+                present(feedbackVC, animated: true)
             case .privacy:
                 guard let url = URL(string: "https://www.xxooooxx.org/NestLedger") else { return }
                 let safariVC = SFSafariViewController(url: url)
