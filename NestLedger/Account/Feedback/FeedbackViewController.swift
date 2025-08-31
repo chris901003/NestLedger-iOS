@@ -37,6 +37,9 @@ class FeedbackViewController: UIViewController {
         view.backgroundColor = .white
         presentationController?.delegate = self
 
+        topBarView.backgroundColor = .systemGray5
+        topBarView.layer.cornerRadius = 2.0
+
         feedbackInputView.delegate = self
 
         feedbackSuccessView.delegate = self

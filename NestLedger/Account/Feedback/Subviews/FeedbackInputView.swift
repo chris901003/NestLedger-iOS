@@ -15,10 +15,6 @@ protocol FeedbackInputViewDelegate: AnyObject {
 }
 
 class FeedbackInputView: UIView {
-    let sendButton = XOPaddedImageView(
-        padding: .init(top: 6, left: 6, bottom: 6, right: 6),
-        image: UIImage(systemName: "paperplane")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
-    )
     let scrollView = UIScrollView()
     let mainContentView = UIView()
     let titleLable = UILabel()
@@ -27,6 +23,7 @@ class FeedbackInputView: UIView {
     let emailAddressInputView = XOTextField(.init(top: 8, left: 16, bottom: 8, right: 16))
     let contentLabel = UILabel()
     let contentInputView = UITextView()
+    let sendButtonView = XOBorderLabel("送出", color: .systemBlue, padding: .init(top: 8, left: 8, bottom: 8, right: 8))
     let bottomView = UIView()
 
     let manager: FeedbackManager
@@ -56,12 +53,6 @@ class FeedbackInputView: UIView {
 
         scrollView.keyboardDismissMode = .onDrag
 
-        sendButton.layer.cornerRadius = 30 / 2
-        sendButton.layer.borderWidth = 1.5
-        sendButton.layer.borderColor = UIColor.systemBlue.cgColor
-        sendButton.isUserInteractionEnabled = true
-        sendButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sendAction)))
-
         setupLabel(label: titleLable, title: "你想回饋的主題")
         setupInputView(inputView: titleInputView, placeholder: "請輸入想回饋的主題")
 
@@ -74,6 +65,9 @@ class FeedbackInputView: UIView {
 
         setupLabel(label: emailAddressLabel, title: "方便聯絡你的信箱(可留空)")
         setupInputView(inputView: emailAddressInputView, placeholder: "請輸入方便聯絡你的信箱(可留空)")
+
+        sendButtonView.isUserInteractionEnabled = true
+        sendButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sendAction)))
     }
 
     private func setupLabel(label: UILabel, title: String) {
@@ -92,19 +86,10 @@ class FeedbackInputView: UIView {
     }
 
     private func layout() {
-        addSubview(sendButton)
-        sendButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            sendButton.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-            sendButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            sendButton.heightAnchor.constraint(equalToConstant: 30),
-            sendButton.widthAnchor.constraint(equalToConstant: 30)
-        ])
-
         addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: topAnchor, constant: 24),
+            scrollView.topAnchor.constraint(equalTo: topAnchor, constant: 12),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
@@ -146,10 +131,18 @@ class FeedbackInputView: UIView {
         bottomViewHeightConstraint = bottomView.heightAnchor.constraint(equalToConstant: 0)
         bottomViewHeightConstraint.isActive = true
 
+        mainContentView.addSubview(sendButtonView)
+        sendButtonView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            sendButtonView.bottomAnchor.constraint(equalTo: bottomView.topAnchor),
+            sendButtonView.leadingAnchor.constraint(equalTo: titleInputView.leadingAnchor),
+            sendButtonView.trailingAnchor.constraint(equalTo: titleInputView.trailingAnchor)
+        ])
+
         mainContentView.addSubview(emailAddressInputView)
         emailAddressInputView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            emailAddressInputView.bottomAnchor.constraint(equalTo: bottomView.topAnchor),
+            emailAddressInputView.bottomAnchor.constraint(equalTo: sendButtonView.topAnchor, constant: -12),
             emailAddressInputView.leadingAnchor.constraint(equalTo: titleInputView.leadingAnchor),
             emailAddressInputView.trailingAnchor.constraint(equalTo: titleInputView.trailingAnchor)
         ])
