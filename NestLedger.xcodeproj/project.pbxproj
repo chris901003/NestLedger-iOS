@@ -180,6 +180,7 @@
 		05F3DF512E60505800E1930D /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF502E60505800E1930D /* FeedbackViewController.swift */; };
 		05F3DF532E608C9900E1930D /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF522E608C9900E1930D /* FeedbackManager.swift */; };
 		05F3DF562E63DE7000E1930D /* UserFeedbackRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF552E63DE7000E1930D /* UserFeedbackRequestData.swift */; };
+		05F3DF582E63E2A400E1930D /* FeedbackInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF572E63E2A400E1930D /* FeedbackInputView.swift */; };
 		05F4E3982D9ED42D006FC9C9 /* TDateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */; };
 		05F4E39A2DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */; };
 		05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E39B2DA41669006FC9C9 /* TAmountView.swift */; };
@@ -351,6 +352,7 @@
 		05F3DF502E60505800E1930D /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		05F3DF522E608C9900E1930D /* FeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
 		05F3DF552E63DE7000E1930D /* UserFeedbackRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedbackRequestData.swift; sourceTree = "<group>"; };
+		05F3DF572E63E2A400E1930D /* FeedbackInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackInputView.swift; sourceTree = "<group>"; };
 		05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDateSelectionView.swift; sourceTree = "<group>"; };
 		05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIncomeExpenseSelectorView.swift; sourceTree = "<group>"; };
 		05F4E39B2DA41669006FC9C9 /* TAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAmountView.swift; sourceTree = "<group>"; };
@@ -1084,6 +1086,7 @@
 		05F3DF4F2E60504B00E1930D /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
+				05F3DF592E63E67E00E1930D /* Subviews */,
 				05F3DF522E608C9900E1930D /* FeedbackManager.swift */,
 				05F3DF502E60505800E1930D /* FeedbackViewController.swift */,
 			);
@@ -1096,6 +1099,14 @@
 				05F3DF552E63DE7000E1930D /* UserFeedbackRequestData.swift */,
 			);
 			path = UserFeedback;
+			sourceTree = "<group>";
+		};
+		05F3DF592E63E67E00E1930D /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				05F3DF572E63E2A400E1930D /* FeedbackInputView.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		05F6AEA52E5AAF6E0025419A /* LSDInviteQRCode */ = {
@@ -1287,6 +1298,7 @@
 				05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */,
 				059344722DE5EF030042FB36 /* EmailVerificationData.swift in Sources */,
 				05F6AE9F2E570BA60025419A /* Error+Extension.swift in Sources */,
+				05F3DF582E63E2A400E1930D /* FeedbackInputView.swift in Sources */,
 				05F3DF532E608C9900E1930D /* FeedbackManager.swift in Sources */,
 				05F3DF512E60505800E1930D /* FeedbackViewController.swift in Sources */,
 				0503F2AE2D5251D600B2640C /* FirebaseAuthManager.swift in Sources */,

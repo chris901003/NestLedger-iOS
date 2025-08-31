@@ -9,9 +9,11 @@
 import Foundation
 
 class FeedbackManager {
+    var allowDismiss = false
     let newAPIManager = NewAPIManager()
 
     func sendFeedback(feedbackData: UserFeedbackRequestData) async throws {
         try await newAPIManager.createUserFeedback(data: feedbackData)
+        allowDismiss = true
     }
 }
