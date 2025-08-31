@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import xxooooxxCommonUI
 
+protocol FeedbackInputViewDelegate: AnyObject {
+    func sendFeedbackSuccess()
+}
+
 class FeedbackInputView: UIView {
     let sendButton = XOPaddedImageView(
         padding: .init(top: 6, left: 6, bottom: 6, right: 6),
@@ -27,6 +31,7 @@ class FeedbackInputView: UIView {
 
     let manager: FeedbackManager
     var bottomViewHeightConstraint: NSLayoutConstraint!
+    var delegate: FeedbackInputViewDelegate?
 
     init(manager: FeedbackManager) {
         self.manager = manager
@@ -192,6 +197,7 @@ class FeedbackInputView: UIView {
         Task {
             do {
                 try await manager.sendFeedback(feedbackData: data)
+                await MainActor.run { delegate?.sendFeedbackSuccess() }
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "發送回饋失敗，請稍後再試。")
             }

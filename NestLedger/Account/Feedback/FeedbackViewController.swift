@@ -13,6 +13,7 @@ import xxooooxxCommonUI
 class FeedbackViewController: UIViewController {
     let topBarView = UIView()
     let feedbackInputView: FeedbackInputView
+    let feedbackSuccessView = FeedbackSuccessView()
 
     let manager = FeedbackManager()
     var bottomViewHeightConstraint: NSLayoutConstraint!
@@ -33,7 +34,13 @@ class FeedbackViewController: UIViewController {
     }
 
     private func setup() {
+        view.backgroundColor = .white
         presentationController?.delegate = self
+
+        feedbackInputView.delegate = self
+
+        feedbackSuccessView.delegate = self
+        feedbackSuccessView.alpha = 0
     }
 
     private func layout() {
@@ -54,6 +61,15 @@ class FeedbackViewController: UIViewController {
             feedbackInputView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             feedbackInputView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+
+        view.addSubview(feedbackSuccessView)
+        feedbackSuccessView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            feedbackSuccessView.topAnchor.constraint(equalTo: topBarView.bottomAnchor),
+            feedbackSuccessView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            feedbackSuccessView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            feedbackSuccessView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 }
 
@@ -72,5 +88,23 @@ extension FeedbackViewController: UIAdaptivePresentationControllerDelegate {
             self.dismiss(animated: true)
         })
         present(alert, animated: true)
+    }
+}
+
+// MARK: - FeedbackInputViewDelegate
+extension FeedbackViewController: FeedbackInputViewDelegate {
+    func sendFeedbackSuccess() {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self else { return }
+            feedbackInputView.alpha = 0
+            feedbackSuccessView.alpha = 1
+        }
+    }
+}
+
+// MARK: - FeedbackSuccessViewDelegate
+extension FeedbackViewController: FeedbackSuccessViewDelegate {
+    func dismissView() {
+        dismiss(animated: true)
     }
 }
