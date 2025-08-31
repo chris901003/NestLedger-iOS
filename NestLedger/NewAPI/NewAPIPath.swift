@@ -126,5 +126,8 @@ class NewAPIPath {
     enum Analysis: String, NewAPIPathProtocol {
         // [GET]
         case appVersion = "/v1/analysis/app-version"
+
+        // [POST]
+        case createUserFeedback = "/v1/analysis/create-user-feedback"
     }
 }

@@ -188,8 +188,23 @@ class FeedbackViewController: UIViewController {
     }
 
     @objc private func sendAction() {
+        view.endEditing(true)
+
+        let data = UserFeedbackRequestData(
+            title: titleInputView.text ?? "",
+            content: contentInputView.text ?? "",
+            emailAddress: emailAddressInputView.text ?? ""
+        )
+        if !data.isValid() {
+            XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "主題以及內容不可為空")
+            return
+        }
         Task {
-            await manager.sendFeedback()
+            do {
+                try await manager.sendFeedback(feedbackData: data)
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "發送回饋失敗，請稍後再試。")
+            }
         }
     }
 }

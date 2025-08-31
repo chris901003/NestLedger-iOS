@@ -9,7 +9,9 @@
 import Foundation
 
 class FeedbackManager {
-    func sendFeedback() async {
-        print("✅ Send feedback")
+    let newAPIManager = NewAPIManager()
+
+    func sendFeedback(feedbackData: UserFeedbackRequestData) async throws {
+        try await newAPIManager.createUserFeedback(data: feedbackData)
     }
 }

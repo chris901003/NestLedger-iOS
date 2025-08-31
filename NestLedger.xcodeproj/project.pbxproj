@@ -179,6 +179,7 @@
 		05F3DF4E2E604CED00E1930D /* NewAPIManager+Analysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF4D2E604CED00E1930D /* NewAPIManager+Analysis.swift */; };
 		05F3DF512E60505800E1930D /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF502E60505800E1930D /* FeedbackViewController.swift */; };
 		05F3DF532E608C9900E1930D /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF522E608C9900E1930D /* FeedbackManager.swift */; };
+		05F3DF562E63DE7000E1930D /* UserFeedbackRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF552E63DE7000E1930D /* UserFeedbackRequestData.swift */; };
 		05F4E3982D9ED42D006FC9C9 /* TDateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */; };
 		05F4E39A2DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */; };
 		05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E39B2DA41669006FC9C9 /* TAmountView.swift */; };
@@ -349,6 +350,7 @@
 		05F3DF4D2E604CED00E1930D /* NewAPIManager+Analysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+Analysis.swift"; sourceTree = "<group>"; };
 		05F3DF502E60505800E1930D /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		05F3DF522E608C9900E1930D /* FeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
+		05F3DF552E63DE7000E1930D /* UserFeedbackRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedbackRequestData.swift; sourceTree = "<group>"; };
 		05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDateSelectionView.swift; sourceTree = "<group>"; };
 		05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIncomeExpenseSelectorView.swift; sourceTree = "<group>"; };
 		05F4E39B2DA41669006FC9C9 /* TAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAmountView.swift; sourceTree = "<group>"; };
@@ -737,6 +739,7 @@
 				050E2AD72E098C9A00FC61B4 /* LedgerSplit */,
 				051257E12D7F1DB90066F3F2 /* Tag */,
 				051257E42D81BE8D0066F3F2 /* Transaction */,
+				05F3DF542E63DE5E00E1930D /* UserFeedback */,
 				055704552D5782A20032C47C /* UserInfo */,
 				05B340AC2D66201E000378A2 /* APIResponseData.swift */,
 				055704582D57839C0032C47C /* DataConstain.swift */,
@@ -1087,6 +1090,14 @@
 			path = Feedback;
 			sourceTree = "<group>";
 		};
+		05F3DF542E63DE5E00E1930D /* UserFeedback */ = {
+			isa = PBXGroup;
+			children = (
+				05F3DF552E63DE7000E1930D /* UserFeedbackRequestData.swift */,
+			);
+			path = UserFeedback;
+			sourceTree = "<group>";
+		};
 		05F6AEA52E5AAF6E0025419A /* LSDInviteQRCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -1416,6 +1427,7 @@
 				0503F2B12D54E1D200B2640C /* UIView+Extension.swift in Sources */,
 				051B27C22DCCF0F7000B7E0C /* UIViewController+Extension.swift in Sources */,
 				05F6AEBA2E5C42310025419A /* UniversalLinks.swift in Sources */,
+				05F3DF562E63DE7000E1930D /* UserFeedbackRequestData.swift in Sources */,
 				055704572D5782A90032C47C /* UserInfoData.swift in Sources */,
 				0505336A2DDE07B9003245E0 /* UserInfoUpdateRequestData.swift in Sources */,
 				050830FA2D41DA0F008C8831 /* ViewController.swift in Sources */,

@@ -22,3 +22,18 @@ extension NewAPIManager {
             .response
     }
 }
+
+// MARK: - Create User Feedback
+extension NewAPIManager {
+    func createUserFeedback(data: UserFeedbackRequestData) async throws {
+        let responseData = await session.request(
+            NewAPIPath.Analysis.createUserFeedback.getPath(),
+            method: .post,
+            parameters: data,
+            encoder: JSONParameterEncoder.default)
+            .validate()
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+    }
+}
