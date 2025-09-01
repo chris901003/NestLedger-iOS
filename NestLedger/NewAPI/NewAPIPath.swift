@@ -114,6 +114,7 @@ class NewAPIPath {
         // [GET]
         case get = "/v1/ledger-split/get"
         case avatar = "/v1/ledger-split/avatar"
+        case getLedgerSplitByInviteToken = "/v1/ledger-split/get-ledger-split-by-invite-token"
 
         // [POST]
         case create = "/v1/ledger-split/create"
@@ -126,6 +127,7 @@ class NewAPIPath {
     enum LedgerSplitInvite: String, NewAPIPathProtocol {
         // [GET]
         case createLink = "/v1/ledger-split-invite/create-link"
+        case linkInvite = "/v1/ledger-split-invite/link-invite"
     }
 
     enum Analysis: String, NewAPIPathProtocol {
