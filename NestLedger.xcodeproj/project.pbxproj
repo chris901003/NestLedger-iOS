@@ -182,6 +182,8 @@
 		05F3DF562E63DE7000E1930D /* UserFeedbackRequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF552E63DE7000E1930D /* UserFeedbackRequestData.swift */; };
 		05F3DF582E63E2A400E1930D /* FeedbackInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF572E63E2A400E1930D /* FeedbackInputView.swift */; };
 		05F3DF5B2E63E6D700E1930D /* FeedbackSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF5A2E63E6D700E1930D /* FeedbackSuccessView.swift */; };
+		05F3DF5D2E653B5000E1930D /* NewAPIManager+LedgerSplitInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF5C2E653B5000E1930D /* NewAPIManager+LedgerSplitInvite.swift */; };
+		05F3DF602E653BF000E1930D /* LedgerSplitQRCodeInviteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF5F2E653BF000E1930D /* LedgerSplitQRCodeInviteData.swift */; };
 		05F4E3982D9ED42D006FC9C9 /* TDateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */; };
 		05F4E39A2DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */; };
 		05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E39B2DA41669006FC9C9 /* TAmountView.swift */; };
@@ -355,6 +357,8 @@
 		05F3DF552E63DE7000E1930D /* UserFeedbackRequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedbackRequestData.swift; sourceTree = "<group>"; };
 		05F3DF572E63E2A400E1930D /* FeedbackInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackInputView.swift; sourceTree = "<group>"; };
 		05F3DF5A2E63E6D700E1930D /* FeedbackSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSuccessView.swift; sourceTree = "<group>"; };
+		05F3DF5C2E653B5000E1930D /* NewAPIManager+LedgerSplitInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+LedgerSplitInvite.swift"; sourceTree = "<group>"; };
+		05F3DF5F2E653BF000E1930D /* LedgerSplitQRCodeInviteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitQRCodeInviteData.swift; sourceTree = "<group>"; };
 		05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDateSelectionView.swift; sourceTree = "<group>"; };
 		05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIncomeExpenseSelectorView.swift; sourceTree = "<group>"; };
 		05F4E39B2DA41669006FC9C9 /* TAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAmountView.swift; sourceTree = "<group>"; };
@@ -741,6 +745,7 @@
 				051257D82D7F165A0066F3F2 /* Ledger */,
 				05764D9B2DB9306A007292D7 /* LedgerInvite */,
 				050E2AD72E098C9A00FC61B4 /* LedgerSplit */,
+				05F3DF5E2E653BB900E1930D /* LedgerSplitInvite */,
 				051257E12D7F1DB90066F3F2 /* Tag */,
 				051257E42D81BE8D0066F3F2 /* Transaction */,
 				05F3DF542E63DE5E00E1930D /* UserFeedback */,
@@ -1069,6 +1074,7 @@
 				050533792DDF1A6C003245E0 /* NewAPIManager+Ledger.swift */,
 				0505337D2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift */,
 				050E2ADA2E0AD48600FC61B4 /* NewAPIManager+LedgerSplit.swift */,
+				05F3DF5C2E653B5000E1930D /* NewAPIManager+LedgerSplitInvite.swift */,
 				0505336B2DDE1333003245E0 /* NewAPIManager+Tag.swift */,
 				050533732DDEC97E003245E0 /* NewAPIManager+Transaction.swift */,
 				05EE3D102DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift */,
@@ -1110,6 +1116,14 @@
 				05F3DF5A2E63E6D700E1930D /* FeedbackSuccessView.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		05F3DF5E2E653BB900E1930D /* LedgerSplitInvite */ = {
+			isa = PBXGroup;
+			children = (
+				05F3DF5F2E653BF000E1930D /* LedgerSplitQRCodeInviteData.swift */,
+			);
+			path = LedgerSplitInvite;
 			sourceTree = "<group>";
 		};
 		05F6AEA52E5AAF6E0025419A /* LSDInviteQRCode */ = {
@@ -1369,6 +1383,7 @@
 				057274472E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift in Sources */,
 				05F6AEAA2E5AE7C20025419A /* LedgerSplitJoinViewController.swift in Sources */,
 				050E2ADF2E0AE2CC00FC61B4 /* LedgerSplitManager.swift in Sources */,
+				05F3DF602E653BF000E1930D /* LedgerSplitQRCodeInviteData.swift in Sources */,
 				057274552E102CCC00F5D3D4 /* LedgerSplitUpdateRequestData.swift in Sources */,
 				050E2AC72E07AFA900FC61B4 /* LedgerSplitViewController.swift in Sources */,
 				050533802DE061A0003245E0 /* LedgerUpdateRequestData.swift in Sources */,
@@ -1403,6 +1418,7 @@
 				0505337A2DDF1A6C003245E0 /* NewAPIManager+Ledger.swift in Sources */,
 				0505337E2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift in Sources */,
 				050E2ADB2E0AD48600FC61B4 /* NewAPIManager+LedgerSplit.swift in Sources */,
+				05F3DF5D2E653B5000E1930D /* NewAPIManager+LedgerSplitInvite.swift in Sources */,
 				0505336C2DDE1333003245E0 /* NewAPIManager+Tag.swift in Sources */,
 				050533742DDEC97E003245E0 /* NewAPIManager+Transaction.swift in Sources */,
 				05EE3D112DDCBEAD00CC22AA /* NewAPIManager+UserInfo.swift in Sources */,

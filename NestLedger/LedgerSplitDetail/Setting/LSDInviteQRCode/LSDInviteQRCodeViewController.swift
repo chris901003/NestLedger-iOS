@@ -8,10 +8,12 @@
 
 import Foundation
 import UIKit
-import CoreImage.CIFilterBuiltins
+import xxooooxxCommonUI
 
 class LSDInviteQRCodeViewController: UIViewController {
     let ledgerSplitData: LedgerSplitData
+    let newAPIManager = NewAPIManager()
+    let countdownLabel = NLCountdownLabel()
 
     let imageView = UIImageView()
     let loadingView = UIActivityIndicatorView(style: .medium)
@@ -40,15 +42,14 @@ class LSDInviteQRCodeViewController: UIViewController {
 
         imageView.contentMode = .scaleAspectFit
         imageView.alpha = 0
-        Task {
-            let image = generateQRCode()
-            await MainActor.run {
-                loadingView.stopAnimating()
-                loadingView.alpha = 0
-                imageView.image = image
-                imageView.alpha = 1
-            }
-        }
+
+        countdownLabel.textColor = .secondaryLabel
+        countdownLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        countdownLabel.textAlignment = .center
+        countdownLabel.numberOfLines = 1
+        countdownLabel.alpha = 0
+
+        createInviteLink()
     }
 
     private func layout() {
@@ -65,22 +66,34 @@ class LSDInviteQRCodeViewController: UIViewController {
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+
+        view.addSubview(countdownLabel)
+        countdownLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            countdownLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
+            countdownLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            countdownLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+        ])
     }
 }
 
 private extension LSDInviteQRCodeViewController {
-    func generateQRCode() -> UIImage? {
-        let uri = "https://nl.xxooooxx.org/ledger-split/invite?ledgerSplitId=\(ledgerSplitData._id)"
-        let uriData = Data(uri.utf8)
-
-        let filter = CIFilter.qrCodeGenerator()
-        filter.setValue(uriData, forKey: "inputMessage")
-        filter.setValue("Q", forKey: "inputCorrectionLevel")
-
-        guard let outputImage = filter.outputImage else { return nil }
-
-        let transform = CGAffineTransform(scaleX: 200 / outputImage.extent.size.width, y: 200 / outputImage.extent.size.height)
-        let scaledImage = outputImage.transformed(by: transform)
-        return UIImage(ciImage: scaledImage)
+    func createInviteLink() {
+        Task {
+            do {
+                let data = try await newAPIManager.ledgerSplitInviteCreateLink(ledgerSplitId: ledgerSplitData._id)
+                let image = QRCodeGenerator.generateQRCode(str: data.link)
+                countdownLabel.startCountdown(to: data.expireAt)
+                await MainActor.run {
+                    loadingView.stopAnimating()
+                    loadingView.alpha = 0
+                    imageView.image = image
+                    imageView.alpha = 1
+                    countdownLabel.alpha = 1
+                }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "創建連結失敗，請稍後再嘗試。")
+            }
+        }
     }
 }

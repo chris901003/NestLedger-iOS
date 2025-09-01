@@ -123,6 +123,11 @@ class NewAPIPath {
         case update = "/v1/ledger-split/update"
     }
 
+    enum LedgerSplitInvite: String, NewAPIPathProtocol {
+        // [GET]
+        case createLink = "/v1/ledger-split-invite/create-link"
+    }
+
     enum Analysis: String, NewAPIPathProtocol {
         // [GET]
         case appVersion = "/v1/analysis/app-version"
