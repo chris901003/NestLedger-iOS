@@ -9,3 +9,4 @@
 import Foundation
 
 let LEDGER_INVITE_LINK_URL = "/v1/ledger-invite/link-invite"
+let LEDGER_SPLIT_INVITE_LINK_URL = "/v1/ledger-split-invite/link-invite"

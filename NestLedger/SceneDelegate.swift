@@ -62,22 +62,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 ledgerLinkJoinVC.modalTransitionStyle = .crossDissolve
                 guard let rootVC = UIApplicationUtility.getTopViewController() else { return }
                 rootVC.present(ledgerLinkJoinVC, animated: true)
-            default:
-                break
-        }
-        switch (resource, action) {
-            case ("ledger-split", "invite"):
-                let comps = URLComponents(url: url, resolvingAgainstBaseURL: false)
-                guard let ledgerSplitId = comps?.queryItems?.first(where: { $0.name == "ledgerSplitId" })?.value else { return }
-                let ledgerSplitJoinVC = LedgerSplitJoinViewController(ledgerSplitId: ledgerSplitId)
-                let window = UIApplication.shared.connectedScenes
-                    .compactMap { $0 as? UIWindowScene }
-                    .flatMap { $0.windows }
-                    .first { $0.isKeyWindow }
-                guard let viewController = window?.rootViewController else { return }
+            case LEDGER_SPLIT_INVITE_LINK_URL:
+                guard let token = comps?.queryItems?.first(where: { $0.name == "token" })?.value,
+                      let ledgerSplitId = comps?.queryItems?.first(where: { $0.name == "ledgerSplitId" })?.value else { return }
+                let ledgerSplitJoinVC = LedgerSplitJoinViewController(ledgerSplitId: ledgerSplitId, token: token)
                 ledgerSplitJoinVC.modalPresentationStyle = .overFullScreen
                 ledgerSplitJoinVC.modalTransitionStyle = .crossDissolve
-                viewController.present(ledgerSplitJoinVC, animated: true)
+                guard let rootVC = UIApplicationUtility.getTopViewController() else { return }
+                rootVC.present(ledgerSplitJoinVC, animated: true)
             default:
                 break
         }

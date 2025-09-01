@@ -10,10 +10,15 @@ import Foundation
 import UIKit
 
 class LedgerSplitJoinViewController: UIViewController {
+    let ledgerSplitId: String
+    let token: String
+
     let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     let contentView = UIView()
 
-    init(ledgerSplitId: String) {
+    init(ledgerSplitId: String, token: String) {
+        self.ledgerSplitId = ledgerSplitId
+        self.token = token
         super.init(nibName: nil, bundle: nil)
     }
 
