@@ -152,7 +152,8 @@ extension LSDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                 let inviteQRCodeVC = LSDInviteQRCodeViewController(ledgerSplitData: ledgerSplitDetailStore.data)
                 navigationController?.pushViewController(inviteQRCodeVC, animated: true)
             case .members:
-                print("✅ tap members")
+                let memberVC = LSDMemberViewController(store: ledgerSplitDetailStore)
+                navigationController?.pushViewController(memberVC, animated: true)
         }
     }
 }

@@ -185,6 +185,8 @@
 		05F3DF5D2E653B5000E1930D /* NewAPIManager+LedgerSplitInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF5C2E653B5000E1930D /* NewAPIManager+LedgerSplitInvite.swift */; };
 		05F3DF602E653BF000E1930D /* LedgerSplitQRCodeInviteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF5F2E653BF000E1930D /* LedgerSplitQRCodeInviteData.swift */; };
 		05F3DF622E656B2C00E1930D /* LedgerSplitJoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF612E656B2C00E1930D /* LedgerSplitJoinManager.swift */; };
+		05F3DF652E658C0C00E1930D /* LSDMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF642E658C0C00E1930D /* LSDMemberViewController.swift */; };
+		05F3DF682E65905A00E1930D /* LSDMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF672E65905A00E1930D /* LSDMemberCell.swift */; };
 		05F4E3982D9ED42D006FC9C9 /* TDateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */; };
 		05F4E39A2DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */; };
 		05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E39B2DA41669006FC9C9 /* TAmountView.swift */; };
@@ -361,6 +363,8 @@
 		05F3DF5C2E653B5000E1930D /* NewAPIManager+LedgerSplitInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewAPIManager+LedgerSplitInvite.swift"; sourceTree = "<group>"; };
 		05F3DF5F2E653BF000E1930D /* LedgerSplitQRCodeInviteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitQRCodeInviteData.swift; sourceTree = "<group>"; };
 		05F3DF612E656B2C00E1930D /* LedgerSplitJoinManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitJoinManager.swift; sourceTree = "<group>"; };
+		05F3DF642E658C0C00E1930D /* LSDMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDMemberViewController.swift; sourceTree = "<group>"; };
+		05F3DF672E65905A00E1930D /* LSDMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDMemberCell.swift; sourceTree = "<group>"; };
 		05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDateSelectionView.swift; sourceTree = "<group>"; };
 		05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIncomeExpenseSelectorView.swift; sourceTree = "<group>"; };
 		05F4E39B2DA41669006FC9C9 /* TAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAmountView.swift; sourceTree = "<group>"; };
@@ -802,6 +806,7 @@
 			isa = PBXGroup;
 			children = (
 				05F6AEA52E5AAF6E0025419A /* LSDInviteQRCode */,
+				05F3DF632E658BF900E1930D /* LSDMembers */,
 				0572744F2E0D7C9900F5D3D4 /* LSDTitleAndAvatar */,
 				0572744D2E0D7B1F00F5D3D4 /* LSDSettingManager.swift */,
 				0572744B2E0D720B00F5D3D4 /* LSDSettingViewController.swift */,
@@ -1128,6 +1133,23 @@
 			path = LedgerSplitInvite;
 			sourceTree = "<group>";
 		};
+		05F3DF632E658BF900E1930D /* LSDMembers */ = {
+			isa = PBXGroup;
+			children = (
+				05F3DF662E65904D00E1930D /* Subviews */,
+				05F3DF642E658C0C00E1930D /* LSDMemberViewController.swift */,
+			);
+			path = LSDMembers;
+			sourceTree = "<group>";
+		};
+		05F3DF662E65904D00E1930D /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				05F3DF672E65905A00E1930D /* LSDMemberCell.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		05F6AEA52E5AAF6E0025419A /* LSDInviteQRCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -1139,8 +1161,8 @@
 		05F6AEA82E5AE7A50025419A /* LedgerSplitJoin */ = {
 			isa = PBXGroup;
 			children = (
-				05F6AEA92E5AE7C20025419A /* LedgerSplitJoinViewController.swift */,
 				05F3DF612E656B2C00E1930D /* LedgerSplitJoinManager.swift */,
+				05F6AEA92E5AE7C20025419A /* LedgerSplitJoinViewController.swift */,
 			);
 			path = LedgerSplitJoin;
 			sourceTree = "<group>";
@@ -1361,6 +1383,8 @@
 				050E2AD62E09808A00FC61B4 /* LSCreateManager.swift in Sources */,
 				050E2ACC2E0839C800FC61B4 /* LSCreateViewController.swift in Sources */,
 				05F6AEA72E5AAF8E0025419A /* LSDInviteQRCodeViewController.swift in Sources */,
+				05F3DF682E65905A00E1930D /* LSDMemberCell.swift in Sources */,
+				05F3DF652E658C0C00E1930D /* LSDMemberViewController.swift in Sources */,
 				0572744E2E0D7B1F00F5D3D4 /* LSDSettingManager.swift in Sources */,
 				0572744C2E0D720B00F5D3D4 /* LSDSettingViewController.swift in Sources */,
 				057274532E0D7E8500F5D3D4 /* LSDTitleAndAvatarManager.swift in Sources */,
@@ -1384,6 +1408,7 @@
 				057274492E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift in Sources */,
 				05F6AEA12E570F950025419A /* LedgerSplitDetailStore.swift in Sources */,
 				057274472E0C2E3300F5D3D4 /* LedgerSplitDetailViewController.swift in Sources */,
+				05F3DF622E656B2C00E1930D /* LedgerSplitJoinManager.swift in Sources */,
 				05F6AEAA2E5AE7C20025419A /* LedgerSplitJoinViewController.swift in Sources */,
 				050E2ADF2E0AE2CC00FC61B4 /* LedgerSplitManager.swift in Sources */,
 				05F3DF602E653BF000E1930D /* LedgerSplitQRCodeInviteData.swift in Sources */,
@@ -1420,7 +1445,6 @@
 				050533682DDDA12A003245E0 /* NewAPIManager+Information.swift in Sources */,
 				0505337A2DDF1A6C003245E0 /* NewAPIManager+Ledger.swift in Sources */,
 				0505337E2DDF2518003245E0 /* NewAPIManager+LedgerInvite.swift in Sources */,
-				05F3DF622E656B2C00E1930D /* LedgerSplitJoinManager.swift in Sources */,
 				050E2ADB2E0AD48600FC61B4 /* NewAPIManager+LedgerSplit.swift in Sources */,
 				05F3DF5D2E653B5000E1930D /* NewAPIManager+LedgerSplitInvite.swift in Sources */,
 				0505336C2DDE1333003245E0 /* NewAPIManager+Tag.swift in Sources */,
