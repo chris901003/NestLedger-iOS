@@ -152,6 +152,9 @@ extension LedgerSplitJoinViewController {
         Task {
             do {
                 try await manager.joinLedgerSplit(token: token)
+                await MainActor.run {
+                    NLNotification.sendRefreshLedgerSplitListView()
+                }
                 dismiss(animated: true) { [weak self] in
                     guard let self else { return }
                     XOBottomBarInformationManager.showBottomInformation(type: .success, information: "成功加入 \(ledgerSplitLabel.text ?? "")")

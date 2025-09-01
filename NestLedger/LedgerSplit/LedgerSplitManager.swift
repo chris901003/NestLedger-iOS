@@ -24,6 +24,13 @@ class LedgerSplitManager {
     init() {
         lastLoadIdx = 0
         maxLoadIdx = newSharedUserInfo.ledgerSplitIds.count
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(receiveRefreshLedgerSplitListView),
+            name: .refreshLedgerSplitListView,
+            object: nil
+        )
     }
 
     func loadMoreLedgerSplitData() async {
@@ -69,6 +76,20 @@ class LedgerSplitManager {
             await MainActor.run {
                 isLoading = false
             }
+        }
+    }
+}
+
+// MARK: - Notification
+extension LedgerSplitManager {
+    @objc func receiveRefreshLedgerSplitListView(_ notification: Notification) {
+        ledgerSplitDatas.removeAll()
+        ledgerSplitAvatars.removeAll()
+        lastLoadIdx = 0
+        maxLoadIdx = newSharedUserInfo.ledgerSplitIds.count
+        Task {
+            await MainActor.run { isLoading = false }
+            await loadMoreLedgerSplitData()
         }
     }
 }

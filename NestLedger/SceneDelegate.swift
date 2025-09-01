@@ -49,9 +49,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
               let url = userActivity.webpageURL else { return }
 
-        let parts = url.pathComponents
-        guard let resource = parts.dropFirst().first,
-              let action = parts.dropFirst().dropFirst().first else { return }
         let comps = URLComponents(url: url, resolvingAgainstBaseURL: false)
         switch url.path() {
             case LEDGER_INVITE_LINK_URL:

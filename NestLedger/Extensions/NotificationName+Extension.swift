@@ -25,6 +25,7 @@ extension Notification.Name {
     static let unauthorizedLedger = Notification.Name("UnauthorizedLedger")
     static let statisticsNewData = Notification.Name("StatisticsNewData")
     static let statisticsLoadError = Notification.Name("StatisticsLoadError")
+    static let refreshLedgerSplitListView = Notification.Name("RefreshLedgerSplitListView")
 }
 
 class NLNotification {
@@ -188,5 +189,10 @@ class NLNotification {
         guard let userInfo = notification.userInfo,
               let type = userInfo["type"] as? LDStatisticsManager.LoadType else { return nil }
         return type
+    }
+
+    // MARK: - Refresh Ledger Split List View
+    static func sendRefreshLedgerSplitListView() {
+        NotificationCenter.default.post(name: .refreshLedgerSplitListView, object: nil, userInfo: nil)
     }
 }
