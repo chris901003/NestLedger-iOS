@@ -44,9 +44,9 @@ extension ImageQualitySettingViewController {
                 case .low:
                     return 0.1
                 case .medieum:
-                    return 0.5
+                    return 0.2
                 case .high:
-                    return 1
+                    return 0.3
             }
         }
     }
