@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import xxooooxxCommonUI
 
 extension LSDMemberViewController {
     enum Sections: String {
@@ -19,6 +20,10 @@ extension LSDMemberViewController {
 class LSDMemberViewController: UIViewController {
     let titleLabel = UILabel()
     let tableView = UITableView()
+    let addButton = XOPaddedImageView(
+        padding: .init(top: 12, left: 12, bottom: 12, right: 12),
+        image: UIImage(systemName: "plus")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+    )
 
     let ledgerSplitDetailStore: LedgerSplitDetailStore
     let sections: [Sections] = [.join, .waitingJoin]
@@ -50,6 +55,11 @@ class LSDMemberViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
+
+        addButton.backgroundColor = .systemBlue
+        addButton.layer.cornerRadius = 10.0
+        addButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAddButtonAction)))
+        addButton.isUserInteractionEnabled = true
     }
 
     private func layout() {
@@ -68,10 +78,27 @@ class LSDMemberViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+
+        view.addSubview(addButton)
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            addButton.widthAnchor.constraint(equalToConstant: 50),
+            addButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
 
     private func registerCell() {
         tableView.register(LSDMemberCell.self, forCellReuseIdentifier: LSDMemberCell.cellId)
+    }
+}
+
+// MARK: - Utility
+extension LSDMemberViewController {
+    @objc func tapAddButtonAction() {
+        let addInviteVC = LSDAddInviteViewController()
+        navigationController?.pushViewController(addInviteVC, animated: true)
     }
 }
 
@@ -94,6 +121,14 @@ extension LSDMemberViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         sections[section].rawValue
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        section == sections.count - 1 ? UIView() : nil
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        section == sections.count - 1 ? 50 : 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
