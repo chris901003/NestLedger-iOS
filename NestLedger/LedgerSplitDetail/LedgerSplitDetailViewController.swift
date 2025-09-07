@@ -57,9 +57,13 @@ class LedgerSplitDetailViewController: UIViewController {
     private func layout() {
         
     }
+}
 
+// MARK: - Setting
+extension LedgerSplitDetailViewController: LSDSettingViewControllerDelegate {
     @objc private func tapSettingAction() {
         let settingViewController = LSDSettingViewController(ledgerSplitDetailStore: ledgerSplitDetailStore)
+        settingViewController.delegate = self
         let navigationVC = UINavigationController(rootViewController: settingViewController)
         let _50DetentId = UISheetPresentationController.Detent.Identifier("50")
         let _50Detent = UISheetPresentationController.Detent.custom(identifier: _50DetentId) { context in
@@ -69,6 +73,11 @@ class LedgerSplitDetailViewController: UIViewController {
             sheet.detents = [_50Detent]
         }
         present(navigationVC, animated: true)
+    }
+
+    func leaveLedgerSplit() {
+        NLNotification.sendRefreshLedgerSplitListView()
+        navigationController?.popViewController(animated: true)
     }
 }
 

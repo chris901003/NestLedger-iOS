@@ -12,6 +12,7 @@ import Combine
 class LSDSettingManager {
     let ledgerSplitDetailStore: LedgerSplitDetailStore
     var cancellables: Set<AnyCancellable> = []
+    let newAPIManager = NewAPIManager()
 
     weak var vc: LSDSettingViewController?
 
@@ -29,5 +30,9 @@ class LSDSettingManager {
                 }
                 .store(in: &cancellables)
         }
+    }
+
+    func leaveLedgerSplit() async throws {
+        try await newAPIManager.leaveLedgerSplit(ledgerSplitId: ledgerSplitDetailStore.data._id, userId: newSharedUserInfo.id)
     }
 }

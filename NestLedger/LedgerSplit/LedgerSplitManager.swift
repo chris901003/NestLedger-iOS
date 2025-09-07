@@ -83,9 +83,12 @@ class LedgerSplitManager {
         ledgerSplitDatas.removeAll()
         ledgerSplitAvatars.removeAll()
         lastLoadIdx = 0
-        maxLoadIdx = newSharedUserInfo.ledgerSplitIds.count
         Task {
-            await MainActor.run { isLoading = false }
+            newSharedUserInfo = try await newApiManager.getUserInfo()
+            await MainActor.run {
+                maxLoadIdx = newSharedUserInfo.ledgerSplitIds.count
+                isLoading = false
+            }
             await loadMoreLedgerSplitData()
         }
     }

@@ -9,7 +9,10 @@
 import Foundation
 import UIKit
 import xxooooxxCommonUI
-import Combine
+
+protocol LSDSettingViewControllerDelegate: AnyObject {
+    func leaveLedgerSplit()
+}
 
 extension LSDSettingViewController {
     enum Section: String, CaseIterable {
@@ -24,6 +27,7 @@ extension LSDSettingViewController {
         // [user]
         case inviteQRCode = "加入分帳本 QRCode"
         case members = "分帳本成員"
+        case exit = "退出分帳本"
     }
 }
 
@@ -33,10 +37,10 @@ class LSDSettingViewController: UIViewController {
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
 
     let sections: [Section] = [.basic, .user]
-    let rows: [[Row]] = [[.nameAndAvatar], [.inviteQRCode, .members]]
+    let rows: [[Row]] = [[.nameAndAvatar], [.inviteQRCode, .members, .exit]]
     let ledgerSplitDetailStore: LedgerSplitDetailStore
     let manager: LSDSettingManager
-    var cancellables = Set<AnyCancellable>()
+    weak var delegate: LSDSettingViewControllerDelegate?
 
     init(ledgerSplitDetailStore: LedgerSplitDetailStore) {
         self.ledgerSplitDetailStore = ledgerSplitDetailStore
@@ -53,7 +57,6 @@ class LSDSettingViewController: UIViewController {
         setup()
         layout()
         registerCell()
-        subscribeLedgerSplitStore()
     }
 
     private func setup() {
@@ -104,19 +107,7 @@ class LSDSettingViewController: UIViewController {
     private func registerCell() {
         tableView.register(XOLeadingTrailingLabelCell.self, forCellReuseIdentifier: XOLeadingTrailingLabelCell.cellId)
         tableView.register(XOLeadingTrailingLabelWithIconCell.self, forCellReuseIdentifier: XOLeadingTrailingLabelWithIconCell.cellId)
-    }
-}
-
-// MARK: - Subscribe Ledger Split Store
-extension LSDSettingViewController {
-    func subscribeLedgerSplitStore() {
-        ledgerSplitDetailStore.dataPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] ledgerSplitData in
-                guard let self else { return }
-                tableView.reloadData()
-            }
-            .store(in: &cancellables)
+        tableView.register(XOCenterLabelCell.self, forCellReuseIdentifier: XOCenterLabelCell.cellId)
     }
 }
 
@@ -152,6 +143,11 @@ extension LSDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.config(title: cellType.rawValue, info: "\(ledgerSplitDetailStore.data.userIds.count)")
                     return cell
                 }
+            case .exit:
+                if let cell = tableView.dequeueReusableCell(withIdentifier: XOCenterLabelCell.cellId, for: indexPath) as? XOCenterLabelCell {
+                    cell.config(label: cellType.rawValue, font: .systemFont(ofSize: 16, weight: .semibold), color: .systemRed)
+                    return cell
+                }
         }
         let cell = UITableViewCell()
         return cell
@@ -170,6 +166,26 @@ extension LSDSettingViewController: UITableViewDelegate, UITableViewDataSource {
             case .members:
                 let memberVC = LSDMemberViewController(store: ledgerSplitDetailStore)
                 navigationController?.pushViewController(memberVC, animated: true)
+            case .exit:
+                leaveAction()
+        }
+    }
+}
+
+// MARK: - Leave Action
+private extension LSDSettingViewController {
+    func leaveAction() {
+        Task {
+            do {
+                try await manager.leaveLedgerSplit()
+                await MainActor.run {
+                    dismiss(animated: true) { [weak self] in
+                        self?.delegate?.leaveLedgerSplit()
+                    }
+                }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "退出失敗，請稍後嘗試")
+            }
         }
     }
 }
