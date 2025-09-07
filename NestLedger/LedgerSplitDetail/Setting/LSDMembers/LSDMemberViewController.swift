@@ -49,6 +49,7 @@ class LSDMemberViewController: UIViewController {
     }
 
     private func setup() {
+        manager.vc = self
         view.backgroundColor = .white
 
         titleLabel.text = "分帳本成員"
@@ -116,6 +117,7 @@ extension LSDMemberViewController {
 
     @objc func tapAddButtonAction() {
         let addInviteVC = LSDAddInviteViewController(ledgerSplitStore: ledgerSplitDetailStore)
+        addInviteVC.delegate = manager
         navigationController?.pushViewController(addInviteVC, animated: true)
     }
 }

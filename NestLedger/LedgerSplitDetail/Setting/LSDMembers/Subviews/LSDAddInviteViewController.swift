@@ -144,7 +144,9 @@ extension LSDAddInviteViewController {
                 let userInviteData = try await newAPIManager.ledgerSplitCreateUserInvite(
                     data: .init(ledgerSplitId: ledgerSplitStore.data._id, receiveUserId: inviteUserInfo.id)
                 )
-                delegate?.newLedgerSplitUserInvite(data: userInviteData)
+                await MainActor.run {
+                    delegate?.newLedgerSplitUserInvite(data: userInviteData)
+                }
                 navigationController?.popViewController(animated: true)
             } catch {
                 XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "發送邀請失敗")

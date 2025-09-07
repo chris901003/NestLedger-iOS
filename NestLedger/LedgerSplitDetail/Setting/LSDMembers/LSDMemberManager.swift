@@ -11,6 +11,7 @@ import Foundation
 class LSDMemberManager {
     let newAPIManager = NewAPIManager()
     let ledgerSplitDetailStore: LedgerSplitDetailStore
+    weak var vc: LSDMemberViewController?
 
     var userInviteDatas: [LedgerSplitUserInviteData] = []
 
@@ -20,5 +21,13 @@ class LSDMemberManager {
 
     func loadUserInviteSend() async throws {
         userInviteDatas = try await newAPIManager.ledgerSplitGetUserInviteSend(ledgerSplitId: ledgerSplitDetailStore.data._id)
+    }
+}
+
+// MARK: - LSDAddInviteViewControllerDelegate
+extension LSDMemberManager: LSDAddInviteViewControllerDelegate {
+    func newLedgerSplitUserInvite(data: LedgerSplitUserInviteData) {
+        userInviteDatas.append(data)
+        vc?.tableView.reloadData()
     }
 }
