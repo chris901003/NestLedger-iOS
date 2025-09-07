@@ -189,6 +189,8 @@
 		05F3DF682E65905A00E1930D /* LSDMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF672E65905A00E1930D /* LSDMemberCell.swift */; };
 		05F3DF6A2E69BB7E00E1930D /* LSDAddInviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF692E69BB7E00E1930D /* LSDAddInviteViewController.swift */; };
 		05F3DF6C2E6D1A2300E1930D /* LedgerSplitUserInviteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF6B2E6D1A2300E1930D /* LedgerSplitUserInviteData.swift */; };
+		05F3DF6E2E6D22B600E1930D /* LSDMemberManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF6D2E6D22B600E1930D /* LSDMemberManager.swift */; };
+		05F3DF702E6D29B900E1930D /* LSDInviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF6F2E6D29B900E1930D /* LSDInviteCell.swift */; };
 		05F4E3982D9ED42D006FC9C9 /* TDateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */; };
 		05F4E39A2DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */; };
 		05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E39B2DA41669006FC9C9 /* TAmountView.swift */; };
@@ -369,6 +371,8 @@
 		05F3DF672E65905A00E1930D /* LSDMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDMemberCell.swift; sourceTree = "<group>"; };
 		05F3DF692E69BB7E00E1930D /* LSDAddInviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDAddInviteViewController.swift; sourceTree = "<group>"; };
 		05F3DF6B2E6D1A2300E1930D /* LedgerSplitUserInviteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitUserInviteData.swift; sourceTree = "<group>"; };
+		05F3DF6D2E6D22B600E1930D /* LSDMemberManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDMemberManager.swift; sourceTree = "<group>"; };
+		05F3DF6F2E6D29B900E1930D /* LSDInviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDInviteCell.swift; sourceTree = "<group>"; };
 		05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDateSelectionView.swift; sourceTree = "<group>"; };
 		05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIncomeExpenseSelectorView.swift; sourceTree = "<group>"; };
 		05F4E39B2DA41669006FC9C9 /* TAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAmountView.swift; sourceTree = "<group>"; };
@@ -1142,6 +1146,7 @@
 			isa = PBXGroup;
 			children = (
 				05F3DF662E65904D00E1930D /* Subviews */,
+				05F3DF6D2E6D22B600E1930D /* LSDMemberManager.swift */,
 				05F3DF642E658C0C00E1930D /* LSDMemberViewController.swift */,
 			);
 			path = LSDMembers;
@@ -1151,6 +1156,7 @@
 			isa = PBXGroup;
 			children = (
 				05F3DF692E69BB7E00E1930D /* LSDAddInviteViewController.swift */,
+				05F3DF6F2E6D29B900E1930D /* LSDInviteCell.swift */,
 				05F3DF672E65905A00E1930D /* LSDMemberCell.swift */,
 			);
 			path = Subviews;
@@ -1389,8 +1395,10 @@
 				050E2AD62E09808A00FC61B4 /* LSCreateManager.swift in Sources */,
 				050E2ACC2E0839C800FC61B4 /* LSCreateViewController.swift in Sources */,
 				05F3DF6A2E69BB7E00E1930D /* LSDAddInviteViewController.swift in Sources */,
+				05F3DF702E6D29B900E1930D /* LSDInviteCell.swift in Sources */,
 				05F6AEA72E5AAF8E0025419A /* LSDInviteQRCodeViewController.swift in Sources */,
 				05F3DF682E65905A00E1930D /* LSDMemberCell.swift in Sources */,
+				05F3DF6E2E6D22B600E1930D /* LSDMemberManager.swift in Sources */,
 				05F3DF652E658C0C00E1930D /* LSDMemberViewController.swift in Sources */,
 				0572744E2E0D7B1F00F5D3D4 /* LSDSettingManager.swift in Sources */,
 				0572744C2E0D720B00F5D3D4 /* LSDSettingViewController.swift in Sources */,

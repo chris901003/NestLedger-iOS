@@ -128,6 +128,7 @@ class NewAPIPath {
         // [GET]
         case createLink = "/v1/ledger-split-invite/create-link"
         case linkInvite = "/v1/ledger-split-invite/link-invite"
+        case getUserInviteSend = "/v1/ledger-split-invite/get-user-invite-send"
 
         // [POST]
         case createUserInvite = "/v1/ledger-split-invite/create-user-invite"

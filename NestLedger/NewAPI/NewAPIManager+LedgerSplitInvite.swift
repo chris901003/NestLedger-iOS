@@ -93,3 +93,24 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Ledger Split Get User Invite Send
+extension NewAPIManager {
+    func ledgerSplitGetUserInviteSend(ledgerSplitId: String) async throws -> [LedgerSplitUserInviteData] {
+        let responseData = await session.request(
+            NewAPIPath.LedgerSplitInvite.getUserInviteSend.getPath(),
+            method: .get,
+            parameters: ["ledgerSplitId": ledgerSplitId])
+            .validate()
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(LedgerSplitUserInviteDatasResponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw LedgerSplitInviteError.decodeLedgerSplitUserInviteFailed
+        }
+    }
+}

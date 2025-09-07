@@ -26,10 +26,12 @@ class LSDMemberViewController: UIViewController {
     )
 
     let ledgerSplitDetailStore: LedgerSplitDetailStore
+    let manager: LSDMemberManager
     let sections: [Sections] = [.join, .waitingJoin]
 
     init(store: LedgerSplitDetailStore) {
         ledgerSplitDetailStore = store
+        self.manager = LSDMemberManager(ledgerSplitDetailStore: ledgerSplitDetailStore)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -42,6 +44,8 @@ class LSDMemberViewController: UIViewController {
         setup()
         layout()
         registerCell()
+
+        initData()
     }
 
     private func setup() {
@@ -91,11 +95,25 @@ class LSDMemberViewController: UIViewController {
 
     private func registerCell() {
         tableView.register(LSDMemberCell.self, forCellReuseIdentifier: LSDMemberCell.cellId)
+        tableView.register(LSDInviteCell.self, forCellReuseIdentifier: LSDInviteCell.cellId)
     }
 }
 
 // MARK: - Utility
 extension LSDMemberViewController {
+    private func initData() {
+        Task {
+            do {
+                try await manager.loadUserInviteSend()
+                await MainActor.run {
+                    tableView.reloadData()
+                }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .info, information: "加載訊息失敗，請稍後再試")
+            }
+        }
+    }
+
     @objc func tapAddButtonAction() {
         let addInviteVC = LSDAddInviteViewController(ledgerSplitStore: ledgerSplitDetailStore)
         navigationController?.pushViewController(addInviteVC, animated: true)
@@ -109,13 +127,12 @@ extension LSDMemberViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-            case 0:
+        let cellType = sections[section]
+        switch cellType {
+            case .join:
                 return ledgerSplitDetailStore.data.userIds.count
-            case 1:
-                return 0
-            default:
-                return 0
+            case .waitingJoin:
+                return manager.userInviteDatas.count
         }
     }
 
@@ -132,10 +149,20 @@ extension LSDMemberViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: LSDMemberCell.cellId, for: indexPath) as? LSDMemberCell else {
-            return UITableViewCell()
+        let cellType = sections[indexPath.section]
+        switch cellType {
+            case .join:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: LSDMemberCell.cellId, for: indexPath) as? LSDMemberCell else {
+                    return UITableViewCell()
+                }
+                cell.config(userId: ledgerSplitDetailStore.data.userIds[indexPath.row], type: .join)
+                return cell
+            case .waitingJoin:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: LSDInviteCell.cellId, for: indexPath) as? LSDInviteCell else {
+                    return UITableViewCell()
+                }
+                cell.config(data: manager.userInviteDatas[indexPath.row])
+                return cell
         }
-        cell.config(userId: ledgerSplitDetailStore.data.userIds[indexPath.row], type: .join)
-        return cell
     }
 }

@@ -17,3 +17,4 @@ struct LedgerSplitUserInviteData: Codable {
 }
 
 typealias LedgerSplitUserInviteDataResponse = APIResponseData<LedgerSplitUserInviteData>
+typealias LedgerSplitUserInviteDatasResponse = APIResponseData<[LedgerSplitUserInviteData]>
