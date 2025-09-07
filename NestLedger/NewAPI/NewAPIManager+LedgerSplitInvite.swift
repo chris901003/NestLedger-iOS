@@ -114,3 +114,17 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Ledger Split Delete User Invite
+extension NewAPIManager {
+    func ledgerSplitDeleteUserInvite(inviteId: String, accept: Bool) async throws {
+        let responseData = await session.request(
+            NewAPIPath.LedgerSplitInvite.deleteUserInvite.getPath(),
+            method: .delete,
+            parameters: ["inviteId": inviteId, "accept": accept ? "true" : "false"])
+            .validate()
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+    }
+}

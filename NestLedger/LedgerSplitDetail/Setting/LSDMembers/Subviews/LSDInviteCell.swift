@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import xxooooxxCommonUI
 
+protocol LSDInviteCellDelegate: AnyObject {
+    func deleteInvite(_ cell: LSDInviteCell)
+}
+
 class LSDInviteCell: UITableViewCell {
     static let cellId = "LSDInviteCellID"
 
@@ -19,6 +23,8 @@ class LSDInviteCell: UITableViewCell {
     let deleteButton = UIImageView()
 
     let newAPIManager = NewAPIManager()
+    var inviteData: LedgerSplitUserInviteData?
+    weak var delegate: LSDInviteCellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,6 +42,7 @@ class LSDInviteCell: UITableViewCell {
     }
 
     func config(data: LedgerSplitUserInviteData) {
+        self.inviteData = data
         Task {
             do {
                 let userInfo = try await newAPIManager.getUserInfoByUid(uid: data.receiveUserId)
@@ -117,6 +124,16 @@ class LSDInviteCell: UITableViewCell {
 // MARK: - Utility
 extension LSDInviteCell {
     @objc private func tapDeleteAction() {
-        print("✅ Tap Delete Action")
+        guard let inviteData else { return }
+        Task {
+            do {
+                try await newAPIManager.ledgerSplitDeleteUserInvite(inviteId: inviteData.id, accept: false)
+                await MainActor.run {
+                    delegate?.deleteInvite(self)
+                }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "刪除失敗，請稍後嘗試")
+            }
+        }
     }
 }

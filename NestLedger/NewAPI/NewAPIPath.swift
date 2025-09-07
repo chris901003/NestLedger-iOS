@@ -132,6 +132,9 @@ class NewAPIPath {
 
         // [POST]
         case createUserInvite = "/v1/ledger-split-invite/create-user-invite"
+
+        // [DELETE]
+        case deleteUserInvite = "/v1/ledger-split-invite/delete-user-invite"
     }
 
     enum Analysis: String, NewAPIPathProtocol {

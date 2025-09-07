@@ -162,7 +162,17 @@ extension LSDMemberViewController: UITableViewDelegate, UITableViewDataSource {
                     return UITableViewCell()
                 }
                 cell.config(data: manager.userInviteDatas[indexPath.row])
+                cell.delegate = self
                 return cell
         }
+    }
+}
+
+// MARK: - LSDInviteCellDelegate
+extension LSDMemberViewController: LSDInviteCellDelegate {
+    func deleteInvite(_ cell: LSDInviteCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        manager.userInviteDatas.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .fade)
     }
 }
