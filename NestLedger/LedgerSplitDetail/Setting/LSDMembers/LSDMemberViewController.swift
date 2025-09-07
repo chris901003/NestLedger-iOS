@@ -97,7 +97,7 @@ class LSDMemberViewController: UIViewController {
 // MARK: - Utility
 extension LSDMemberViewController {
     @objc func tapAddButtonAction() {
-        let addInviteVC = LSDAddInviteViewController()
+        let addInviteVC = LSDAddInviteViewController(ledgerSplitStore: ledgerSplitDetailStore)
         navigationController?.pushViewController(addInviteVC, animated: true)
     }
 }

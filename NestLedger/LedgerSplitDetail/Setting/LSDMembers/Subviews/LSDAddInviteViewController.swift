@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import xxooooxxCommonUI
 
+protocol LSDAddInviteViewControllerDelegate: AnyObject {
+    func newLedgerSplitUserInvite(data: LedgerSplitUserInviteData)
+}
+
 class LSDAddInviteViewController: UIViewController {
     let titleLabel = UILabel()
     let emailAddressLabel = UILabel()
@@ -22,6 +26,18 @@ class LSDAddInviteViewController: UIViewController {
         padding: .init(top: 12, left: 12, bottom: 12, right: 12),
         image: UIImage(systemName: "paperplane")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
     )
+
+    let ledgerSplitStore: LedgerSplitDetailStore
+    weak var delegate: LSDAddInviteViewControllerDelegate?
+
+    init(ledgerSplitStore: LedgerSplitDetailStore) {
+        self.ledgerSplitStore = ledgerSplitStore
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +60,9 @@ class LSDAddInviteViewController: UIViewController {
         emailAddressInputView.layer.cornerRadius = 10.0
         emailAddressInputView.layer.borderWidth = 1.5
         emailAddressInputView.layer.borderColor = UIColor.systemGray4.cgColor
+        emailAddressInputView.keyboardType = .emailAddress
+        emailAddressInputView.returnKeyType = .done
+        emailAddressInputView.delegate = self
 
         cancelButton.layer.cornerRadius = 45.0 / 2
         cancelButton.layer.borderWidth = 2.0
@@ -101,6 +120,14 @@ class LSDAddInviteViewController: UIViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
+extension LSDAddInviteViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
 // MARK: - Utility
 extension LSDAddInviteViewController {
     @objc private func tapCancelAction() {
@@ -109,6 +136,19 @@ extension LSDAddInviteViewController {
 
     @objc private func tapAddAction() {
         view.endEditing(true)
-        print("✅ Tap add action")
+
+        let newAPIManager = NewAPIManager()
+        Task {
+            do {
+                let inviteUserInfo = try await newAPIManager.getUserByEmail(emailAddress: emailAddressInputView.text ?? "")
+                let userInviteData = try await newAPIManager.ledgerSplitCreateUserInvite(
+                    data: .init(ledgerSplitId: ledgerSplitStore.data._id, receiveUserId: inviteUserInfo.id)
+                )
+                delegate?.newLedgerSplitUserInvite(data: userInviteData)
+                navigationController?.popViewController(animated: true)
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "發送邀請失敗")
+            }
+        }
     }
 }

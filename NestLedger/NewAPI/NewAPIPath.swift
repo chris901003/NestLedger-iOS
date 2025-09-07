@@ -128,6 +128,9 @@ class NewAPIPath {
         // [GET]
         case createLink = "/v1/ledger-split-invite/create-link"
         case linkInvite = "/v1/ledger-split-invite/link-invite"
+
+        // [POST]
+        case createUserInvite = "/v1/ledger-split-invite/create-user-invite"
     }
 
     enum Analysis: String, NewAPIPathProtocol {

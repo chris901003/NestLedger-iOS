@@ -188,6 +188,7 @@
 		05F3DF652E658C0C00E1930D /* LSDMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF642E658C0C00E1930D /* LSDMemberViewController.swift */; };
 		05F3DF682E65905A00E1930D /* LSDMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF672E65905A00E1930D /* LSDMemberCell.swift */; };
 		05F3DF6A2E69BB7E00E1930D /* LSDAddInviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF692E69BB7E00E1930D /* LSDAddInviteViewController.swift */; };
+		05F3DF6C2E6D1A2300E1930D /* LedgerSplitUserInviteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF6B2E6D1A2300E1930D /* LedgerSplitUserInviteData.swift */; };
 		05F4E3982D9ED42D006FC9C9 /* TDateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */; };
 		05F4E39A2DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */; };
 		05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E39B2DA41669006FC9C9 /* TAmountView.swift */; };
@@ -367,6 +368,7 @@
 		05F3DF642E658C0C00E1930D /* LSDMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDMemberViewController.swift; sourceTree = "<group>"; };
 		05F3DF672E65905A00E1930D /* LSDMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDMemberCell.swift; sourceTree = "<group>"; };
 		05F3DF692E69BB7E00E1930D /* LSDAddInviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSDAddInviteViewController.swift; sourceTree = "<group>"; };
+		05F3DF6B2E6D1A2300E1930D /* LedgerSplitUserInviteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSplitUserInviteData.swift; sourceTree = "<group>"; };
 		05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDateSelectionView.swift; sourceTree = "<group>"; };
 		05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIncomeExpenseSelectorView.swift; sourceTree = "<group>"; };
 		05F4E39B2DA41669006FC9C9 /* TAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAmountView.swift; sourceTree = "<group>"; };
@@ -1131,6 +1133,7 @@
 			isa = PBXGroup;
 			children = (
 				05F3DF5F2E653BF000E1930D /* LedgerSplitQRCodeInviteData.swift */,
+				05F3DF6B2E6D1A2300E1930D /* LedgerSplitUserInviteData.swift */,
 			);
 			path = LedgerSplitInvite;
 			sourceTree = "<group>";
@@ -1417,6 +1420,7 @@
 				050E2ADF2E0AE2CC00FC61B4 /* LedgerSplitManager.swift in Sources */,
 				05F3DF602E653BF000E1930D /* LedgerSplitQRCodeInviteData.swift in Sources */,
 				057274552E102CCC00F5D3D4 /* LedgerSplitUpdateRequestData.swift in Sources */,
+				05F3DF6C2E6D1A2300E1930D /* LedgerSplitUserInviteData.swift in Sources */,
 				050E2AC72E07AFA900FC61B4 /* LedgerSplitViewController.swift in Sources */,
 				050533802DE061A0003245E0 /* LedgerUpdateRequestData.swift in Sources */,
 				05C95D202D8C5CD60058A8A8 /* LedgerVCManager.swift in Sources */,
