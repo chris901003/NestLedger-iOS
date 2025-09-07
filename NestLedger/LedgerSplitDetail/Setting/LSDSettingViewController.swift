@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import xxooooxxCommonUI
+import Combine
 
 extension LSDSettingViewController {
     enum Section: String, CaseIterable {
@@ -35,6 +36,7 @@ class LSDSettingViewController: UIViewController {
     let rows: [[Row]] = [[.nameAndAvatar], [.inviteQRCode, .members]]
     let ledgerSplitDetailStore: LedgerSplitDetailStore
     let manager: LSDSettingManager
+    var cancellables = Set<AnyCancellable>()
 
     init(ledgerSplitDetailStore: LedgerSplitDetailStore) {
         self.ledgerSplitDetailStore = ledgerSplitDetailStore
@@ -51,6 +53,7 @@ class LSDSettingViewController: UIViewController {
         setup()
         layout()
         registerCell()
+        subscribeLedgerSplitStore()
     }
 
     private func setup() {
@@ -104,6 +107,19 @@ class LSDSettingViewController: UIViewController {
     }
 }
 
+// MARK: - Subscribe Ledger Split Store
+extension LSDSettingViewController {
+    func subscribeLedgerSplitStore() {
+        ledgerSplitDetailStore.dataPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] ledgerSplitData in
+                guard let self else { return }
+                tableView.reloadData()
+            }
+            .store(in: &cancellables)
+    }
+}
+
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension LSDSettingViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -133,7 +149,7 @@ extension LSDSettingViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             case .members:
                 if let cell = tableView.dequeueReusableCell(withIdentifier: XOLeadingTrailingLabelWithIconCell.cellId, for: indexPath) as? XOLeadingTrailingLabelWithIconCell {
-                    cell.config(title: cellType.rawValue, info: "1")
+                    cell.config(title: cellType.rawValue, info: "\(ledgerSplitDetailStore.data.userIds.count)")
                     return cell
                 }
         }
