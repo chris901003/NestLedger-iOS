@@ -78,11 +78,8 @@ class LedgerSplitManager {
             }
         }
     }
-}
 
-// MARK: - Notification
-extension LedgerSplitManager {
-    @objc func receiveRefreshLedgerSplitListView(_ notification: Notification) {
+    func refreshLedgerSplit() {
         ledgerSplitDatas.removeAll()
         ledgerSplitAvatars.removeAll()
         lastLoadIdx = 0
@@ -91,6 +88,13 @@ extension LedgerSplitManager {
             await MainActor.run { isLoading = false }
             await loadMoreLedgerSplitData()
         }
+    }
+}
+
+// MARK: - Notification
+extension LedgerSplitManager {
+    @objc func receiveRefreshLedgerSplitListView(_ notification: Notification) {
+        refreshLedgerSplit()
     }
 }
 

@@ -12,6 +12,7 @@ import UIKit
 class LedgerSplitViewController: UIViewController {
     let plusButton = LPlusButtonView()
     let tableView = UITableView()
+    let refreshControl = UIRefreshControl()
 
     let manager = LedgerSplitManager()
 
@@ -27,6 +28,10 @@ class LedgerSplitViewController: UIViewController {
 
     private func setup() {
         manager.vc = self
+
+        refreshControl.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "刷新中...")
+        tableView.refreshControl = refreshControl
 
         view.backgroundColor = .white
         navigationItem.title = "分帳本列表"
@@ -66,6 +71,16 @@ class LedgerSplitViewController: UIViewController {
             present(createLSVC, animated: true)
         }
         return UIMenu(title: "分帳本選單", children: [addNewLedgerSplitAction])
+    }
+}
+
+// MARK: - Utility
+extension LedgerSplitViewController {
+    @objc private func refreshAction() {
+        manager.refreshLedgerSplit()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.tableView.refreshControl?.endRefreshing()
+        }
     }
 }
 
