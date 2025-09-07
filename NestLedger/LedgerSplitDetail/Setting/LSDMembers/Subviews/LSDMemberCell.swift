@@ -8,6 +8,11 @@
 
 import Foundation
 import UIKit
+import xxooooxxCommonUI
+
+protocol LSDMemberCellDelegate: AnyObject {
+    func memberCellDidTapDeleteButton(_ cell: LSDMemberCell)
+}
 
 class LSDMemberCell: UITableViewCell {
     static let cellId = "LSDMemberCellId"
@@ -16,7 +21,9 @@ class LSDMemberCell: UITableViewCell {
     let nameLabel = UILabel()
     let deleteButton = UIImageView()
 
+    weak var delegate: LSDMemberCellDelegate?
     let newAPIManager = NewAPIManager()
+    var ledgerSplitId: String?
     var userId: String?
     var userType: LSDMemberViewController.Sections?
 
@@ -30,9 +37,11 @@ class LSDMemberCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func config(userId: String, type: LSDMemberViewController.Sections) {
+    func config(ledgerSplitId: String, userId: String, type: LSDMemberViewController.Sections, isShowDeleteButton: Bool) {
+        self.ledgerSplitId = ledgerSplitId
         self.userId = userId
         self.userType = type
+        deleteButton.isHidden = !isShowDeleteButton
         fetchUserInfo()
     }
 
@@ -103,6 +112,16 @@ extension LSDMemberCell {
     }
 
     @objc private func tapDeleteAction() {
-        print("✅ Tap Delete Action")
+        guard let ledgerSplitId, let userId else { return }
+        Task {
+            do {
+                let ledgerSplitData = try await newAPIManager.leaveLedgerSplit(ledgerSplitId: ledgerSplitId, userId: userId)
+                await MainActor.run {
+                    delegate?.memberCellDidTapDeleteButton(self)
+                }
+            } catch {
+                XOBottomBarInformationManager.showBottomInformation(type: .failed, information: "刪除失敗，請稍後再試")
+            }
+        }
     }
 }

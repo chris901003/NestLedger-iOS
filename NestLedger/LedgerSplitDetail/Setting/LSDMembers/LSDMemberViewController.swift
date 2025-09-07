@@ -157,7 +157,14 @@ extension LSDMemberViewController: UITableViewDelegate, UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: LSDMemberCell.cellId, for: indexPath) as? LSDMemberCell else {
                     return UITableViewCell()
                 }
-                cell.config(userId: ledgerSplitDetailStore.data.userIds[indexPath.row], type: .join)
+                let userId = ledgerSplitDetailStore.data.userIds[indexPath.row]
+                cell.config(
+                    ledgerSplitId: ledgerSplitDetailStore.data._id,
+                    userId: userId,
+                    type: .join,
+                    isShowDeleteButton: userId != newSharedUserInfo.id
+                )
+                cell.delegate = self
                 return cell
             case .waitingJoin:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: LSDInviteCell.cellId, for: indexPath) as? LSDInviteCell else {
@@ -171,7 +178,15 @@ extension LSDMemberViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - LSDInviteCellDelegate
-extension LSDMemberViewController: LSDInviteCellDelegate {
+extension LSDMemberViewController: LSDMemberCellDelegate, LSDInviteCellDelegate {
+    func memberCellDidTapDeleteButton(_ cell: LSDMemberCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        var ledgerSplitData = ledgerSplitDetailStore.data
+        ledgerSplitData.userIds.remove(at: indexPath.row)
+        ledgerSplitDetailStore.update(ledgerSplitData: ledgerSplitData)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+    }
+
     func deleteInvite(_ cell: LSDInviteCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         manager.userInviteDatas.remove(at: indexPath.row)

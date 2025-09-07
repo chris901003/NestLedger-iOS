@@ -154,3 +154,24 @@ extension NewAPIManager {
         }
     }
 }
+
+// MARK: - Leave Ledger Split
+extension NewAPIManager {
+    func leaveLedgerSplit(ledgerSplitId: String, userId: String) async throws -> LedgerSplitData {
+        let responseData = await session.request(
+            NewAPIPath.LedgerSplit.leave.getPath(),
+            method: .get,
+            parameters: ["ledgerSplitId": ledgerSplitId, "uid": userId])
+            .validate()
+            .serializingData()
+            .response
+        try checkResponse(responseData: responseData)
+        do {
+            guard let data = responseData.data else { throw NewAPIManagerError.responseDataNotFound }
+            return try NewAPIManager.decoder.decode(CleanLedgerSplitDataResponse.self, from: data).data
+        } catch {
+            if error is NewAPIManagerError { throw error }
+            throw LedgerSplitError.decodeLedgerSplitDataFaield
+        }
+    }
+}

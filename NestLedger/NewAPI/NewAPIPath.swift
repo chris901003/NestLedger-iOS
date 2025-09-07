@@ -115,6 +115,7 @@ class NewAPIPath {
         case get = "/v1/ledger-split/get"
         case avatar = "/v1/ledger-split/avatar"
         case getLedgerSplitByInviteToken = "/v1/ledger-split/get-ledger-split-by-invite-token"
+        case leave = "/v1/ledger-split/leave"
 
         // [POST]
         case create = "/v1/ledger-split/create"
