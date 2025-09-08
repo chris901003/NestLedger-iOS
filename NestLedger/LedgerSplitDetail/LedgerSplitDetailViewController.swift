@@ -16,6 +16,7 @@ protocol LedgerSplitDetailViewControllerDelegate: AnyObject {
 
 class LedgerSplitDetailViewController: UIViewController {
     let settingButton = UIImageView()
+    let calendarView = NLCalendarView()
 
     let ledgerSplitDetailStore: LedgerSplitDetailStore
     let manager: LedgerSplitDetailManager
@@ -55,7 +56,13 @@ class LedgerSplitDetailViewController: UIViewController {
     }
 
     private func layout() {
-        
+        view.addSubview(calendarView)
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
 }
 
