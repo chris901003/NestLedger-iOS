@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Combine
+import xxooooxxCommonUI
 
 protocol LedgerSplitDetailViewControllerDelegate: AnyObject {
     func updateLedgerSplit(data: LedgerSplitData, avatar: UIImage)
@@ -17,6 +18,10 @@ protocol LedgerSplitDetailViewControllerDelegate: AnyObject {
 class LedgerSplitDetailViewController: UIViewController {
     let settingButton = UIImageView()
     let calendarView = NLCalendarView()
+    let addButton = XOPaddedImageView(
+        padding: .init(top: 8, left: 8, bottom: 8, right: 8),
+        image: UIImage(systemName: "plus")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+    )
 
     let ledgerSplitDetailStore: LedgerSplitDetailStore
     let manager: LedgerSplitDetailManager
@@ -53,16 +58,38 @@ class LedgerSplitDetailViewController: UIViewController {
         settingButton.image = UIImage(systemName: "gear")
         settingButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapSettingAction)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingButton)
+
+        addButton.layer.cornerRadius = 8.0
+        addButton.backgroundColor = .systemBlue
+        addButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAddButtonAction)))
+        addButton.isUserInteractionEnabled = true
     }
 
     private func layout() {
         view.addSubview(calendarView)
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
             calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+
+        view.addSubview(addButton)
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+            addButton.widthAnchor.constraint(equalToConstant: 40),
+            addButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+}
+
+// MARK: - Utility
+extension LedgerSplitDetailViewController {
+    @objc private func tapAddButtonAction() {
+        let transactionVC = LSTransactionViewController()
+        present(transactionVC, animated: true)
     }
 }
 

@@ -196,6 +196,9 @@
 		05F3DF782E6D689300E1930D /* NLCDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF772E6D689300E1930D /* NLCDateCell.swift */; };
 		05F3DF7A2E6F0F8400E1930D /* NLCalendarView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF792E6F0F8400E1930D /* NLCalendarView+Ext.swift */; };
 		05F3DF7C2E6F19A100E1930D /* NLCalendarView+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF7B2E6F19A100E1930D /* NLCalendarView+CollectionView.swift */; };
+		05F3DF7F2E705B9F00E1930D /* LSTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF7E2E705B9F00E1930D /* LSTransactionViewController.swift */; };
+		05F3DF822E7062EA00E1930D /* LSTSubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF812E7062EA00E1930D /* LSTSubjectView.swift */; };
+		05F3DF842E70669200E1930D /* NLGradientAnimatedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F3DF832E70669200E1930D /* NLGradientAnimatedLineView.swift */; };
 		05F4E3982D9ED42D006FC9C9 /* TDateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */; };
 		05F4E39A2DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */; };
 		05F4E39C2DA41669006FC9C9 /* TAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F4E39B2DA41669006FC9C9 /* TAmountView.swift */; };
@@ -383,6 +386,9 @@
 		05F3DF772E6D689300E1930D /* NLCDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLCDateCell.swift; sourceTree = "<group>"; };
 		05F3DF792E6F0F8400E1930D /* NLCalendarView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NLCalendarView+Ext.swift"; sourceTree = "<group>"; };
 		05F3DF7B2E6F19A100E1930D /* NLCalendarView+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NLCalendarView+CollectionView.swift"; sourceTree = "<group>"; };
+		05F3DF7E2E705B9F00E1930D /* LSTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSTransactionViewController.swift; sourceTree = "<group>"; };
+		05F3DF812E7062EA00E1930D /* LSTSubjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSTSubjectView.swift; sourceTree = "<group>"; };
+		05F3DF832E70669200E1930D /* NLGradientAnimatedLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLGradientAnimatedLineView.swift; sourceTree = "<group>"; };
 		05F4E3972D9ED42D006FC9C9 /* TDateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDateSelectionView.swift; sourceTree = "<group>"; };
 		05F4E3992DA40961006FC9C9 /* TIncomeExpenseSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIncomeExpenseSelectorView.swift; sourceTree = "<group>"; };
 		05F4E39B2DA41669006FC9C9 /* TAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAmountView.swift; sourceTree = "<group>"; };
@@ -621,6 +627,7 @@
 			children = (
 				050E2ACE2E0844A800FC61B4 /* NLCircleView.swift */,
 				05F6AEB22E5C3ABC0025419A /* NLCountdownLabel.swift */,
+				05F3DF832E70669200E1930D /* NLGradientAnimatedLineView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -813,6 +820,7 @@
 		057274452E0C2E1B00F5D3D4 /* LedgerSplitDetail */ = {
 			isa = PBXGroup;
 			children = (
+				05F3DF7D2E705B8B00E1930D /* LSTransaction */,
 				0572744A2E0D71EC00F5D3D4 /* Setting */,
 				057274482E0C2EF600F5D3D4 /* LedgerSplitDetailManager.swift */,
 				05F6AEA02E570F950025419A /* LedgerSplitDetailStore.swift */,
@@ -1193,6 +1201,23 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		05F3DF7D2E705B8B00E1930D /* LSTransaction */ = {
+			isa = PBXGroup;
+			children = (
+				05F3DF802E7062AF00E1930D /* Subviews */,
+				05F3DF7E2E705B9F00E1930D /* LSTransactionViewController.swift */,
+			);
+			path = LSTransaction;
+			sourceTree = "<group>";
+		};
+		05F3DF802E7062AF00E1930D /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				05F3DF812E7062EA00E1930D /* LSTSubjectView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		05F6AEA52E5AAF6E0025419A /* LSDInviteQRCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -1436,6 +1461,8 @@
 				057274532E0D7E8500F5D3D4 /* LSDTitleAndAvatarManager.swift in Sources */,
 				057274512E0D7CC700F5D3D4 /* LSDTitleAndAvatarViewController.swift in Sources */,
 				050E2ACA2E07D2A100FC61B4 /* LSLedgerCell.swift in Sources */,
+				05F3DF822E7062EA00E1930D /* LSTSubjectView.swift in Sources */,
+				05F3DF7F2E705B9F00E1930D /* LSTransactionViewController.swift in Sources */,
 				0572C3C82D9C1911008F99FB /* LTCell.swift in Sources */,
 				0572C3C52D9ADA6C008F99FB /* LTransactionManager.swift in Sources */,
 				0572C3C32D9AD54C008F99FB /* LTransactionView.swift in Sources */,
@@ -1492,6 +1519,7 @@
 				05F3DF732E6D651700E1930D /* NLCalendarView.swift in Sources */,
 				050E2ACF2E0844A800FC61B4 /* NLCircleView.swift in Sources */,
 				05F6AEB32E5C3ABC0025419A /* NLCountdownLabel.swift in Sources */,
+				05F3DF842E70669200E1930D /* NLGradientAnimatedLineView.swift in Sources */,
 				05F3DF4E2E604CED00E1930D /* NewAPIManager+Analysis.swift in Sources */,
 				0505338D2DE4A8BD003245E0 /* NewAPIManager+EmailVerification.swift in Sources */,
 				050533682DDDA12A003245E0 /* NewAPIManager+Information.swift in Sources */,
