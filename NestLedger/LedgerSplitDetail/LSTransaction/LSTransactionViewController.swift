@@ -20,7 +20,11 @@ class LSTransactionViewController: UIViewController {
         padding: .init(top: 8, left: 8, bottom: 8, right: 8),
         image: UIImage(systemName: "paperplane")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
     )
+
+    let scrollView = UIScrollView()
+    let contentView = UIView()
     let subjectView = LSTSubjectView()
+    let dateSelectView = LSTDateSelectView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +46,9 @@ class LSTransactionViewController: UIViewController {
         sendButton.layer.borderColor = UIColor.systemBlue.cgColor
         sendButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapSendButtonAction)))
         sendButton.isUserInteractionEnabled = true
+
+        scrollView.keyboardDismissMode = .onDrag
+        scrollView.showsVerticalScrollIndicator = false
 
         titleLabel.text = "分帳本帳目"
         titleLabel.font = .systemFont(ofSize: 18, weight: .semibold)
@@ -73,12 +80,42 @@ class LSTransactionViewController: UIViewController {
             titleLabel.centerYAnchor.constraint(equalTo: sendButton.centerYAnchor)
         ])
 
-        view.addSubview(subjectView)
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 36),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        scrollView.addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+        let constraint = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+        constraint.priority = .defaultLow
+        constraint.isActive = true
+
+        contentView.addSubview(subjectView)
         subjectView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            subjectView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 36),
-            subjectView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            subjectView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+            subjectView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            subjectView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            subjectView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
+        ])
+
+        contentView.addSubview(dateSelectView)
+        dateSelectView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dateSelectView.topAnchor.constraint(equalTo: subjectView.bottomAnchor, constant: 24),
+            dateSelectView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            dateSelectView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
         ])
     }
 }

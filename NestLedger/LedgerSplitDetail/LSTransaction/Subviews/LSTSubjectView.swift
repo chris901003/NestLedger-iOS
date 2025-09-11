@@ -9,12 +9,16 @@
 import Foundation
 import UIKit
 
-import UIKit
+protocol LSTSubjectViewDelegate: AnyObject {
+    func subjectDidChange(_ text: String)
+}
 
 class LSTSubjectView: UIView {
     let titleLabel = UILabel()
     let inputFieldView = UITextField()
     let bottomLine = NLGradientAnimatedLineView()
+
+    weak var delegate: LSTSubjectViewDelegate?
 
     init() {
         super.init(frame: .zero)
@@ -79,5 +83,9 @@ extension LSTSubjectView: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         bottomLine.fillLeftToRight()
         return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.subjectDidChange(textField.text ?? "")
     }
 }
