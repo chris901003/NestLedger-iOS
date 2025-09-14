@@ -111,6 +111,8 @@
 		051BA2BD2E76596D00C09D6B /* LSTAmountView+AmountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051BA2BC2E76596D00C09D6B /* LSTAmountView+AmountButton.swift */; };
 		051BA2BF2E7662A500C09D6B /* LSTAmountView+Amount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051BA2BE2E7662A500C09D6B /* LSTAmountView+Amount.swift */; };
 		051BA2C12E76689600C09D6B /* LSTransactionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051BA2C02E76689600C09D6B /* LSTransactionStore.swift */; };
+		051BA2C42E76703400C09D6B /* LSTSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051BA2C32E76703400C09D6B /* LSTSplitView.swift */; };
+		051BA2C62E76765500C09D6B /* LSTSplitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051BA2C52E76765500C09D6B /* LSTSplitCell.swift */; };
 		0529446B2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446A2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift */; };
 		0529446D2D6E0AA500943CAC /* MQLTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446C2D6E0AA500943CAC /* MQLTagView.swift */; };
 		0529446F2D6E10B200943CAC /* MQLSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446E2D6E10B200943CAC /* MQLSendView.swift */; };
@@ -307,6 +309,8 @@
 		051BA2BC2E76596D00C09D6B /* LSTAmountView+AmountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSTAmountView+AmountButton.swift"; sourceTree = "<group>"; };
 		051BA2BE2E7662A500C09D6B /* LSTAmountView+Amount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LSTAmountView+Amount.swift"; sourceTree = "<group>"; };
 		051BA2C02E76689600C09D6B /* LSTransactionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSTransactionStore.swift; sourceTree = "<group>"; };
+		051BA2C32E76703400C09D6B /* LSTSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSTSplitView.swift; sourceTree = "<group>"; };
+		051BA2C52E76765500C09D6B /* LSTSplitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSTSplitCell.swift; sourceTree = "<group>"; };
 		0529446A2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLIncomeExpenditureSelectView.swift; sourceTree = "<group>"; };
 		0529446C2D6E0AA500943CAC /* MQLTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLTagView.swift; sourceTree = "<group>"; };
 		0529446E2D6E10B200943CAC /* MQLSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLSendView.swift; sourceTree = "<group>"; };
@@ -751,6 +755,15 @@
 				051BA2B92E7309B500C09D6B /* LSTAmountView.swift */,
 			);
 			path = AmountView;
+			sourceTree = "<group>";
+		};
+		051BA2C22E76701500C09D6B /* SplitView */ = {
+			isa = PBXGroup;
+			children = (
+				051BA2C52E76765500C09D6B /* LSTSplitCell.swift */,
+				051BA2C32E76703400C09D6B /* LSTSplitView.swift */,
+			);
+			path = SplitView;
 			sourceTree = "<group>";
 		};
 		052944722D79E91900943CAC /* Components */ = {
@@ -1235,6 +1248,7 @@
 			isa = PBXGroup;
 			children = (
 				051BA2BB2E76594200C09D6B /* AmountView */,
+				051BA2C22E76701500C09D6B /* SplitView */,
 				051BA2B72E73053C00C09D6B /* LSTDateSelectView.swift */,
 				05F3DF812E7062EA00E1930D /* LSTSubjectView.swift */,
 			);
@@ -1488,6 +1502,8 @@
 				051BA2BD2E76596D00C09D6B /* LSTAmountView+AmountButton.swift in Sources */,
 				051BA2BA2E7309B500C09D6B /* LSTAmountView.swift in Sources */,
 				051BA2B82E73053C00C09D6B /* LSTDateSelectView.swift in Sources */,
+				051BA2C62E76765500C09D6B /* LSTSplitCell.swift in Sources */,
+				051BA2C42E76703400C09D6B /* LSTSplitView.swift in Sources */,
 				05F3DF822E7062EA00E1930D /* LSTSubjectView.swift in Sources */,
 				051BA2C12E76689600C09D6B /* LSTransactionStore.swift in Sources */,
 				05F3DF7F2E705B9F00E1930D /* LSTransactionViewController.swift in Sources */,

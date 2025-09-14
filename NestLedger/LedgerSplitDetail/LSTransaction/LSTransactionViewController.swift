@@ -26,6 +26,7 @@ class LSTransactionViewController: UIViewController {
     let subjectView: LSTSubjectView
     let dateSelectView: LSTDateSelectView
     let amountView: LSTAmountView
+    let splitView: LSTSplitView
 
     let transactionStore = LSTransactionStore()
 
@@ -33,6 +34,7 @@ class LSTransactionViewController: UIViewController {
         self.subjectView = LSTSubjectView(transactionStore: transactionStore)
         self.dateSelectView = LSTDateSelectView(transactionStore: transactionStore)
         self.amountView = LSTAmountView(transactionStore: transactionStore)
+        self.splitView = LSTSplitView(transactionStore: transactionStore)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -44,6 +46,11 @@ class LSTransactionViewController: UIViewController {
         super.viewDidLoad()
         setup()
         layout()
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     private func setup() {
@@ -139,6 +146,15 @@ class LSTransactionViewController: UIViewController {
             amountView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             amountView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
         ])
+
+        contentView.addSubview(splitView)
+        splitView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            splitView.topAnchor.constraint(equalTo: amountView.bottomAnchor, constant: 24),
+            splitView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            splitView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            splitView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24)
+        ])
     }
 }
 
@@ -155,5 +171,27 @@ extension LSTransactionViewController {
             self.subjectView.bottomLine.clearLeftToRight(duration: 0.5)
         }
 //        dismiss(animated: true)
+    }
+}
+
+// MARK: - Keyboard
+extension LSTransactionViewController {
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
+
+        let keyboardHeight = keyboardFrame.height
+        UIView.animate(withDuration: duration) {
+            self.scrollView.contentInset.bottom = keyboardHeight
+            self.scrollView.verticalScrollIndicatorInsets.bottom = keyboardHeight
+        }
+    }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        UIView.animate(withDuration: 0.25) {
+            self.scrollView.contentInset.bottom = 0
+            self.scrollView.verticalScrollIndicatorInsets.bottom = 0
+        }
     }
 }

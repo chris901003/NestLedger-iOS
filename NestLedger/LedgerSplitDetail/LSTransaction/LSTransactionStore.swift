@@ -14,13 +14,17 @@ final class LSTransactionStore {
     var title: String = ""
     var date: Date = .now
     @Published private(set) var amount: Int = 0
+    @Published private(set) var splitUsers: [(userId: String, amount: Int)] = []
 
     var amountPublisher: AnyPublisher<Int, Never> {
         $amount
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
+}
 
+// MARK: - Amount
+extension LSTransactionStore {
     func update(amount: Int? = nil) {
         if let amount {
             self.amount = amount
@@ -29,5 +33,20 @@ final class LSTransactionStore {
 
     func addAmount(_ value: Int) {
         self.amount += value
+    }
+}
+
+// MARK: - Split User
+extension LSTransactionStore {
+    func addSplitUser(id: String) {
+        splitUsers.append((id, 0))
+    }
+
+    func removeSplitUser(idx: Int) {
+        splitUsers.remove(at: idx)
+    }
+
+    func setSplitAmount(idx: Int, amount: Int) {
+        splitUsers[idx].amount = amount
     }
 }
