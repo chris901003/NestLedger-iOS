@@ -26,6 +26,7 @@ class LSTransactionViewController: UIViewController {
     let subjectView: LSTSubjectView
     let dateSelectView: LSTDateSelectView
     let amountView: LSTAmountView
+    let advancerView: LSTAdvancerView
     let splitView: LSTSplitView
 
     let ledgerSplitStore: LedgerSplitDetailStore
@@ -36,6 +37,7 @@ class LSTransactionViewController: UIViewController {
         self.subjectView = LSTSubjectView(transactionStore: transactionStore)
         self.dateSelectView = LSTDateSelectView(transactionStore: transactionStore)
         self.amountView = LSTAmountView(transactionStore: transactionStore)
+        self.advancerView = LSTAdvancerView(ledgerSplitData: ledgerSplitStore.data, transactionStore: transactionStore)
         self.splitView = LSTSplitView(ledgerSplitData: ledgerSplitStore.data, transactionStore: transactionStore)
         super.init(nibName: nil, bundle: nil)
     }
@@ -151,10 +153,18 @@ class LSTransactionViewController: UIViewController {
             amountView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
         ])
 
+        contentView.addSubview(advancerView)
+        advancerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            advancerView.topAnchor.constraint(equalTo: amountView.bottomAnchor, constant: 24),
+            advancerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            advancerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
+        ])
+
         contentView.addSubview(splitView)
         splitView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            splitView.topAnchor.constraint(equalTo: amountView.bottomAnchor, constant: 24),
+            splitView.topAnchor.constraint(equalTo: advancerView.bottomAnchor, constant: 24),
             splitView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             splitView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
             splitView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -24)

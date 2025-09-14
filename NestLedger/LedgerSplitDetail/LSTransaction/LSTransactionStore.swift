@@ -14,6 +14,7 @@ final class LSTransactionStore {
     var title: String = ""
     var date: Date = .now
     @Published private(set) var amount: Int = 0
+    var advancer: UserInfoData? = nil
     @Published private(set) var splitUsers: [(userId: String, amount: Int)] = []
 
     var amountPublisher: AnyPublisher<Int, Never> {

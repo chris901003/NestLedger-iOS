@@ -176,6 +176,7 @@
 		05C95D1E2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D1D2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift */; };
 		05C95D202D8C5CD60058A8A8 /* LedgerVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D1F2D8C5CD60058A8A8 /* LedgerVCManager.swift */; };
 		05CB29122E76AAC3007D2C8A /* LSTSplitUserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CB29112E76AAC3007D2C8A /* LSTSplitUserListCell.swift */; };
+		05CB29152E76B7E0007D2C8A /* LSTAdvancerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CB29142E76B7E0007D2C8A /* LSTAdvancerView.swift */; };
 		05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */; };
 		05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */; };
 		05EC2B162D6B54E2006F1F3A /* MRecentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */; };
@@ -375,6 +376,7 @@
 		05C95D1D2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerCollectionViewCell.swift; sourceTree = "<group>"; };
 		05C95D1F2D8C5CD60058A8A8 /* LedgerVCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerVCManager.swift; sourceTree = "<group>"; };
 		05CB29112E76AAC3007D2C8A /* LSTSplitUserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSTSplitUserListCell.swift; sourceTree = "<group>"; };
+		05CB29142E76B7E0007D2C8A /* LSTAdvancerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSTAdvancerView.swift; sourceTree = "<group>"; };
 		05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageQualitySettingViewController.swift; sourceTree = "<group>"; };
 		05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRecentContentView.swift; sourceTree = "<group>"; };
@@ -1095,6 +1097,14 @@
 			path = LSTSUserList;
 			sourceTree = "<group>";
 		};
+		05CB29132E76B7A9007D2C8A /* AdvancerView */ = {
+			isa = PBXGroup;
+			children = (
+				05CB29142E76B7E0007D2C8A /* LSTAdvancerView.swift */,
+			);
+			path = AdvancerView;
+			sourceTree = "<group>";
+		};
 		05EC2B0E2D6A14BA006F1F3A /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -1261,6 +1271,7 @@
 		05F3DF802E7062AF00E1930D /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				05CB29132E76B7A9007D2C8A /* AdvancerView */,
 				051BA2BB2E76594200C09D6B /* AmountView */,
 				051BA2C22E76701500C09D6B /* SplitView */,
 				051BA2B72E73053C00C09D6B /* LSTDateSelectView.swift */,
@@ -1512,6 +1523,7 @@
 				057274532E0D7E8500F5D3D4 /* LSDTitleAndAvatarManager.swift in Sources */,
 				057274512E0D7CC700F5D3D4 /* LSDTitleAndAvatarViewController.swift in Sources */,
 				050E2ACA2E07D2A100FC61B4 /* LSLedgerCell.swift in Sources */,
+				05CB29152E76B7E0007D2C8A /* LSTAdvancerView.swift in Sources */,
 				051BA2BF2E7662A500C09D6B /* LSTAmountView+Amount.swift in Sources */,
 				051BA2BD2E76596D00C09D6B /* LSTAmountView+AmountButton.swift in Sources */,
 				051BA2BA2E7309B500C09D6B /* LSTAmountView.swift in Sources */,
