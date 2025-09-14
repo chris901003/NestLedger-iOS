@@ -25,6 +25,18 @@ class LSTransactionViewController: UIViewController {
     let contentView = UIView()
     let subjectView = LSTSubjectView()
     let dateSelectView = LSTDateSelectView()
+    let amountView: LSTAmountView
+
+    let transactionStore = LSTransactionStore()
+
+    init() {
+        self.amountView = LSTAmountView(transactionStore: transactionStore)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,6 +128,14 @@ class LSTransactionViewController: UIViewController {
             dateSelectView.topAnchor.constraint(equalTo: subjectView.bottomAnchor, constant: 24),
             dateSelectView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             dateSelectView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
+        ])
+
+        contentView.addSubview(amountView)
+        amountView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            amountView.topAnchor.constraint(equalTo: dateSelectView.bottomAnchor, constant: 24),
+            amountView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            amountView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
         ])
     }
 }

@@ -8,11 +8,12 @@
 
 import Foundation
 import UIKit
+import CoreImage
 
 class QRCodeGenerator {
     static func generateQRCode(str: String) -> UIImage? {
         let strData = Data(str.utf8)
-        let filter = CIFilter.qrCodeGenerator()
+        let filter = CIFilter(name: "CIQRCodeGenerator")!
         filter.setValue(strData, forKey: "inputMessage")
         filter.setValue("Q", forKey: "inputCorrectionLevel")
 
