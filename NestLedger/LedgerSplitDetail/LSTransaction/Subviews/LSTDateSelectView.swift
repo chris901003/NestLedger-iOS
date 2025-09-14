@@ -9,18 +9,15 @@
 import Foundation
 import UIKit
 
-protocol LSTDateSelectViewDelegate: AnyObject {
-    func dateValueChanged(date: Date)
-}
-
 class LSTDateSelectView: UIView {
     let titleLabel = UILabel()
     let dateLabel = UILabel()
     let datePicker = UIDatePicker()
 
-    weak var delegate: LSTDateSelectViewDelegate?
+    let transactionStore: LSTransactionStore
 
-    init() {
+    init(transactionStore: LSTransactionStore) {
+        self.transactionStore = transactionStore
         super.init(frame: .zero)
         setup()
         layout()
@@ -71,6 +68,6 @@ class LSTDateSelectView: UIView {
 extension LSTDateSelectView {
     @objc private func datePickerValueChanged() {
         dateLabel.text = DateFormatterManager.shared.dateFormat(type: .yyyy_MM_dd_ch, date: datePicker.date)
-        delegate?.dateValueChanged(date: datePicker.date)
+        transactionStore.date = datePicker.date
     }
 }

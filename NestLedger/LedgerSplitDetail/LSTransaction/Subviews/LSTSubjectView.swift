@@ -9,18 +9,15 @@
 import Foundation
 import UIKit
 
-protocol LSTSubjectViewDelegate: AnyObject {
-    func subjectDidChange(_ text: String)
-}
-
 class LSTSubjectView: UIView {
     let titleLabel = UILabel()
     let inputFieldView = UITextField()
     let bottomLine = NLGradientAnimatedLineView()
 
-    weak var delegate: LSTSubjectViewDelegate?
+    let transactionStore: LSTransactionStore
 
-    init() {
+    init(transactionStore: LSTransactionStore) {
+        self.transactionStore = transactionStore
         super.init(frame: .zero)
         setup()
         layout()
@@ -86,6 +83,6 @@ extension LSTSubjectView: UITextFieldDelegate {
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        delegate?.subjectDidChange(textField.text ?? "")
+        transactionStore.title = textField.text ?? ""
     }
 }

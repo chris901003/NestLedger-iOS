@@ -11,6 +11,8 @@ import Combine
 
 @MainActor
 final class LSTransactionStore {
+    var title: String = ""
+    var date: Date = .now
     @Published private(set) var amount: Int = 0
 
     var amountPublisher: AnyPublisher<Int, Never> {

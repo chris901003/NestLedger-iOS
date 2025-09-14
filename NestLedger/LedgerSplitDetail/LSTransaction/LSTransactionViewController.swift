@@ -23,13 +23,15 @@ class LSTransactionViewController: UIViewController {
 
     let scrollView = UIScrollView()
     let contentView = UIView()
-    let subjectView = LSTSubjectView()
-    let dateSelectView = LSTDateSelectView()
+    let subjectView: LSTSubjectView
+    let dateSelectView: LSTDateSelectView
     let amountView: LSTAmountView
 
     let transactionStore = LSTransactionStore()
 
     init() {
+        self.subjectView = LSTSubjectView(transactionStore: transactionStore)
+        self.dateSelectView = LSTDateSelectView(transactionStore: transactionStore)
         self.amountView = LSTAmountView(transactionStore: transactionStore)
         super.init(nibName: nil, bundle: nil)
     }
