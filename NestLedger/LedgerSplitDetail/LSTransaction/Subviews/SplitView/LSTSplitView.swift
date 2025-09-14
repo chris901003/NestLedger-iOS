@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import xxooooxxCommonUI
+import Combine
 
 class LSTSplitView: UIView {
     let titleLabel = UILabel()
@@ -19,14 +20,20 @@ class LSTSplitView: UIView {
     let tableView = UITableView()
 
     var tableViewHeightConstraint: NSLayoutConstraint!
-    let transactionStore: LSTransactionStore
+    var vc: LSTransactionViewController?
 
-    init(transactionStore: LSTransactionStore) {
+    let ledgerSplitData: LedgerSplitData
+    let transactionStore: LSTransactionStore
+    var cancellables = Set<AnyCancellable>()
+
+    init(ledgerSplitData: LedgerSplitData, transactionStore: LSTransactionStore) {
+        self.ledgerSplitData = ledgerSplitData
         self.transactionStore = transactionStore
         super.init(frame: .zero)
         setup()
         layout()
         registerCell()
+        subscribeSplitUserList()
     }
 
     required init?(coder: NSCoder) {
@@ -48,6 +55,8 @@ class LSTSplitView: UIView {
 
         addButton.backgroundColor = .systemBlue.withAlphaComponent(0.1)
         addButton.layer.cornerRadius = 8.0
+        addButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapAddButtonAction)))
+        addButton.isUserInteractionEnabled = true
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -57,20 +66,20 @@ class LSTSplitView: UIView {
     }
 
     private func layout() {
-        addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
-        ])
-
         addSubview(addButton)
         addButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            addButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            addButton.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             addButton.widthAnchor.constraint(equalToConstant: 30),
             addButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
+
+        addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.centerYAnchor.constraint(equalTo: addButton.centerYAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
         ])
 
         addSubview(tableView)
@@ -79,9 +88,9 @@ class LSTSplitView: UIView {
             tableView.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 6),
             tableView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: addButton.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        tableViewHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: 10)
+        tableViewHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: 0)
         tableViewHeightConstraint.isActive = true
     }
 
@@ -90,20 +99,42 @@ class LSTSplitView: UIView {
     }
 }
 
+// MARK: - Utility
+extension LSTSplitView {
+    @objc private func tapAddButtonAction() {
+        let userListVC = LSTSplitUserListViewController(ledgerSplitData: ledgerSplitData, transactionStore: transactionStore)
+        let _50DetentId = UISheetPresentationController.Detent.Identifier("50")
+        let _50Detent = UISheetPresentationController.Detent.custom(identifier: _50DetentId) { context in
+            UIScreen.main.bounds.height * 0.5
+        }
+        if let sheet = userListVC.sheetPresentationController {
+            sheet.detents = [_50Detent]
+        }
+        vc?.present(userListVC, animated: true)
+    }
+
+    private func subscribeSplitUserList() {
+        transactionStore.$splitUsers
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.tableView.reloadData()
+                self?.updateTableHeight()
+            }
+            .store(in: &cancellables)
+    }
+}
+
 // MARK: - UITableViewDelegate, UITableViewDelegate
 extension LSTSplitView: UITableViewDelegate, UITableViewDataSource {
     private func updateTableHeight() {
         tableView.layoutIfNeeded()
-        let newHeight = tableView.contentSize.height
+        let newHeight = max(10, tableView.contentSize.height)
         guard newHeight != tableViewHeightConstraint.constant else { return }
         tableViewHeightConstraint.constant = newHeight
-        UIView.animate(withDuration: 0.25) {
-            self.layoutIfNeeded()
-        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        transactionStore.splitUsers.count
+        return transactionStore.splitUsers.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

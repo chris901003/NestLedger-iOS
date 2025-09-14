@@ -113,6 +113,7 @@
 		051BA2C12E76689600C09D6B /* LSTransactionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051BA2C02E76689600C09D6B /* LSTransactionStore.swift */; };
 		051BA2C42E76703400C09D6B /* LSTSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051BA2C32E76703400C09D6B /* LSTSplitView.swift */; };
 		051BA2C62E76765500C09D6B /* LSTSplitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051BA2C52E76765500C09D6B /* LSTSplitCell.swift */; };
+		051BA2C82E76A3C300C09D6B /* LSTSplitUserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051BA2C72E76A3C300C09D6B /* LSTSplitUserListViewController.swift */; };
 		0529446B2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446A2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift */; };
 		0529446D2D6E0AA500943CAC /* MQLTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446C2D6E0AA500943CAC /* MQLTagView.swift */; };
 		0529446F2D6E10B200943CAC /* MQLSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0529446E2D6E10B200943CAC /* MQLSendView.swift */; };
@@ -174,6 +175,7 @@
 		05C95D1B2D8AF7BF0058A8A8 /* LedgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D1A2D8AF7BF0058A8A8 /* LedgerViewController.swift */; };
 		05C95D1E2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D1D2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift */; };
 		05C95D202D8C5CD60058A8A8 /* LedgerVCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C95D1F2D8C5CD60058A8A8 /* LedgerVCManager.swift */; };
+		05CB29122E76AAC3007D2C8A /* LSTSplitUserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CB29112E76AAC3007D2C8A /* LSTSplitUserListCell.swift */; };
 		05EC2B102D6A1583006F1F3A /* ImageQualitySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */; };
 		05EC2B132D6B4F17006F1F3A /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */; };
 		05EC2B162D6B54E2006F1F3A /* MRecentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */; };
@@ -311,6 +313,7 @@
 		051BA2C02E76689600C09D6B /* LSTransactionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSTransactionStore.swift; sourceTree = "<group>"; };
 		051BA2C32E76703400C09D6B /* LSTSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSTSplitView.swift; sourceTree = "<group>"; };
 		051BA2C52E76765500C09D6B /* LSTSplitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSTSplitCell.swift; sourceTree = "<group>"; };
+		051BA2C72E76A3C300C09D6B /* LSTSplitUserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSTSplitUserListViewController.swift; sourceTree = "<group>"; };
 		0529446A2D6E019800943CAC /* MQLIncomeExpenditureSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLIncomeExpenditureSelectView.swift; sourceTree = "<group>"; };
 		0529446C2D6E0AA500943CAC /* MQLTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLTagView.swift; sourceTree = "<group>"; };
 		0529446E2D6E10B200943CAC /* MQLSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQLSendView.swift; sourceTree = "<group>"; };
@@ -371,6 +374,7 @@
 		05C95D1A2D8AF7BF0058A8A8 /* LedgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerViewController.swift; sourceTree = "<group>"; };
 		05C95D1D2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerCollectionViewCell.swift; sourceTree = "<group>"; };
 		05C95D1F2D8C5CD60058A8A8 /* LedgerVCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerVCManager.swift; sourceTree = "<group>"; };
+		05CB29112E76AAC3007D2C8A /* LSTSplitUserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSTSplitUserListCell.swift; sourceTree = "<group>"; };
 		05EC2B0F2D6A1583006F1F3A /* ImageQualitySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageQualitySettingViewController.swift; sourceTree = "<group>"; };
 		05EC2B122D6B4F17006F1F3A /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 		05EC2B152D6B54E2006F1F3A /* MRecentContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRecentContentView.swift; sourceTree = "<group>"; };
@@ -760,6 +764,7 @@
 		051BA2C22E76701500C09D6B /* SplitView */ = {
 			isa = PBXGroup;
 			children = (
+				05CB29102E76AA97007D2C8A /* LSTSUserList */,
 				051BA2C52E76765500C09D6B /* LSTSplitCell.swift */,
 				051BA2C32E76703400C09D6B /* LSTSplitView.swift */,
 			);
@@ -1079,6 +1084,15 @@
 				05C95D1D2D8B04AB0058A8A8 /* LedgerCollectionViewCell.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		05CB29102E76AA97007D2C8A /* LSTSUserList */ = {
+			isa = PBXGroup;
+			children = (
+				05CB29112E76AAC3007D2C8A /* LSTSplitUserListCell.swift */,
+				051BA2C72E76A3C300C09D6B /* LSTSplitUserListViewController.swift */,
+			);
+			path = LSTSUserList;
 			sourceTree = "<group>";
 		};
 		05EC2B0E2D6A14BA006F1F3A /* Subviews */ = {
@@ -1503,6 +1517,8 @@
 				051BA2BA2E7309B500C09D6B /* LSTAmountView.swift in Sources */,
 				051BA2B82E73053C00C09D6B /* LSTDateSelectView.swift in Sources */,
 				051BA2C62E76765500C09D6B /* LSTSplitCell.swift in Sources */,
+				05CB29122E76AAC3007D2C8A /* LSTSplitUserListCell.swift in Sources */,
+				051BA2C82E76A3C300C09D6B /* LSTSplitUserListViewController.swift in Sources */,
 				051BA2C42E76703400C09D6B /* LSTSplitView.swift in Sources */,
 				05F3DF822E7062EA00E1930D /* LSTSubjectView.swift in Sources */,
 				051BA2C12E76689600C09D6B /* LSTransactionStore.swift in Sources */,

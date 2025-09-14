@@ -88,7 +88,7 @@ class LedgerSplitDetailViewController: UIViewController {
 // MARK: - Utility
 extension LedgerSplitDetailViewController {
     @objc private func tapAddButtonAction() {
-        let transactionVC = LSTransactionViewController()
+        let transactionVC = LSTransactionViewController(ledgerSplitStore: ledgerSplitDetailStore)
         present(transactionVC, animated: true)
     }
 }

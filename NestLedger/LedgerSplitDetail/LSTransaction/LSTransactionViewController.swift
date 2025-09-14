@@ -28,13 +28,15 @@ class LSTransactionViewController: UIViewController {
     let amountView: LSTAmountView
     let splitView: LSTSplitView
 
+    let ledgerSplitStore: LedgerSplitDetailStore
     let transactionStore = LSTransactionStore()
 
-    init() {
+    init(ledgerSplitStore: LedgerSplitDetailStore) {
+        self.ledgerSplitStore = ledgerSplitStore
         self.subjectView = LSTSubjectView(transactionStore: transactionStore)
         self.dateSelectView = LSTDateSelectView(transactionStore: transactionStore)
         self.amountView = LSTAmountView(transactionStore: transactionStore)
-        self.splitView = LSTSplitView(transactionStore: transactionStore)
+        self.splitView = LSTSplitView(ledgerSplitData: ledgerSplitStore.data, transactionStore: transactionStore)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -73,6 +75,8 @@ class LSTransactionViewController: UIViewController {
 
         titleLabel.text = "分帳本帳目"
         titleLabel.font = .systemFont(ofSize: 18, weight: .semibold)
+
+        splitView.vc = self
     }
 
     private func layout() {
